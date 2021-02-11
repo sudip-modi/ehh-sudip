@@ -13,8 +13,14 @@ Based on the priciples of **form** || **function** || **beauty**, **[** everythi
  <br>in a simplestic form, with customizable functions & desirable beauty...                        <br>mutating the vision from the future, come alive in #realTime....
  <br>
  </p>
-   it's <b>@ctionSpaces</b> are full of action, drama, <b>integration, automation,</b> pinch of comedy and a dash of Ai.
-
-
-Major Componenents
+ <br>it's <b>@ctionSpaces</b> are full of action, drama, <b>integration, automation,</b> pinch of comedy and a dash of Ai.
+ <p> Major Componenents
+ <br> entity
+ <br> actionEngine
+ <br> actionEvent Controller
+ <br> actionSpaceEditor
+ <br> process
+ <br> operate
+ <br> operator
+ <br> actionView
                    
