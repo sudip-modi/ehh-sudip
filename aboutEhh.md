@@ -1,7 +1,6 @@
 # ehh 
 
-Based on the priciples of **form** || **function** || **beauty**,
-[ everything happens here ], a new <b class="b">lightweight</b>, modern and fully customizable <b>work-space/work-shop</b>.
+Based on the priciples of **form** || **function** || **beauty**, **[** everything happens here **]**, a <b class="b">lightweight</b>, modern and fully customizable <b>action-space/digital work-shop</b>.
 <br>your own <b class="b">secure</b> ecosystem for a seamless, integrated experience across devices & services.
 <br>
 <p>for creators, collaborators, buyers, retailers, educators & influencers.
