@@ -10,20 +10,24 @@
  */
 
 
+   console.log("ehh is running! on >>>", window.document.title, window.document.location.origin);
+   //var listeners = new actionEventController(this);
+var head = document.getElementsByTagName('head')[0];
+   var stylesheet =  document.createElement('link')
+   var preloadCSSInhead = new Entity(preloadCSSInhead, stylesheet);
+   //newBlock = Entity.create(actionEditor.actionEditorBlock,temp.entity)
+   //console.log(newBlock)
+   console.log(preloadCSSInhead)
+   document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity);
+   // console.log("all set and done")
+
+   // var actionSpaceView_instance = document.createElement('actionSpaceView');
+   // var actionSpace_Instance = new Entity(actionSpace, actionSpaceView_instance);
+
+   // console.log("Pay attention to this Obect. We need to operation on this Instance", actionSpace_Instance);
+   // document.getElementsByTagName('body')[0].appendChild(actionSpace_Instance.entity);
 
 
-var preloadCSSInhead = new Entity(preloadCSSInhead,document.getElementsByTagName('head')[0]);
-//newBlock = Entity.create(actionEditor.actionEditorBlock,temp.entity)
-//console.log(newBlock)
-console.log(preloadCSSInhead.head)
-//document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity);
-console.log("all set and done")
-
-var actionSpaceView_instance = document.createElement('actionSpaceView');
-var actionSpace_Instance = new Entity(actionSpace, actionSpaceView_instance);
-
-console.log("Pay attention to this Obect. We need to operation on this Instance", actionSpace_Instance);
-document.getElementsByTagName('body')[0].appendChild(actionSpace_Instance.entity);
 
 
 

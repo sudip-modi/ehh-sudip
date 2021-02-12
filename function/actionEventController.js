@@ -14,7 +14,7 @@ class actionEventController {
 
     createListeners(entity) {
         console.log(entity);
-        var events = this.find(entity, 'on');
+        var events = dataHelpers.find(entity, 'on');
         console.log("events Found", events);
         // if (events)
         var a = events.forEach(this.create);
@@ -25,32 +25,15 @@ class actionEventController {
 
     }
 
-    static find(entity, keyTofind) {
-        //  console.log("finding", keyTofind, "in", entity);
-        var result = Object.keys(entity).filter(function (key, index, self) {
-            return !key.indexOf(keyTofind);
-        });
-        return result;
-    }
-
     create(entity) {
-        console.log(entity, "entity created");
+      //  console.log(entity, "entity created");
 
         window[entity] = actionEventController.onEvent;
 
     }
     static onEvent(e) {
-        // console.log(e.constructor.name, e.type, "captured", e.target.tagName);
-        if (e.type === "pageshow") {
-            //console.log(e.constructor.name, e.type, "captured", e.target.tagName);
-            actionEventController.initState(e);
-            // createElement(e); // onmousedown(e); // onmousedown(e); // console.log("body");
-        }
-        if (e.constructor.name === "MouseEvent") {
-            //console.log(e.constructor.name, e.type, "captured", e.target.tagName);
-            actionEventController.changeState(e);
-            // createElement(e); // onmousedown(e); // onmousedown(e); // console.log("body");
-        }
+        e.preventDefault(e);
+        console.log("let Controller Know")
     }
 
     static initState(e) {
@@ -110,60 +93,13 @@ class actionEventController {
             }
         }
     }
-
+//To be removed from here. Should be handled by the externalLocalStorageClass
+    
     save(entity, keyTitle) {
         // console.log("saving", keyTitle, JSON.stringify(entity));
         window.localStorage.setItem(keyTitle, JSON.stringify(entity));
     }
 }
 
-window.onload = OnLoad();
-
-function OnLoad(e) {
-    //window storage == session storage
-    console.log("ehh is running! on >>>", window.document.title, window.document.location.origin);
-    var listeners = new actionEventController(this);
-    //var listeners = ActionEventController.createListeners(this);
-}
 
 
-
-
-
-// function createListeners(entity) {
-//     // console.log(entity);
-//     var events = find(entity, 'on');
-//     // console.log("events Found",events);
-//     var a = events.forEach(create);
-//     // console.log(a);
-//     save(events, this.constructor.name + "listeners");
-
-//     console.log("listernes created & Saved to local storagea at ", new Date().toLocaleString().replace(',', ''), this.constructor.name);
-
-// }
-
-// function onEvent(e) {
-//     // console.log(e.constructor.name, e.type, "captured", e.target.tagName);
-//     if (e.type === "pageshow") {
-//         console.log(e.constructor.name, e.type, "captured", e.target.tagName);
-//      //   initState(e);
-//         // createElement(e); // onmousedown(e); // onmousedown(e); // console.log("body");
-//     } if (e.constructor.name === "MouseEvent") {
-//         console.log(e.constructor.name, e.type, "captured", e.target.tagName);
-//       //  changeState(e);
-//         // createElement(e); // onmousedown(e); // onmousedown(e); // console.log("body");
-//     }
-// }
-
-// function create(entity) {
-//     window[entity] = onEvent;
-// }
-
-
-// function find(entity, keyTofind) {
-//     //  console.log("finding", keyTofind, "in", entity);
-//     var result = Object.keys(entity).filter(function (key, index, self) {
-//         return !key.indexOf(keyTofind);
-//     });
-//     return result;
-// }
