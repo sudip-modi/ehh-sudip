@@ -81,7 +81,6 @@ class Entity {
                 //var buffer = output;
                 output[key] = input[key];
                 //buffer=output;
-
             }
 
         }
