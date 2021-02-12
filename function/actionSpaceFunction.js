@@ -18,7 +18,10 @@ var head = document.getElementsByTagName('head')[0];
    //newBlock = Entity.create(actionEditor.actionEditorBlock,temp.entity)
    //console.log(newBlock)
    console.log(preloadCSSInhead)
-   document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity);
+document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity);
+   
+var actionSpaceContentInstance = new Entity(actionSpaceContent, document.createElement(actionSpaceContentInstance));
+
    // console.log("all set and done")
 
    // var actionSpaceView_instance = document.createElement('actionSpaceView');
