@@ -10,16 +10,18 @@
  */
 
 
-ehhAppOutput = document.createElement('ehhOutput');
 
-//var preloadCSSInhead = new Entity(preloadCSSInhead, document.getElementsByTagName("head")[0]);
+
+var preloadCSSInhead = new Entity(preloadCSSInhead,document.getElementsByTagName('head')[0]);
 //newBlock = Entity.create(actionEditor.actionEditorBlock,temp.entity)
 //console.log(newBlock)
-//console.log(temp.entity)
+console.log(preloadCSSInhead.head)
 //document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity);
 console.log("all set and done")
 
-var actionSpace_Instance = new Entity(actionSpace, ehhAppOutput)
+var actionSpaceView_instance = document.createElement('actionSpaceView');
+var actionSpace_Instance = new Entity(actionSpace, actionSpaceView_instance);
+
 console.log("Pay attention to this Obect. We need to operation on this Instance", actionSpace_Instance);
 document.getElementsByTagName('body')[0].appendChild(actionSpace_Instance.entity);
 
