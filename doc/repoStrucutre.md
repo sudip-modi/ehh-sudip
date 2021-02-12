@@ -2,8 +2,8 @@ Please maintain this code structure.
 
 The internal Folder can be branch/fork of the main Branch.
 
-branch Title : 
-1. File How to use/test.md
+branchName + Ver : 
+1. File How to use/test.md -  File with Generic Information about this branch
 2. TestingPage.html
 3. Scripts : folder
         / actionSpace.js -  Main Initiating File
