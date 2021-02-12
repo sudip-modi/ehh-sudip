@@ -1,1 +1,0 @@
-actionView is the view class of the everything happens here framework.
