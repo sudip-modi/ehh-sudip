@@ -70,7 +70,7 @@ class Entity {
         return response;
     }
     static set(input, output, key, value, callback, callbackClass) {
-        // console.log("setting",key, value,"in",output)
+        console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
 
             if (operate.isIn(key, htmlAttributesList)) {
