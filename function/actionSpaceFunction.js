@@ -9,13 +9,14 @@
     init Dom..Assingn a ID to each element of Dom.More like Content/Index scripts file
  */
 
+
 ehhAppOutput = document.createElement('ehhOutput');
 
-var temp = new Entity(preloadCSSInhead, document.getElementsByName("head"));
+var preloadCSSInhead = new Entity(preloadCSSInhead, document.getElementsByTagName("head")[0]);
 //newBlock = Entity.create(actionEditor.actionEditorBlock,temp.entity)
 //console.log(newBlock)
 //console.log(temp.entity)
-document.getElementsByTagName('body')[0].appendChild(temp.entity);
+document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity);
 console.log("all set and done")
 //console.log(temp.output);
 

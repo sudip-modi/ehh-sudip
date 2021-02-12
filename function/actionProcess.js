@@ -17,7 +17,7 @@ class process {
             var value = input[key];
             //console.log("found",key,input[key])
             if (operate.is(value) === 'Object') {
-                // console.log("Object",output);
+                console.log("Object",output);
                 var buffer = Entity.create(input, output, key);
                 process.iterateObj(input[key], buffer, key, value)
                 Entity.append(buffer, output);
@@ -28,7 +28,7 @@ class process {
                 Entity.append(buffer, output);
                 // console.log('Array',key, value, buffer);
             } else if (operate.is(value) === 'String' || operate.is(value) === 'Boolean') {
-                // console.log('String',key, value);
+              //  console.log('String',key, value,output);
                 Entity.set(input, output, key, value);
                 //Entity.set(input,this.entity,key,value);           
             }

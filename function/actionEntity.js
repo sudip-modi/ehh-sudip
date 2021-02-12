@@ -28,7 +28,7 @@ class Entity {
             // entity.set(input, response, 'id', key + index.next().value);
         }
         if (operate.is(output).includes("Array")) { //Only HTML creation
-            console.log("create request for ", input, output, key, value)
+           // console.log("create request for ", input, output, key, value)
 
             response = new Object()
 
@@ -70,7 +70,7 @@ class Entity {
         return response;
     }
     static set(input, output, key, value, callback, callbackClass) {
-        console.log("setting",key, value,"in",output)
+      //  console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
 
             if (operate.isIn(key, htmlAttributesList)) {
