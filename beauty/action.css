@@ -40,7 +40,7 @@ actionSpace{
   top: 0;
   left: 0;
   display: grid;
-  padding-left: 5%;
+  padding-left: 10%;
   grid-template-rows:  1fr auto;
   z-index: 250;
   height: 100vh;
