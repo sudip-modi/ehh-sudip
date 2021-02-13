@@ -137,4 +137,4 @@ var actionSpace = {
 
 
 
-console.log("loaded to dom", currentDocument, actionSpaceConfig, actionSpace);
+console.log("loaded to dom", currentDocument, actionSpace);

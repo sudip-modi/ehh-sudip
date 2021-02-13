@@ -8,7 +8,7 @@ class Entity {
         console.log("Entity Created",this);
     }
     static create(input, output, key, value, callback, callbackClass) {
-        console.log('create request for ',output,key)
+       // console.log('create request for ',output,key)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
             // var response = Object.create(output.constructor.prototype)
             var response = document.createElement(key);

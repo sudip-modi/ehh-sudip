@@ -23,7 +23,7 @@ class ActionSpaceView {
 
         editor.appendChild(headingDiv);
         headingDiv.focus();
-
+//Why do we need all this?
         if (cmd === "headingBlock") {
 
             document.execCommand("formatBlock", false, '<h1>');
