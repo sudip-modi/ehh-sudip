@@ -15,14 +15,17 @@
    console.log("ehh is running! on >>>", window.document.title, window.document.location.origin);
    //var listeners = new actionEventController(this);
    var head = document.getElementsByTagName('head')[0];
-   var stylesheet =  document.createElement('link')
-   var preloadCSSInhead = new Entity(preloadCSSInhead, stylesheet);
+   var stylesheet = document.createElement('link');
+   var preloadCSSInhead = new Entity(preloadCSSInhead,head);
    //newBlock = Entity.create(actionEditor.actionEditorBlock,temp.entity)
    //console.log(newBlock)
-   console.log(preloadCSSInhead)
-document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity);
+//console.log(preloadCSSInhead.entity)
    
-var actionSpaceContentInstance = new Entity(actionSpaceContent, document.createElement(actionSpaceContentInstance));
+
+//document.getElementsByTagName('head')[0].appendChild(preloadCSSInhead.entity); 
+
+var actionSpaceContentInstance = new Entity(actionSpace, document.createElement("div"));
+document.getElementsByTagName('body')[0].appendChild(actionSpaceContentInstance.entity); 
 
    // console.log("all set and done")
 

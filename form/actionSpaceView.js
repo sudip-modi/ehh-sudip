@@ -5,16 +5,16 @@
  * 
  */
 var preloadCSSInhead = {
-    link: {
+    link1: {
         rel: 'stylesheet',
         id: 'actionEditor.css',
         type: "text/css",
         href: "beauty/action.css"
     },
-    link: {
+    link2: {
         rel: 'stylesheet',
         id: 'FontSheet',
-      href: "https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&family=Open+Sans&family=Poppins"
+        href: "https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&family=Open+Sans&family=Poppins"
     }
 }
     
@@ -167,5 +167,5 @@ var actionSpaceContent = {
     
 
 
-console.log("Loaded in Dom ",preloadCSSInhead,actionSpace)
+//console.log("Loaded in Dom ",preloadCSSInhead,actionSpace)
 

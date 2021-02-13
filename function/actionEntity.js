@@ -5,7 +5,7 @@
 class Entity {
     constructor(input, output) {
         this.entity = process.processReq(input, output);
-        console.log(this);
+        console.log("Entity Created",this);
     }
     static create(input, output, key, value, callback, callbackClass) {
         //  console.log('create request for ',output,key)
