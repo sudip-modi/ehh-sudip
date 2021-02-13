@@ -16,7 +16,6 @@ class actionEventController {
     emit(evt, arg) {
         (this._events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
-
     createListeners(entity) {
         console.log(entity)
         let events = dataHelpers.find(entity, 'on')
@@ -89,8 +88,6 @@ class actionEventController {
         }
 
     }
-
-
 }
 
 
