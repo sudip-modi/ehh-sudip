@@ -74,11 +74,16 @@ actionSpace {
 }
 
 contentInput{
+
     position: relative;
     display: inline-block;
     width: 50%;
     overflow-wrap: break-word;
+    background: #fafafa;
 }
+.code a {color:#fff;font-size:13px;background:#5FBFF9;padding: 2px 8px;text-decoration:none;border-radius:3px;transition:all .15s ease;-webkit-transition:all .15s ease;}
+.code a:hover {color:#5FBFF9;background:#fff;box-shadow:0 0 0 1px #5FBFF9,0 -2px 5px rgba(0, 0, 0, 0.05),0 5px 10px rgba(0, 0, 0, 0.05);}
+
 
 .right-sidebar {
   background: yellow;
