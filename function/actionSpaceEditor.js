@@ -48,6 +48,7 @@ var preload = {
     ]
 }
 var x = document.activeElement.tagName;
+
 window.onload = loadActionEditor();
 
 function loadActionEditor() { 

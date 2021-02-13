@@ -3,7 +3,6 @@ class ActionSpaceView {
     constructor(model, elements) {
         this.model = model
         this.elements = elements
-
     }
 
     updateDomContent=(data)=> {
