@@ -13,10 +13,10 @@
 var currentDocument = document;
 
 var actionSpace = {
-    topMenu: {
-        name: 'topMenu',
+    topmenu: {
+        name: 'topmenu-row',
         type: 'linkMenu',
-        class: 'menu - bar',
+        class: 'topmenu-row',
         content: [
             {
                 name: 'actionLink',
@@ -39,7 +39,7 @@ var actionSpace = {
             },
         ]
     },
-    sideNav: {
+    sidenav: {
         class: 'sidenav',
         id: 'sidenav',
         div: [] // This has to be binded to Default Resource, configured in some UserViewTemplate.js dataset
