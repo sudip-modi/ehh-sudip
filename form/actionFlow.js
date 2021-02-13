@@ -1,25 +1,25 @@
-flow = {
-    signup: {
-        actionSteps: [
-            {
-                actionStepIndex: 1,
-                method: checkUserExists,
-                state: states["shunya"],
-            },
-            {
-                actionStepIndex: 2,
-                method: alertAboutSignUp,
-                state: states["0."],
-                condition: {
-                    completedActionSteps: [1]
-                },
-                fromPrevious: {
-                    exist: 1
-                }
-            }
-        ]
-    }
-}
+// flow = {
+//     signup: {
+//         actionSteps: [
+//             {
+//                 actionStepIndex: 1,
+//                 method: checkUserExists,
+//                 state: states["shunya"],
+//             },
+//             {
+//                 actionStepIndex: 2,
+//                 method: alertAboutSignUp,
+//                 state: states["0."],
+//                 condition: {
+//                     completedActionSteps: [1]
+//                 },
+//                 fromPrevious: {
+//                     exist: 1
+//                 }
+//             }
+//         ]
+//     }
+// }
 
 
 // Example of an action flow
