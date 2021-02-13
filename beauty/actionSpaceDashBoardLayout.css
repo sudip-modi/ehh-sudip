@@ -24,6 +24,7 @@ header {
 
 brand{
   display: block;
+  align-self: center;
   background: rgb(255, 255, 255);
   width: 25vw;
   height: 100px;
