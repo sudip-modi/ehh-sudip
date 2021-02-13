@@ -15,8 +15,39 @@ var currentDocument = document;
 var actionSpace = {
     topMenu: {
         name: 'topMenu',
-        type: 'div',
-        class: 'topbar-menu',
+        type: 'linkMenu',
+        class: 'menu - bar',
+        content: [
+            {
+                name: 'actionLink',
+                type: 'div',
+                class: 'menu - link',
+                innerText: "action",
+                
+            }, {
+                name: 'actionLink',
+                type: 'div',
+                class: 'menu - link',
+                innerText: "people",
+
+            }, {
+                name: 'actionLink',
+                type: 'div',
+                class: 'menu - link',
+                innerText: "setting",
+
+            },
+        ]
+    },
+    sideNav: {
+        class: 'sidenav',
+        id: 'sidenav',
+        div: [] // This has to be binded to Default Resource, configured in some UserViewTemplate.js dataset
+    },
+    richTextToolBar: {
+        name: 'topMenu',
+        type: 'linkMenu',
+        class: 'menu',
         content: [
             {
                 name: 'button',
@@ -112,11 +143,6 @@ var actionSpace = {
 
 
         ]
-    },
-    sideNav: {
-        class: 'sidenav',
-        id: 'sidenav',
-        div: [] // This has to be binded to Default Resource, configured in some UserViewTemplate.js dataset
     },
     actionSpaceEditor: [
         {
