@@ -2,14 +2,6 @@
 var preload = {
     beautyCss: [
         {
-            name:'link',
-            rel: 'stylesheet',
-            id: 'actionEditor.css',
-            type: "text/css",
-            href: "beauty/action.css",
-            class: 'preloadCSS'
-        },
-        {
             name: 'link',
             rel: 'stylesheet',
             id: 'FontSheet',

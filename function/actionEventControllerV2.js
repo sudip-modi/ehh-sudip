@@ -16,14 +16,19 @@ class ActionEventController {
         })
     }
     onEvent(e) {
-        e.preventDefault(e)
+     // e.preventDefault(e)
     }
 }
+
+
 
 window.onload = loadActionEventController();
 
 function loadActionEventController() {
     console.log("actionEventController Loaded")
+
+    //Though we are directly creating listeners on the window Interface and implementing our view
+    //we should be able to create listenrs on each Object that has a data-Cmd attribute of "on" with some value/callback.
     var actionEventControllerInstance = new ActionEventController(this);
     console.log("actionEventController Instance", actionEventControllerInstance);
 }
