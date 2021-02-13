@@ -6,6 +6,8 @@
   border:none;
   outline:none;
 }
+
+
 body {
   display: grid;
   height: 100vh;
@@ -72,22 +74,10 @@ actionSpace {
 }
 
 contentInput{
- font-family: 'Buenard', sans-serif;
-    font-size: 21px;
     position: relative;
     display: inline-block;
     width: 50%;
-    
-    
-    padding-top: 0;
-    margin-top: -4px;
     overflow-wrap: break-word;
-    background: var(--background);
-    color: var(--text);
-    border: 0;
-    border-radius: 4px;
-    outline: 0px;
-
 }
 
 .right-sidebar {

@@ -13,11 +13,6 @@
 var currentDocument = document;
 
 var actionSpaceV2 = {
-   sidenav: {
-        class: 'sidenav',
-        id: 'sidenav',
-        div: [] // This has to be binded to Default Resource, configured in some UserViewTemplate.js dataset
-    },
     richTextToolBar: {
         name: 'topMenu',
         type: 'linkMenu',
