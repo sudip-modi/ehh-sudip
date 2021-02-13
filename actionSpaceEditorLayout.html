@@ -22,7 +22,23 @@
             <a class="tabBtn" data-element="setting" href="#setting">setting</a>
         </actionLinkBar>
     </header>
-    <div class="left-sidebar" contenteditable>Left Sidebar</div>
+    <div class="left-sidebar" contenteditable>
+        NavigationBar
+        <br>
+        <select name="Entity-select" id="selected-entity">
+            <option value="volvo">List</option>
+            <option value="saab">Of</option>
+            <option value="opel">Chosen</option>
+            <option value="audi">Entity</option>
+        </select>
+        <div class="menu">
+            <span>Work area</span>
+            <a href="#save" class="current save css">style<b>.css</b></a>
+            <a href="#" class="html">index<b>.html</b></a>
+            <a href="#" class="js">javascript<b>.js</b></a>
+            <a href="#" class="add"></a>
+        </div>
+    </div>
     <actionSpace contenteditable>
         <contentInput class="code">
             <ol>
@@ -37,7 +53,7 @@
         </contentOutput>
        
     </actionSpace>
-    <div class="right-sidebar" contenteditable>
+    <div class="right-sidebar" hidden>
         Right Sidebar
     </div>
     <footer contenteditable>
@@ -46,5 +62,4 @@
         <br>with help from google & the world-wide-web tech community.
     </footer>
 </body>
-
 </html>
