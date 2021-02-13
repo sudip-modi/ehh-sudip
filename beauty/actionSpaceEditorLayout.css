@@ -83,6 +83,10 @@ a {
 	background: rgba(0,0,0,.08);
 }
 
+.menu a.css::before {content:"\f231";color:#30A9DC;}
+.menu a.html::before {content:"\f23d";color:#F1672C;}
+.menu a.js::before {content:"\f242";color:#F1BF26;}
+
 actionSpace {
     padding: 5rem;
   background: rgb(241, 241, 241);
