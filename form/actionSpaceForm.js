@@ -12,7 +12,7 @@
 
 var currentDocument = document;
 
-var actionSpace = {
+var actionSpaceV2 = {
    sidenav: {
         class: 'sidenav',
         id: 'sidenav',

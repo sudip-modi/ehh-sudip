@@ -2,7 +2,10 @@
   border:none;
   outline:none;
 }
-
+*{
+  border:none;
+  outline:none;
+}
 body {
   display: grid;
   height: 100vh;
@@ -15,15 +18,20 @@ body {
   box-sizing: border-box;
 }
 */
+bold {
+    background-color: lightblue;
+}
 
 header {
-  background: lightpink;
+ 
   padding: 2rem;
   grid-column: 1/4;
 }
 
 brand{
-  display: block;
+  margin-left: 21px;
+  margin-right: 21px;
+  display: contents;
   align-self: center;
   background: rgb(255, 255, 255);
   width: 25vw;
@@ -31,6 +39,26 @@ brand{
   font-family: 'Poppins';
   font-size: 1.5vh;
     
+}
+
+.searchBar{
+  margin-left: 55px;
+  margin-right: 21px;
+  font-family: 'Poppins';
+  font-size: 2vh;
+  width: auto;
+}
+
+
+actionLinkBar{
+  float: right;
+  padding-right: 5vw;
+  
+}
+a {
+  padding-left: 3vw;
+  padding-right: 3vw;
+  
 }
 .left-sidebar {
   background: lightblue;
