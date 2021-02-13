@@ -1,0 +1,35 @@
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  border:none;
+  outline:none;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+ 
+ }
+
+ :root {
+  background: linear-gradient(135deg, #f0f0f0 , #f3eee6 );
+  font-size: 1.5vh;
+  font-family: 'poppins';
+}
+
+body{
+  position: absolute; 
+  top=0;
+  left: 0;
+  height: 100vh;
+  width: 80vw;
+
+}
+
+actionSpace{
+  height: 100vh;
+  width: 80vw;
+  background: linear-gradient(135deg, #b40000 , #2500f5 );
+
+}

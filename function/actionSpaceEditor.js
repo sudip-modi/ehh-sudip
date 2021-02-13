@@ -52,9 +52,10 @@ window.onload = loadActionEditor();
 
 function loadActionEditor() { 
     var actionSpacePreloads = new Entity(preload, document.getElementsByTagName('actionSpacePreloads')[0]);
-    console.log("actionSpacePreloads Loaded", actionSpacePreloads.entity);
-    var actionSpace = document.getElementsByTagName('actionSpace')[0]
-    console.log(actionSpace);
-    var actionSpace1 = new Entity(actionSpaceConfig, document.getElementsByTagName('actionSpace')[0]);
-    console.log("actionEditor Loaded", actionSpacePreloads.entity);
+    //console.log("actionSpacePreloads Loaded", actionSpacePreloads.entity);
+   
+    var actionSpace1 = new Entity(actionSpace, document.getElementsByClassName('actionSpace')[0]);
+    console.log("actionEditor Loaded", actionSpace1.entity);
+
+
 }
