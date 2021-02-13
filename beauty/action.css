@@ -34,6 +34,23 @@ header{
 	width: 100%;
 	line-height: 28px;
 }
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+button{
+  text-align: center;
+  width: 121px;
+  float: left;
+  background: white;
+  padding: 13px;
+  border-radius: 5px;
+  font-family: 'Bai Jamjuree', sans-serif;
+  font: size 1.3vh;;
+  color:black;  
+}
 
 actionSpace{
   position: fixed;
