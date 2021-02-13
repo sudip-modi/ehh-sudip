@@ -54,7 +54,18 @@ actionLinkBar{
 a {
   padding-left: 3vw;
   padding-right: 3vw;
+  color: darkslategray;
+    transition: all .08s ease;
+	-webkit-transition: all .08s ease;
   
+}
+a:hover {
+    height: 13vh;
+	color: rgba(0, 0, 0, 0.7);
+	background: rgba(0,0,0,.08);
+    text-decoration:underline;
+    transition: all .08s ease;
+	-webkit-transition: all .08s ease;
 }
 
 .left-sidebar {
@@ -71,17 +82,8 @@ a {
 	padding-top: 2px;
 	box-shadow: inset 0 2px 0 rgba(255,255,255,.05), inset 0 1px 0 rgba(0,0,0,.4);
 }
-.menu a {
-	display: block;
-    color: darkslategray;
-	text-decoration:underline;
-	transition: all .08s ease;
-	-webkit-transition: all .08s ease;
-}
-.menu a:hover {
-	color: rgba(255,255,255,.7);
-	background: rgba(0,0,0,.08);
-}
+
+
 
 .menu a.css::before {content:"\f231";color:#30A9DC;}
 .menu a.html::before {content:"\f23d";color:#F1672C;}
