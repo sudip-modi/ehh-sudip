@@ -97,13 +97,7 @@ container{
   position: relative;
 }
 
-footer {  
-  padding: 2rem;
-  text-align: right;
-  grid-column: 1 / 4;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2vh;
-}
+
 
 .bar{
   margin-top: 5px;
