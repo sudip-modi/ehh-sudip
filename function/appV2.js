@@ -201,14 +201,6 @@ function* createIndex() {
         yield number++;
 }
 
-class ActionSpace {
-    constructor() {
-        var actionSpaceInstance = document.getElementsByTagName("actionSpace")[0];
-        this.entity = new Entity(input, actionSpaceInstance);
-    }
-
-}
-
 class ActionEventController {
     constructor(context) {
         this._events = {};
@@ -231,6 +223,7 @@ class ActionEventController {
         let events = dataHelpers.find(entity, 'on')
         //  console.log(events)
         events.forEach((evt) => {
+          //  this.addListener(evt, this.conductEvent);
             // this.addListener(evt,this.conductEvent)
             window[evt] = this.conductEvent // to be changed to add Listerner
         })
@@ -260,45 +253,11 @@ class ActionEventController {
             console.log(e.key);
             if (e.key === "Enter") {
                 console.log("EnterKey Detected")
-                Caret.insertInTextarea("lol", currentTarget);
+                Caret.moveCaret(window, 5)
+               // insertInTextarea("lol", currentTarget);
             }
         }
-        // if (e.type === "click") {
-        //     /* Place the caret at the beginning of an HTML document's body. */
-        //     var body = document.getElementsByTagName("body")[0];
-        //     var currentCaretPosition = Caret.getCaretPos(e.target);
-        //     var newCaretPosition = currentCaretPosition - 5;
-        //     var currentSelection = window.getSelection();
-        //    // console.log(currentSelection.setStart(0));
-        //     currentSelection.selectionStart = currentSelection.selectionEnd = newCaretPosition;
-        //    // currentSelection.anchorOffset = newCaretPosition;
-        //     console.log(currentSelection, currentCaretPosition, newCaretPosition)
-        //     currentTarget.onkeydown = e => {
-                
-        //         if (e.key === "Enter") {
-        //             console.log("EnterKey Detected")
-        //             Caret.insertInTextarea("lol");   
-        //         }
-        //     }
-
-        // }
-    }
-}
-
-class ActionSpaceDataController extends ActionSpace {
-    constructor(context, view, model) {
-        super(context);
-        this.view = view;
-        this.model = model;
-        this.on('updateEditor', this.view.updateDomContent)
-        view.on('saveButtonClicked', () => this.save())
-    }
-
-    save() {
-        this._model.setData(this._view._elements.text.innerText);
-    }
-    static processRanges() {
-        //this function might be needed to work on ranges
+        
     }
 }
 
@@ -392,6 +351,31 @@ class Entity {
     }
 }
 
+class ActionSpace {
+    constructor(input) {
+        var actionSpaceInstance = document.getElementsByTagName("actionSpace")[0];
+        this.entity = new Entity(input, actionSpaceInstance);
+    }
+
+}
+
+class ActionSpaceDataController extends ActionSpace {
+    constructor(context, view, model) {
+        super(context);
+        this.view = view;
+        this.model = model;
+        this.on('updateEditor', this.view.updateDomContent)
+        view.on('saveButtonClicked', () => this.save())
+    }
+
+    save() {
+        this._model.setData(this._view._elements.text.innerText);
+    }
+    static processRanges() {
+        //this function might be needed to work on ranges
+    }
+}
+
 class ActionSpaceView {
     constructor(model, elements) {
         this.model = model
@@ -434,6 +418,27 @@ class Caret {
         this.target = target
         //console.log("CaretCreated ",target.tagName);
     }
+
+    static moveCaret(win, charCount) {
+    var sel, range;
+    if (win.getSelection) {
+        // IE9+ and other browsers
+        sel = win.getSelection();
+        if (sel.rangeCount > 0) {
+            var textNode = sel.focusNode;
+            var newOffset = sel.focusOffset + charCount;
+            sel.collapse(textNode, Math.min(textNode.length, newOffset));
+        }
+    } else if ((sel = win.document.selection)) {
+        // IE <= 8
+        if (sel.type != "Control") {
+            range = sel.createRange();
+            range.move("character", charCount);
+            range.select();
+        }
+    }
+    }
+    
     static getCaretPos() { 
         
         var currentSelection = window.getSelection();
@@ -545,6 +550,8 @@ function loadActionEventController() {
     actionEventInstance.createListeners(window);
     console.log("loaded ActionEvents", actionEventInstance);
 
+    var actionSpaceInstance = new ActionSpace(actionSpaceV2);
+    console.log("loaded ActinSpace", actionSpaceInstance);
 }
 
 

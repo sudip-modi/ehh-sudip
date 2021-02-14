@@ -14,29 +14,29 @@ var currentDocument = document;
 
 var actionSpaceV2 = {
     richTextToolBar: {
-        name: 'topMenu',
+        name: 'richTextToolBar',
         type: 'linkMenu',
         class: 'menu',
-        content: [
+        bar: [
             {
                 name: 'button',
                 type: 'div',
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-align-right"></i>',
+                'innerHTML': '<i class="las la-align-right"></i>',
                 'data-cmd': 'justifyRight'
             },
             {
                 name: 'button',
                 type: 'div',
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-align-left"></i>',
+                'innerHTML': '<i class="las la-align-left"></i>',
                 'data-cmd': 'justifyLeft'
             },
             {
                 name: 'button',
                 type: 'button',
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-align-center"></i>',
+                'innerHTML': '<i class="las la-align-center"></i>',
                 'data-cmd': 'justifyCenter'
             },
             {
@@ -44,28 +44,28 @@ var actionSpaceV2 = {
                 type: 'button',
                 class: 'topbar-button',
                 on: 'click',
-                'innerHTML': '<i class="fas fa-align-justify"></i>',
+                'innerHTML': '<i class="las la-align-justify"></i>',
                 'data-cmd': 'justifyFull'
             },
             {
                 name: 'button',
                 type: 'button',
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-bold"></i>',
+                'innerHTML': '<i class="las la-bold"></i>',
                 'data-cmd': 'Bold'
             },
             {
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-italic"></i>',
+                'innerHTML': '<i class="las la-italic"></i>',
                 "data-cmd": 'italic'
 
             }, {
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-underline"></i>',
+                'innerHTML': '<i class="las la-underline"></i>',
                 "data-cmd": 'underline'
 
             },
@@ -73,39 +73,39 @@ var actionSpaceV2 = {
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-list-ul"></i>',
+                'innerHTML': '<i class="las la-list-ul"></i>',
                 "data-cmd": 'insertUnorderedList'
 
             }, {
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-list-ol"></i>',
+                'innerHTML': '<i class="las la-list-ol"></i>',
                 "data-cmd": 'insertOrderedList'
             }, {
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-link"></i>',
+                'innerHTML': '<i class="las la-link"></i>',
                 "data-cmd": 'createLink'
             }, {
 
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-code"></i>',
+                'innerHTML': '<i class="las la-code"></i>',
                 "data-cmd": 'showCode'
             }, {
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-redo"></i>',
+                'innerHTML': '<i class="las la-redo"></i>',
                 "data-cmd": 'redo'
             }, {
                 name: 'button',
                 type: "button",
                 class: 'topbar-button',
-                'innerHTML': '<i class="fas fa-undo"></i>',
+                'innerHTML': '<i class="las la-undo"></i>',
                 "data-cmd": 'undo'
             }
 
@@ -115,21 +115,24 @@ var actionSpaceV2 = {
     },
     actionSpaceEditor: [
         {
-            name: 'contentBlock',
+            name: 'button',
+            type: "button",
+            class: 'help-button',
+            'innerHTML': '<i class="las la-braille"></i>',
+            "data-cmd": 'undo'
+        },
+
+        {
+            name: 'contentInput',
             contentEditable: true,
-            class: 'div-block ',
+            class: 'code',
             lineNumbers: true,
             innerText: "Write whatever you can think of...",
             // mimeMode: ['html', 'richText', 'json', 'css', 'javascript'],
             //  output: ['self', 'output'],
             state: 'idle',
-            resize: true
+            resize: true,
+            id:"acSpaId"
         },
-
     ]
-
 }
-
-
-
-console.log("loaded to dom", currentDocument, actionSpace);
