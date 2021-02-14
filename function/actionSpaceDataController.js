@@ -6,7 +6,4 @@ class ActionSpaceDataController extends ehhEvent {
         this.on('updateEditor',this.view.updateDomContent)
     }
 
-
-
-
 }

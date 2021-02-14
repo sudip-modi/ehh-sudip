@@ -54,6 +54,7 @@ class ActionEventController {
             e.preventDefault();
             // console.log(e.target)
             this.emit('updateEditor', e.target.innerText)
+          
             // console.log(e.target.innerText)
         }
         if (e.type === "input") {
@@ -79,14 +80,24 @@ function loadActionEventController() {
 
 }
 
+class ActionSpaceDataController extends actionSpace {
+    constructor(context, view, model) {
+        super(context);
+        this.view = view;
+        this.model = model;
+        this.on('updateEditor', this.view.updateDomContent)
+    }
 
 
-class actionDataController extends actionSpace {
-    static processRanges() { 
-    
+    static processRanges() {
+
         //this function might be needed to work on ranges
 
     }
+
+
+
+
 }
 
 /**
