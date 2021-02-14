@@ -18,6 +18,10 @@ class actionEntityModel extends actionSpace {
 class actionSpaceView extends actionSpace { 
 
 }
+class localStorage extends actionSpace { 
+
+    
+}
 
 class dataHelpers extends actionSpace { 
 
