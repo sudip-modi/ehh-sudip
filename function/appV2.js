@@ -205,8 +205,8 @@ class ActionEventController {
     constructor(context) {
         this._events = {};
         this.context = context
-        //this.createListeners(context)
-    }
+        this.createListeners(context)
+    }       
     addListener(event, fn) {
         /** 
          * The addListener event checks if the event is already registered.
@@ -364,7 +364,7 @@ class ActionSpaceDataController extends ActionSpace {
         super(context);
         this.view = view;
         this.model = model;
-        this.on('updateEditor', this.view.updateDomContent)
+        this.on('updateEditor', this.ActionSpaceView.updateDomContent)
         view.on('saveButtonClicked', () => this.save())
     }
 
@@ -544,12 +544,7 @@ class Caret {
 window.onload = loadActionEventController;
 
 function loadActionEventController() {
-   // var actionEventInstance = new ActionEventController();
-    //actionEventInstance.createListeners(this);
-
-  //  actionEventInstance.createListeners(window);
-  //  console.log("loaded ActionEvents", actionEventInstance);
-
+    var ActionEventControllerInstance = new ActionEventController(this);
     var actionSpaceInstance = new ActionSpace(actionSpaceV2);
     console.log("loaded ActionSpace", actionSpaceInstance);
 }
