@@ -240,7 +240,7 @@ class ActionEventController {
         return this.addListener(event, fn);
     }
 
-    emit(eventName, ...args) {
+    static emit(eventName, ...args) {
         let fns = this.listeners[eventName]; //Get the functions for said eventName parameter
         if (!fns) return false; //If no listeners, return false
         fns.forEach((f) => {
@@ -252,15 +252,31 @@ class ActionEventController {
     conductEvent(e) {
 
         if (e.type === "click") {
+            var currentTarget = e.target;
+
+            // Condition to check if it has Content Editable True
+            console.log(currentTarget.tagName);
+            if (currentTarget.hasAttribute("contenteditable")) {
+                console.log(e.type, e.key);
+            }
             // console.log(e.target)
-            //this.emit('updateEditor', e.target.innerText)
+          //  this.emit('updateEditor', e.target.innerText)
             // console.log(e.target.innerText)
         }
         if (e.type === "keydown") {
-            console.log(e.type, e.target, e.key);
-            // e.preventDefault();
+            var currentTarget = e.target;
+        
+            // Condition to check if it has Content Editable True
+            
+            if (currentTarget.tagName === "ACTIONSPACEEDITOR") { 
+                var currentCaret = new Caret(e.target);
+                var currentCaretAt = Caret.getCaretIndex(e.target);
+                console.log(currentCaretAt);
+            }
+                // e.preventDefault();
             // console.log(e.target)
-            this.emit('updateEditor', e.target.innerText)
+            
+          //  this.emit('updateEditor', e.target.innerText)
 
             // console.log(e.target.innerText)
         }
@@ -273,9 +289,7 @@ class ActionEventController {
         }
 
     }
-
 }
-
 
 class ActionSpaceDataController extends ActionSpace {
     constructor(context, view, model) {
@@ -290,16 +304,9 @@ class ActionSpaceDataController extends ActionSpace {
         this._model.setData(this._view._elements.text.innerText);
     }
     static processRanges() {
-
         //this function might be needed to work on ranges
-
     }
-
-
-
-
 }
-
 
 /**
  * This is kind of a model class, it interacts with controller and external services using helper classes
@@ -405,16 +412,106 @@ class ActionSpaceView {
     getDomContent() {
 
     }
+    
     updateDom(cmd) {
        
 
     }
-    clearDom() { 
 
+    clearDom() {
     }
-    
+    static insertAtCaretIndex() {
+        
+     }
+
+}
+/**
+ * @file get/set caret position and insert text
+ * @author islishude
+ * @license MIT
+ */
+class Caret {
+    /**
+     * get/set caret position
+     * @param {HTMLColletion} target 
+     */
+    constructor(target) {
+        this.isContentEditable = target && target.contentEditable
+        this.target = target
+        console.log("CaretCreated ",target.tagName);
+    }
+
+    static getCaretIndex(element) {
+
+        let position = 0;
+
+        const isSupported = typeof window.getSelection !== "undefined";
+
+        if (isSupported) {
+            const selection = window.getSelection();
+            if (selection.rangeCount !== 0) {
+                const range = window.getSelection().getRangeAt(0);
+                const preCaretRange = range.cloneRange();
+                preCaretRange.selectNodeContents(element);
+                preCaretRange.setEnd(range.endContainer, range.endOffset);
+                position = preCaretRange.toString().length;
+            }
+        }
+        console.log("Caret at", position, element)
+        return position;
+    }
+    /**
+     * get caret position
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Range}
+     * @returns {number}
+     */
+    static getPos(e) {
+        // for contentedit field
+        if (this.isContentEditable) {
+            console.log(this.target);
+            this.target.focus()
+            let _range = document.getSelection().getRangeAt(0)
+            let range = _range.cloneRange()
+            range.selectNodeContents(this.target)
+            range.setEnd(_range.endContainer, _range.endOffset)
+            return range.toString().length;
+        }
+        // for texterea/input element
+        
+       // return this.target.selectionStart
+    }
+
+    /**
+     * set caret position
+     * @param {number} pos - caret position
+     */
+    setPos(pos) {
+        // for contentedit field
+        if (this.isContentEditable) {
+            this.target.focus()
+            document.getSelection().collapse(this.target, pos)
+            return
+        }
+        this.target.setSelectionRange(pos, pos)
+    }
 }
 
+/**
+ * insert text or orther to editor
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
+ * @module Editor
+ */
+ class Editor {
+    constructor() {
+    }
+    /**
+     * @param {string} content - your insert text
+     * @returns {boolean} 
+     */
+    insertText(content) {
+        document.execCommand('insertText', false, content)
+    }
+}
 window.onload = loadActionEventController;
 
 function loadActionEventController() {
