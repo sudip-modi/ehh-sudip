@@ -1,203 +1,6 @@
-class actionSpace {
-
-}
-
-class ActionEventController {
-    constructor(context) {
-        this._events = {};
-        this.context = context
-        //this.createListeners(context)
-    }
-    addListener(event, fn) {
-        /** 
-         * The addListener event checks if the event is already registered.
-         * If yes, returns the array, otherwise empty array.
-         * A note: Multiple callbacks can be registered against that same event.
-         */
-        this.listeners[event] = this.listeners[event] || [];
-        this.listeners[event].push(fn);
-        return this;
-    }
-
-    createListeners(entity) {
-        console.log("creatingListernfor",entity)
-        let events = dataHelpers.find(entity, 'on')
-      //  console.log(events)
-        events.forEach((evt) => {
-           // this.addListener(evt,this.conductEvent)
-            window[evt] = this.conductEvent // to be changed to add Listerner
-        })
-    }
-
-    on(event, fn) {
-        return this.addListener(event, fn);
-    }
-
-    emit(eventName, ...args) {
-        let fns = this.listeners[eventName]; //Get the functions for said eventName parameter
-        if (!fns) return false; //If no listeners, return false
-        fns.forEach((f) => {
-            f(...args); // For all function listeners, invoke the function with the arguments
-        });
-        return true; //Return true when done
-    }
-
-    conductEvent(e) {
-      
-        if (e.type === "click") {
-           // console.log(e.target)
-            //this.emit('updateEditor', e.target.innerText)
-           // console.log(e.target.innerText)
-        }
-        if (e.type === "keydown") {
-            console.log(e.type, e.target, e.key);
-           // e.preventDefault();
-            // console.log(e.target)
-            this.emit('updateEditor', e.target.innerText)
-          
-            // console.log(e.target.innerText)
-        }
-        if (e.type === "input") {
-            //console.log(e.type, e.target);
-           // console.log(e.target)
-            //this.emit('updateEditor', e.target.innerText)
-           // console.log(e.target.innerText)
-            //console.log(e.key)
-        }
-
-    }
-
-}
-
-window.onload = loadActionEventController;
-
-function loadActionEventController() {
-    var actionEventInstance = new ActionEventController();
-    //actionEventInstance.createListeners(this);
-  
-    actionEventInstance.createListeners(window);
-    console.log("loaded ActionEvents", actionEventInstance);
-
-}
-
-class ActionSpaceDataController extends actionSpace {
-    constructor(context, view, model) {
-        super(context);
-        this.view = view;
-        this.model = model;
-        this.on('updateEditor', this.view.updateDomContent)
-    }
+//this class act's like a Wrapper class along with few self Initation Method
 
 
-    static processRanges() {
-
-        //this function might be needed to work on ranges
-
-    }
-
-
-
-
-}
-
-/**
- * This is kind of a model class, it interacts with controller and external services using helper classes
- * Every Registered Models is validatated from a model inside Json / ModelName.js file //we need to think this through
- */
-class Entity {
-    constructor(input, output) {
-        this.entity = process.processReq(input, output);
-        console.log("Entity Created", this);
-    }
-    static create(input, output, key, value, callback, callbackClass) {
-        // console.log('create request for ',output,key)
-        if (operate.is(output).includes("HTML")) { //Only HTML creation
-            // var response = Object.create(output.constructor.prototype)
-            var response = document.createElement(key);
-            // Entity.set(input, response, 'id', key + entityIndex.next().value);
-        }
-        if (operate.is(output).includes("Object")) { //Only HTML creation
-            console.log("create request for ", input, output, key, value)
-
-            response = new Object()
-
-            //response = key;
-            //response.set(value,key)
-            //var response = document.createElement(key);
-            if (value) {
-                //    process.iterateObj(value,response,key,value)
-            }
-            // entity.set(input, response, 'id', key + index.next().value);
-        }
-        if (operate.is(output).includes("Array")) { //Only HTML creation
-            // console.log("create request for ", input, output, key, value)
-
-            response = new Object()
-
-            //response = key;
-            //response.set(value,key)
-            //var response = document.createElement(key);
-            if (value) {
-                //    process.iterateObj(value,response,key,value)
-            }
-            // entity.set(input, response, 'id', key + index.next().value);
-        }
-        if (!response) console.log("no response", output);
-        return response;
-    }
-    static append(input, output, key, value, callback, callbackClass) {
-        // console.log('appending', input,output)
-
-        if (operate.is(output).includes("HTML")) { //Only HTML creation
-            var response = output.appendChild(input);
-        }
-        if (operate.is(output).includes("Object")) { //Only HTML creation
-            // console.log("append request for ",input,output)     
-            output[key] = input;
-            var response = output;
-            //var response = document.createElement(key);
-
-        }
-        if (operate.is(output).includes("Array")) { //Only HTML creation
-            // console.log("append request for ",input,output)     
-            output.push(input);
-            var response = output;
-            //var response = document.createElement(key);
-
-        }
-
-
-
-        // console.log('appended',response)
-        return response;
-    }
-    static set(input, output, key, value, callback, callbackClass) {
-        //  console.log("setting",key, value,"in",output)
-        if (operate.is(output).includes("HTML")) { //Only HTML creation
-
-            if (operate.isIn(key, htmlAttributesList)) {
-                //console.log("setting",key, value,"in",output)
-                output.setAttribute(key, value)
-                //console.log(output);
-            } else {
-                //var buffer = output;
-                output[key] = input[key];
-                //buffer=output;
-            }
-
-        }
-        return output;
-    }
-}
-
-
-class actionSpaceView extends actionSpace {
-
-}
-class localStorage extends actionSpace {
-
-
-}
 class dataHelpers {
 
     static find(entity, keyTofind) {
@@ -398,8 +201,233 @@ function* createIndex() {
         yield number++;
 }
 
+class ActionSpace {
+    constructor() {
+        var actionSpaceInstance = document.getElementsByTagName("actionSpace")[0];
+        this.entity = new Entity(input, actionSpaceInstance);
+    }
+
+}
+
+class ActionEventController {
+    constructor(context) {
+        this._events = {};
+        this.context = context
+        //this.createListeners(context)
+    }
+    addListener(event, fn) {
+        /** 
+         * The addListener event checks if the event is already registered.
+         * If yes, returns the array, otherwise empty array.
+         * A note: Multiple callbacks can be registered against that same event.
+         */
+        this.listeners[event] = this.listeners[event] || [];
+        this.listeners[event].push(fn);
+        return this;
+    }
+
+    createListeners(entity) {
+        console.log("creatingListernfor", entity)
+        let events = dataHelpers.find(entity, 'on')
+        //  console.log(events)
+        events.forEach((evt) => {
+            // this.addListener(evt,this.conductEvent)
+            window[evt] = this.conductEvent // to be changed to add Listerner
+        })
+    }
+
+    on(event, fn) {
+        return this.addListener(event, fn);
+    }
+
+    emit(eventName, ...args) {
+        let fns = this.listeners[eventName]; //Get the functions for said eventName parameter
+        if (!fns) return false; //If no listeners, return false
+        fns.forEach((f) => {
+            f(...args); // For all function listeners, invoke the function with the arguments
+        });
+        return true; //Return true when done
+    }
+
+    conductEvent(e) {
+
+        if (e.type === "click") {
+            // console.log(e.target)
+            //this.emit('updateEditor', e.target.innerText)
+            // console.log(e.target.innerText)
+        }
+        if (e.type === "keydown") {
+            console.log(e.type, e.target, e.key);
+            // e.preventDefault();
+            // console.log(e.target)
+            this.emit('updateEditor', e.target.innerText)
+
+            // console.log(e.target.innerText)
+        }
+        if (e.type === "input") {
+            //console.log(e.type, e.target);
+            // console.log(e.target)
+            //this.emit('updateEditor', e.target.innerText)
+            // console.log(e.target.innerText)
+            //console.log(e.key)
+        }
+
+    }
+
+}
 
 
-class actionEngine extends actionSpace {
+class ActionSpaceDataController extends ActionSpace {
+    constructor(context, view, model) {
+        super(context);
+        this.view = view;
+        this.model = model;
+        this.on('updateEditor', this.view.updateDomContent)
+        view.on('saveButtonClicked', () => this.save())
+    }
+
+    save() {
+        this._model.setData(this._view._elements.text.innerText);
+    }
+    static processRanges() {
+
+        //this function might be needed to work on ranges
+
+    }
+
+
+
+
+}
+
+
+/**
+ * This is kind of a model class, it interacts with controller and external services using helper classes
+ * Every Registered Models is validatated from a model inside Json / ModelName.js file //we need to think this through
+ */
+class Entity {
+    constructor(input, output) {
+        this.entity = process.processReq(input, output);
+        console.log("Entity Created", this);
+    }
+    static create(input, output, key, value, callback, callbackClass) {
+        // console.log('create request for ',output,key)
+        if (operate.is(output).includes("HTML")) { //Only HTML creation
+            // var response = Object.create(output.constructor.prototype)
+            var response = document.createElement(key);
+            // Entity.set(input, response, 'id', key + entityIndex.next().value);
+        }
+        if (operate.is(output).includes("Object")) { //Only HTML creation
+            console.log("create request for ", input, output, key, value)
+
+            response = new Object()
+
+            //response = key;
+            //response.set(value,key)
+            //var response = document.createElement(key);
+            if (value) {
+                //    process.iterateObj(value,response,key,value)
+            }
+            // entity.set(input, response, 'id', key + index.next().value);
+        }
+        if (operate.is(output).includes("Array")) { //Only HTML creation
+            // console.log("create request for ", input, output, key, value)
+
+            response = new Object()
+
+            //response = key;
+            //response.set(value,key)
+            //var response = document.createElement(key);
+            if (value) {
+                //    process.iterateObj(value,response,key,value)
+            }
+            // entity.set(input, response, 'id', key + index.next().value);
+        }
+        if (!response) console.log("no response", output);
+        return response;
+    }
+    static append(input, output, key, value, callback, callbackClass) {
+        // console.log('appending', input,output)
+
+        if (operate.is(output).includes("HTML")) { //Only HTML creation
+            var response = output.appendChild(input);
+        }
+        if (operate.is(output).includes("Object")) { //Only HTML creation
+            // console.log("append request for ",input,output)     
+            output[key] = input;
+            var response = output;
+            //var response = document.createElement(key);
+
+        }
+        if (operate.is(output).includes("Array")) { //Only HTML creation
+            // console.log("append request for ",input,output)     
+            output.push(input);
+            var response = output;
+            //var response = document.createElement(key);
+
+        }
+
+
+
+        // console.log('appended',response)
+        return response;
+    }
+    static set(input, output, key, value, callback, callbackClass) {
+        //  console.log("setting",key, value,"in",output)
+        if (operate.is(output).includes("HTML")) { //Only HTML creation
+
+            if (operate.isIn(key, htmlAttributesList)) {
+                //console.log("setting",key, value,"in",output)
+                output.setAttribute(key, value)
+                //console.log(output);
+            } else {
+                //var buffer = output;
+                output[key] = input[key];
+                //buffer=output;
+            }
+
+        }
+        return output;
+    }
+}
+
+class ActionSpaceView {
+    constructor(model, elements) {
+        this.model = model
+        this.elements = elements
+    }
+
+    updateDomContent = (data) => {
+        this.model.updateJson(data)
+        document.getElementById('actionOutput-block').innerHTML = data
+    }
+
+    getDomContent() {
+
+    }
+    updateDom(cmd) {
+       
+
+    }
+    clearDom() { 
+
+    }
+    
+}
+
+window.onload = loadActionEventController;
+
+function loadActionEventController() {
+    var actionEventInstance = new ActionEventController();
+    //actionEventInstance.createListeners(this);
+
+    actionEventInstance.createListeners(window);
+    console.log("loaded ActionEvents", actionEventInstance);
+
+}
+
+
+
+class actionEngine extends ActionSpace {
 
 }
