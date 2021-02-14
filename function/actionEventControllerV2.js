@@ -5,7 +5,14 @@ class actionEventController {
         this.context = context
         this.createListeners(context)
     }
-
+   createListeners(entity) {
+        console.log(entity)
+        let events = dataHelpers.find(entity, 'on')
+        console.log(events)
+        events.forEach((evt) => {
+            window[evt] = this.onEvent
+        })
+    }
 
     on(evt, listener) {
         console.log(evt);
@@ -16,15 +23,7 @@ class actionEventController {
     emit(evt, arg) {
         (this._events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
-    createListeners(entity) {
-        console.log(entity)
-        let events = dataHelpers.find(entity, 'on')
-        console.log(events)
-
-        events.forEach((evt) => {
-            window[evt] = this.onEvent
-        })
-    }
+ 
 
 
     onEvent = (e) => {
