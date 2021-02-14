@@ -250,27 +250,34 @@ class ActionEventController {
     }
 
     conductEvent(e) {
+        var currentTarget = e.target;
+
       //  var currentCaret = new Caret(e.target);
        // var newCaretPosition = currentCaret.setPos(currentCaretPosition - 2);
        
-       
-        if (e.type === "click") {
-            var currentTarget = e.target;
-            /* Place the caret at the beginning of an HTML document's body. */
-            var body = document.getElementsByTagName("body")[0];
-            var currentCaretPosition = Caret.getCaretPos(e.target);
-            var newCaretPosition = currentCaretPosition - 5;
-            var currentSelection = window.getSelection();
-           // console.log(currentSelection.setStart(0));
-            currentSelection.selectionStart = currentSelection.selectionEnd = newCaretPosition;
-           // currentSelection.anchorOffset = newCaretPosition;
-            console.log(currentSelection, currentCaretPosition, newCaretPosition)
-            currentTarget.onkeydown = e => {
-                typeInTextarea("lol");
-                if (e.key === "Enter") typeInTextarea("lol");
-            }
-
+        if (e.key === "Enter") {
+            console.log("EnterKey Detected")
+            Caret.insertInTextarea("lol",currentTarget);
         }
+        // if (e.type === "click") {
+        //     /* Place the caret at the beginning of an HTML document's body. */
+        //     var body = document.getElementsByTagName("body")[0];
+        //     var currentCaretPosition = Caret.getCaretPos(e.target);
+        //     var newCaretPosition = currentCaretPosition - 5;
+        //     var currentSelection = window.getSelection();
+        //    // console.log(currentSelection.setStart(0));
+        //     currentSelection.selectionStart = currentSelection.selectionEnd = newCaretPosition;
+        //    // currentSelection.anchorOffset = newCaretPosition;
+        //     console.log(currentSelection, currentCaretPosition, newCaretPosition)
+        //     currentTarget.onkeydown = e => {
+                
+        //         if (e.key === "Enter") {
+        //             console.log("EnterKey Detected")
+        //             Caret.insertInTextarea("lol");   
+        //         }
+        //     }
+
+        // }
     }
 }
 
@@ -438,15 +445,17 @@ class Caret {
         currentSelection.selectionStart = currentSelection.selectionEnd = 10;
         return pos;
     }
-    static insertInTextarea(newText, el = document.activeElement) {
-    const start = el.selectionStart
-    const end = el.selectionEnd
-    const text = el.value
-    const before = text.substring(0, start)
-    const after = text.substring(end, text.length)
-    el.value = (before + newText + after)
-    el.selectionStart = el.selectionEnd = start + newText.length
-    el.focus()
+    
+    static insertInTextarea(newText, currentTarget) {
+            var el = currentTarget;
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const text = el.value;
+            const before = text.substring(0, start)
+            const after = text.substring(end, text.length)
+            el.value = (before + newText + after)
+            el.selectionStart = el.selectionEnd = start + newText.length
+        el.focus();
 }
 
 
