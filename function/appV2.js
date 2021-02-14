@@ -255,9 +255,13 @@ class ActionEventController {
       //  var currentCaret = new Caret(e.target);
        // var newCaretPosition = currentCaret.setPos(currentCaretPosition - 2);
        
-        if (e.key === "Enter") {
-            console.log("EnterKey Detected")
-            Caret.insertInTextarea("lol",currentTarget);
+       
+        if (e.type === 'keydown') { 
+            console.log(e.key);
+            if (e.key === "Enter") {
+                console.log("EnterKey Detected")
+                Caret.insertInTextarea("lol", currentTarget);
+            }
         }
         // if (e.type === "click") {
         //     /* Place the caret at the beginning of an HTML document's body. */
@@ -445,7 +449,7 @@ class Caret {
         currentSelection.selectionStart = currentSelection.selectionEnd = 10;
         return pos;
     }
-    
+
     static insertInTextarea(newText, currentTarget) {
             var el = currentTarget;
             const start = el.selectionStart;
