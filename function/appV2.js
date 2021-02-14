@@ -51,7 +51,7 @@ class ActionEventController {
         }
         if (e.type === "keydown") {
             console.log(e.type, e.target, e.key);
-            e.preventDefault();
+           // e.preventDefault();
             // console.log(e.target)
             this.emit('updateEditor', e.target.innerText)
           
