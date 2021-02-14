@@ -544,14 +544,14 @@ class Caret {
 window.onload = loadActionEventController;
 
 function loadActionEventController() {
-    var actionEventInstance = new ActionEventController();
+   // var actionEventInstance = new ActionEventController();
     //actionEventInstance.createListeners(this);
 
-    actionEventInstance.createListeners(window);
-    console.log("loaded ActionEvents", actionEventInstance);
+  //  actionEventInstance.createListeners(window);
+  //  console.log("loaded ActionEvents", actionEventInstance);
 
     var actionSpaceInstance = new ActionSpace(actionSpaceV2);
-    console.log("loaded ActinSpace", actionSpaceInstance);
+    console.log("loaded ActionSpace", actionSpaceInstance);
 }
 
 
