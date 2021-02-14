@@ -261,16 +261,16 @@ class ActionEventController {
             var currentCaretPosition = Caret.getCaretPos(e.target);
             var newCaretPosition = currentCaretPosition - 5;
             var currentSelection = window.getSelection();
-           
-           
            // console.log(currentSelection.setStart(0));
             currentSelection.selectionStart = currentSelection.selectionEnd = newCaretPosition;
-            currentSelection.anchorOffset = newCaretPosition;
+           // currentSelection.anchorOffset = newCaretPosition;
             console.log(currentSelection, currentCaretPosition, newCaretPosition)
+            currentTarget.onkeydown = e => {
+                typeInTextarea("lol");
+                if (e.key === "Enter") typeInTextarea("lol");
+            }
 
         }
-       
-
     }
 }
 
@@ -438,6 +438,16 @@ class Caret {
         currentSelection.selectionStart = currentSelection.selectionEnd = 10;
         return pos;
     }
+    static insertInTextarea(newText, el = document.activeElement) {
+    const start = el.selectionStart
+    const end = el.selectionEnd
+    const text = el.value
+    const before = text.substring(0, start)
+    const after = text.substring(end, text.length)
+    el.value = (before + newText + after)
+    el.selectionStart = el.selectionEnd = start + newText.length
+    el.focus()
+}
 
 
 
