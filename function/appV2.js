@@ -250,43 +250,26 @@ class ActionEventController {
     }
 
     conductEvent(e) {
-
+      //  var currentCaret = new Caret(e.target);
+       // var newCaretPosition = currentCaret.setPos(currentCaretPosition - 2);
+       
+       
         if (e.type === "click") {
             var currentTarget = e.target;
+            /* Place the caret at the beginning of an HTML document's body. */
+            var body = document.getElementsByTagName("body")[0];
+            var currentCaretPosition = Caret.getCaretPos(e.target);
+            var newCaretPosition = currentCaretPosition - 5;
+            var currentSelection = window.getSelection();
+           
+           
+           // console.log(currentSelection.setStart(0));
+            currentSelection.selectionStart = currentSelection.selectionEnd = newCaretPosition;
+            currentSelection.anchorOffset = newCaretPosition;
+            console.log(currentSelection, currentCaretPosition, newCaretPosition)
 
-            // Condition to check if it has Content Editable True
-            console.log(currentTarget.tagName);
-            if (currentTarget.hasAttribute("contenteditable")) {
-                console.log(e.type, e.key);
-            }
-            // console.log(e.target)
-          //  this.emit('updateEditor', e.target.innerText)
-            // console.log(e.target.innerText)
         }
-        if (e.type === "keydown") {
-            var currentTarget = e.target;
-        
-            // Condition to check if it has Content Editable True
-            
-            if (currentTarget.tagName === "ACTIONSPACEEDITOR") { 
-                var currentCaret = new Caret(e.target);
-                var currentCaretAt = Caret.getCaretIndex(e.target);
-                console.log(currentCaretAt);
-            }
-                // e.preventDefault();
-            // console.log(e.target)
-            
-          //  this.emit('updateEditor', e.target.innerText)
-
-            // console.log(e.target.innerText)
-        }
-        if (e.type === "input") {
-            //console.log(e.type, e.target);
-            // console.log(e.target)
-            //this.emit('updateEditor', e.target.innerText)
-            // console.log(e.target.innerText)
-            //console.log(e.key)
-        }
+       
 
     }
 }
@@ -438,8 +421,25 @@ class Caret {
     constructor(target) {
         this.isContentEditable = target && target.contentEditable
         this.target = target
-        console.log("CaretCreated ",target.tagName);
+        //console.log("CaretCreated ",target.tagName);
     }
+    static getCaretPos() { 
+        
+        var currentSelection = window.getSelection();
+        var position =  currentSelection.anchorOffset;
+       // console.log(currentSelection, position);
+        return position;
+
+    }
+    static setCaretPos(currentSelection, pos) { 
+        var currentSelection = window.getSelection();
+        var position = currentSelection.anchorOffset;
+   //    console.log(currentSelection)
+        currentSelection.selectionStart = currentSelection.selectionEnd = 10;
+        return pos;
+    }
+
+
 
     static getCaretIndex(element) {
 
@@ -449,6 +449,7 @@ class Caret {
 
         if (isSupported) {
             const selection = window.getSelection();
+            console.log(selection);
             if (selection.rangeCount !== 0) {
                 const range = window.getSelection().getRangeAt(0);
                 const preCaretRange = range.cloneRange();
@@ -457,7 +458,7 @@ class Caret {
                 position = preCaretRange.toString().length;
             }
         }
-        console.log("Caret at", position, element)
+       // console.log("Caret at", position, element)
         return position;
     }
     /**
@@ -467,7 +468,7 @@ class Caret {
      */
     static getPos(e) {
         // for contentedit field
-        if (this.isContentEditable) {
+      //  if (this.isContentEditable) {
             console.log(this.target);
             this.target.focus()
             let _range = document.getSelection().getRangeAt(0)
@@ -475,7 +476,7 @@ class Caret {
             range.selectNodeContents(this.target)
             range.setEnd(_range.endContainer, _range.endOffset)
             return range.toString().length;
-        }
+    //    }
         // for texterea/input element
         
        // return this.target.selectionStart
