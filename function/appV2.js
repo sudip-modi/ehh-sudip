@@ -43,17 +43,25 @@ class ActionEventController {
     }
 
     conductEvent(e) {
-      //  console.log(e.type, e.target);
+      
         if (e.type === "click") {
-            console.log(e.target)
-            //this.emit('updateEditor', e.target.innerText)
-           // console.log(e.target.innerText)
-        }
-        if (e.type === "input") {
            // console.log(e.target)
             //this.emit('updateEditor', e.target.innerText)
            // console.log(e.target.innerText)
-            console.log(e.key)
+        }
+        if (e.type === "keydown") {
+            console.log(e.type, e.target, e.key);
+            e.preventDefault();
+            // console.log(e.target)
+            this.emit('updateEditor', e.target.innerText)
+            // console.log(e.target.innerText)
+        }
+        if (e.type === "input") {
+            //console.log(e.type, e.target);
+           // console.log(e.target)
+            //this.emit('updateEditor', e.target.innerText)
+           // console.log(e.target.innerText)
+            //console.log(e.key)
         }
 
     }
@@ -74,7 +82,11 @@ function loadActionEventController() {
 
 
 class actionDataController extends actionSpace {
+    static processRanges() { 
+    
+        //this function might be needed to work on ranges
 
+    }
 }
 
 /**
@@ -351,7 +363,6 @@ class operator {
     //similar function for some to be coded.
 
 }
-
 
 class conductor {
     //this function calls a callback function with a and b parameter. Conducted Routes have to be registered before else will throw error.
