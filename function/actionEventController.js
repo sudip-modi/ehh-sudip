@@ -20,6 +20,16 @@ class actionEventController {
     }
 
     
+}
 
 
+function bindValues(id1, id2) {
+    const e1 = document.getElementById(id1);
+    const e2 = document.getElementById(id2);
+    e1.addEventListener('input', function (event) {
+        e2.value = event.target.value;
+    });
+    e2.addEventListener('input', function (event) {
+        e1.value = event.target.value;
+    });
 }
