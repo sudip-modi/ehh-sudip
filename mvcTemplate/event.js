@@ -1,6 +1,6 @@
 
 
-class EventEmitter {
+class ActionEventEmitter {
     constructor() {
         this._events = {};
     }
