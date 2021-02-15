@@ -4,9 +4,6 @@
 var list = document.getElementById('list');
 
 window.addEventListener('load', () => {
-
-
-
  //   const model = new ListModel(['node.js', 'react']),
         _actionSpace = {
             'actionSpace': document.getElementById('actionSpace'),
@@ -14,7 +11,7 @@ window.addEventListener('load', () => {
             'delButton': document.getElementById('minusBtn')
         }
     actionEvent = new ActionEventEmitter(_actionSpace)// Controller to be added
-    actionController = new actionController(_actionSpace);
+    //actionController = new actionController(_actionSpace);
 
 
        //  view = new ListView(model, actionSpace),

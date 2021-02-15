@@ -3,14 +3,15 @@
  * invokes changes on the model.
  */
 class actionController extends ActionEventEmitter  {
-    constructor(entity) {
+    constructor(elements) {
         super()
         //this._model = model;
-        this._entity = entity;
+        this._entity = elements;
+        this.on('EntityModified', idx => this.updateSelected(idx));
+        ActionEventEmitter.on('addButtonClicked', () => this.addentity());
+        ActionEventEmitter.on('delButtonClicked', () => this.delentity());
 
-        this.on('listModified', idx => this.updateSelected(idx));
-        this.on('addButtonClicked', () => this.addentity());
-        this.on('delButtonClicked', () => this.delentity());
+        
     }
 
     addentity() {
