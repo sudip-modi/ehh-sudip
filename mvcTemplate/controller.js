@@ -2,28 +2,31 @@
  * The Controller. Controller responds to user actions and
  * invokes changes on the model.
  */
-class ListController {
-    constructor(model, view) {
-        this._model = model;
-        this._view = view;
+class ActionController extends ActionEventEmitter  {
+    constructor(elements) {
+        super()
+        //this._model = model;
+        this._entity = elements;
+        this.on('EntityModified', idx => this.updateSelected(idx));
+        this.on('addButtonClicked', () => this.addentity());
+        this.on('delButtonClicked', () => this.delentity());
 
-        view.on('listModified', idx => this.updateSelected(idx));
-        view.on('addButtonClicked', () => this.addItem());
-        view.on('delButtonClicked', () => this.delItem());
+        
     }
 
-    addItem() {
-        const item = window.prompt('Add item:', '');
-        if (item) {
-            this._model.addItem(item);
-        }
+    addentity() {
+        console.log("Add Button Clicked")
+
+        // const entity = window.prompt('Add entity:', '');
+        // if (entity) {
+        //     this._model.addentity(entity);
+        // }
     }
 
-    delItem() {
-        const index = this._model.selectedIndex;
-        if (index !== -1) {
-            this._model.removeItemAt(index);
-        }
+    delentity() {
+        console.log("Del Button Clicked")
+
+      
     }
 
     updateSelected(index) {
