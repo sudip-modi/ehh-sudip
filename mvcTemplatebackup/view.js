@@ -8,10 +8,10 @@ class ListView extends EventEmitter {
         super();
         this._model = model;
         this._elements = elements;
-        console.log(this._elements)
+            console.log(this._elements)
         // attach model listeners
-        model.on('entityAdded', () => this.rebuildList())
-            .on('entityRemoved', () => this.rebuildList());
+        model.on('itemAdded', () => this.rebuildList())
+            .on('itemRemoved', () => this.rebuildList());
 
         // attach listeners to HTML controls
         elements.list.addEventListener('change',
@@ -29,8 +29,8 @@ class ListView extends EventEmitter {
     rebuildList() {
         const list = this._elements.list;
         list.options.length = 0;
-       // this._model.getentitys().forEach(
-       //     entity => list.options.add(new Option(entity)));
+        this._model.getItems().forEach(
+            item => list.options.add(new Option(item)));
         this._model.selectedIndex = -1;
     }
 }

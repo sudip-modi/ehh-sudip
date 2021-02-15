@@ -8,21 +8,21 @@ class ListController {
         this._view = view;
 
         view.on('listModified', idx => this.updateSelected(idx));
-        view.on('addButtonClicked', () => this.addentity());
-        view.on('delButtonClicked', () => this.delentity());
+        view.on('addButtonClicked', () => this.addItem());
+        view.on('delButtonClicked', () => this.delItem());
     }
 
-    addentity() {
-        const entity = window.prompt('Add entity:', '');
-        if (entity) {
-            this._model.addentity(entity);
+    addItem() {
+        const item = window.prompt('Add item:', '');
+        if (item) {
+            this._model.addItem(item);
         }
     }
 
-    delentity() {
+    delItem() {
         const index = this._model.selectedIndex;
         if (index !== -1) {
-            this._model.removeentityAt(index);
+            this._model.removeItemAt(index);
         }
     }
 

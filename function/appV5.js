@@ -24,8 +24,7 @@ class dataHelpers {
 
 class ActionEventController {
     constructor(entity) {
-        this._events = {};
-        this.createListeners(entity);
+        this.listeners = this.createListeners(entity); 
     }
     on(evt, listener) {
         (this._events[evt] || (this._events[evt] = [])).push(listener);
@@ -34,12 +33,24 @@ class ActionEventController {
     emit(evt, arg) {
         (this._events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
+    addListener(event, fn) {
+        /** 
+         * The addListener event checks if the event is already registered.
+         * If yes, returns the array, otherwise empty array.
+         * A note: Multiple callbacks can be registered against that same event.
+         */
+        this.listeners[event] = this.listeners[event] || [];
+        this.listeners[event].push(fn);
+        
+        return this;
+    }
     createListeners(entity) {
         console.log("creatingListernfor", entity)
         let events = dataHelpers.find(entity, 'on')
-        //  console.log(events)
+          console.log(events)
         events.forEach((evt) => {
-            window[evt] = this.conductEvent // to be changed to add Listerner
+           //this.addListener(evt, this.conductEvent);
+           // window[evt] = this.conductEvent // to be changed to add Listerner
         })
     }
 
@@ -50,11 +61,7 @@ class ActionEventController {
         // var newCaretPosition = currentCaret.setPos(currentCaretPosition - 2);
         if (e.type === 'mouseover') {
            // console.log(e.target);
-            if (e.key === "Enter") {
-             //   console.log("EnterKey Detected")
-                Caret.moveCaret(window, 5)
-                // insertInTextarea("lol", currentTarget);
-            }
+          
         }
 
         if (e.type === 'keydown') {
@@ -87,29 +94,10 @@ class EntityController extends ActionEventController{
         view.on('delButtonClicked', () => this.delItem());
     }
 
-    addItem() {
-        const item = window.prompt('Add item:', '');
-        if (item) {
-            this._model.addItem(item);
-        }
-    }
-    buttonClicked() {
-        const item = window.prompt('Clicked:', '');
-        if (item) {
-            this._model.addItem(item);
-        }
+    buttonClicked(e) {
+        console.log("clicked On ", e.target);
     }
 
-    delItem() {
-        const index = this._model.selectedIndex;
-        if (index !== -1) {
-            this._model.removeItemAt(index);
-        }
-    }
-
-    updateSelected(index) {
-        this._model.selectedIndex = index;
-    }
 }
 
 
@@ -122,7 +110,7 @@ function loadAPP() {
         const _actionSpace = document.getElementsByTagName('actionSpace')[0].__proto__;
         
         console.log('actionSpace', _actionSpace);
-        
+       // console.log(this);
         const _actionEventController = new ActionEventController(this);
         
         console.log(_actionEventController)

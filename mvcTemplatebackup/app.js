@@ -1,4 +1,3 @@
-
 var list = document.getElementById('list');
 
 window.addEventListener('load', () => {
@@ -8,9 +7,9 @@ window.addEventListener('load', () => {
             'addButton': document.getElementById('plusBtn'),
             'delButton': document.getElementById('minusBtn')
         }
-
-
-
+   
+    
+    
     view = new ListView(model, actionSpace),
         controller = new ListController(model, view);
 

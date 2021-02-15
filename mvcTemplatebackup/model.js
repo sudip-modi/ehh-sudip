@@ -1,26 +1,26 @@
 /**
- * The Model. Model stores entitys and notifies
+ * The Model. Model stores items and notifies
  * observers about changes.
  */
 class ListModel extends EventEmitter {
-    constructor(entitys) {
+    constructor(items) {
         super();
-        this._entitys = entitys || [];
+        this._items = items || [];
         this._selectedIndex = -1;
     }
 
-    getentitys() {
-        return this._entitys.slice();
+    getItems() {
+        return this._items.slice();
     }
 
-    addentity(entity) {
-        this._entitys.push(entity);
-        this.emit('entityAdded', entity);
+    addItem(item) {
+        this._items.push(item);
+        this.emit('itemAdded', item);
     }
 
-    removeentityAt(index) {
-        const entity = this._entitys.splice(index, 1)[0];
-        this.emit('entityRemoved', entity);
+    removeItemAt(index) {
+        const item = this._items.splice(index, 1)[0];
+        this.emit('itemRemoved', item);
         if (index === this._selectedIndex) {
             this.selectedIndex = -1;
         }

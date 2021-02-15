@@ -1,5 +1,3 @@
-
-
 class EventEmitter {
     constructor() {
         this._events = {};
