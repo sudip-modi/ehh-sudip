@@ -9,19 +9,7 @@ class EventEmitter {
     emit(evt, arg) {
         (this._events[evt] || []).slice().forEach(lsn => lsn(arg));
     }
-    createListerner(elements) { 
-        // attach listeners to HTML controls
-        elements.list.addEventListener('change',
-            e => this.emit('listModified', e.target.selectedIndex));
-        elements.addButton.addEventListener('click',
-            () => this.emit('addButtonClicked'));
-        elements.delButton.addEventListener('click',
-            () => this.emit('delButtonClicked'));
-    }
-
 }
-
-
 
 /**
  * The View. View presents the model and provides
@@ -29,13 +17,22 @@ class EventEmitter {
  * events to handle the user interaction.
  */
 class ListView extends EventEmitter {
-    constructor(controller, elements) {
+    constructor(model, elements) {
         super();
-        this._controller = controller;
+        this._model = model;
         this._elements = elements;
+
         // attach model listeners
-        controller.on('itemAdded', () => this.rebuildList())
+        model.on('itemAdded', () => this.rebuildList())
             .on('itemRemoved', () => this.rebuildList());
+
+        // attach listeners to HTML controls
+        elements.list.addEventListener('change',
+            e => this.emit('listModified', e.target.selectedIndex));
+        elements.addButton.addEventListener('click',
+            () => this.emit('addButtonClicked'));
+        elements.delButton.addEventListener('click',
+            () => this.emit('delButtonClicked'));
     }
 
     show() {
@@ -54,13 +51,11 @@ class ListView extends EventEmitter {
  * The Controller. Controller responds to user actions and
  * invokes changes on the model.
  */
-class ListController extends EventEmitter {
+class ListController {
     constructor(model, view) {
-        super();
         this._model = model;
         this._view = view;
-        console.log(this._elements)
-        this.createListerner();
+
         view.on('listModified', idx => this.updateSelected(idx));
         view.on('addButtonClicked', () => this.addItem());
         view.on('delButtonClicked', () => this.delItem());
@@ -92,7 +87,6 @@ class ListModel extends EventEmitter {
     constructor(items) {
         super();
         this._items = items || [];
-        console.log(this)
         this._selectedIndex = -1;
     }
 
@@ -114,7 +108,6 @@ class ListModel extends EventEmitter {
     }
 
     get selectedIndex() {
-        console.log(this)
         return this._selectedIndex;
     }
 
