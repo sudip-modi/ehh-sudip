@@ -1,10 +1,32 @@
+const snippets = [
+
+    {
+        prefix: "for",
+        body: [" (let i = 0; i < size; i++) { \n }  \n "]
+    },
+    {
+
+        "prefix": "function",
+        "body": [
+            "  name (params)\n {\n }\n "
+        ]
+    },
+    {
+        "prefix": "if",
+        "body": [
+            "  (condition) {\n }\n "
+        ],
+    }
+];
+
+
 //this class act's like a Wrapper class along with few self Initation Method
 
 
 class dataHelpers {
 
     static find(entity, keyTofind) {
-          //console.log("finding", keyTofind, "in", entity);
+        //console.log("finding", keyTofind, "in", entity);
         var result = Object.keys(entity).filter(function (key, index, self) {
             return !key.indexOf(keyTofind);
         });
@@ -23,10 +45,11 @@ class process {
             var buffer = process.iterateObj(input, output, key);
         } else if (operate.is(input) === 'String') {
             console.log('String >>>', key, value);
-            //Entity.set(input,this.output,key,value);           
+            //Entity.set(input,this.output,key,value);
         }
         return buffer;
     }
+
     static iterateObj(input, output) {
         for (var key in input) {
             var value = input[key];
@@ -45,13 +68,14 @@ class process {
             } else if (operate.is(value) === 'String' || operate.is(value) === 'Boolean') {
                 //  console.log('String',key, value,output);
                 Entity.set(input, output, key, value);
-                //Entity.set(input,this.entity,key,value);           
+                //Entity.set(input,this.entity,key,value);
             }
 
         }
         // console.log('Iterate Objoutput',output)
         return output;
     }
+
     static iterateArr(input, output, key, value, callback, callbackClass) {
         //  console.log("Iterating Array", input, output, key, value);
 
@@ -91,69 +115,183 @@ class process {
 class operate {
 
     // operate to check if the input is not null or undefined to be added
-    static isEmpty(argA) { return Object.keys(argA).length === 0 ? true : false }
-    static isNotEmpty(argA) { return argA !== '' && argA !== null && typeof argA !== 'undefined' ? true : false }
+    static isEmpty(argA) {
+        return Object.keys(argA).length === 0 ? true : false
+    }
+
+    static isNotEmpty(argA) {
+        return argA !== '' && argA !== null && typeof argA !== 'undefined' ? true : false
+    }
+
     //returs the data Type of the input.
-    static is(argA) { return Object.getPrototypeOf(argA).constructor.name; }
-    static isInt(argA) { return Number.isInteger(argA); }
-    static isNumber(argA) { return Number.parseFloat(argA).toString() !== 'NaN' }
-    static isString(argA) { return typeof argA === 'string' ? true : false }
+    static is(argA) {
+        return Object.getPrototypeOf(argA).constructor.name;
+    }
+
+    static isInt(argA) {
+        return Number.isInteger(argA);
+    }
+
+    static isNumber(argA) {
+        return Number.parseFloat(argA).toString() !== 'NaN'
+    }
+
+    static isString(argA) {
+        return typeof argA === 'string' ? true : false
+    }
+
     /**
      * returns if the input is a key/value in the object options.argB
      * @param {*} argA
      * @param {*} argB  is required to be not empty
-     * 
+     *
      */
-    static isIn(argA, argB) { return argB.indexOf(argA) > -1 ? true : false; }
+    static isIn(argA, argB) {
+        return argB.indexOf(argA) > -1 ? true : false;
+    }
+
     //curently works only for string numbers
-    static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
+    static isEqualStrict(argA, argB) {
+        return argA === argB ? true : false;
+    }
+
     //for array's one sided value existence check, return true if each element of a is present in b
-    static isGreaterThan(argA, argB) { return argA > argB ? true : false }
-    static isGreaterthanOrEqual(argA, argB) { return argA => argB ? true : false }
-    static isSmallerthan(argA, argB) { return argA < argB ? true : false }
-    static isSmallerthanOrEqual(argA, argB) { return argA <= argB ? true : false }
-    static instanceof(argA, argB) { return console.log("work in process"); }
+    static isGreaterThan(argA, argB) {
+        return argA > argB ? true : false
+    }
+
+    static isGreaterthanOrEqual(argA, argB) {
+        return argA => argB ? true : false
+    }
+
+    static isSmallerthan(argA, argB) {
+        return argA < argB ? true : false
+    }
+
+    static isSmallerthanOrEqual(argA, argB) {
+        return argA <= argB ? true : false
+    }
+
+    static instanceof(argA, argB) {
+        return console.log("work in process");
+    }
+
     //validate 2 Object, with key's and values
     static isSameObject(argA, argB) {
 
         return console.log("work in process");
     }
+
     //check if argB has all the keys from argA // only for array.
-    static hasAllof(argA, argB) { return argA.every(function (value) { console.log(value, argB); return operate.isIn(value, argB) }); }
-    static arrayIncludes(argA, argB) { return argA.includes(function (value) { return operate.isIn(value, argB); }); }
+    static hasAllof(argA, argB) {
+        return argA.every(function (value) {
+            console.log(value, argB);
+            return operate.isIn(value, argB)
+        });
+    }
+
+    static arrayIncludes(argA, argB) {
+        return argA.includes(function (value) {
+            return operate.isIn(value, argB);
+        });
+    }
+
     //Check for bothArgument to be Number and Integer to be added.
-    static isInRangeNumbers(argA, argB) { return argA.every(function (value) { return operate.isGreaterthanOrEqual(value, argB.min) && operate.isSmallerthanOrEqual(value, argB.max); }); }
+    static isInRangeNumbers(argA, argB) {
+        return argA.every(function (value) {
+            return operate.isGreaterthanOrEqual(value, argB.min) && operate.isSmallerthanOrEqual(value, argB.max);
+        });
+    }
+
     //return true if all items are the same in two unordered Array need to add a return of mismatch values as option.
     static isSameArray(argA, argB) {
-        argA.sort(); argB.sort(); if (argA.length !== argB.length) return false;
-        for (let i = 0; i < argA.length; i++) { if (argA[i] !== argB[i]) return false; } return true;
+        argA.sort();
+        argB.sort();
+        if (argA.length !== argB.length) return false;
+        for (let i = 0; i < argA.length; i++) {
+            if (argA[i] !== argB[i]) return false;
+        }
+        return true;
     }
+
     // Returns if a value is an array
-    static isArray(value) { return value && Array.isArray(value) && typeof value === 'object' && value.constructor === Array; }
+    static isArray(value) {
+        return value && Array.isArray(value) && typeof value === 'object' && value.constructor === Array;
+    }
+
     // Returns if a value is a static
-    static isstatic(value) { return typeof value === 'static'; }
+    static isstatic(value) {
+        return typeof value === 'static';
+    }
+
     // Returns if a value is an object
-    static isObject(value) { return value && typeof value === 'object' && value.constructor === Object; }
-    static isHTML(argA) { return operate.is(argA).includes("HTML") }
+    static isObject(value) {
+        return value && typeof value === 'object' && value.constructor === Object;
+    }
+
+    static isHTML(argA) {
+        return operate.is(argA).includes("HTML")
+    }
+
     // Returns if a value is null
-    static isNull(value) { return value === null; }
-    // Returns if a value is undefined 
-    static isUndefined(value) { return typeof value === 'undefined'; }
-    // Returns if a value is a boolean 
-    static isBoolean(value) { return typeof value === 'boolean'; }
+    static isNull(value) {
+        return value === null;
+    }
+
+    // Returns if a value is undefined
+    static isUndefined(value) {
+        return typeof value === 'undefined';
+    }
+
+    // Returns if a value is a boolean
+    static isBoolean(value) {
+        return typeof value === 'boolean';
+    }
+
     //Returns if a value is a regexp
-    static isRegExp(value) { return value && typeof value === 'object' && value.constructor === RegExp; }
+    static isRegExp(value) {
+        return value && typeof value === 'object' && value.constructor === RegExp;
+    }
+
     // Returns if value is an error object
-    static isError(value) { return value instanceof Error && typeof value.message !== 'undefined'; }
+    static isError(value) {
+        return value instanceof Error && typeof value.message !== 'undefined';
+    }
+
     // Returns if value is a date object
-    static isDate(value) { return value instanceof Date; }
+    static isDate(value) {
+        return value instanceof Date;
+    }
+
     //Returns if the value is a Prototyp
-    static isPrototype(value) { console.log(Object.getPrototypeOf(value) === prototype1); }
+    static isPrototype(value) {
+        console.log(Object.getPrototypeOf(value) === prototype1);
+    }
+
     // Returns if a Symbol
-    static isSymbol(value) { return typeof value === 'symbol'; }
+    static isSymbol(value) {
+        return typeof value === 'symbol';
+    }
+
     //This function validates a valid Url, Returns True or false
-    static isValidUrl(string) { try { new URL(string); } catch (_) { return false; } return true; }
-    static isValidJSONString(str) { try { JSON.parse(str); } catch (e) { return false; } return true; }
+    static isValidUrl(string) {
+        try {
+            new URL(string);
+        } catch (_) {
+            return false;
+        }
+        return true;
+    }
+
+    static isValidJSONString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      *  * Returns true if the given test value is an array containing at least one object; false otherwise.
      * */
@@ -165,15 +303,34 @@ class operate {
         }
         return false;
     }
-    static isChild(argA, argB) { }
-    static isParent(argA, argB) { }
-    static isEven(argA) { return numbers.every(function (e) { return e % 2 == 0; }); }
-    static isOdd(argA) { return numbers.every(function (e) { return Math.abs(e % 2) == 1; }); }
+
+    static isChild(argA, argB) {
+    }
+
+    static isParent(argA, argB) {
+    }
+
+    static isEven(argA) {
+        return numbers.every(function (e) {
+            return e % 2 == 0;
+        });
+    }
+
+    static isOdd(argA) {
+        return numbers.every(function (e) {
+            return Math.abs(e % 2) == 1;
+        });
+    }
 }
 
 class operator {
     //    //arr.every(callback(element[, index[, array]])[, thisArg])
-    static onEvery1(a, b, callbacks) { return callbacks.every(function (callback) { return operate[callback](a, b); }); }
+    static onEvery1(a, b, callbacks) {
+        return callbacks.every(function (callback) {
+            return operate[callback](a, b);
+        });
+    }
+
     //similar function for some to be coded.
 
 }
@@ -206,9 +363,10 @@ class ActionEventController {
         this._events = {};
         this.context = context
         this.createListeners(context)
-    }       
+    }
+
     addListener(event, fn) {
-        /** 
+        /**
          * The addListener event checks if the event is already registered.
          * If yes, returns the array, otherwise empty array.
          * A note: Multiple callbacks can be registered against that same event.
@@ -223,7 +381,7 @@ class ActionEventController {
         let events = dataHelpers.find(entity, 'on')
         //  console.log(events)
         events.forEach((evt) => {
-          //  this.addListener(evt, this.conductEvent);
+            //  this.addListener(evt, this.conductEvent);
             // this.addListener(evt,this.conductEvent)
             window[evt] = this.conductEvent // to be changed to add Listerner
         })
@@ -245,19 +403,26 @@ class ActionEventController {
     conductEvent(e) {
         var currentTarget = e.target;
 
-      //  var currentCaret = new Caret(e.target);
-       // var newCaretPosition = currentCaret.setPos(currentCaretPosition - 2);
-       
-       
-        if (e.type === 'keydown') { 
+        //  var currentCaret = new Caret(e.target);
+        // var newCaretPosition = currentCaret.setPos(currentCaretPosition - 2);
+
+
+        if (e.type === 'keydown') {
             console.log(e.key);
-            if (e.key === "Enter") {
+            if (e.key === "Tab") {
                 console.log("EnterKey Detected")
-                Caret.moveCaret(window, 5)
-               // insertInTextarea("lol", currentTarget);
+                e.preventDefault()
+
+                let val = document.getElementById('acSpaId').innerText.trim()
+                let editor = document.getElementById('acSpaId')
+                // const input=val.split(/[^A-Za-z]/);
+                let keyword =
+                    Caret.getLastWord(editor, Caret.getCaretIndex(editor))
+                AutoComplete.checkSuggestion(keyword, document.getElementById('acSpaId'))
+
             }
         }
-        
+
     }
 }
 
@@ -270,6 +435,7 @@ class Entity {
         this.entity = process.processReq(input, output);
         console.log("Entity Created", this);
     }
+
     static create(input, output, key, value, callback, callbackClass) {
         // console.log('create request for ',output,key)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
@@ -306,6 +472,7 @@ class Entity {
         if (!response) console.log("no response", output);
         return response;
     }
+
     static append(input, output, key, value, callback, callbackClass) {
         // console.log('appending', input,output)
 
@@ -313,14 +480,14 @@ class Entity {
             var response = output.appendChild(input);
         }
         if (operate.is(output).includes("Object")) { //Only HTML creation
-            // console.log("append request for ",input,output)     
+            // console.log("append request for ",input,output)
             output[key] = input;
             var response = output;
             //var response = document.createElement(key);
 
         }
         if (operate.is(output).includes("Array")) { //Only HTML creation
-            // console.log("append request for ",input,output)     
+            // console.log("append request for ",input,output)
             output.push(input);
             var response = output;
             //var response = document.createElement(key);
@@ -328,10 +495,10 @@ class Entity {
         }
 
 
-
         // console.log('appended',response)
         return response;
     }
+
     static set(input, output, key, value, callback, callbackClass) {
         //  console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
@@ -371,6 +538,7 @@ class ActionSpaceDataController extends ActionSpace {
     save() {
         this._model.setData(this._view._elements.text.innerText);
     }
+
     static processRanges() {
         //this function might be needed to work on ranges
     }
@@ -390,19 +558,21 @@ class ActionSpaceView {
     getDomContent() {
 
     }
-    
+
     updateDom(cmd) {
-       
+
 
     }
 
     clearDom() {
     }
+
     static insertAtCaretIndex() {
-        
-     }
+
+    }
 
 }
+
 /**
  * @file get/set caret position and insert text
  * @author islishude
@@ -411,7 +581,7 @@ class ActionSpaceView {
 class Caret {
     /**
      * get/set caret position
-     * @param {HTMLColletion} target 
+     * @param {HTMLColletion} target
      */
     constructor(target) {
         this.isContentEditable = target && target.contentEditable
@@ -420,37 +590,38 @@ class Caret {
     }
 
     static moveCaret(win, charCount) {
-    var sel, range;
-    if (win.getSelection) {
-        // IE9+ and other browsers
-        sel = win.getSelection();
-        if (sel.rangeCount > 0) {
-            var textNode = sel.focusNode;
-            var newOffset = sel.focusOffset + charCount;
-            sel.collapse(textNode, Math.min(textNode.length, newOffset));
-        }
-    } else if ((sel = win.document.selection)) {
-        // IE <= 8
-        if (sel.type != "Control") {
-            range = sel.createRange();
-            range.move("character", charCount);
-            range.select();
+        var sel, range;
+        if (win.getSelection) {
+            // IE9+ and other browsers
+            sel = win.getSelection();
+            if (sel.rangeCount > 0) {
+                var textNode = sel.focusNode;
+                var newOffset = sel.focusOffset + charCount;
+                sel.collapse(textNode, Math.min(textNode.length, newOffset));
+            }
+        } else if ((sel = win.document.selection)) {
+            // IE <= 8
+            if (sel.type != "Control") {
+                range = sel.createRange();
+                range.move("character", charCount);
+                range.select();
+            }
         }
     }
-    }
-    
-    static getCaretPos() { 
-        
+
+    static getCaretPos() {
+
         var currentSelection = window.getSelection();
-        var position =  currentSelection.anchorOffset;
-       // console.log(currentSelection, position);
+        var position = currentSelection.anchorOffset;
+        // console.log(currentSelection, position);
         return position;
 
     }
-    static setCaretPos(currentSelection, pos) { 
+
+    static setCaretPos(currentSelection, pos) {
         var currentSelection = window.getSelection();
         var position = currentSelection.anchorOffset;
-   //    console.log(currentSelection)
+        //    console.log(currentSelection)
         currentSelection.selectionStart = currentSelection.selectionEnd = 10;
         return pos;
     }
@@ -466,7 +637,7 @@ class Caret {
         sel.removeAllRanges();
         sel.addRange(range);
     }
-    
+
     static getCaretIndex(element) {
 
         let position = 0;
@@ -484,9 +655,11 @@ class Caret {
                 position = preCaretRange.toString().length;
             }
         }
-       // console.log("Caret at", position, element)
+        // console.log("Caret at", position, element)
         return position;
+
     }
+
     /**
      * get caret position
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Range}
@@ -494,18 +667,18 @@ class Caret {
      */
     static getPos(e) {
         // for contentedit field
-      //  if (this.isContentEditable) {
-            console.log(this.target);
-            this.target.focus()
-            let _range = document.getSelection().getRangeAt(0)
-            let range = _range.cloneRange()
-            range.selectNodeContents(this.target)
-            range.setEnd(_range.endContainer, _range.endOffset)
-            return range.toString().length;
-    //    }
+        //  if (this.isContentEditable) {
+        console.log(this.target);
+        this.target.focus()
+        let _range = document.getSelection().getRangeAt(0)
+        let range = _range.cloneRange()
+        range.selectNodeContents(this.target)
+        range.setEnd(_range.endContainer, _range.endOffset)
+        return range.toString().length;
+        //    }
         // for texterea/input element
-        
-       // return this.target.selectionStart
+
+        // return this.target.selectionStart
     }
 
     /**
@@ -521,24 +694,98 @@ class Caret {
         }
         this.target.setSelectionRange(pos, pos)
     }
+
+    static getLastWord(text, caretPos) {
+
+        let content = text.innerText.substring(0, caretPos);
+        let input = content.split(/[^A-Za-z]/);
+
+        return input[input.length - 1]
+
+    }
 }
+
+
+/**
+ * AutComplete
+ */
+
+class AutoComplete {
+    static checkSuggestion(keyword, editor) {
+        keyword = this.removeSpecialCharacters(keyword.trim());
+
+        if (this._isContains(snippets, keyword)) {
+            // console.log(snippets)
+            for (let i = 0; i < snippets.length; ++i) {
+
+                const obj = snippets[i];
+                // console.log(obj.prefix+" "+keyword)
+
+                if (obj.prefix === keyword.trim()) {
+
+                    console.log(editor.innerText.substring(0, editor.innerText.length - keyword.trim().length))
+
+
+                    Caret.insertInTextarea(obj.body)
+                    // this.setCaretToEnd(editor)
+                }
+            }
+        } else {
+            console.log("Nope")
+        }
+    }
+
+    static removeSpecialCharacters(keyword) {
+        // console.log(keyword)
+        const desired = keyword.replace(/[^\w\s]/gi, '');
+        // console.log(desired.trim())
+        return desired
+    }
+
+    static _isContains(json, value) {
+        // console.log(value.trim())
+        let contains = false;
+        Object.keys(json).some(key => {
+            contains = typeof json[key] === 'object' ? this._isContains(json[key], value.trim()) : json[key] === value.trim();
+            return contains;
+        });
+        return contains;
+    }
+
+    static setCaretToEnd(target) {
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(target);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        target.focus();
+        range.detach(); // optimization
+
+        // set scroll to the end if multiline
+        target.scrollTop = target.scrollHeight;
+    }
+}
+
 
 /**
  * insert text or orther to editor
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
  * @module Editor
  */
- class Editor {
+class Editor {
     constructor() {
     }
+
     /**
      * @param {string} content - your insert text
-     * @returns {boolean} 
+     * @returns {boolean}
      */
     insertText(content) {
         document.execCommand('insertText', false, content)
     }
 }
+
 window.onload = loadActionEventController;
 
 function loadActionEventController() {
@@ -548,7 +795,7 @@ function loadActionEventController() {
 }
 
 
-
 class actionEngine extends ActionSpace {
 
 }
+
