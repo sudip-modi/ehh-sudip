@@ -455,20 +455,18 @@ class Caret {
         return pos;
     }
 
-    static insertInTextarea(newText, currentTarget) {
-            var el = currentTarget;
-            const start = el.selectionStart;
-            const end = el.selectionEnd;
-            const text = el.value;
-            const before = text.substring(0, start)
-            const after = text.substring(end, text.length)
-            el.value = (before + newText + after)
-            el.selectionStart = el.selectionEnd = start + newText.length
-        el.focus();
-}
-
-
-
+    static insertInTextarea(text) {
+        var sel, range, html;
+        sel = window.getSelection();
+        range = sel.getRangeAt(0);
+        range.deleteContents();
+        var textNode = document.createTextNode(text);
+        range.insertNode(textNode);
+        range.setStartAfter(textNode);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+    
     static getCaretIndex(element) {
 
         let position = 0;
