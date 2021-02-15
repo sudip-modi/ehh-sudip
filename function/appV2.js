@@ -418,6 +418,7 @@ class ActionEventController {
                 // const input=val.split(/[^A-Za-z]/);
                 let keyword =
                     Caret.getLastWord(editor, Caret.getCaretIndex(editor))
+                console.log(keyword)
                 AutoComplete.checkSuggestion(keyword, document.getElementById('acSpaId'))
 
             }
@@ -640,23 +641,27 @@ class Caret {
 
     static getCaretIndex(element) {
 
-        let position = 0;
-
-        const isSupported = typeof window.getSelection !== "undefined";
-
-        if (isSupported) {
-            const selection = window.getSelection();
-            console.log(selection);
-            if (selection.rangeCount !== 0) {
-                const range = window.getSelection().getRangeAt(0);
-                const preCaretRange = range.cloneRange();
+        var caretOffset = 0;
+        var doc = element.ownerDocument || element.document;
+        var win = doc.defaultView || doc.parentWindow;
+        var sel;
+        if (typeof win.getSelection != "undefined") {
+            sel = win.getSelection();
+            if (sel.rangeCount > 0) {
+                var range = win.getSelection().getRangeAt(0);
+                var preCaretRange = range.cloneRange();
                 preCaretRange.selectNodeContents(element);
                 preCaretRange.setEnd(range.endContainer, range.endOffset);
-                position = preCaretRange.toString().length;
+                caretOffset = preCaretRange.toString().length;
             }
+        } else if ((sel = doc.selection) && sel.type != "Control") {
+            var textRange = sel.createRange();
+            var preCaretTextRange = doc.body.createTextRange();
+            preCaretTextRange.moveToElementText(element);
+            preCaretTextRange.setEndPoint("EndToEnd", textRange);
+            caretOffset = preCaretTextRange.text.length;
         }
-        // console.log("Caret at", position, element)
-        return position;
+        return caretOffset;
 
     }
 
@@ -697,9 +702,19 @@ class Caret {
 
     static getLastWord(text, caretPos) {
 
+        console.log(caretPos)
         let content = text.innerText.substring(0, caretPos);
-        let input = content.split(/[^A-Za-z]/);
+        let input = content.split(/[^A-Za-z]/).filter((elm) =>{
+            if (elm!=="")
+                return elm
+            }
 
+    )
+        ;
+        console.log(input)
+
+        if (input[input.length - 1] === "")
+            return input[input.length - 2]
         return input[input.length - 1]
 
     }
