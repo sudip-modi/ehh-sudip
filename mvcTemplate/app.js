@@ -11,7 +11,9 @@ window.addEventListener('load', () => {
             'delButton': document.getElementById('minusBtn')
         }
     actionEvent = new ActionEventEmitter(_actionSpace)// Controller to be added
-    //actionController = new actionController(_actionSpace);
+        
+    console.log(actionEvent);
+    //actionController = new ActionController(actionEvent);
 
 
        //  view = new ListView(model, actionSpace),

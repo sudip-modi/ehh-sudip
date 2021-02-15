@@ -13,6 +13,8 @@ class ListController {
     }
 
     addItem() {
+        console.log("Add Button Clicked")
+
         const item = window.prompt('Add item:', '');
         if (item) {
             this._model.addItem(item);
@@ -20,6 +22,7 @@ class ListController {
     }
 
     delItem() {
+        console.log("Del Button Clicked")
         const index = this._model.selectedIndex;
         if (index !== -1) {
             this._model.removeItemAt(index);
