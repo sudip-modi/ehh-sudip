@@ -8,7 +8,7 @@ class ListView extends EventEmitter {
         super();
         this._model = model;
         this._elements = elements;
-
+            console.log(this._elements)
         // attach model listeners
         model.on('itemAdded', () => this.rebuildList())
             .on('itemRemoved', () => this.rebuildList());
