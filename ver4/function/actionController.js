@@ -32,7 +32,7 @@ class ActionController extends ActionEvent {
                     // const input=val.split(/[^A-Za-z]/);
                     let keyword = Caret.getLastWord(editor, Caret.getCaretIndex(editor))
                     console.log("lastword",keyword)
-                    AutoComplete.checkSuggestion(keyword, document.getElementById('acSpaId'))
+                    AutoComplete.checkSuggestion(keyword, editor)
 
                 }
             }

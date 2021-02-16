@@ -1,7 +1,7 @@
 
 var actionSpaceV2 = {
-    richTextToolBar: {
-        name: 'richTextToolBar',
+    toolBar: {
+        name: 'toolBar',
         display: "none",
         border: "solid 1px #a6d8a8",
         resize: 'both',
@@ -17,6 +17,39 @@ var actionSpaceV2 = {
                 id: "del",
                 class: 'material-icons',
                 'innerText': 'undo'
+            }, {
+                name: 'button',
+                id: "redo",
+                class: 'material-icons',
+                'innerText': 'redo'
+            },
+            {
+                name: 'button',
+                id: "delete",
+                class: 'material-icons',
+                'innerText': "delete"
+                
+            },
+            
+        ]
+    },
+    richTextToolBar: {
+        name: 'richTextToolBar',
+        display: "none",
+        border: "solid 1px #a6d8a8",
+        resize: 'both',
+        menu: [
+            {
+                name: 'button',
+                id:"add",
+                class: "material-icons",
+                'innerText':"format_bold"
+            },
+            {
+                name: 'button',
+                id: "del",
+                class: 'material-icons',
+                'innerText': 'format_italic'
             }, {
                 name: 'button',
                 id: "redo",
@@ -50,8 +83,6 @@ var actionSpaceV2 = {
         },
     ]
 }
-
-
 
 var actionContent = {
     innerText : "I was changed",
