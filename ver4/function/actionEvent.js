@@ -1,4 +1,4 @@
-class actionEventController {
+class ActionEvent {
     constructor(elements4Event) {
         this._events = {};
         this._elements = elements4Event;
@@ -12,11 +12,9 @@ class actionEventController {
         this._events[eventName].push(fn);
         return this;
     }
-
     on(eventName, fn) {
         return this.addListener(eventName, fn);
     }
-
     emit(eventName, ...args) {
         let fns = this._events[eventName];
         if (!fns) return false;
