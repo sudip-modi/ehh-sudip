@@ -3,22 +3,22 @@
  * invokes changes on the model.
  */
 class Controller extends EventEmitter {
-    constructor(actionEvent, elements) {
+    constructor(actionEvent, actionSpaceElements) {
         super();
         this._actionEvent = actionEvent;
-        this._elements = elements;
-       // console.log(this._elements)
+        this._actionSpaceElements = actionSpaceElements;
+        console.log(this._actionSpaceElements)
        // attach listeners to HTML controls
-        elements.actionSpace.addEventListener('change', e => this.emit('listModified', e.target.selectedIndex));
-        elements.addButton.addEventListener('click',() => this.emit('addButtonClicked'));
-        elements.delButton.addEventListener('click',() => this.emit('delButtonClicked'));
+        actionSpaceElements.actionSpace.addEventListener('change', e => this.emit('listModified', e.target.selectedIndex));
+        actionSpaceElements.addButton.addEventListener('click',() => this.emit('addButtonClicked'));
+        actionSpaceElements.delButton.addEventListener('click',() => this.emit('delButtonClicked'));
     } 
     addItem() {
         console.log("Add Button Clicked")
-        const item = window.prompt('Add item:', '');
-        if (item) {
-          //  this._model.addItem(item);
-        }
+       // const item = window.prompt('Add item:', '');
+        // if (item) {
+        //   //  this._model.addItem(item);
+        // }
     }
 
     delItem() {
