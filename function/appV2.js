@@ -408,8 +408,10 @@ class ActionEventController {
 
 
         if (e.type === 'keydown') {
+          
+
             console.log(e.key);
-            if (e.key === "Tab") {
+            if (e.keyCode == 32) {
                 console.log("EnterKey Detected")
                 e.preventDefault()
 

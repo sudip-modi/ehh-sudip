@@ -4,13 +4,16 @@ actionSpace4mDom = {
     'delButton': document.getElementById('del')
 }
 
-window.addEventListener('load', () => {
-    // const model = new ListModel(['node.js', 'react']),
-  //  console.log("actionSpace Elements ", actionSpace4mDom);
-   // actionEvent = new ActionEvent(actionSpace4mDom);
-    actionEntity = new Entity(actionSpaceV2, document.getElementById('actionSpace'))
-  //  actionControl = new Controller(actionSpace4mDom);
-   // actionView = new ActionView(actionSpaceViewJson,actionSpace4mDom);
-  //  console.log("controller", controller)
-    console.log("actionSpaceViewJson", actionSpaceV2);
-});
+class ActionSpace { 
+    constructor(entity) { 
+     //   this._actionEntity = new Entity(josnObject, document.getElementById('actionSpace'))
+        this._actionView = new ActionView(entity, document.getElementById('actionSpace'));
+        this._actionEvent = new ActionEvent(document.getElementById('actionSpace')) // input should be actionView
+        this._actionControl = new ActionController(this._actionView,this._actionEvent)
+
+    }
+}
+
+
+
+var newActionSpace = new ActionSpace(actionSpaceV2);

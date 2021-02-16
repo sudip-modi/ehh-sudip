@@ -1,4 +1,4 @@
-var htmlAttributesList = [ 'name', 'label', 'onclick', 'lineNumbers', 'class', 'id', 'text', 'title', 'content', 'value', 'type']
+var htmlAttributesList = ['name', 'label', 'onclick', 'lineNumbers', 'class', 'id', 'text', 'title', 'content', 'value', 'type','display']
 var RangeForDays = {
     days2: 'days2',
     days3: 'days3',

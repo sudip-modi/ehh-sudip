@@ -3,7 +3,8 @@ class ActionEvent {
         this._events = {};
         this._elements = elements4Event;
         console.log(elements4Event)
-        this.on('addButtonClicked', e => this.add(e));
+        this.on('keypress', e => this.onKeyPress(e));
+        this.on('clickOnActionSpace', e => this.onClick(e));
         this.on('delButtonClicked', e => this.del(e));
     }
 
@@ -17,6 +18,7 @@ class ActionEvent {
     }
     emit(eventName, ...args) {
         let fns = this._events[eventName];
+        console.log("Emitted",eventName)
         if (!fns) return false;
         fns.forEach((f) => {
             f(...args);

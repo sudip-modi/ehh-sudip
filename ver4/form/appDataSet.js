@@ -2,29 +2,30 @@
 var actionSpaceV2 = {
     richTextToolBar: {
         name: 'richTextToolBar',
-        type: 'linkMenu',
-        class: 'menu',
+        display: "none",
+        border: "solid 1px #a6d8a8",
+        resize: 'both',
         menu: [
             {
                 name: 'button',
-                type: 'div',
+                id:"add",
                 class: "material-icons",
                 'innerText':"add"
             },
             {
                 name: 'button',
-                type: "button",
+                id: "del",
                 class: 'material-icons',
                 'innerText': 'undo'
             }, {
                 name: 'button',
-                type: "button",
+                id: "redo",
                 class: 'material-icons',
                 'innerText': 'redo'
             },
             {
                 name: 'button',
-                type: 'div',
+                id: "delete",
                 class: 'material-icons',
                 'innerText': "delete"
                 
@@ -32,20 +33,28 @@ var actionSpaceV2 = {
             
         ]
     },
-    actionSpaceEditor: [
-       
 
+    actionSpaceEditor: [
         {
-            name: 'contentInput',
+            name: 'content',
             contentEditable: true,
-            class: 'code',
+            class: 'richText',
             lineNumbers: true,
-            innerText: "Write whatever you can think of...",
+            innerText: actionContent,
             // mimeMode: ['html', 'richText', 'json', 'css', 'javascript'],
             //  output: ['self', 'output'],
-            state: 'idle',
+            state: 'idle', //['selectable','selected','editable','inEdit','draggable','inDrag','locked','hidden']
             resize: true,
-            id: "acSpaId"
+           
+            id: "richText"
         },
     ]
+}
+
+
+
+var actionContent = {
+    innerText : "I was changed",
+    class: 'richText',
+  //  contentEditable: true
 }
