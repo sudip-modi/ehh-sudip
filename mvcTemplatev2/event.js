@@ -7,8 +7,8 @@ class EventEmitter {
         // elements.addButton.addEventListener('click', () => this.emit('addButtonClicked'));
         // elements.delButton.addEventListener('click', () => this.emit('delButtonClicked'));
         this.on('listModified', idx => this.updateSelected(idx));
-        this.on('addButtonClicked', () => this.addItem(e.target));
-        this.on('delButtonClicked', () => this.delItem(e.target));
+        this.on('addButtonClicked', () => this.addItem());
+        this.on('delButtonClicked', () => this.delItem());
     }
     on(evt, listener) {
         (this._events[evt] || (this._events[evt] = [])).push(listener);
