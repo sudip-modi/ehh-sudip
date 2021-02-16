@@ -181,7 +181,8 @@ class AutoComplete {
     static checkSuggestion(keyword, editor) {
         keyword = this.removeSpecialCharacters(keyword.trim());
         if (this._isContains(snippets, keyword)) {
-            // console.log(snippets)
+
+             console.log("editor",editor)
             for (let i = 0; i < snippets.length; ++i) {
 
                 const obj = snippets[i];
@@ -189,7 +190,7 @@ class AutoComplete {
 
                 if (obj.prefix === keyword.trim()) {
 
-                    console.log(editor.innerText.substring(0, editor.innerText.length - keyword.trim().length))
+                   // console.log(editor.innerText.substring(0, editor.innerText.length - keyword.trim().length))
 
 
                     Caret.insertInTextarea(obj.body)

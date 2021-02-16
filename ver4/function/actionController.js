@@ -21,20 +21,17 @@ class ActionController extends ActionEvent {
 
     }
     onKeyPress(entity) { 
-  
+        console.log(entity.type,entity.key);
 
-   
-            if (entity.type === 'keydown') {
-                console.log(entity.key);
+            if (entity.type === 'keypress') {
                 if (entity.keyCode == 32) {
                     console.log("EnterKey Detected")
-                    e.preventDefault()
-
-                    let val = document.getElementById('acSpaId').innerText.trim()
-                    let editor = document.getElementById('acSpaId')
+                   // entity.preventDefault()
+                    let val = entity.target.innerText.trim()
+                    let editor = entity.target
                     // const input=val.split(/[^A-Za-z]/);
                     let keyword = Caret.getLastWord(editor, Caret.getCaretIndex(editor))
-                    console.log(keyword)
+                    console.log("lastword",keyword)
                     AutoComplete.checkSuggestion(keyword, document.getElementById('acSpaId'))
 
                 }
