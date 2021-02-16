@@ -7,9 +7,7 @@ class Controller extends EventEmitter {
         super();
         this._actionEvent = actionEvent;
         this._elements = elements;
-        console.log(this._elements)
-       
-       
+       // console.log(this._elements)
        // attach listeners to HTML controls
         elements.actionSpace.addEventListener('change', e => this.emit('listModified', e.target.selectedIndex));
         elements.addButton.addEventListener('click',() => this.emit('addButtonClicked'));

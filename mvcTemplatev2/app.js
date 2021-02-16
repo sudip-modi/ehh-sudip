@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
             'addButton': document.getElementById('plusBtn'),
             'delButton': document.getElementById('minusBtn')
         }
-   
+    console.log(actionSpace);
     actionEvent = new EventEmitter(actionSpace);
     //console.log("actionEvent", actionEvent);
     //view = new View(model, actionSpace),

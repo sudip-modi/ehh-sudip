@@ -1,6 +1,11 @@
 class EventEmitter {
     constructor(elements) {
         this._events = {};
+        this._elements = elements;
+       console.log(this._elements)
+        // elements.actionSpace.addEventListener('change', e => this.emit('listModified', e.target.selectedIndex));
+        // elements.addButton.addEventListener('click', () => this.emit('addButtonClicked'));
+        // elements.delButton.addEventListener('click', () => this.emit('delButtonClicked'));
         this.on('listModified', idx => this.updateSelected(idx));
         this.on('addButtonClicked', () => this.addItem());
         this.on('delButtonClicked', () => this.delItem());
