@@ -2,13 +2,16 @@
  * The Controller. Controller responds to user actions and
  * invokes changes on the model.
  */
-class Controller extends EventEmitter {
+class Controller extends actionEventController {
     constructor(actionSpaceElements, actionEvent) {
         super();
         this._actionSpaceElements = actionSpaceElements;
         console.log(this._actionSpaceElements)
         // attach listeners to HTML controls
-        actionSpaceElements.actionSpace.addEventListener('change', e => this.emit('listModified', e.target.selectedIndex));
+        actionSpaceElements.actionSpace.addEventListener('mouseMove', e => this.emit('mouseMoved', e));
+        actionSpaceElements.actionSpace.addEventListener('input', e => this.emit('event', e));
+
+
         actionSpaceElements.addButton.addEventListener('click', e => this.emit('addButtonClicked', e));
         actionSpaceElements.delButton.addEventListener('click', e => this.emit('delButtonClicked',e));
     }

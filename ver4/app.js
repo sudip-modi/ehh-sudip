@@ -6,10 +6,10 @@ actionSpace4mDom = {
 
 window.addEventListener('load', () => {
     // const model = new ListModel(['node.js', 'react']),
- 
     console.log("actionSpace Elements ", actionSpace4mDom);
-    actionEvent = new EventEmitter(actionSpace4mDom);
-  controller = new Controller(actionSpace4mDom);
+    actionEvent = new actionEventController(actionSpace4mDom);
+    actionControl = new Controller(actionSpace4mDom);
+    actionView = new actionView();
   //  console.log("controller", controller)
 
 });

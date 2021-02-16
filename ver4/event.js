@@ -1,8 +1,8 @@
-class EventEmitter {
-    constructor(elements) {
+class actionEventController {
+    constructor(elements4Event) {
         this._events = {};
-        this._elements = elements;
-        console.log(elements)
+        this._elements = elements4Event;
+        console.log(elements4Event)
         this.on('addButtonClicked', e => this.add(e));
         this.on('delButtonClicked', e => this.del(e));
     }
