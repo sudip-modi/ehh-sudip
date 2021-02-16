@@ -416,8 +416,7 @@ class ActionEventController {
                 let val = document.getElementById('acSpaId').innerText.trim()
                 let editor = document.getElementById('acSpaId')
                 // const input=val.split(/[^A-Za-z]/);
-                let keyword =
-                    Caret.getLastWord(editor, Caret.getCaretIndex(editor))
+                let keyword = Caret.getLastWord(editor, Caret.getCaretIndex(editor))
                 console.log(keyword)
                 AutoComplete.checkSuggestion(keyword, document.getElementById('acSpaId'))
 
@@ -709,8 +708,7 @@ class Caret {
                 return elm
             }
 
-    )
-        ;
+    );
         console.log(input)
 
         if (input[input.length - 1] === "")
@@ -728,7 +726,6 @@ class Caret {
 class AutoComplete {
     static checkSuggestion(keyword, editor) {
         keyword = this.removeSpecialCharacters(keyword.trim());
-
         if (this._isContains(snippets, keyword)) {
             // console.log(snippets)
             for (let i = 0; i < snippets.length; ++i) {
@@ -809,8 +806,4 @@ function loadActionEventController() {
     console.log("loaded ActionSpace", actionSpaceInstance);
 }
 
-
-class actionEngine extends ActionSpace {
-
-}
 

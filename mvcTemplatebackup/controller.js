@@ -8,12 +8,12 @@ class ListController {
         this._view = view;
 
         view.on('listModified', idx => this.updateSelected(idx));
-        view.on('addButtonClicked', () => this.addItem());
+        view.on('addButtonClicked', e => this.addItem(e));
         view.on('delButtonClicked', () => this.delItem());
     }
 
-    addItem() {
-        console.log("Add Button Clicked")
+    addItem(e) {
+        console.log("Add Button Clicked",e.target)
 
         const item = window.prompt('Add item:', '');
         if (item) {
@@ -30,6 +30,7 @@ class ListController {
     }
 
     updateSelected(index) {
+        console.log(index)
         this._model.selectedIndex = index;
     }
 }
