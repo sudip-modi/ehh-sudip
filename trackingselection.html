@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea id="area" style="width:80%;height:60px">
+    Selecting in this text updates values below.
+    </textarea>
+    <br>
+    From <input id="from" disabled> – To <input id="to" disabled>
+    
+    <script>
+        area.onselect = function () {
+            from.value = area.selectionStart;
+            to.value = area.selectionEnd;
+        };
+    </script>
+</body>
+</html>

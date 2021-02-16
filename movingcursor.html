@@ -1,0 +1,19 @@
+<!doctype html>
+
+<body>
+    <textarea id="area" style="width:80%;height:60px">
+Focus on me, the cursor will be at position 10.
+</textarea>
+
+    <script>
+        area.onfocus = () => {
+            // zero delay setTimeout to run after browser "focus" action finishes
+            setTimeout(() => {
+                // we can set any selection
+                // if start=end, the cursor is exactly at that place
+                console.log(area)
+                area.selectionStart = area.selectionEnd = 10;
+            });
+        };
+    </script>
+</body>

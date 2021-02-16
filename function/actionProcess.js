@@ -17,12 +17,12 @@ class process {
             var value = input[key];
             //console.log("found",key,input[key])
             if (operate.is(value) === 'Object') {
-                console.log("Object",output);
+               // console.log("Object",output);
                 var buffer = Entity.create(input, output, key);
                 process.iterateObj(input[key], buffer, key, value)
                 Entity.append(buffer, output);
             } else if (operate.is(value) === 'Array') {
-                console.log("foundArray", key)
+              //  console.log("foundArray", key)
                 var buffer = Entity.create(input, output, key);
                 process.iterateArr(input[key], buffer, key, value)
                 Entity.append(buffer, output);
@@ -56,7 +56,7 @@ class process {
                 // Entity.set(input,output,key,input[key])
             } else {
 
-                console.log("stray found")
+              //  console.log("stray found")
             }
             //console.log(callbackClass,callback)
             //   console.log(key, input[key])
@@ -67,7 +67,7 @@ class process {
 
             }
         }
-        console.log("iterator Array response", response);
+       // console.log("iterator Array response", response);
         return response;
     }
 
