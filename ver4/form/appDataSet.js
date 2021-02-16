@@ -41,27 +41,32 @@ var actionSpaceV2 = {
         menu: [
             {
                 name: 'button',
-                id:"add",
+                id:"format_bold",
                 class: "material-icons",
-                'innerText':"format_bold"
+                'innerText':"format_bold",
+                'data-cmd': 'Bold',
+                'onclick':"document.execCommand('bold',false,null)"
             },
             {
                 name: 'button',
-                id: "del",
+                id: "format_italic",
                 class: 'material-icons',
-                'innerText': 'format_italic'
+                'innerText': 'format_italic',
+                'data-cmd': 'italic',
+                'onclick':"document.execCommand('italic',false,null)"
             }, {
                 name: 'button',
-                id: "redo",
+                id: "underline",
                 class: 'material-icons',
-                'innerText': 'redo'
+                'innerText': 'format_underline',
+                'data-cmd': 'underline',
+                'onclick':"document.execCommand('underline',false,null)"
             },
             {
                 name: 'button',
                 id: "delete",
                 class: 'material-icons',
-                'innerText': "delete"
-                
+                'innerText': "delete" 
             },
             
         ]
