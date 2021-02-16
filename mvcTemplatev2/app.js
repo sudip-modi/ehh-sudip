@@ -1,8 +1,6 @@
-var list = document.getElementById('actionSpace');
 
-window.addEventListener('load', () => {
-    
-    
+
+window.addEventListener('load', () => { 
    // const model = new ListModel(['node.js', 'react']),
         actionSpace = {
             'actionSpace': document.getElementById('actionSpace'),
