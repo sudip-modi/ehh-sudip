@@ -3,8 +3,8 @@ class EventEmitter {
         this._events = {};
         this._elements = elements;
         console.log(elements)
-        this.on('addButtonClicked', e => this.addItem(e));
-        this.on('delButtonClicked', e => this.delItem(e));
+        this.on('addButtonClicked', e => this.add(e));
+        this.on('delButtonClicked', e => this.del(e));
     }
 
     addListener(eventName, fn) {
@@ -16,7 +16,7 @@ class EventEmitter {
     on(eventName, fn) {
         return this.addListener(eventName, fn);
     }
-    
+
     emit(eventName, ...args) {
         let fns = this._events[eventName];
         if (!fns) return false;
