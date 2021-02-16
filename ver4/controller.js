@@ -12,15 +12,12 @@ class Controller extends EventEmitter {
         actionSpaceElements.addButton.addEventListener('click', e => this.emit('addButtonClicked', e));
         actionSpaceElements.delButton.addEventListener('click', e => this.emit('delButtonClicked',e));
     }
-    addItem(entity) {
+    add(entity) {
         console.log("Add Button Clicked", entity.target)
-        // const item = window.prompt('Add item:', '');
-        // if (item) {
-        //   //  this._model.addItem(item);
-        // }
+       
     }
 
-    delItem(entity) {
+    del(entity) {
         console.log("Del Button Clicked", entity.target)
         //const index = this._model.selectedIndex;
         //   if (index !== -1) {

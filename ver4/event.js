@@ -6,14 +6,17 @@ class EventEmitter {
         this.on('addButtonClicked', e => this.addItem(e));
         this.on('delButtonClicked', e => this.delItem(e));
     }
-    on(evt, listener) {
-        (this._events[evt] || (this._events[evt] = [])).push(listener);
+
+    addListener(eventName, fn) {
+        this._events[eventName] = this._events[eventName] || [];
+        this._events[eventName].push(fn);
         return this;
     }
-    // emit(evt, arg) {
-    //     (this._events[evt] || []).slice().forEach(lsn => lsn(arg));
-    // }
 
+    on(eventName, fn) {
+        return this.addListener(eventName, fn);
+    }
+    
     emit(eventName, ...args) {
         let fns = this._events[eventName];
         if (!fns) return false;

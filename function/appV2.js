@@ -1,7 +1,7 @@
 const snippets = [
 
     {
-        prefix: "for",
+        "prefix": "for",
         body: [" (let i = 0; i < size; i++) { \n }  \n "]
     },
     {
