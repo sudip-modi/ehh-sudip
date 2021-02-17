@@ -121,55 +121,23 @@ class Caret {
 
     }
 
-    /**
-     * get caret position
-     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Range}
-     * @returns {number}
-     */
-    static getPos(e) {
-        // for contentedit field
-        //  if (this.isContentEditable) {
-        console.log(this.target);
-        this.target.focus()
-        let _range = document.getSelection().getRangeAt(0)
-        let range = _range.cloneRange()
-        range.selectNodeContents(this.target)
-        range.setEnd(_range.endContainer, _range.endOffset)
-        return range.toString().length;
-        //    }
-        // for texterea/input element
+   //This gets the last word from the caret position.
+    static getLastWord(element, caretPos) {
 
-        // return this.target.selectionStart
-    }
-
-    /**
-     * set caret position
-     * @param {number} pos - caret position
-     */
-    setPos(pos) {
-        // for contentedit field
-        if (this.isContentEditable) {
-            this.target.focus()
-            document.getSelection().collapse(this.target, pos)
-            return
-        }
-        this.target.setSelectionRange(pos, pos)
-    }
-
-    static getLastWord(text, caretPos) {
-
-       console.log(text,caretPos)
-        let content = text.innerText.substring(0, caretPos);
+     //  console.log(text,caretPos)
+        let content = element.innerText.substring(0, caretPos);
+      // console.log("content : ",content)
         let input = content.split(/[^A-Za-z]/).filter((elm) => {
+            //console.log("Something here",elm)
             if (elm !== "") {
-                console.log("spaceKeyPressed")
+               // console.log("spaceKeyPressed")
                 return elm 
             }
                 
         }
 
         );
-     //  console.log(input)
+   //  console.log(input) //Input here is the array os text in the text.
 
         if (input[input.length - 1] === "")
             return input[input.length - 2]

@@ -1,5 +1,6 @@
 
 /*
+https://css-tricks.com/snippets/css/complete-guide-grid/
 *:focus{
   border:none;
   outline:none;
@@ -65,20 +66,30 @@ a {
   padding-right: 3vw;
 }
 .left-sidebar {
-  background: rgb(236, 236, 236);
-  grid-column: 3/4;
+  background: lightblue;
+  grid-column: 1/2;
 }
 
-actionspacev2{
-  background: rgb(48, 179, 255);
-  width: auto;
+actionspacev2 {
+    padding: 5rem;
+  background: coral;
   grid-column: 2/3;
 }
 
-button{
-width: 34px;     
+content{
 
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    overflow-wrap: break-word;
+    background: #fafafa;
 }
+
+.right-sidebar {
+  background: yellow;
+  grid-column: 3/4;
+}
+
 footer {
      padding: 2rem;
   text-align: right;

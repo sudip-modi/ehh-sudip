@@ -1,0 +1,124 @@
+
+*:focus{
+  border:none;
+  outline:none;
+}
+
+body {
+ height: 100vh;
+ font-family: 'Poppins';
+ 
+}
+
+brand{
+  margin-left: 21px;
+  margin-right: 21px;
+  display: contents;
+  align-self: center;
+  background: rgb(255, 255, 255);
+  width: 25vw;
+  height: 100px;
+  font-family: 'Poppins';
+  font-size: 1.5vh; 
+}
+
+.searchBar{
+  margin-left: 55px;
+  padding-left: 13px;
+  font-family: 'Poppins';
+  font-size: 2vh;
+  width: auto;
+}
+
+actionLinkBar{
+  float: right;
+  padding-right: 5vw;
+  
+}
+a {
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+.leftSidebar {
+  grid-area: leftSidebar;
+ 
+}
+.rightSidebar {
+  grid-area: rightSidebar;
+
+}
+actionSpaceEditor{
+     margin: 3vw;
+     outline: none;
+     border: none;
+}
+.content {
+  grid-area: content;
+  position: relative;
+ 
+  
+}
+
+.header {
+  grid-area: header;
+}
+
+.footer {
+         padding: 2rem;
+  text-align: right;
+  grid-column: 1 / 4;
+  font-family: 'Montserrat';
+  font-size: 1.2vh;
+  grid-area: footer;
+}
+
+.actionSpace {
+   
+    border: none;
+    outline:none;
+    height: 100%;
+    display: grid;
+    grid-gap: 5px;
+    grid-template: auto 1fr auto/auto 1fr auto;
+    grid-template-areas:
+    "header  header  header"
+    "leftSidebar content rightSidebar"
+    "footer  footer  footer";
+  }
+
+.box {
+   
+  border-radius: 3px;
+  padding: 34px;
+ 
+}
+
+.header,
+.footer {
+    height: 5vh;
+ 
+}
+
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.topright {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.bottomright {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

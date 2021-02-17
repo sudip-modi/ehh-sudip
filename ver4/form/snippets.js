@@ -1,8 +1,12 @@
 const snippets = [
+    {
+        "prefix": "<",
+        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
+    },
 
     {
         "prefix": "for",
-        body: [" (let i = 0; i < size; i++) { \n }  \n "]
+        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
     },
     {
 

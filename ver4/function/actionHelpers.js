@@ -214,8 +214,8 @@ class AutoComplete {
 
                    // console.log(editor.innerText.substring(0, editor.innerText.length - keyword.trim().length))
 
-
-                    Caret.insertInTextarea(obj.body)
+                    console.log("Found",obj.prefix);
+                   // Caret.insertInTextarea(obj.body)
                     return true;
                     // this.setCaretToEnd(editor)
                 }

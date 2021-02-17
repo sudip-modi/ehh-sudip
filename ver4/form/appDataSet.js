@@ -337,5 +337,102 @@ var actionSapceLayoutV2 = {
     //     </actionLinkBar >
 //    < input id = "actionSearch" type = "text" class="searchBar" value = " search here..." >
 
+var basicLayout = {
+    actionSpace: {
+        name: 'div',
+        class: "actionSpace",
+       // innerText: "ActionSpace",
+        header: {
+            'name': 'div',
+            'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+            'id': 'header',
+            'class': 'box header',
+            //  'innerText':"header",
+            'brand': {
+                'name': 'div',
+                'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+                'id': 'header',
+                'innerText': "[ everything happens here ]",
+                'class': 'brand'
+            },
+            'input': {
+                'name': 'input',
+                'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+                'id': 'actionSearch',
+                'value': "search here...",
+                'class': 'searchBar'
+            },
+            'actionLinkBar': [
+                {
+                    'name': 'a',
+                    'desc': 'this leads to actionPage',
+                    'id': 'action button',
+                    'innerText': "action",
+                    'class': 'tabBtn',
+                    'data- element': 'action',
+                    'href': "#action",
 
-console.log(actionSpaceLayoutV1)
+                },
+                {
+                    'name': 'a',
+                    'desc': 'this leads to actionPage',
+                    'id': 'people button',
+                    'innerText': "people",
+                    'class': 'tabBtn',
+                    'data- element': 'people',
+                    'href': "#people",
+
+                }, {
+                    'name': 'a',
+                    'desc': 'this leads to actionPage',
+                    'id': 'people button',
+                    'innerText': "settings",
+                    'class': 'tabBtn',
+                    'data- element': 'setting',
+                    'href': "#settings",
+                },
+
+
+
+            ],
+
+
+        },
+        leftSidebar: {
+            name: "div",
+            class: "box leftSidebar",
+            innerText: "left-sidebar"
+        },
+        actionSpaceEditor: {
+         
+            content: [
+                {
+                    name: 'content',
+                    contentEditable: true,
+                    class: 'content',
+                    lineNumbers: true,
+                    innerText: actionContent,
+                    // mimeMode: ['html', 'richText', 'json', 'css', 'javascript'],
+                    //  output: ['self', 'output'],
+                    state: 'idle', //['selectable','selected','editable','inEdit','draggable','inDrag','locked','hidden']
+                    resize: true,
+
+                    id: "richText"
+                },
+            ]
+        },
+        rightSidebar: {
+            name: "div",
+            class: "box rightSidebar",
+            innerText: "right-sidebar"
+        },
+        footer: {
+            name: "div",
+            class: "footer",
+            innerHTML: "made with 🧠 & 🧡, < br > during 🌧️ at <b>shunya.ek</b>, goa, india.< br >with help from google & the world-wide - web tech community."
+        }
+    }
+   
+        
+
+}
