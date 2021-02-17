@@ -112,7 +112,7 @@ class operate {
      * @param {*} argB  is required to be not empty
      * 
      */
-    static isIn(argA, argB) { return argB.indexOf(argA) > -1 ? true : false; }
+    static isInsideArray(argA, argB) { return argB.indexOf(argA) > -1 ? true : false; }
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
     //for array's one sided value existence check, return true if each element of a is present in b
@@ -187,9 +187,7 @@ class operate {
      * options.Lookin : keys [keys, values, all]
      * 
      */
-    static isIn(argA, Object, options) { 
-
-    }
+   
 }
 
 var reqest = {
@@ -225,6 +223,26 @@ class dataHelpers {
         return result;
     }
 
+
+}
+
+
+function isIn(argA, entity, options) {
+    var valuesArray = Object.values(entity)
+    var result = Object.values(entity).filter(function (key, index, self) {
+      //  console.log(argA,!key.prefix.indexOf(argA), key.prefix)
+        if (!key.prefix.indexOf(argA) === true) {
+           // console.log("tentative match found",key)
+            if (argA.length === key.prefix.length) { 
+              //  console.log("matchFound", key.prefix)    //To get strict Match To be enabled using options.
+                var response = true;
+              //  return true;
+            }  
+        }
+        return !key.prefix.indexOf(argA);
+    });
+   // console.log("result",result);
+    return result;
 
 }
 

@@ -73,7 +73,7 @@ class Entity {
       //  console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
 
-            if (operate.isIn(key, htmlAttributesList)) {
+            if (operate.isInsideArray(key, htmlAttributesList)) {
               //  console.log("setting",key, value,"in",output)
                 output.setAttribute(key, value)
                 //console.log(output);
@@ -85,5 +85,16 @@ class Entity {
 
         }
         return output;
+    }
+    
+
+/**
+ * 
+ */
+    static insert(str, index, value) {
+        var response = str.substr(0, index) + value + str.substr(index);
+        console.log("inserted",response)
+        return response;
+    
     }
 }

@@ -38,38 +38,44 @@ class ActionController extends ActionEvent {
 
     onKeyPress(entity) {
         var currentSelection = window.getSelection();
+        var currentCaret = currentSelection.anchorOffset;
         if (!currentInputRange) { var currentInputRange = [] };
-        // console.log(currentSelection)
-        //   console.log(entity.type,entity.key);
-        if (entity.type === 'keypress') {
-
             var cartetAtPosIndex = Caret.getCaretIndex(entity.target);
             var cartetAtPos = Caret.getCaretPos(entity);
-            var match = AutoComplete.checkSuggestion(entity.key, entity.target)
-            
-            
-            // var lastKeyPressed = {
-            //     lastKeyCaret: cartetAtPos,
-            //     lastKeyPressedCharode: entity.charCode,
-            //     lastKeyPressed: entity.key,
-            //     lastKeytargetId: entity.target.id 
-            // }
-            
-            //  console.log(lastKeyPressed)
-        //    let _lastWordFromCaret = Caret.getLastWord(entity.target, cartetAtPosIndex)
-        //     console.log("LastWordFromCaret", _lastWordFromCaret)
-        //     if (_lastWordFromCaret) { 
-        //         AutoComplete.checkSuggestion(_lastWordFromCaret, entity.target)
-        //     }
-            
-
-            // if (entity.keyCode == 32) {
-               
-            //     }
-            // }
-
-        
+            var match = isIn(entity.key, snippets);
+            if (match.length === 1) { // is a exact Match. To be used for Space, {,[,(
+              
+               entity.preventDefault();
+                console.log("match",match[0].prefix ,match[0].body);
+                var response = Entity.insert(currentSelection.baseNode.textContent, currentSelection.anchorOffset, entity.key + match[0].body); 
+                currentSelection.baseNode.textContent = response;
+                Caret.moveCaret(window, currentCaret + 1);
         }
+        if (entity.keyCode == 32) { 
+            
+            var currentCaret = currentSelection.anchorOffset;
+
+
+           // console.log("key pressed", entity.keyCode)
+         //   console.log(currentSelection.baseNode)
+            var response = Caret.getLastWord(entity.target,currentCaret)
+       //     console.log(response);
+            // find last space, get th word in between
+          //  let content = entity.target.innerText;
+          //  console.log("space key pressed")
+            var getLastWord = entity.target;//Start A range//or get Last word
+         //   console.log("getLastWord",getLastWord, entity.target.textContent)
+       //     let content = element.innerText.substring(0, currentCaret);
+      //    console.log("content : ",content)
+            //var arrayOfWords = getLastWord.split(/[^A-Za-z]/)
+         //   var arrayOfWords = getLastWord.split(" ")
+           // console.log("getLastWord", arrayOfWords);;
+
+
+
+        }
+        
+        
     }
 
     add(entity) {

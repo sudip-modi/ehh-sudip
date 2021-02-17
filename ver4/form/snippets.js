@@ -5,15 +5,18 @@ const snippets = [
     },
     {
         "prefix": "<",
-        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
+        'body': [">"]
     },
     {
         "prefix": "[",
-        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
+        'body': [" ]"]
     },
     {
         "prefix": "{",
-        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
+        'body': [" }"]
+    }, {
+        "prefix": "(",
+        'body': [" )"]
     },
 
     {
@@ -48,4 +51,4 @@ const snippets = [
     }
 ];
 
-//console.log("snippets", snippets)
+console.log("snippets", Object.values(snippets))

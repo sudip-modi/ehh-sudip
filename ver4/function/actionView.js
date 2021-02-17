@@ -44,6 +44,19 @@ class Caret {
         this.target = target
         //console.log("CaretCreated ",target.tagName);
     }
+    
+    static setCaret(entity, pos) {
+        console.log(entity,pos)
+      //  var el = document.getElementById("editable")
+        // var range = document.createRange()
+        // var currentSelection = window.getSelection()
+
+        // range.setStart(currentSelection, 5)
+        // range.collapse(true)
+
+        // currentSelection.removeAllRanges()
+        // currentSelection.addRange(range)
+    }
 
     static moveCaret(win, charCount) {
         var sel, range;
@@ -123,26 +136,27 @@ class Caret {
 
    //This gets the last word from the caret position.
     static getLastWord(element, caretPos) {
-
-     //  console.log(text,caretPos)
-        let content = element.innerText.substring(0, caretPos);
-      // console.log("content : ",content)
-        let input = content.split(/[^A-Za-z]/).filter((elm) => {
-            console.log("Something here",elm)
-            if (elm !== "") {
-                console.log("spaceKeyPressed")
-                return elm 
-            }
+        //var lastWordsArray = e
+console.log("getting last word")
+//      //  console.log(text,caretPos)
+//         let content = element.innerText.substring(0, caretPos);
+//       // console.log("content : ",content)
+//         let input = content.split(/[^A-Za-z]/).filter((elm) => {
+//            // console.log("Something here",elm)
+//             if (elm !== "") {
+//                 console.log("spaceKeyPressed")
+//                 return elm 
+//             }
                 
-        }
+//         }
 
-        );
-   //  console.log(input) //Input here is the array os text in the text.
+//         );
+//    //  console.log(input) //Input here is the array os text in the text.
 
-        if (input[input.length - 1] === "")
-            console.log("yo",input[input.length - 2]);
-            return input[input.length - 2]
-        return input[input.length - 1]
+//         if (input[input.length - 1] === "")
+//             console.log("yo",input[input.length - 2]);
+//             return input[input.length - 2]
+//         return input[input.length - 1]
 
     }
 }

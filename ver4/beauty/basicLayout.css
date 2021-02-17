@@ -39,23 +39,30 @@ a {
   padding-left: 3vw;
   padding-right: 3vw;
 }
-.leftSidebar {
-  grid-area: leftSidebar;
- 
+leftSidebar {
+       
+       grid-area: leftSidebar;
+  background-color: blue;
+  height: 50vh;
 }
 .rightSidebar {
   grid-area: rightSidebar;
+  display:inline-block;
 
 }
 actionSpaceEditor{
-     margin: 3vw;
+     display:inline-block;
+     padding: 5vw;
      outline: none;
      border: none;
-     height: 100vh;
+     width:60vw;
+    height: 60vh;
+     background-color: aquamarine;
 }
-.content {
+content {
   grid-area: content;
   position: relative;
+
 }
 
 .header {
