@@ -177,9 +177,43 @@ class operate {
     static isParent(argA, argB) { }
     static isEven(argA) { return numbers.every(function (e) { return e % 2 == 0; }); }
     static isOdd(argA) { return numbers.every(function (e) { return Math.abs(e % 2) == 1; }); }
+    /**
+     * 
+     * @param {*} argA This is the input argument, it has to be a string operate.enforce(operate.isString(value), true)
+     * @param {*} Object The Object to search this string in .
+     * @param {*} options Currently there are 3 optional Parameters.
+     *  options.Recurse : true [true,false] Work In progress
+     * optoins.filter()
+     * options.Lookin : keys [keys, values, all]
+     * 
+     */
+    static isIn(argA, Object, options) { 
+
+    }
 }
 
+var reqest = {
+    method: 'get',// [ get,set,create,put,delete]
+    entity: {
+        entityIdentifier: '	ObjectID',
+        entityModel: 'document',
+        entityLocation: 'currentTab',
+        entityType: 'HTML',
+        entityName: "NameofEntity",
+        entityId: 'entityId',
+        entityLocation: 'Dom',
+        entityServiceClass: "Particular Class which has it's Crud operators, for eg. document is one service class, similarly SpreadsheetApp is a service class in AppScript and ActionEntity is a service classfor any entity in actionSpace "
+    },
+    //a generic Optional Parameter for every method in across classes		
+    options: {
+        recurse: true, // operate.isoneof(value,[true,false])
+        'and': {
 
+        }
+
+
+    }
+}
 
 class dataHelpers {
 
@@ -201,6 +235,7 @@ class dataHelpers {
 
 class AutoComplete {
     static checkSuggestion(keyword, editor) {
+      //  console.log("keyword In testing",keyword,typeof keyword)
         keyword = this.removeSpecialCharacters(keyword.trim());
         if (this._isContains(snippets, keyword)) {
 
@@ -221,7 +256,7 @@ class AutoComplete {
                 }
             }
         } else {
-            console.log("Nope");
+         //   console.log("Nope");
             return false;
         }
     }

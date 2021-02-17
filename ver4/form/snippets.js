@@ -1,6 +1,18 @@
 const snippets = [
     {
+        "prefix": ":",
+        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
+    },
+    {
         "prefix": "<",
+        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
+    },
+    {
+        "prefix": "[",
+        'body': [" (let i = 0; i < size; i++) { \n }  \n "]
+    },
+    {
+        "prefix": "{",
         'body': [" (let i = 0; i < size; i++) { \n }  \n "]
     },
 
@@ -17,6 +29,19 @@ const snippets = [
     },
     {
         "prefix": "if",
+        "body": [
+            "  (condition) {\n }\n "
+        ],
+    },
+
+    {
+        "prefix": "create",
+        "body": [
+            "  (condition) {\n }\n "
+        ],
+    },
+     {
+        "prefix": "actionflow",
         "body": [
             "  (condition) {\n }\n "
         ],

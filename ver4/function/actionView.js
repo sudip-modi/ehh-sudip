@@ -128,9 +128,9 @@ class Caret {
         let content = element.innerText.substring(0, caretPos);
       // console.log("content : ",content)
         let input = content.split(/[^A-Za-z]/).filter((elm) => {
-            //console.log("Something here",elm)
+            console.log("Something here",elm)
             if (elm !== "") {
-               // console.log("spaceKeyPressed")
+                console.log("spaceKeyPressed")
                 return elm 
             }
                 
@@ -140,6 +140,7 @@ class Caret {
    //  console.log(input) //Input here is the array os text in the text.
 
         if (input[input.length - 1] === "")
+            console.log("yo",input[input.length - 2]);
             return input[input.length - 2]
         return input[input.length - 1]
 

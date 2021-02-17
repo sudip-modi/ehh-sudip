@@ -7,7 +7,7 @@
 body {
  height: 100vh;
  font-family: 'Poppins';
- 
+
 }
 
 brand{
@@ -15,7 +15,7 @@ brand{
   margin-right: 21px;
   display: contents;
   align-self: center;
-  background: rgb(255, 255, 255);
+  background: rgb(13, 22, 141);
   width: 25vw;
   height: 100px;
   font-family: 'Poppins';
@@ -51,12 +51,11 @@ actionSpaceEditor{
      margin: 3vw;
      outline: none;
      border: none;
+     height: 100vh;
 }
 .content {
   grid-area: content;
   position: relative;
- 
-  
 }
 
 .header {

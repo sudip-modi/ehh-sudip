@@ -351,7 +351,7 @@ var basicLayout = {
             'brand': {
                 'name': 'div',
                 'desc': 'This is a horizontical bar, more functionality of this bar to be added',
-                'id': 'header',
+                'id': 'brand',
                 'innerText': "[ everything happens here ]",
                 'class': 'brand'
             },
@@ -404,12 +404,11 @@ var basicLayout = {
             innerText: "left-sidebar"
         },
         actionSpaceEditor: {
-         
             content: [
                 {
                     name: 'content',
                     contentEditable: true,
-                    class: 'content',
+                    'class': 'content',
                     lineNumbers: true,
                     innerText: actionContent,
                     // mimeMode: ['html', 'richText', 'json', 'css', 'javascript'],

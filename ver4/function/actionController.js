@@ -45,6 +45,7 @@ class ActionController extends ActionEvent {
 
             var cartetAtPosIndex = Caret.getCaretIndex(entity.target);
             var cartetAtPos = Caret.getCaretPos(entity);
+            var match = AutoComplete.checkSuggestion(entity.key, entity.target)
             
             
             // var lastKeyPressed = {
@@ -55,12 +56,12 @@ class ActionController extends ActionEvent {
             // }
             
             //  console.log(lastKeyPressed)
-           let _lastWordFromCaret = Caret.getLastWord(entity.target, cartetAtPosIndex)
-            console.log("LastWordFromCaret", _lastWordFromCaret)
-            if (_lastWordFromCaret) { 
-                
-            }
-            AutoComplete.checkSuggestion(_lastWordFromCaret, entity.target)
+        //    let _lastWordFromCaret = Caret.getLastWord(entity.target, cartetAtPosIndex)
+        //     console.log("LastWordFromCaret", _lastWordFromCaret)
+        //     if (_lastWordFromCaret) { 
+        //         AutoComplete.checkSuggestion(_lastWordFromCaret, entity.target)
+        //     }
+            
 
             // if (entity.keyCode == 32) {
                
