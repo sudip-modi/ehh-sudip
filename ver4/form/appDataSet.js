@@ -95,6 +95,64 @@ var actionContent = {
   //  contentEditable: true
 }
 
+var preloadV1 = {
+    beautyCss: [
+        {
+            name: 'link',
+            rel: 'stylesheet',
+            id: 'stylesheet',
+            type: "text/css",
+            href: "beauty/testing.css",
+            class: 'preloadCSS'
+        },
+        {
+            name: 'link',
+            rel: 'FontSheet',
+            id: 'FontSheet',
+            type: "text/css",
+            href: "https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&family=Open+Sans&family=Poppins",
+            class: 'preloadCSS'
+        },
+        {
+            name: 'link',
+            rel: 'IconSheet',
+            id: 'IconSheet',
+            href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+            class: 'preloadCSS'
+        },
+
+    ],
+    scripts: [
+        {
+            name: 'script',
+            type: 'text/javascript',
+            class: 'preloadScript',
+            id: 'actionHelpers.js',
+            type: "text/javascript",
+            //src: "function/actionView.js"
+        },
+    ],
+    form: [
+        {
+            name: 'script',
+            type: 'text/javascript',
+            class: 'preloadScript',
+            id: 'snippets.js',
+            //type: "text/javascript",
+            src: "form/snippets.js"
+        },
+        {
+            name: 'script',
+            type: 'text/javascript',
+            class: 'preloadScript',
+            id: 'sysdataSet.js',
+            //type: "text/javascript",
+            src: "form/sysdataSet.js"
+        },
+        
+    ]
+}
+
 var actionSpaceLayoutV1 = {
 
     header: {
@@ -102,20 +160,77 @@ var actionSpaceLayoutV1 = {
         'desc': 'This is a horizontical bar, more functionality of this bar to be added',
         'id': 'header',
         'class': 'bar-hozontical',
-        'innertext':"header",
+        'innerText':"header",
         'brand': {
             'name': 'div',
             'desc': 'This is a horizontical bar, more functionality of this bar to be added',
             'id': 'header',
+            'innerText': "[ everything happens here ]",
             'class': 'bar-hozontical'
-        }
+        },
+        'input': {
+            'name': 'input',
+            'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+            'id': 'actionSearch',
+            'value': "search here...",
+            'class': 'searchBar'
+        },
+        'div': {
+            'name': 'div',
+            'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+            'id': 'actionLinkBar',
+            'class': 'linkBar',
+            'options': [
+                 {
+                    'name': 'button',
+                    'desc': 'this leads to actionPage',
+                    'id': 'action button',
+                    'innerText': "action",
+                    'class': 'tabBtn',
+                    'data- element': 'action',
+                    'href':"#action",
+                    
+                },
+                 {
+                        'name': 'button',
+                        'desc': 'this leads to actionPage',
+                        'id': 'people button',
+                     'innerText': "people",
+                        'class': 'tabBtn',
+                     'data- element': 'people',
+                     'href': "#people",
+                }, {
+                    'name': 'button',
+                    'desc': 'this leads to actionPage',
+                    'id': 'people button',
+                    'innerText': "people",
+                    'class': 'tabBtn',
+                    'data- element': 'setting',
+                    'href': "#settings",
+                },
+                  
+                
+
+            ],
+
+            
+            
+        },
+
+
     },
     
-    
+    //class= "tabBtn" data- element="action" href = "#action"
     
     
 }
 
+    // < actionLinkBar >
+    //         <a class="tabBtn" data-element="action" href="#action">action</a>
+    //         <a class="tabBtn" data-element="people" href="#people">people</a>
+    //         <a class="tabBtn" data-element="setting" href="#setting">setting</a>
+    //     </actionLinkBar >
+//    < input id = "actionSearch" type = "text" class="searchBar" value = " search here..." >
 
 
 console.log(actionSpaceLayoutV1)

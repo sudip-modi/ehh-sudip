@@ -5,7 +5,7 @@
 class Entity {
     constructor(input, output) {
         this.entity = process.processReq(input, output);
-        console.log("Entity Created",this);
+       // console.log("Entity Created",this);
     }
     static create(input, output, key, value, callback, callbackClass) {
        // console.log('create request for ',output,key)
@@ -74,7 +74,7 @@ class Entity {
         if (operate.is(output).includes("HTML")) { //Only HTML creation
 
             if (operate.isIn(key, htmlAttributesList)) {
-                //console.log("setting",key, value,"in",output)
+              //  console.log("setting",key, value,"in",output)
                 output.setAttribute(key, value)
                 //console.log(output);
             } else {

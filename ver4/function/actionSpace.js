@@ -4,8 +4,11 @@ actionSpace4mDom = {
     'delButton': document.getElementById('del')
 }
 
-var _actionView = new ActionView(actionSpaceLayoutV1, document.getElementById('actionSpace'));
-console.log(_actionView)
+var preloadV1 = new ActionView(preloadV1, document.getElementsByTagName('head')[0]);
+//var _actionView = new ActionView(actionSpaceLayoutV1, document.getElementById('actionSpace'));
+var _actionSpaceLayoutV1 = new ActionView(actionSpaceLayoutV1, document.getElementsByTagName('body')[0]);
+
+//console.log(_actionView)
 
 
 class ActionSpace { 
@@ -20,6 +23,6 @@ class ActionSpace {
 
 
 
-//var newActionSpace = new ActionSpace(actionSpaceV2);
+//var newActionSpace = new ActionSpace(actionSpaceLayoutV1);
 
 //var newLayout = new Entity(actionSpaceLayoutV1, document.getElementsByTagName('body')[0])

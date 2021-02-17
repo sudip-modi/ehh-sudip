@@ -19,4 +19,4 @@ const snippets = [
     }
 ];
 
-console.log("snippets", snippets)
+//console.log("snippets", snippets)
