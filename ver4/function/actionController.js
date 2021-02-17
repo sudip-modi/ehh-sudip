@@ -52,8 +52,12 @@ class ActionController extends ActionEvent {
                 Caret.moveCaret(window, currentCaret + 1);
         }
         if (entity.keyCode == 32) { 
-            
+
+            console.log("space key pressed")
+
             var currentCaret = currentSelection.anchorOffset;
+              let content = entity.target.innerText;
+            console.log("content", content)
 
 
            // console.log("key pressed", entity.keyCode)
@@ -61,8 +65,7 @@ class ActionController extends ActionEvent {
             var response = Caret.getLastWord(entity.target,currentCaret)
        //     console.log(response);
             // find last space, get th word in between
-          //  let content = entity.target.innerText;
-          //  console.log("space key pressed")
+         
             var getLastWord = entity.target;//Start A range//or get Last word
          //   console.log("getLastWord",getLastWord, entity.target.textContent)
        //     let content = element.innerText.substring(0, currentCaret);
