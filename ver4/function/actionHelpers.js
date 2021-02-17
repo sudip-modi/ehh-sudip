@@ -70,7 +70,29 @@ class process {
         // console.log("iterator Array response", response);
         return response;
     }
+    static act(a, b, c, d, callback, callbackClass) {
+        // console.log(a, b, callback)
+        //eval(callbackClass.callback(a, b))
+        var response = callbackClass[callback](a, b, c, d);
+        //  console.log("conduct response",response)
+        return response;
+    }
+    
 
+}
+
+class conductor {
+    //this function calls a callback function with a and b parameter. Conducted Routes have to be registered before else will throw error.
+    //  on param = [ anyEvent ]
+  
+    //    //arr.every(callback(element[, index[, array]])[, thisArg])
+    static onEvery1(a, b, callbacks) { return callbacks.every(function (callback) { return operate[callback](a, b); }); }
+
+
+    static conductForEachFlow(a, b, options) {
+
+
+    }
 }
 
 
@@ -194,11 +216,13 @@ class AutoComplete {
 
 
                     Caret.insertInTextarea(obj.body)
+                    return true;
                     // this.setCaretToEnd(editor)
                 }
             }
         } else {
-            console.log("Nope")
+            console.log("Nope");
+            return false;
         }
     }
 

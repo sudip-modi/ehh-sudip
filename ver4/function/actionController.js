@@ -14,25 +14,31 @@ class ActionController extends ActionEvent {
       // actionSpaceElements.delButton.addEventListener('click', e => this.emit('delButtonClicked',e));
     }
     onClick(entity) { 
-        console.log("clicked On", entity.target)
-        
+      //  console.log("clicked On", entity.target)
         var currentSelection = window.getSelection();
-        console.log(currentSelection);
-
+        var cartetAtPos = Caret.getCaretIndex(entity.target);
+        console.log(cartetAtPos)
+       // console.log(currentSelection);
     }
-    onKeyPress(entity) { 
-        console.log(entity.type,entity.key);
 
-            if (entity.type === 'keypress') {
+    onKeyPress(entity) { 
+
+     //   console.log(entity.type,entity.key);
+        if (entity.type === 'keypress') {
+
+            var cartetAtPos = Caret.getCaretIndex(entity.target);
+            
+            console.log("cartetAtPos",cartetAtPos)
+
                 if (entity.keyCode == 32) {
-                    console.log("EnterKey Detected")
+                  //  console.log("EnterKey Detected")
                    // entity.preventDefault()
                     let val = entity.target.innerText.trim()
                     let editor = entity.target
                     // const input=val.split(/[^A-Za-z]/);
                     let keyword = Caret.getLastWord(editor, Caret.getCaretIndex(editor))
-                    console.log("lastword",keyword)
-                    AutoComplete.checkSuggestion(keyword, editor)
+                   // console.log("lastword",keyword)
+                    //AutoComplete.checkSuggestion(keyword, editor)
 
                 }
             }

@@ -3,7 +3,16 @@ class ActionView {
         console.log(element);
         this._actionView = new Entity(entity, element);
     }
-    // this method updates any thing in the view
+    
+    
+    
+    updateView(entity, value, method) { 
+        
+        process.act(entity, key, value, method, 'document')
+
+
+    }
+
     append() { 
         console.log("appending")
     }
@@ -102,6 +111,7 @@ class Caret {
             }
         } else if ((sel = doc.selection) && sel.type != "Control") {
             var textRange = sel.createRange();
+            console.log('textRange',textRange);
             var preCaretTextRange = doc.body.createTextRange();
             preCaretTextRange.moveToElementText(element);
             preCaretTextRange.setEndPoint("EndToEnd", textRange);
@@ -148,15 +158,18 @@ class Caret {
 
     static getLastWord(text, caretPos) {
 
-        console.log(caretPos)
+       console.log(text,caretPos)
         let content = text.innerText.substring(0, caretPos);
         let input = content.split(/[^A-Za-z]/).filter((elm) => {
-            if (elm !== "")
-                return elm
+            if (elm !== "") {
+                console.log("spaceKeyPressed")
+                return elm 
+            }
+                
         }
 
         );
-        console.log(input)
+     //  console.log(input)
 
         if (input[input.length - 1] === "")
             return input[input.length - 2]

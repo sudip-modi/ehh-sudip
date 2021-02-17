@@ -94,3 +94,11 @@ var actionContent = {
     class: 'richText',
   //  contentEditable: true
 }
+
+var actionSpaceLayoutV1 = {
+    'name':'header',
+}
+
+
+
+console.log(actionSpaceLayoutV1)
