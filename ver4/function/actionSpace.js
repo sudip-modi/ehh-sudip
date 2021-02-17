@@ -16,6 +16,6 @@ class ActionSpace {
 
 
 
-var newActionSpace = new ActionSpace(actionSpaceLayoutV1);
+var newActionSpace = new ActionSpace(actionSapceLayoutV2);
 
 //var newLayout = new Entity(actionSpaceLayoutV1, document.getElementsByTagName('body')[0])

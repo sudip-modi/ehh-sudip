@@ -29,7 +29,8 @@ body {
 header {
  padding: 2rem;
  grid-column: 1/4;
- background-color: aquamarine;
+ width: 100vw;
+ background-color: rgb(243, 243, 243);
 }
 
 brand{
@@ -64,20 +65,16 @@ a {
   padding-right: 3vw;
 }
 .left-sidebar {
-  background: blanchedalmond;
+  background: rgb(236, 236, 236);
   grid-column: 3/4;
 }
 
 actionspacev2{
- padding: 5rem;
   background: rgb(48, 179, 255);
+  width: auto;
   grid-column: 2/3;
 }
 
-.right-sidebar {
-  background: yellow;
-  grid-column: 3/4;
-}
 button{
 width: 34px;     
 
@@ -90,8 +87,3 @@ footer {
   font-size: 1.2vh;
 }
 
-
-.left-sidebar,
-.right-sidebar {
-  padding: 2rem;
-}
