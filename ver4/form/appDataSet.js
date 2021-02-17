@@ -1,13 +1,9 @@
 
-
 var actionContent = {
-    innerHTML: "I was changed https://www.youtube.com/watch?v=Troaz3rGzTY ",
+    innerHTML: "I was changed <br> https://www.youtube.com/watch?v=Troaz3rGzTY ",
     class: 'richText',
   //  contentEditable: true
 }
-
-
-
 var actionSpaceLayoutV1 = {
 
     header: {
@@ -170,12 +166,7 @@ var actionSpaceLayoutV1 = {
         class: "right-sidebar",
         innerHTML: "made with 🧠 & 🧡, < br > during 🌧️ at<b>shunya.ek</b>, goa, india.< br >with help from google & the world-wide - web tech community."
     }
-
-
-    
-    //class= "tabBtn" data- element="action" href = "#action"
-    
-    
+    //class= "tabBtn" data- element="action" href = "#action"   
 }
 var actionSapceLayoutV2 = {
     header: {
@@ -328,6 +319,16 @@ var actionSapceLayoutV2 = {
             },
         ]
     },
+    rightNavigationBar: {
+        name: "div",
+        class: "right-sidebar",
+        innerText: "right-sidebar"
+    },
+    footer: {
+        name: "div",
+        class: "right-sidebar",
+        innerHTML: "made with 🧠 & 🧡, < br > during 🌧️ at<b>shunya.ek</b>, goa, india.< br >with help from google & the world-wide - web tech community."
+    }
 }
     // < actionLinkBar >
     //         <a class="tabBtn" data-element="action" href="#action">action</a>
