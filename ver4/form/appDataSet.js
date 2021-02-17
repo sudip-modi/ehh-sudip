@@ -96,7 +96,24 @@ var actionContent = {
 }
 
 var actionSpaceLayoutV1 = {
-    'name':'header',
+
+    header: {
+        'name': 'div',
+        'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+        'id': 'header',
+        'class': 'bar-hozontical',
+        'innertext':"header",
+        'brand': {
+            'name': 'div',
+            'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+            'id': 'header',
+            'class': 'bar-hozontical'
+        }
+    },
+    
+    
+    
+    
 }
 
 

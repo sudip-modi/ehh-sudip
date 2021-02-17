@@ -4,6 +4,10 @@ actionSpace4mDom = {
     'delButton': document.getElementById('del')
 }
 
+var _actionView = new ActionView(actionSpaceLayoutV1, document.getElementById('actionSpace'));
+console.log(_actionView)
+
+
 class ActionSpace { 
     constructor(entity) { 
      //   this._actionEntity = new Entity(josnObject, document.getElementById('actionSpace'))
@@ -16,4 +20,6 @@ class ActionSpace {
 
 
 
-var newActionSpace = new ActionSpace(actionSpaceV2);
+//var newActionSpace = new ActionSpace(actionSpaceV2);
+
+//var newLayout = new Entity(actionSpaceLayoutV1, document.getElementsByTagName('body')[0])
