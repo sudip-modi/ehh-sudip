@@ -51,6 +51,7 @@ class ActionController extends ActionEvent {
                 currentSelection.baseNode.textContent = response;
                 Caret.moveCaret(window, currentCaret + 1);
         }
+
         if (entity.keyCode == 32) { 
            // entity.preventDefault();
        
@@ -85,7 +86,6 @@ class ActionController extends ActionEvent {
             }
 
         }
-        
         
     }
 
