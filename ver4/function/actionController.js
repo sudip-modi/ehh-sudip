@@ -35,9 +35,10 @@ class ActionController extends ActionEvent {
         var cartetAtPos = Caret.getCaretPos(entity);
         //console.log("Clicked",currentSelection,cartetAtPos);
     }
-
     onKeyPress(entity) {
+
         var currentSelection = window.getSelection();
+
         var currentCaret = currentSelection.anchorOffset;
 
         entity.preventDefault(entity);
@@ -45,6 +46,7 @@ class ActionController extends ActionEvent {
         var response = Entity.insert(currentSelection.baseNode.textContent, currentSelection.anchorOffset, entity.key);
       //  console.log(response)
         currentSelection.baseNode.textContent = response;
+       
         Caret.moveCaret(window, currentCaret + 1);
 
         if (entity.keyCode == 32) { 
@@ -86,7 +88,6 @@ class ActionController extends ActionEvent {
         console.log("Add Button Clicked", entity.target.id)
        
     }
-
     del(entity) {
         console.log("Del Button Clicked", entity.target)
         //const index = this._model.selectedIndex;
@@ -95,8 +96,6 @@ class ActionController extends ActionEvent {
 
         //}
     }
-
-
     createRange() { 
         console.log(creatingRange)
     }
