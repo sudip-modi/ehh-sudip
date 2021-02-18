@@ -12,7 +12,7 @@ class Entity {
         if (operate.is(output).includes("HTML")) { //Only HTML creation
             // var response = Object.create(output.constructor.prototype)
             if (operate.isInt(parseInt(key))) {
-               var response = document.createElement('div');
+                var response = document.createElement('option');
             }
             else { 
                // console.log(operate.is())
@@ -80,12 +80,12 @@ class Entity {
       //  console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
 
-            if (operate.isInsideArray(key, htmlAttributesList)) {
+            if (operate.isInsideArray(key,htmlAttributesListV2)) {
               //  console.log("setting",key, value,"in",output)
                 output.setAttribute(key, value)
                 
             } else {
-             //  console.log(output,key);
+              // console.log(output,key);
                 //var buffer = output;
                 output[key] = input[key];
                 //buffer=output;

@@ -4,7 +4,7 @@
 
 var hotKeyList = {
     "!": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "!",
         class: 'card',
         'innerText':"This inserts a HTML Template next to caret.",
@@ -23,7 +23,7 @@ var hotKeyList = {
     },
 
     "`": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "`",
         innerText: "This inserts a HTML Template next to caret.",
         content: ["'"],
@@ -33,7 +33,7 @@ var hotKeyList = {
     },
 
     "(": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "(",
         content: [")"],
         class: 'card',
@@ -42,7 +42,7 @@ var hotKeyList = {
     },
 
     "{": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "{",
         content: ["}"],
         class: 'card',
@@ -50,7 +50,7 @@ var hotKeyList = {
 
     },
     "[": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "[",
         content: ["]"],
         class: 'card',
@@ -58,7 +58,7 @@ var hotKeyList = {
 
     },
     "<": {
-        name: '<',
+        name: 'option',
         keyIdentifier: "<",
         content: [">"],
         class: 'card',
@@ -67,23 +67,24 @@ var hotKeyList = {
 
     },
     "for": {
-        name: 'for',
+        name: 'option',
         keyIdentifier: "for",
-        innerText:"A Template for for function",
+        innerText:"A Template for [for] function",
         class: 'card',
-        'content': [" (let i = 0; i < size; i++) { \n }  \n "],
+        onclick:"this.insertText",
+        'data': [" (let i = 0; i < size; i++) { \n }  \n "],
         //  "prefix": "<",
     },
     "function": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "function",
-        innerText: "A Template for for function",
+        innerText: "A Template for function",
         class: 'card',
-        'content': ["  name (params)\n {\n }\n "],
+        'data': ["  name (params)\n {\n }\n "],
         //  "prefix": "<",
     },
     "if": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "if",
         class: 'card',
         innerText:"This adss a template if Function",
@@ -92,14 +93,15 @@ var hotKeyList = {
 
     },
     "create": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "create",
         class: 'card',
+        innerText:"create",
         'content': ["  (condition) {\n }\n "],
         //  "prefix": "<",
   
     }, "actionFlow": {
-        name: 'li',
+        name: 'option',
         keyIdentifier: "actionFlow",
         class: 'card',
         'content': ["  (condition) {\n }\n "],

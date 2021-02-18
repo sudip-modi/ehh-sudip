@@ -42,7 +42,7 @@ a {
 }
 leftSidebar {
        
-       grid-area: leftSidebar;
+  grid-area: leftSidebar;
   background-color: blue;
   height: 50vh;
 }
@@ -58,30 +58,31 @@ actionSpaceEditor{
      border: none;
      width:60vw;
      height: 60vh;
-     background-color: rgb(255, 127, 127);
+     background-color: rgb(255, 224, 224);
 }
 content {
   grid-area: content;
   position: relative;
   
 }
+ul,li{
+margin: 0;
+padding:0;
+list-style:none;
+
+}
 .card{
   padding: 1rem;
-  background-color: blueviolet;
-  display: block;
-
+background-color: rgb(255, 255, 255);
+}
+option:hover{
+background-color: rgb(201, 201, 201);
 }
 
 #autocomplete {
-  position: absolute;
-  
-  top: 40px;
-  left: 40px;
-  
-  background-color: rgb(255, 255, 255);
-  width: 100%;
-  margin-top: -2px;
-
+  visibility: hidden;
+  position: fixed;
+  width: auto;
 }
 
 .header {

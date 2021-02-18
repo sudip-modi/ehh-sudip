@@ -427,7 +427,70 @@ var basicLayout = {
                 //     innerHTML: 'inputMatchesFound',
                     
                 },
-            ]
+            ],
+            richTextToolBar: {
+                name: 'richTextToolBar',
+                display: "none",
+                border: "solid 1px #a6d8a8",
+                resize: 'both',
+                menu: [
+                    {
+                        name: 'button',
+                        id: "select_all",
+                        class: "material-icons",
+                        'innerText': "select_all",
+                        'onclick': "document.execCommand('bold',false,null)"
+                        // 'data': `process.act(entity, insertBreakAtPoint, document)`,
+
+                    },
+                    {
+                        name: 'button',
+                        id: "save",
+                        class: "material-icons",
+                        'innerText': "save",
+                        'onclick': "document.execCommand('bold',false,null)"
+                        // 'data': `process.act(entity, insertBreakAtPoint, document)`,
+
+                    },
+                    {
+                        name: 'button',
+                        id: "format_bold",
+                        class: "material-icons",
+                        'innerText': "format_bold",
+                        'onclick': "document.execCommand('bold',false,null)"
+                       // 'data': `process.act(entity, insertBreakAtPoint, document)`,
+                        
+                    },
+                    {
+                        name: 'button',
+                        id: "format_italic",
+                        class: 'material-icons',
+                        'innerText': 'format_italic',
+                        'data-cmd': 'italic',
+                        'data': "process.act('italic', false, null, execCommand(), document)",
+                    }, {
+                        name: 'button',
+                        id: "underline",
+                        class: 'material-icons',
+                        'innerText': 'format_underline',
+                        'data-cmd': 'underline',
+                        'onclick': "document.execCommand('underline',false,null)"
+                    },
+                    {
+                        name: 'button',
+                        id: "delete",
+                        class: 'material-icons',
+                        'innerText': "delete"
+                    },
+                    {
+                        name: 'button',
+                        id: "drag_indicator",
+                        class: 'material-icons',
+                        'innerText': "drag_indicator"
+                    },
+
+                ]
+            },
         },
         rightSidebar: {
             name: "div",

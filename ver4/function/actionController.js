@@ -9,9 +9,9 @@ class ActionController extends ActionEvent {
         console.log(actionSpaceElements._actionView.entity)
         // attach listeners to HTML controls
         //window.addEventListener('selectionchanged', e => this.emit('selection', e));
-        window.addEventListener('selectstart', e => this.emit('selection', e));
-        actionSpaceElements._actionView.entity.addEventListener('click', e => this.emit('clickOnActionSpace', e));
-        actionSpaceElements._actionView.entity.addEventListener('keypress', e => this.emit('keypress', e));
+        window.addEventListener('change', e => this.emit('change', e));
+        window.addEventListener('click', e => this.emit('click', e));
+        window.addEventListener('keypress', e => this.emit('keypress', e));
         window.addEventListener('keyup', e => this.emit('keyup', e));
 
        // actionSpaceElements._actionView.addButton.addEventListener('click', e => this.emit('addButtonClicked', e));
@@ -22,7 +22,7 @@ class ActionController extends ActionEvent {
     }
     onSelection(entity) { 
 
-       // console.log("SelectionChange",currentSelection)
+      
 
     }
     onSelectionEnd(entity) { 
@@ -32,9 +32,29 @@ class ActionController extends ActionEvent {
 
     }
     onClick(entity) { 
-     //  console.log("clicked On", entity.target)
+        console.log("clicked On", entity.target)
+      //  insertBreakAtPoint(entity);
+        /**
+         * check if the target entity has any click or data - command set, if yes, then process it.
+         */
+        
         var currentSelection = window.getSelection();
-        var cartetAtPos = Caret.getCaretPos(entity);
+        var cartetAtPos = Caret.getCaretPos(entity.data);
+        if (entity.target.hasAttribute('onClick')) { 
+
+            console.log("got you", entity.target);
+            //insertInTextarea()
+          //  var methodToexecute = entity.target.data.value;
+           // console.log(methodToexecute);
+
+        }
+
+//if(entity.target)
+
+
+
+
+
         //console.log("Clicked",currentSelection,cartetAtPos);
     }
     
@@ -93,6 +113,7 @@ class ActionController extends ActionEvent {
 //         }
         
     }
+
     onKeyUp(entity) {
 
         var currentSelection = window.getSelection();
@@ -131,30 +152,26 @@ class ActionController extends ActionEvent {
                 console.log("matches", matches)
                 var autoCompleteElement = document.getElementById('autocomplete');
                 autoCompleteElement.innerHTML = "";
-
                 var matchesHTML = new Entity(matches, autoCompleteElement);
-        
-                console.log("matchesHTML",matchesHTML)   
+            //    console.log("matchesHTML",matchesHTML)   
                // document.getElementById('autocomplete').innerHTML=matchesHTML
                 var caretXY = getCaretCoordinates();
-                console.log(caretXY, currentCaret);
-                //autoCompleteElement.setAttribute
-           
-           
-           
+             //   console.log(caretXY, currentCaret);
+              //  console.log(caretXY.x)
+                document.getElementById('autocomplete').style.left = (caretXY.x+13) + 'px';
+                document.getElementById('autocomplete').style.top = (caretXY.y+21) + 'px';
+                document.getElementById('autocomplete').style.visibility = 'visible';
+                document.getElementById('autocomplete').setAttribute.tabindex = "0";
+                //console.log(currentSelection.focusNode)
             }
       
-            
         }
-       
-
-
-
-
-
-
     }
 
+    insertText(string, element,e) { 
+        console.log("got the command");
+        console.log("SelectionChange", currentSelection)
+    }
     add(entity) {
         console.log("Add Button Clicked", entity.target.id)
        
