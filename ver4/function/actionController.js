@@ -52,29 +52,37 @@ class ActionController extends ActionEvent {
                 Caret.moveCaret(window, currentCaret + 1);
         }
         if (entity.keyCode == 32) { 
+           // entity.preventDefault();
+       
+            //console.log(currentSelection.focusNode, currentSelection.focusNode.textContent,entity.target.innerText)
+            var focusText = currentSelection.focusNode.textContent;
+          //  var focusText = entity.target.innerText;
+            
+        //    console.log("focusText",focusText)
+           // Caret.moveCaret(window, lastSpace);
 
-            console.log("space key pressed")
+            var index = focusText.indexOf(currentCaret);
+            var preText = focusText.substring(0, currentCaret);
 
-            var currentCaret = currentSelection.anchorOffset;
-              let content = entity.target.innerText;
-            console.log("content", content)
-
-
-           // console.log("key pressed", entity.keyCode)
-         //   console.log(currentSelection.baseNode)
-            var response = Caret.getLastWord(entity.target,currentCaret)
-       //     console.log(response);
-            // find last space, get th word in between
-         
-            var getLastWord = entity.target;//Start A range//or get Last word
-         //   console.log("getLastWord",getLastWord, entity.target.textContent)
-       //     let content = element.innerText.substring(0, currentCaret);
-      //    console.log("content : ",content)
-            //var arrayOfWords = getLastWord.split(/[^A-Za-z]/)
-         //   var arrayOfWords = getLastWord.split(" ")
-           // console.log("getLastWord", arrayOfWords);;
-
-
+            if (preText.indexOf(" ") > 0) {
+                var words = preText.split(" ");
+                var lastWord = words[words.length - 1]; //return last word
+               // console.log(lastWord)
+            }
+            
+            else {
+                console.log(preText) ;
+            }
+            //console.log("space key pressed", lastWord);
+            var match = isIn(lastWord, snippets);
+    
+            if (match.length === 1) { // is a exact Match. To be used for Space, {,[,(
+                entity.preventDefault();
+                console.log("match", match[0].prefix, match[0].body);
+                var response = Entity.insert(currentSelection.baseNode.textContent, currentSelection.anchorOffset, entity.key + match[0].body);
+                currentSelection.baseNode.textContent = response;
+                Caret.moveCaret(window, currentCaret + 1);
+            }
 
         }
         

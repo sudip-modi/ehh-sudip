@@ -93,7 +93,7 @@ class Entity {
  */
     static insert(str, index, value) {
         var response = str.substr(0, index) + value + str.substr(index);
-        console.log("inserted",response)
+      //  console.log("inserted",response)
         return response;
     
     }

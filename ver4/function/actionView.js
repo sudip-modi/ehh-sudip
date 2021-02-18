@@ -45,19 +45,7 @@ class Caret {
         //console.log("CaretCreated ",target.tagName);
     }
     
-    static setCaret(entity, pos) {
-        console.log(entity,pos)
-      //  var el = document.getElementById("editable")
-        // var range = document.createRange()
-        // var currentSelection = window.getSelection()
-
-        // range.setStart(currentSelection, 5)
-        // range.collapse(true)
-
-        // currentSelection.removeAllRanges()
-        // currentSelection.addRange(range)
-    }
-
+ 
     static moveCaret(win, charCount) {
         var sel, range;
         if (win.getSelection) {
@@ -135,28 +123,22 @@ class Caret {
     }
 
    //This gets the last word from the caret position.
-    static getLastWord(element, caretPos) {
+    static getLastWord(element, caretPos,currentSelection) {
         //var lastWordsArray = e
-console.log("getting last word")
-//      //  console.log(text,caretPos)
-//         let content = element.innerText.substring(0, caretPos);
-//       // console.log("content : ",content)
-//         let input = content.split(/[^A-Za-z]/).filter((elm) => {
-//            // console.log("Something here",elm)
-//             if (elm !== "") {
-//                 console.log("spaceKeyPressed")
-//                 return elm 
-//             }
-                
-//         }
+        
+        console.log("getting last word",element.innerText)
+        
+        var lastSpace = element.innerText.lastIndexOf('\n');
+       // var lastWord = currentSelection.focusNode.data.substring(currentSelection.focusNode.data.lastIndexOf('\n'));
+        console.log(lastSpace)
+        var splitters = [' ', '\n', '۔'];
+      //  var caretPosition = element.value.slice(0, element.selectionStart).length;
+      //  var tempLastWord = element.value.substring(0, caretPos);
+      //  console.log(tempLastWord)
+     //   var lastWord = tempLastWord.substring(tempLastWord.lastIndexOf(splitters) + 1);
+    //    var lastWord = tempLastWord.substring(tempLastWord.lastIndexOf('\n') + 1);
+//console.log(lastWord)
 
-//         );
-//    //  console.log(input) //Input here is the array os text in the text.
-
-//         if (input[input.length - 1] === "")
-//             console.log("yo",input[input.length - 2]);
-//             return input[input.length - 2]
-//         return input[input.length - 1]
-
+  
     }
 }
