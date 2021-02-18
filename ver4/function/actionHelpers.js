@@ -102,7 +102,10 @@ class operate {
     static isEmpty(argA) { return Object.keys(argA).length === 0 ? true : false }
     static isNotEmpty(argA) { return argA !== '' && argA !== null && typeof argA !== 'undefined' ? true : false }
     //returs the data Type of the input.
-    static is(argA) { return Object.getPrototypeOf(argA).constructor.name; }
+    static is(argA) {
+      //  console.log(argA);
+        return Object.getPrototypeOf(argA).constructor.name;
+    }
     static isInt(argA) { return Number.isInteger(argA); }
     static isNumber(argA) { return Number.parseFloat(argA).toString() !== 'NaN' }
     static isString(argA) { return typeof argA === 'string' ? true : false }
@@ -231,15 +234,15 @@ function isIn(argA, entity, options) {
     var valuesArray = Object.values(entity)
     var result = Object.values(entity).filter(function (key, index, self) {
       //  console.log(argA,!key.prefix.indexOf(argA), key.prefix)
-        if (!key.prefix.indexOf(argA) === true) {
+        if (!key.keyIdentifier.indexOf(argA) === true) {
            // console.log("tentative match found",key)
-            if (argA.length === key.prefix.length) { 
+            if (argA.length === key.keyIdentifier.length) { 
               //  console.log("matchFound", key.prefix)    //To get strict Match To be enabled using options.
                 var response = true;
               //  return true;
             }  
         }
-        return !key.prefix.indexOf(argA);
+        return !key.keyIdentifier.indexOf(argA);
     });
    // console.log("result",result);
     return result;

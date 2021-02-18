@@ -5,6 +5,8 @@ class ActionEvent {
       //  console.log(elements4Event)
         this.on('selection', e => this.onSelection(e));
         this.on('keypress', e => this.onKeyPress(e));
+        this.on('keyup', e => this.onKeyUp(e));
+
         this.on('clickOnActionSpace', e => this.onClick(e));
         this.on('delButtonClicked', e => this.del(e));
 

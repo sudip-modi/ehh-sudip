@@ -11,7 +11,14 @@ class Entity {
        // console.log('create request for ',output,key)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
             // var response = Object.create(output.constructor.prototype)
-            var response = document.createElement(key);
+            if (operate.isInt(parseInt(key))) {
+               var response = document.createElement('span');
+            }
+            else { 
+               // console.log(operate.is())
+                var response = document.createElement(key);
+            }
+            
             // Entity.set(input, response, 'id', key + entityIndex.next().value);
         }
         if (operate.is(output).includes("Object")) { //Only HTML creation
@@ -76,8 +83,9 @@ class Entity {
             if (operate.isInsideArray(key, htmlAttributesList)) {
               //  console.log("setting",key, value,"in",output)
                 output.setAttribute(key, value)
-                //console.log(output);
+                
             } else {
+             //  console.log(output,key);
                 //var buffer = output;
                 output[key] = input[key];
                 //buffer=output;

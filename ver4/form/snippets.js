@@ -20,7 +20,7 @@ const snippets = [
     },
     {
         "prefix": "!",
-        "autoSuggest":" match HTML Template found for !",
+        "autoSuggest":" match HTML Template found for",
         'body': [`<!DOCTYPE html>
         <html lang="en">
         <head>

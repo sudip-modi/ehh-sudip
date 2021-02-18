@@ -87,6 +87,7 @@ class Caret {
         var sel, range, html;
         sel = window.getSelection();
         range = sel.getRangeAt(0);
+        console.log(range);
         range.deleteContents();
         var textNode = document.createTextNode(text);
         range.insertNode(textNode);

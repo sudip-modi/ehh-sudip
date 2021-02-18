@@ -341,6 +341,7 @@ var basicLayout = {
     actionSpace: {
         name: 'div',
         class: "actionSpace",
+        resize:true,
        // innerText: "ActionSpace",
         header: {
             'name': 'div',
@@ -359,7 +360,7 @@ var basicLayout = {
                 'name': 'input',
                 'desc': 'This is a horizontical bar, more functionality of this bar to be added',
                 'id': 'actionSearch',
-                'value': "search here...",
+                'placeholder': "search here...",
                 'class': 'searchBar'
             },
             'actionLinkBar': [
@@ -407,7 +408,7 @@ var basicLayout = {
             content: [
                 {
                     name: 'content',
-                    contentEditable: true,
+                    contentEditable: true,    
                     'class': 'content',
                     lineNumbers: true,
                     innerText: actionContent,
@@ -415,8 +416,16 @@ var basicLayout = {
                     //  output: ['self', 'output'],
                     state: 'idle', //['selectable','selected','editable','inEdit','draggable','inDrag','locked','hidden']
                     resize: true,
-
+                    class: "tooltip",
                     id: "richText"
+                },
+                 {
+                    name: 'ul',
+                    id: "autocomplete",
+                    class: 'card',
+                    position: 'next to Caret',
+                     innerHTML: 'inputMatchesFound',
+                    
                 },
             ]
         },
@@ -425,10 +434,11 @@ var basicLayout = {
             class: "box rightSidebar",
             innerText: "right-sidebar"
         },
+      
         footer: {
             name: "div",
             class: "footer",
-            innerHTML: "made with 🧠 & 🧡, < br > during 🌧️ at <b>shunya.ek</b>, goa, india.< br >with help from google & the world-wide - web tech community."
+            innerHTML: `made with 🧠 & 🧡, < br > during 🌧️ at <b>shunya.ek</b>, goa, india.< br >with help from google & the world-wide - web tech community.`
         }
     }
    
