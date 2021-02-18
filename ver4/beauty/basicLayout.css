@@ -58,21 +58,30 @@ actionSpaceEditor{
      border: none;
      width:60vw;
      height: 60vh;
-     background-color: aquamarine;
+     background-color: rgb(255, 127, 127);
 }
 content {
   grid-area: content;
   position: relative;
   
 }
+.card{
+  padding: 1rem;
+  background-color: blueviolet;
+  display: block;
 
+}
 
 #autocomplete {
-  position: relative;
-  background-color: aqua;
+  position: absolute;
+  
+  top: 40px;
+  left: 40px;
+  
+  background-color: rgb(255, 255, 255);
   width: 100%;
   margin-top: -2px;
-   
+
 }
 
 .header {

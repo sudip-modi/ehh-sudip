@@ -424,7 +424,7 @@ var basicLayout = {
                     id: "autocomplete",
                     class: 'card',
                     position: 'next to Caret',
-                     innerHTML: 'inputMatchesFound',
+                //     innerHTML: 'inputMatchesFound',
                     
                 },
             ]

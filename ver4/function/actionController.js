@@ -101,7 +101,6 @@ class ActionController extends ActionEvent {
         var focusEntityInnerText = entity.target.innerText; // Rendered Text
         // console.log("focusEntityInnerText", currentSelection);
         var currentCaret = currentSelection.anchorOffset;
-
         var preText = focusText.substring(0, currentCaret);
         // console.log(focusText, preText)
 
@@ -116,52 +115,30 @@ class ActionController extends ActionEvent {
         else {
             //   console.log('preText',preText);
         }
-        
        // console.log("Last word", lastWord);
         var matches = isIn(lastWord, hotKeyList);
-       
         // var matches = snippets.filter(key => {
         //     const regex = new RegExp(`^${lastWord}`, 'gi');
         //     return key.prefix.match(regex);
         // });
-       
-
-
+   
        // entity.preventDefault(entity);
         if (entity.keyCode == 32) {
             // console.log("space key pressed")
          //push matches to dom  
        
-
- 
-            if (matches.length > 0) { 
+            if (matches.length >= 0) { 
                 console.log("matches", matches)
-                
-                var matchesHTML = new Entity(matches,  document.getElementById('autocomplete'));
-            //     var matchesHTML = matches.forEach(element => {
-            //       // console.log(element.name)
-            //         var newElement = document.createElement(element.name);
-            //         var newElement2 = Entity.create(element.name, document.createElement(element.name), element.name);
+                var autoCompleteElement = document.getElementById('autocomplete');
+                autoCompleteElement.innerHTML = "";
 
-            //         console.log("yo",newElement2)
-            //         var elementHTML = new Entity(element, newElement)
-            //         console.log(elementHTML)
-            //      //   document.getElementById('autocomplete').appendChild(elementHTML);
-                    
-            //    });
-              //  console.log(matchesHTML)
-              // const matchesHTML = new Entity(matches, document.getElementById('autocomplete'));
-             //   const matchesHTML = matches.map(match =>  document.createElement(match.name));
-                
-
-
-
-             //   matches.map(    match)
-
-              
+                var matchesHTML = new Entity(matches, autoCompleteElement);
+        
                 console.log("matchesHTML",matchesHTML)   
                // document.getElementById('autocomplete').innerHTML=matchesHTML
-           
+                var caretXY = getCaretCoordinates();
+                console.log(caretXY, currentCaret);
+                //autoCompleteElement.setAttribute
            
            
            

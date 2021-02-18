@@ -7,8 +7,8 @@ var hotKeyList = {
         name: 'li',
         keyIdentifier: "!",
         class: 'card',
-        innerText:"This inserts a HTML Template next to caret.",
-        body: [`<!DOCTYPE html>
+        'innerText':"This inserts a HTML Template next to caret.",
+        content: [`<!DOCTYPE html>
             < html lang="en" >
             <head>
                 <meta charset="UTF-8">
@@ -16,8 +16,8 @@ var hotKeyList = {
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                             <title>Document</title>
         </head>
-                        <body>
-                        </body>
+                        <content>
+                        </content>
         </html>`],
      //   "prefix": "!", 
     },
@@ -26,7 +26,7 @@ var hotKeyList = {
         name: 'li',
         keyIdentifier: "`",
         innerText: "This inserts a HTML Template next to caret.",
-        body: ["'"],
+        content: ["'"],
         class: 'card',
        // "prefix": "`",
 
@@ -35,7 +35,7 @@ var hotKeyList = {
     "(": {
         name: 'li',
         keyIdentifier: "(",
-        body: [")"],
+        content: [")"],
         class: 'card',
       //  "prefix": "(",
 
@@ -44,7 +44,7 @@ var hotKeyList = {
     "{": {
         name: 'li',
         keyIdentifier: "{",
-        body: ["}"],
+        content: ["}"],
         class: 'card',
       //  "prefix": "{",
 
@@ -52,39 +52,42 @@ var hotKeyList = {
     "[": {
         name: 'li',
         keyIdentifier: "[",
-        body: ["]"],
+        content: ["]"],
         class: 'card',
        // "prefix": "[",
 
     },
     "<": {
-        name: 'li',
+        name: '<',
         keyIdentifier: "<",
-        body: [">"],
+        content: [">"],
         class: 'card',
+        innerText:"Adds a reflection of < "
       //  "prefix": "<",
 
     },
     "for": {
-        name: 'li',
+        name: 'for',
         keyIdentifier: "for",
+        innerText:"A Template for for function",
         class: 'card',
-        'body': [" (let i = 0; i < size; i++) { \n }  \n "],
+        'content': [" (let i = 0; i < size; i++) { \n }  \n "],
         //  "prefix": "<",
     },
     "function": {
         name: 'li',
         keyIdentifier: "function",
+        innerText: "A Template for for function",
         class: 'card',
-        'body': ["  name (params)\n {\n }\n "],
+        'content': ["  name (params)\n {\n }\n "],
         //  "prefix": "<",
     },
     "if": {
         name: 'li',
         keyIdentifier: "if",
         class: 'card',
-        ,innerText:"This adss a template if Function"
-        'body': ["  (condition) {\n }\n "],
+        innerText:"This adss a template if Function",
+        'content': ["  (condition) {\n }\n "],
         //  "prefix": "<",
 
     },
@@ -92,14 +95,14 @@ var hotKeyList = {
         name: 'li',
         keyIdentifier: "create",
         class: 'card',
-        'body': ["  (condition) {\n }\n "],
+        'content': ["  (condition) {\n }\n "],
         //  "prefix": "<",
   
     }, "actionFlow": {
         name: 'li',
         keyIdentifier: "actionFlow",
         class: 'card',
-        'body': ["  (condition) {\n }\n "],
+        'content': ["  (condition) {\n }\n "],
         //  "prefix": "<",
     
     },

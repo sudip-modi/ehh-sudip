@@ -12,7 +12,7 @@ class Entity {
         if (operate.is(output).includes("HTML")) { //Only HTML creation
             // var response = Object.create(output.constructor.prototype)
             if (operate.isInt(parseInt(key))) {
-               var response = document.createElement('span');
+               var response = document.createElement('div');
             }
             else { 
                // console.log(operate.is())
