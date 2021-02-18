@@ -81,11 +81,11 @@ class Entity {
         if (operate.is(output).includes("HTML")) { //Only HTML creation
 
             if (operate.isInsideArray(key,htmlAttributesListV2)) {
-              //  console.log("setting",key, value,"in",output)
+              //console.log("setting",key, value,"in",output)
                 output.setAttribute(key, value)
                 
             } else {
-              // console.log(output,key);
+           //  console.log(output,key);
                 //var buffer = output;
                 output[key] = input[key];
                 //buffer=output;

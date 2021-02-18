@@ -1,9 +1,4 @@
 
-var actionContent = {
-    innerHTML: "I was changed <br> https://www.youtube.com/watch?v=Troaz3rGzTY ",
-    class: 'richText',
-  //  contentEditable: true
-}
 var actionSpaceLayoutV1 = {
 
     header: {
@@ -448,8 +443,8 @@ var basicLayout = {
                         id: "save",
                         class: "material-icons",
                         'innerText': "save",
-                        'onclick': "document.execCommand('bold',false,null)"
-                        // 'data': `process.act(entity, insertBreakAtPoint, document)`,
+                        'onclick': "this.onClick",
+                        'data': `process.act(actionStorage,save,document.getElementById('sampleNote#1').getAttribute('name'),document.getElementbyId('sampleNote#1').innerHtml)`,
 
                     },
                     {

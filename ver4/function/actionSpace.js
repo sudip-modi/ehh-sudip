@@ -9,16 +9,20 @@ class ActionSpace {
      //   this._actionEntity = new Entity(josnObject, document.getElementById('actionSpace'))
         this._actionView = new ActionView(entity, document.getElementById('actionSpace'));
         this._actionEvent = new ActionEvent(document.getElementById('actionSpace')) // input should be actionView
-        this._actionControl = new ActionController(this._actionView,this._actionEvent)
-
+        this._actionStorage = new ActionStorage(window.location.pathname,document);
+        this._actionControl = new ActionController(this._actionView, this._actionEvent)
+        console.log(this._actionStorage);
     }
 }
 
-document.onload = onload();
+window.onload = onload();
 
 function onload() { 
     var newActionSpace = new ActionSpace(basicLayout);
+  //  console.log(newActionSpace);
+    return newActionSpace;
 }
+
 
 //var newActionSpace = new ActionSpace(basicLayout);
 //var newLayout = new Entity(actionSpaceLayoutV1, document.getElementsByTagName('body')[0])

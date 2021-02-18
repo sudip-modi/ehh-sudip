@@ -37,12 +37,26 @@ class ActionController extends ActionEvent {
         /**
          * check if the target entity has any click or data - command set, if yes, then process it.
          */
-        
+    
         var currentSelection = window.getSelection();
         var cartetAtPos = Caret.getCaretPos(entity.data);
-        if (entity.target.hasAttribute('onClick')) { 
+        if (entity.target.hasAttribute('data')) { 
 
-            console.log("got you", entity.target);
+
+            var dataCommand = entity.target.getAttribute('data');
+           
+          //  var parseCommand=  JSON.parse(dataCommand);
+          //  console.log(dataCommand)
+           var commandArray = dataCommand.split(",")
+        //    console.log(commandArray)
+            var entityName = document.getElementById('sampleNote#1').getAttribute('name');
+            var entityInnerHtml = document.getElementById('sampleNote#1').innerHTML;
+            localStorage.setItem(entityName, entityInnerHtml);
+       
+        //    console.log(ActionSpace)
+         //   ActionStorage.save(document.getElementById('sampleNote#1').getAttribute('name'), entityInnerHtml);
+         
+            //process.act(actionStorage, save, );
             //insertInTextarea()
           //  var methodToexecute = entity.target.data.value;
            // console.log(methodToexecute);

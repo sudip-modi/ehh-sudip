@@ -1,7 +1,7 @@
 
 class process {
     static processReq(input, output, key, value) {
-        console.log(input, output)
+     //   console.log(input, output)
         if (operate.is(input) === 'Object') {
             var buffer = process.iterateObj(input, output, key);
         } else if (operate.is(input) === 'Array') {
@@ -70,11 +70,11 @@ class process {
         // console.log("iterator Array response", response);
         return response;
     }
-    static act(a, b, c, d, callback, callbackClass) {
-        // console.log(a, b, callback)
+    static act(callbackClass,method, a, b, c, d,) {
+      //  console.log(callbackClass, method, a, b, c, d)
         //eval(callbackClass.callback(a, b))
-        var response = callbackClass[callback](a, b, c, d);
-        //  console.log("conduct response",response)
+        var response = callbackClass[method](a, b, c, d);
+        console.log("act response",response)
         return response;
     }
     

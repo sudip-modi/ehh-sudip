@@ -3,10 +3,10 @@
 class actionStorage {
 
     loadTabs(name, callback, callbackIsUndefined) {
-
-        chrome.storage.local.get(name, function (entity) {
+      //  chrome.storage.local.get(name, function (entity)
+       localStorage.get(name, function (entity) {
             
-            if (item[name] !== undefined) {
+           if (entity[name] !== undefined) {
                 
                 var result = entity[name];
                 if (result !== undefined)
@@ -19,7 +19,8 @@ class actionStorage {
     }
 
     saveTabs(value, callback) {
-        chrome.storage.local.set({ tabs: value });
+        //chrome.storage.local.set
+        localStorage.set({ tabs: value });
         if (callback !== undefined)
             callback();
     }
@@ -31,7 +32,8 @@ class actionStorage {
     }
 
     getValue(name, callback) {
-        chrome.storage.local.get(name, function (entity) {
+      //  chrome.storage.local.get(name, function (entity)
+        localStorage.get(name, function (entity) {
             if (item !== undefined) {
                 callback(entity[name]);
             }
