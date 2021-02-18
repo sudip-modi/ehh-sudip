@@ -7,7 +7,7 @@ var hotKeyList = {
         name: 'li',
         keyIdentifier: "!",
         class: 'card',
-        innerText:"This inserts a HTML Template next to caret."
+        innerText:"This inserts a HTML Template next to caret.",
         body: [`<!DOCTYPE html>
             < html lang="en" >
             <head>
@@ -25,6 +25,7 @@ var hotKeyList = {
     "`": {
         name: 'li',
         keyIdentifier: "`",
+        innerText: "This inserts a HTML Template next to caret.",
         body: ["'"],
         class: 'card',
        // "prefix": "`",
