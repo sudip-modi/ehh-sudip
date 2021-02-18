@@ -14,7 +14,7 @@ class ActionSpace {
     }
 }
 
-window.onload = onload;
+document.onload = onload;
 function onload() { 
     var newActionSpace = new ActionSpace(basicLayout);
 }
