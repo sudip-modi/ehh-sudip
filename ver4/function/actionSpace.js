@@ -14,8 +14,10 @@ class ActionSpace {
     }
 }
 
+window.onload = onload;
+function onload() { 
+    var newActionSpace = new ActionSpace(basicLayout);
+}
 
-
-var newActionSpace = new ActionSpace(basicLayout);
 
 //var newLayout = new Entity(actionSpaceLayoutV1, document.getElementsByTagName('body')[0])
