@@ -71,7 +71,7 @@ var hotKeyList = {
         keyIdentifier: "for",
         innerText:"A Template for [for] function",
         class: 'card',
-        onclick:"this.insertText",
+        onclick:`this.insertText`,
         'data': [" (let i = 0; i < size; i++) { \n }  \n "],
         //  "prefix": "<",
     },

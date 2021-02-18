@@ -443,9 +443,7 @@ var basicLayout = {
                         id: "save",
                         class: "material-icons",
                         'innerText': "save",
-                        'onclick': "this.onClick",
-                        'data': `process.act(actionStorage,save,document.getElementById('sampleNote#1').getAttribute('name'),document.getElementbyId('sampleNote#1').innerHtml)`,
-
+                        'onclick': `StorageHelper.saveToStorage(document.getElementById('sampleNote#1').getAttribute('id'),document.getElementById('sampleNote#1').innerHTML)`,
                     },
                     {
                         name: 'button',

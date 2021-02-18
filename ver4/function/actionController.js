@@ -32,7 +32,7 @@ class ActionController extends ActionEvent {
 
     }
     onClick(entity) { 
-        console.log("clicked On", entity.target)
+     //   console.log("clicked On", entity.target)
       //  insertBreakAtPoint(entity);
         /**
          * check if the target entity has any click or data - command set, if yes, then process it.
@@ -51,6 +51,7 @@ class ActionController extends ActionEvent {
         //    console.log(commandArray)
             var entityName = document.getElementById('sampleNote#1').getAttribute('name');
             var entityInnerHtml = document.getElementById('sampleNote#1').innerHTML;
+            
             localStorage.setItem(entityName, entityInnerHtml);
        
         //    console.log(ActionSpace)
@@ -184,6 +185,7 @@ class ActionController extends ActionEvent {
 
     insertText(string, element,e) { 
         console.log("got the command");
+
         console.log("SelectionChange", currentSelection)
     }
     add(entity) {

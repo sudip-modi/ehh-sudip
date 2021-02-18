@@ -1,19 +1,25 @@
-//'use strict';
-
-class ActionStorage {
-    constructor(entityID,entityValue) {
-        console.log(entityID)
-        this.entity = JSON.parse(localStorage.getItem(entityID)) || [];
-      //  console.log(this.entity);
-    }
-
-    static save(entityID, entityValue, callback) {
-        console.log("save called")
-        window.localStorage.setItem(entityID,entityValue);
-        //chrome.storage.local.set
-       
-        if (callback !== undefined)
-            callback();
-    }
-   
-}
+class StorageHelper{
+    static saveToStorage(key,data){
+        console.log("I was called",key)
+        // data=JSON.stringify(data)
+         localStorage.setItem(key,data);
+     }
+ 
+     static  getFromStorage(key){
+         let data=localStorage.getItem(key)
+         return JSON.parse(data);
+     }
+ 
+     static clearStorage(){
+         localStorage.clear()
+     }
+     static export(fileName,json){
+         const a = document.createElement("a");
+         a.href = URL.createObjectURL(new Blob([JSON.stringify(json, null, 2)], {
+             type: "application/json"
+         }));
+         a.setAttribute("download", `${fileName}.json`);
+         document.body.appendChild(a);
+         a.click();
+     }
+ }
