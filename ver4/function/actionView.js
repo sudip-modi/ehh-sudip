@@ -3,7 +3,16 @@ class ActionView {
         console.log(element);
         this._actionView = new Entity(entity, element);
     }
-    // this method updates any thing in the view
+    
+    
+    
+    updateView(entity, value, method) { 
+        
+        process.act(entity, key, value, method, 'document')
+
+
+    }
+
     append() { 
         console.log("appending")
     }
@@ -35,7 +44,8 @@ class Caret {
         this.target = target
         //console.log("CaretCreated ",target.tagName);
     }
-
+    
+ 
     static moveCaret(win, charCount) {
         var sel, range;
         if (win.getSelection) {
@@ -77,6 +87,7 @@ class Caret {
         var sel, range, html;
         sel = window.getSelection();
         range = sel.getRangeAt(0);
+        console.log(range);
         range.deleteContents();
         var textNode = document.createTextNode(text);
         range.insertNode(textNode);
@@ -102,6 +113,7 @@ class Caret {
             }
         } else if ((sel = doc.selection) && sel.type != "Control") {
             var textRange = sel.createRange();
+            console.log('textRange',textRange);
             var preCaretTextRange = doc.body.createTextRange();
             preCaretTextRange.moveToElementText(element);
             preCaretTextRange.setEndPoint("EndToEnd", textRange);
@@ -111,56 +123,42 @@ class Caret {
 
     }
 
-    /**
-     * get caret position
-     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Range}
-     * @returns {number}
-     */
-    static getPos(e) {
-        // for contentedit field
-        //  if (this.isContentEditable) {
-        console.log(this.target);
-        this.target.focus()
-        let _range = document.getSelection().getRangeAt(0)
-        let range = _range.cloneRange()
-        range.selectNodeContents(this.target)
-        range.setEnd(_range.endContainer, _range.endOffset)
-        return range.toString().length;
-        //    }
-        // for texterea/input element
+   //This gets the last word from the caret position.
+    static getLastWord(element, caretPos,currentSelection) {
+        //var lastWordsArray = e
+        
+        console.log("getting last word",element.innerText)
+        
+        var lastSpace = element.innerText.lastIndexOf('\n');
+       // var lastWord = currentSelection.focusNode.data.substring(currentSelection.focusNode.data.lastIndexOf('\n'));
+        console.log(lastSpace)
+        var splitters = [' ', '\n', '۔'];
+      //  var caretPosition = element.value.slice(0, element.selectionStart).length;
+      //  var tempLastWord = element.value.substring(0, caretPos);
+      //  console.log(tempLastWord)
+     //   var lastWord = tempLastWord.substring(tempLastWord.lastIndexOf(splitters) + 1);
+    //    var lastWord = tempLastWord.substring(tempLastWord.lastIndexOf('\n') + 1);
+//console.log(lastWord)
 
-        // return this.target.selectionStart
+  
     }
+}
 
-    /**
-     * set caret position
-     * @param {number} pos - caret position
-     */
-    setPos(pos) {
-        // for contentedit field
-        if (this.isContentEditable) {
-            this.target.focus()
-            document.getSelection().collapse(this.target, pos)
-            return
+function getCaretCoordinates() {
+    let x = 0,
+        y = 0;
+    const isSupported = typeof window.getSelection !== "undefined";
+    if (isSupported) {
+        const selection = window.getSelection();
+        if (selection.rangeCount !== 0) {
+            const range = selection.getRangeAt(0).cloneRange();
+            range.collapse(true);
+            const rect = range.getClientRects()[0];
+            if (rect) {
+                x = rect.left;
+                y = rect.top;
+            }
         }
-        this.target.setSelectionRange(pos, pos)
     }
-
-    static getLastWord(text, caretPos) {
-
-        console.log(caretPos)
-        let content = text.innerText.substring(0, caretPos);
-        let input = content.split(/[^A-Za-z]/).filter((elm) => {
-            if (elm !== "")
-                return elm
-        }
-
-        );
-        console.log(input)
-
-        if (input[input.length - 1] === "")
-            return input[input.length - 2]
-        return input[input.length - 1]
-
-    }
+    return { x, y };
 }

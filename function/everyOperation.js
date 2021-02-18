@@ -49,6 +49,9 @@ class conductor {
       //  console.log("conduct response",response)
         return response;
     }
+    //    //arr.every(callback(element[, index[, array]])[, thisArg])
+    static onEvery1(a, b, callbacks) { return callbacks.every(function (callback) { return operate[callback](a, b); }); }
+
 
     static conductForEachFlow(a, b, options) {
 
@@ -56,11 +59,7 @@ class conductor {
     }
 }
 
-class operator { 
-    //    //arr.every(callback(element[, index[, array]])[, thisArg])
-    static onEvery1(a, b, callbacks) { return callbacks.every(function (callback) {return operate[callback](a, b);}); }
 
-}
 
 class operate {
     

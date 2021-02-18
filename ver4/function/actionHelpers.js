@@ -70,7 +70,29 @@ class process {
         // console.log("iterator Array response", response);
         return response;
     }
+    static act(a, b, c, d, callback, callbackClass) {
+        // console.log(a, b, callback)
+        //eval(callbackClass.callback(a, b))
+        var response = callbackClass[callback](a, b, c, d);
+        //  console.log("conduct response",response)
+        return response;
+    }
+    
 
+}
+
+class conductor {
+    //this function calls a callback function with a and b parameter. Conducted Routes have to be registered before else will throw error.
+    //  on param = [ anyEvent ]
+  
+    //    //arr.every(callback(element[, index[, array]])[, thisArg])
+    static onEvery1(a, b, callbacks) { return callbacks.every(function (callback) { return operate[callback](a, b); }); }
+
+
+    static conductForEachFlow(a, b, options) {
+
+
+    }
 }
 
 
@@ -80,7 +102,10 @@ class operate {
     static isEmpty(argA) { return Object.keys(argA).length === 0 ? true : false }
     static isNotEmpty(argA) { return argA !== '' && argA !== null && typeof argA !== 'undefined' ? true : false }
     //returs the data Type of the input.
-    static is(argA) { return Object.getPrototypeOf(argA).constructor.name; }
+    static is(argA) {
+      //  console.log(argA);
+        return Object.getPrototypeOf(argA).constructor.name;
+    }
     static isInt(argA) { return Number.isInteger(argA); }
     static isNumber(argA) { return Number.parseFloat(argA).toString() !== 'NaN' }
     static isString(argA) { return typeof argA === 'string' ? true : false }
@@ -90,7 +115,7 @@ class operate {
      * @param {*} argB  is required to be not empty
      * 
      */
-    static isIn(argA, argB) { return argB.indexOf(argA) > -1 ? true : false; }
+    static isInsideArray(argA, argB) { return argB.indexOf(argA) > -1 ? true : false; }
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
     //for array's one sided value existence check, return true if each element of a is present in b
@@ -155,9 +180,41 @@ class operate {
     static isParent(argA, argB) { }
     static isEven(argA) { return numbers.every(function (e) { return e % 2 == 0; }); }
     static isOdd(argA) { return numbers.every(function (e) { return Math.abs(e % 2) == 1; }); }
+    /**
+     * 
+     * @param {*} argA This is the input argument, it has to be a string operate.enforce(operate.isString(value), true)
+     * @param {*} Object The Object to search this string in .
+     * @param {*} options Currently there are 3 optional Parameters.
+     *  options.Recurse : true [true,false] Work In progress
+     * optoins.filter()
+     * options.Lookin : keys [keys, values, all]
+     * 
+     */
+   
 }
 
+var reqest = {
+    method: 'get',// [ get,set,create,put,delete]
+    entity: {
+        entityIdentifier: '	ObjectID',
+        entityModel: 'document',
+        entityLocation: 'currentTab',
+        entityType: 'HTML',
+        entityName: "NameofEntity",
+        entityId: 'entityId',
+        entityLocation: 'Dom',
+        entityServiceClass: "Particular Class which has it's Crud operators, for eg. document is one service class, similarly SpreadsheetApp is a service class in AppScript and ActionEntity is a service classfor any entity in actionSpace "
+    },
+    //a generic Optional Parameter for every method in across classes		
+    options: {
+        recurse: true, // operate.isoneof(value,[true,false])
+        'and': {
 
+        }
+
+
+    }
+}
 
 class dataHelpers {
 
@@ -173,12 +230,33 @@ class dataHelpers {
 }
 
 
+function isIn(argA, entity, options) {
+    var valuesArray = Object.values(entity)
+    var result = Object.values(entity).filter(function (key, index, self) {
+      //  console.log(argA,!key.prefix.indexOf(argA), key.prefix)
+        if (!key.keyIdentifier.indexOf(argA) === true) {
+           // console.log("tentative match found",key)
+            if (argA.length === key.keyIdentifier.length) { 
+              //  console.log("matchFound", key.prefix)    //To get strict Match To be enabled using options.
+                var response = true;
+              //  return true;
+            }  
+        }
+        return !key.keyIdentifier.indexOf(argA);
+    });
+   // console.log("result",result);
+    return result;
+
+}
+
+
 /**
  * AutComplete
  */
 
 class AutoComplete {
     static checkSuggestion(keyword, editor) {
+      //  console.log("keyword In testing",keyword,typeof keyword)
         keyword = this.removeSpecialCharacters(keyword.trim());
         if (this._isContains(snippets, keyword)) {
 
@@ -192,13 +270,15 @@ class AutoComplete {
 
                    // console.log(editor.innerText.substring(0, editor.innerText.length - keyword.trim().length))
 
-
-                    Caret.insertInTextarea(obj.body)
+                    console.log("Found",obj.prefix);
+                   // Caret.insertInTextarea(obj.body)
+                    return true;
                     // this.setCaretToEnd(editor)
                 }
             }
         } else {
-            console.log("Nope")
+         //   console.log("Nope");
+            return false;
         }
     }
 

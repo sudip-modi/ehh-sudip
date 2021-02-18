@@ -728,6 +728,7 @@ class Caret {
 class AutoComplete {
     static checkSuggestion(keyword, editor) {
         keyword = this.removeSpecialCharacters(keyword.trim());
+        console.log(keyword)
         if (this._isContains(snippets, keyword)) {
             // console.log(snippets)
             for (let i = 0; i < snippets.length; ++i) {

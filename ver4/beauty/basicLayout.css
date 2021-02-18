@@ -1,0 +1,149 @@
+
+*:focus{
+  border:none;
+  outline:none;
+}
+
+body {
+ height: 100vh;
+ font-family: 'Poppins';
+ resize: both;
+
+}
+
+brand{
+  margin-left: 21px;
+  margin-right: 21px;
+  display: contents;
+  align-self: center;
+  background: rgb(13, 22, 141);
+  width: 25vw;
+  height: 100px;
+  font-family: 'Poppins';
+  font-size: 1.5vh; 
+}
+
+.searchBar{
+  margin-left: 55px;
+  padding-left: 13px;
+  font-family: 'Poppins';
+  font-size: 2vh;
+  width: auto;
+}
+
+actionLinkBar{
+  float: right;
+  padding-right: 5vw;
+  
+}
+a {
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+leftSidebar {
+       
+       grid-area: leftSidebar;
+  background-color: blue;
+  height: 50vh;
+}
+.rightSidebar {
+  grid-area: rightSidebar;
+  display:inline-block;
+
+}
+actionSpaceEditor{
+     display:inline-block;
+     padding: 5vw;
+     outline: none;
+     border: none;
+     width:60vw;
+     height: 60vh;
+     background-color: rgb(255, 127, 127);
+}
+content {
+  grid-area: content;
+  position: relative;
+  
+}
+.card{
+  padding: 1rem;
+  background-color: blueviolet;
+  display: block;
+
+}
+
+#autocomplete {
+  position: absolute;
+  
+  top: 40px;
+  left: 40px;
+  
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  margin-top: -2px;
+
+}
+
+.header {
+  grid-area: header;
+}
+
+.footer {
+         padding: 2rem;
+  text-align: right;
+  grid-column: 1 / 4;
+  font-family: 'Montserrat';
+  font-size: 1.2vh;
+  grid-area: footer;
+}
+
+.actionSpace {
+   
+    border: none;
+    outline:none;
+    height: 100%;
+    display: grid;
+    grid-gap: 5px;
+    grid-template: auto 1fr auto/auto 1fr auto;
+    grid-template-areas:
+    "header  header  header"
+    "leftSidebar content rightSidebar"
+    "footer  footer  footer";
+  }
+
+.box {
+   
+  border-radius: 3px;
+  padding: 34px;
+ 
+}
+
+.header,
+.footer {
+    height: 5vh;
+ 
+}
+
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.topright {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.bottomright {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
