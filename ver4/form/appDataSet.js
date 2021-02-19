@@ -501,3 +501,34 @@ var basicLayout = {
         
 
 }
+
+var userStates = [login, loginSuccess, loginError, logout, logoutSuccess]
+// var ActionButtonProps ={
+//     dataTestID: string,
+//   disabled?: boolean,
+//   handler: MouseEventHandler,
+//   icon: Icon,
+//   label: string,
+//   text: string,
+// }
+
+// var button = (
+//     <button
+//         data-testid={dataTestID}
+//         className="action-button"
+//         aria-label={label}
+//         onClick={handler}
+//         disabled={disabled}
+//         title={label}
+//     >
+//         <IconCmp
+//             size={18}
+//             className="action-button-icon"
+//             color={iconColor}
+//             aria-hidden="true"
+//             focusable="false"
+//         />
+//         <span>{text}</span>
+//     </button>
+// )
+// console.log(button)
