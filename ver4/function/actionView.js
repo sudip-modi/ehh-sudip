@@ -4,13 +4,8 @@ class ActionView {
         this._actionView = new Entity(entity, element);
     }
     
-    
-    
     updateView(entity, value, method) { 
-        
-        process.act(entity, key, value, method, 'document')
-
-
+          process.act(entity, key, value, method, 'document')
     }
 
     append() { 
