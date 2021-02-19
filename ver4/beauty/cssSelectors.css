@@ -1,0 +1,29 @@
+/*
+* {
+  /* Universal selector */
+}
+
+tag {
+  /* Type selector */
+}
+
+tag::before {
+  /* Type selector (psuedo element) */
+}
+
+.class {
+  /* Class selector */
+}
+
+.class:hover {
+  /* Class selector (pseudo class) */
+}
+
+[attr] {
+  /* Attribute selector */
+}
+
+#id {
+  /* ID selector */
+}
+*/

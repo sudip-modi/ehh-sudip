@@ -24,7 +24,7 @@ function onload() {
     return newActionSpace;
 }
 var newActionSpace = new ActionSpace(basicLayout);
-console.log(newActionSpace._actionView.entity.getElementById('actionSpace'))
+console.log(newActionSpace._actionView.entity.getAttribute(id))
 
 //var newActionSpace = new ActionSpace(basicLayout);
 //var newLayout = new Entity(actionSpaceLayoutV1, document.getElementsByTagName('body')[0])

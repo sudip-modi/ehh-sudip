@@ -3,7 +3,9 @@
   border:none;
   outline:none;
 }
-
+::selection {
+  background-color: cyan;
+}
 body {
  height: 100vh;
  font-family: 'Poppins';
