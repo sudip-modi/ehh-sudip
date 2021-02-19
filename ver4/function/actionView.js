@@ -1,7 +1,8 @@
 class ActionView { 
     constructor(entity, element) { 
-        console.log(element);
+        console.log("Request for new View ", entity,element);
         this._actionView = new Entity(entity, element);
+        console.log(" new View ", this._actionView.entity);
     }
     
     updateView(entity, value, method) { 
