@@ -8,6 +8,7 @@ class ActionSpace {
     constructor(entity) { 
      //   this._actionEntity = new Entity(josnObject, document.getElementById('actionSpace'))
         this._actionView = new ActionView(entity, document.getElementById('actionSpace'));
+        console.log(this._actionView.Entity)
         this._actionEvent = new ActionEvent(document.getElementById('actionSpace')) // input should be actionView
        // this._actionStorage = new ActionStorage(window.location.pathname,document);
         this._actionControl = new ActionController(this._actionView, this._actionEvent)
