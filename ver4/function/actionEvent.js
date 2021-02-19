@@ -8,7 +8,7 @@ class ActionEvent {
 
         this.on('keypress', e => this.onKeyPress(e));
         this.on('keyup', e => this.onKeyUp(e));
-        this.on('click', e => this.onClick(e));
+        this.on('click', e => this.eventHandler(e));
         this.on('insertText', e => this.insertText(e));
         this.on('delButtonClicked', e => this.del(e));
 

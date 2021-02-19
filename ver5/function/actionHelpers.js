@@ -1,3 +1,13 @@
+// Query for all available fonts and log metadata.
+// const fonts = navigator.fonts.query();
+// try {
+//   for await (const metadata of fonts) {
+//     console.log(`${metadata.family} (${metadata.fullName})`);
+//   }
+// } catch (err) {
+//   console.error(err);
+// }
+
 
 class process {
     static processReq(input, output, key, value) {

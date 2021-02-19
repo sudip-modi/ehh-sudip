@@ -30,5 +30,6 @@ var newActionSpace = new ActionSpace(basicLayout);
 console.log(window.newActionSpace._actionView._actionView)
 //console.log(newActionSpace._actionView.entity.getAttribute(id))
 
+
 //var newActionSpace = new ActionSpace(basicLayout);
 //var newLayout = new Entity(actionSpaceLayoutV1, document.getElementsByTagName('body')[0])

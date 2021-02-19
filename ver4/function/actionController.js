@@ -10,6 +10,7 @@ class ActionController extends ActionEvent {
         // attach listeners to HTML controls
         //window.addEventListener('selectionchanged', e => this.emit('selection', e));
         window.addEventListener('change', e => this.emit('change', e));
+        window.addEventListener('event',e => this.emit('click', e))
         window.addEventListener('click', e => this.emit('click', e));
         window.addEventListener('keypress', e => this.emit('keypress', e));
         window.addEventListener('keyup', e => this.emit('keyup', e));
@@ -18,6 +19,10 @@ class ActionController extends ActionEvent {
       // actionSpaceElements.delButton.addEventListener('click', e => this.emit('delButtonClicked',e));
         var currentSelection = window.getSelection();
         var currentInputRange = [];
+
+    }
+    eventHandler(event){
+        console.log("handler",event.type)
 
     }
     onSelection(entity) { 

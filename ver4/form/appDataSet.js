@@ -402,7 +402,7 @@ var basicLayout = {
         actionSpaceEditor: {
             content: [
                 {
-                    name: 'content',
+                    name: 'div',
                     contentEditable: true,    
                     'class': 'content',
                     lineNumbers: true,
@@ -434,7 +434,7 @@ var basicLayout = {
                         id: "select_all",
                         class: "material-icons",
                         'innerText': "select_all",
-                        'onclick': "document.execCommand('bold',false,null)"
+                        onclick:"console.log(this.id);"
                         // 'data': `process.act(entity, insertBreakAtPoint, document)`,
 
                     },
