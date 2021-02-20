@@ -1,0 +1,4 @@
+/* Selects a <div> when one of its descendants is focused */
+actionspaceeditor:focus-within {
+  background: rgb(254, 255, 244);
+}

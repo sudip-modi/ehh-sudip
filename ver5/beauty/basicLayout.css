@@ -87,10 +87,7 @@ list-style:none;
 .card{
   padding: 1rem;
 }
-a:hover,option:hover{
-background-color:#5183f5;
 
-}
 
 #autocomplete {
   visibility: hidden;
