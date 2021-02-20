@@ -81,15 +81,28 @@ class process {
         return response;
     }
     static act(callbackClass,method, a, b, c, d,) {
-      //  console.log(callbackClass, method, a, b, c, d)
-        //eval(callbackClass.callback(a, b))
-        var response = callbackClass[method](a, b, c, d);
+        console.log(callbackClass, method, a, b, c, d)
+       // eval(callbackClass.callback(a, b))
+//        var response = callbackClass[method](a);
         console.log("act response",response)
         return response;
     }
     
+    
 
 }
+
+
+
+// Query for all available fonts and log metadata.
+// const fonts = navigator.fonts.query();
+// try {
+//   for await (const metadata of fonts) {
+//     console.log(`${metadata.family} (${metadata.fullName})`);
+//   }
+// } catch (err) {
+//   console.error(err);
+// }
 
 class conductor {
     //this function calls a callback function with a and b parameter. Conducted Routes have to be registered before else will throw error.

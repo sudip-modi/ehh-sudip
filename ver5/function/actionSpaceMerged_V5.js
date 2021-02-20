@@ -3,6 +3,31 @@ var actionSpaceSchema = {
 
 }
 
+class actionState {
+    static initState(e) {
+        var nodes = [];
+        //currentState = e.type;
+        document.documentElement.querySelectorAll('*').forEach(function (node) {
+            node.setAttribute("currentstate", "inDom"); node.setAttribute("prevstate", "");
+            //  console.log(node);
+        });
+    }
+    static changeState(e) {
+        var targetElement = e.target;       //console.log("changing state for event");
+        let currentState = targetElement.getAttribute('currentstate'); //console.log("current state", currentState);  //console.log("prev state",prevState);
+        let prevState = targetElement.getAttribute('prevstate');
+        if (prevState === currentState) {
+            targetElement.setAttribute('currentstate', e.type); //console.log(prevState);
+        } else {
+            targetElement.setAttribute('prevstate', currentState); //console.log(prevState);
+            targetElement.setAttribute('currentstate', e.type); //console.log(prevState);
+            // console.log("New State",targetElement);
+        }
+        ehhEvent.conductEvent(e);
+        //console.log(targetElement.getAttributes(prevstate));
+
+    }
+}
 //console.log("app", app)
 class ActionEvent {
     constructor(elements4Event, entity) {
@@ -16,7 +41,7 @@ class ActionEvent {
 
         this.on('keypress', e => this.onKeyPress(e));
         this.on('keyup', e => this.onKeyUp(e));
-        this.on('click', e => this.handleEvent(e));
+        this.on('handleEvent', e => this.handleEvent(e));
         this.on('insertText', e => this.insertText(e));
         this.on('delButtonClicked', e => this.del(e));
 
@@ -168,33 +193,42 @@ class ActionController extends ActionEvent {
         this.model = model
         this.view = view
         this.actionEvent = actionEvent
-        window.addEventListener('change', e => this.emit('change', e));
-        window.addEventListener('event', e => this.emit('click', e))
-        window.addEventListener('click', e => this.emit('click', e));
-        window.addEventListener('keypress', e => this.emit('keypress', e));
-        window.addEventListener('keyup', e => this.emit('keyup', e));
+     //   window.addEventListener('change', e => this.emit('change', e));
+        //window.addEventListener('event', e => this.emit('click', e))
+        window.addEventListener('storage', e => this.emit('handleEvent', e));
+        window.addEventListener('mouseover', e => this.emit('handleEvent', e));
+        window.addEventListener('click', e => this.emit('handleEvent', e));
+        window.addEventListener('keypress', e => this.emit('handleEvent', e));
+        window.addEventListener('keyup', e => this.emit('handleEvent', e));
     }
 
     handleEvent(event) {
-        console.log(event.type)
+       // console.log(event.type)
         switch (event.type) {
             case 'click':
-                //  console.log(this);
-                //  console.log("click", event.type, event.target)
+                this.onClick(event);
+               //  console.log("click", event.type, event.target)
                 break;
             case 'selectstart':
                 //console.log("selectstart", event.type, event.target)
                 break;
             case 'keypress':
                 //  this.emit('keypress', event)
-                //  this.onKeyPress(event)
+                  this.onKeyPress(event)
                 // console.log("keypress", event.type, event.target)
                 break;
-            case 'message':
+            case 'keyup':
+                this.onKeyUp(event)
                 //  console.log("message", event.type, event.target)
                 break;
-            case 'mousemove':
-                // console.log("mousemove", event.type, event.target)
+            case 'mouseover':
+                this.onMouseOver(event);
+                //console.log("mouseover", event.type, event.target)
+                break;
+            case 'storage':
+                console.log("storage", event.type, event.target)
+                console.log(Object.keys(actionStorageInstance.entity))
+
                 break;
             default:
             // console.log("I don't know such values",event.type);
@@ -205,66 +239,194 @@ class ActionController extends ActionEvent {
         //filter the registerd events paired with Target
 
     }
-
     onKeyPress(entity) {
         
         console.log("key pressed")
-        
-        var currentSelection = window.getSelection();
-        
+        var currentSelection = window.getSelection();     
         var focusText = currentSelection.anchorNode.data;
-        
         var focusTextEntity = entity.target.textContent; //Pure text
-        
         var focusEntityInnerText = entity.target.innerText; // Rendered Text
         // console.log("focusEntityInnerText", currentSelection);
         var currentCaret = currentSelection.anchorOffset;
 
+        if (entity.key == 'Enter') {
+            return;
+        }
+/// Directly entering the key In the view
+        entity.preventDefault(entity);
+        var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + entity.key + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
+       currentSelection.anchorNode.data = response;
+       Caret.moveCaret(window, currentCaret +1);
+     
+
+
+
     }
     onKeyUp(entity) { 
-        console.log("keywas up")
+        console.log("key was up")
     }
-      
-    onClick(entity) {
+    onClick(event) {
+       
+       
         //   console.log("clicked On", entity.target)
-        //  insertBreakAtPoint(entity);
         /**
          * check if the target entity has any click or data - command set, if yes, then process it.
          */
 
-        var currentSelection = window.getSelection();
-        var cartetAtPos = Caret.getCaretPos(entity.data);
-        if (entity.target.hasAttribute('data')) {
+        
+        if (event.target.hasAttribute("data-command")) { 
+            var dataCommandT = event.target.getAttribute('data-command');
+            var commandJSOn = JSON.parse(dataCommandT);
+            console.log(commandJSOn)
+           // var entityName = document.getElementById(commandJSOn[0].entity).getAttribute(commandJSOn[0].identifier);
+
+            switch (commandJSOn[0].command) {
+                case 'new':
+                    this.new1(event);
+                    //  console.log("new", event.type, event.target)
+                    break;
+                case 'save':
+                    this.save(event);
+                    //console.log("selectstart", event.type, event.target)
+                    break;
+                case 'load':
+                    //  this.emit('keypress', event)
+                    this.load(event)
+                    // console.log("keypress", event.type, event.target)
+                    break;
+                case 'keyup':
+                    this.onKeyUp(event)
+                    //  console.log("message", event.type, event.target)
+                    break;
+                case 'mouseover':
+                    this.onMouseOver(event);
+                    //console.log("mouseover", event.type, event.target)
+                    break;
+                case 'storage':
+                    console.log("storage", event.type, event.target)
+                    console.log(Object.keys(actionStorageInstance.entity))
+                    break;
+                default:
+                // console.log("I don't know such values",event.type);
+            }
 
 
-            var dataCommand = entity.target.getAttribute('data');
+            
+           // this.save(event);
+            //console.log(entity.target.getAttribute('data'), typeof (json))
+         //   var dataCommandT = entity.target.data-command;
+           // var dataCommandT = entity.target.getAttribute('data-command');
+           // var commandJSOn = JSON.parse(dataCommandT);
+        //    window[commandArray[0].call];
+          //  console.log(commandJSOn)    
 
-            //  var parseCommand=  JSON.parse(dataCommand);
-            //  console.log(dataCommand)
-            var commandArray = dataCommand.split(",")
-            //    console.log(commandArray)
-            var entityName = document.getElementById('sampleNote#1').getAttribute('name');
-            var entityInnerHtml = document.getElementById('sampleNote#1').innerHTML;
+            // if (commandJSOn[0].class) { 
+            //     console.log(commandJSOn)    
+            //     var actionClass =  'commandJSOn[0].class' ;
+            //     console.log(actionClass, typeof actionClass);
+            //     var actionMethod = commandJSOn[0].method;
+            //     console.log(actionMethod, typeof actionMethod);
 
-            localStorage.setItem(entityName, entityInnerHtml);
+            //     var actionArg1 = commandJSOn[0].arg1;
+            //     console.log(actionArg1, typeof actionArg1);
+            //     var actionArguments = {
+            //        // actionClass.actionMethod.actionArg1.call()
+                    
+            //     }
 
-            //    console.log(ActionSpace)
-            //   ActionStorage.save(document.getElementById('sampleNote#1').getAttribute('name'), entityInnerHtml);
+            //   //  var output = window[JSON.parse(actionArg1)]
+            //   //  console.log(output)
 
-            //process.act(actionStorage, save, );
-            //insertInTextarea()
-            //  var methodToexecute = entity.target.data.value;
-            // console.log(methodToexecute);
+            //    // var Action = process.act(actionClass, actionMethod, actionArg1, commandJSOn[0].arg2);
+            // }
+          //  
+           // dataCommandT.call();
+//            'data': `command `,
+  //              StorageHelper.saveToStorage(document.getElementById('actionContent').getAttribute('name'), document.getElementById('sampleNote#1').innerHTML)
 
+            //func.call([thisArg[, arg1, arg2, ...argN]])
+        }
+        if (event.target.classList.contains('editable')) { 
+           // console.log("clickedOn", entity.target.id, entity.target.classList.contains('editable')) // TO check if it's content
+            event.target.setAttribute('contentEditable', 'true');
+            //entity.target.setAttribute('State', "contentEditable");
         }
 
-        //if(entity.target)
+      //  var currentSelection = window.getSelection();
+      //
+       // console.log(currentSelection);
+       // var focusText = currentSelection.anchorNode.data;
+      //  var focusTextEntity = entity.target.textContent; //Pure text
+       // var focusEntityInnerText = entity.target.innerText; // Rendered Text
+        // console.log("focusEntityInnerText", currentSelection);
+       // var currentCaret = currentSelection.anchorOffset;
+       
+//entity.target.setSelectionRange(currentSelection,0)
 
 
+    }
+    onMouseOver(event) { 
+        if (event.target.id) { 
+            event.target.setAttribute('State', "mouseover");
+            
+        }
+        if (event.target.classList.contains('editable')) { 
+            
+            event.target.previousElementSibling.style = 'visibility:visible'
+            
+            console.log(event.target.previousElementSibling.innerHTML)
+            //event.target.previousElementSibling('visibility',true)
+
+//console.log("yo")
+        }
+    }
+    new1(event) { 
+        var dataCommandT = event.target.getAttribute('data-command');
+        var commandJSOn = JSON.parse(dataCommandT);
+        var entity = document.getElementsByTagName('actioncontent')[0];
+         new Entity(actionStoryTemplate, entity);
+        entity.previousElementSibling.innerText = actionStoryTemplate.name;
+       
+      //  entity.previousElementSibling.innertext = actionStoryTemplate.name;
+
+    }
+    save(event) { 
+
+    //    var dataCommandT = event.target.getAttribute('data-command');
+      //  var commandJSOn = JSON.parse(dataCommandT);
+        var entity = document.getElementsByTagName('actioncontent')[0];
+        //new Entity(actionStoryTemplate, entity);
+       // entity.previousElementSibling.innerText = actionStoryTemplate.name;
+        var entityName = entity.previousElementSibling.innerText;
+        console.log(entityName)
+        var entityValue =
+        {
+            name: entityName,
+            id: entity.getAttribute('id'),
+            'innerHtml': entity.innerHTML
+        };
+        StorageHelper.saveToStorage(entityName, entityValue);
 
 
+    }
+    load(event) { 
+        
+        var dataCommandT = event.target.getAttribute('data-command');
+        var commandJSOn = JSON.parse(dataCommandT);
+        var entity = document.getElementsByTagName('actioncontent')[0];
+        var entitytValue = StorageHelper.getFromStorage(event.target.getAttribute('name'));
+        console.log("entitytValue",entitytValue)
+        var newEntity = new Entity(entitytValue, entity);
+        console.log("newEntity", newEntity);
+     //   entity.innerHTML = JSON.stringify(entitytValue);
+      //  entity.previousElementSibling.innerText = actionStoryTemplate.name;
+       // var entity = document.getElementsByTagName('actioncontent')[0].innerHTML = entitytValue;
 
-        //console.log("Clicked",currentSelection,cartetAtPos);
+       // console.log(entity)
+
+        //new Entity(actionStoryTemplate, entity);
+        //entity.previousElementSibling.innerText = actionStoryTemplate.name;
+
     }
 
 }
@@ -274,9 +436,8 @@ class ActionView {
         this._actionView = new Entity(entity, element);
         //  console.log(" new View ", this._actionView.entity);
     }
-    updateView() {
-
-
+    updateView(event,key,value) {
+      
     }
 
 }
@@ -284,18 +445,24 @@ class StorageHelper {
     constructor(entity) { 
       //  this.entity = getEntityFromStorage()
        StorageHelper.saveToStorage(entity.name, entity);    //Can we store Objects  
-        this.entity = StorageHelper.getFromStorage(entity.name);
+        this.entity = this.getStorage();
+      //  console.log("Storage >>>>>",this.getStorage);
     }
      static saveToStorage(key, data) {
-        console.log("I was called", key)
+      //  console.log("I was called", key)
         // data=JSON.stringify(data)
-         localStorage.setItem(key, JSON.stringify(data));
+       //  console.log(actionStorageInstance);
+         localStorage.setItem(key, JSON.stringify(data));    
     }
 
     static getFromStorage(key) {
         let data = localStorage.getItem(key)
         return JSON.parse(data);
     }
+    getStorage() { 
+        return window.localStorage;  
+    }
+    
 
     static clearStorage() {
         localStorage.clear()
@@ -312,11 +479,70 @@ class StorageHelper {
 }
 
 
+/**
+ * @file get/set caret position and insert text
+ * @author islishude
+ * @license MIT
+ */
+class Caret {
+    /**
+     * get/set caret position
+     * @param {HTMLColletion} target
+     */
+    constructor(target) {
+        this.isContentEditable = target && target.contentEditable
+        this.target = target
+        //console.log("CaretCreated ",target.tagName);
+    }
 
-var actionSpaceElement = document.getElementById('actionSpace#1');
+
+    static moveCaret(win, charCount) {
+        var sel, range;
+        if (win.getSelection) {
+            // IE9+ and other browsers
+            sel = win.getSelection();
+            if (sel.rangeCount > 0) {
+                var textNode = sel.focusNode;
+                var newOffset = sel.focusOffset + charCount;
+                sel.collapse(textNode, Math.min(textNode.length, newOffset));
+            }
+        } else if ((sel = win.document.selection)) {
+            // IE <= 8
+            if (sel.type != "Control") {
+                range = sel.createRange();
+                range.move("character", charCount);
+                range.select();
+            }
+        }
+    }
+
+  
+}
+
+function getCaretCoordinates() {
+    let x = 0,
+        y = 0;
+    const isSupported = typeof window.getSelection !== "undefined";
+    if (isSupported) {
+        const selection = window.getSelection();
+        if (selection.rangeCount !== 0) {
+            const range = selection.getRangeAt(0).cloneRange();
+            range.collapse(true);
+            const rect = range.getClientRects()[0];
+            if (rect) {
+                x = rect.left;
+                y = rect.top;
+            }
+        }
+    }
+    return { x, y };
+}
+
+
+var actionSpaceElement = document.getElementById('actionSpace1');
 //console.log(actionSpaceElement);
-const actionEntity = new Entity(actionSpaceBasicV1, {});
-const actionViewInstance = new ActionView(actionSpaceBasicV1, actionSpaceElement);
+const actionEntity = new Entity(basicLayout, {});
+const actionViewInstance = new ActionView(basicLayout, actionSpaceElement);
 const actionEventInstance = new ActionEvent(actionSpaceElement, window);
 const actionSpaceInstanceApp = new ActionController(actionEntity, actionViewInstance, actionEventInstance);
 
@@ -328,7 +554,7 @@ const actionSpaceInstanceApp = new ActionController(actionEntity, actionViewInst
 
 
 var actionSpaceviewInstanceName = actionViewInstance._actionView.entity.getAttribute('id')
-//console.log(actionSpaceviewInstanceName);
+console.log(actionSpaceviewInstanceName);
 
 var storageEntityModel = {
     name: actionSpaceviewInstanceName,
@@ -339,5 +565,21 @@ var storageEntityModel = {
 }
 var actionStorageInstance = new StorageHelper(storageEntityModel)
 
+var bindedHTML = document.createElement("bindedHtml");
+
+Object.keys(localStorage).forEach((entity) => {
+    // console.log(entity, JSON.parse(localStorage[entity]).id)
+    var newElement = document.createElement("a");
+
+    newElement.innerText = JSON.parse(localStorage[entity]).name;
+    newElement.setAttribute('name', JSON.parse(localStorage[entity]).name) ;
+    newElement.setAttribute('data-command', `[{"command":"load","entity": "actionContent","value":"innerHTML"}]`);
+    bindedHTML.appendChild(newElement);
+})
+console.log(bindedHTML);
+document.getElementById('leftSidebar').appendChild(bindedHTML);
 // const actionSpaceApp = new ActionController(), new ActionView(basicLayout, actionSpaceElement), new ActionEvent(actionSpaceElement,window))
 // console.log("actionSpaceApp", actionSpaceApp)
+
+
+// if condition() is true then this and

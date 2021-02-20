@@ -1,25 +1,40 @@
 
 body {
-    background-color: rgb(236, 238, 240);
+    background-color: rgb(242, 243, 245);
      
     font-family: 'Poppins';
 }
+
+.header,
+.footer {
+  display: flex;
+  flex-direction: column;
+    height: 5vh;
+ 
+}
 actionspaceelement{
      margin: 0 auto;
-     margin-top: 100px;
-     display: flex;
-     
+     display: flex;  
      background-color: white; 
-    width: 54%;
-    height: 80vh;
+  
 }
 
 actionspaceeditor{
-    margin: 5vw;
-    display: flex;
+  margin: 5vw;
+  display: flex;
   justify-content: center;
-  background-color: white; 
+  background-color: white;
+ 
+}
 
+*:focus{
+  border:none;
+  outline:none;
+}
+
+[State = 'inEdit']{
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);  
+  
 }
 /*
 
@@ -34,11 +49,18 @@ actionspaceeditor{
 
 */
 
+/*
+
 
 [id='sampleNote#1']:hover::before{
   display: block;
   content:attr(id);
-    
   font-size: 34pt;
+   position: absolute; 
+  display:block;
+
+  background-color: yellow;
 }
 
+
+*/

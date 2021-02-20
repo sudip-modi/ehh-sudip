@@ -1,14 +1,16 @@
 /*
+
+*/
+
 *:focus{
   border:none;
   outline:none;
+ 
 }
-*/
+
 body {
  height: 100vh;
  font-family: 'Poppins';
- resize: both;
-
 }
 
 brand{
@@ -24,15 +26,14 @@ brand{
 }
 
 .searchBar{
-  margin-left: 55px;
-  padding-left: 13px;
+  margin-left:  14vw;
+  padding-left: 2vw;
   font-family: 'Poppins';
   font-size: 2vh;
   width: auto;
   
 }
 section {
- 
     display: block;
 }
 ::selection {
@@ -44,20 +45,63 @@ actionLinkBar{
   padding-right: 5vw;
   
 }
-a {
-  padding-left: 3vw;
-  padding-right: 3vw;
-}
+
 
 leftSidebar {    
 
   grid-area: leftSidebar;
   
-  display: flex;
-  flex-direction: column;
+  display: block;
+
+}
+leftSidebar a {
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+ /* Add some padding */
+  margin: 2px;
+}
+
+a {
+ 
+  padding-left: 2vw; 
+  padding-right: 2vw;
+  padding-top: 1.5vh;
+  padding-bottom: .25vh;
+    
+
+}
+
+
+
+
+button{
+  
+  background-color: rgb(231, 231, 231);
+  border:none;
+  border-radius: 5px;
+  margin: 1px;
+  padding-left: 1vw;
+  padding-right: 1vw;
+   padding-top: .5vh;
+  padding-bottom: .5vh;
 
 
 }
+
+
+
+
+a:hover {
+  background-color: rgb(231, 231, 231);
+  color: black; /* Black text color */
+  cursor: pointer;
+  border-radius: .5em;
+
+ font-weight: bold;
+
+
+}
+
 .rightSidebar {
   grid-area: rightSidebar;
   display:inline-block;
@@ -75,24 +119,24 @@ actionSpaceEditor{
 content {
   grid-area: content;
   position: relative;
+}
+
+
+[contenteditable]::before{
+    display: none;
+    content:attr(name);
+    font-size: 34pt;
+    position: relative;
+     font-family: 'Poppins';
+
   
 }
-ul,li{
-margin: 0;
-padding:0;
-list-style:none;
-
-}
-.card{
-  padding: 1rem;
-}
 
 
-#autocomplete {
-  visibility: hidden;
-  position: fixed;
-  width: auto;
-}
+
+
+
+
 
 .header {
   grid-area: header;
@@ -152,8 +196,22 @@ list-style:none;
   left: 0;
 }
 
+actionContentTitle{
+  margin: 1%;
+font-weight: bold;
+  display: block;
+  font-size: 34px;
+}
+
 .bottomright {
   position: absolute;
   bottom: 0;
   right: 0;
 }
+
+toolList {
+  position: relative;
+  width: 90px;
+
+}
+
