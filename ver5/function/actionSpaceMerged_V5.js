@@ -9,26 +9,30 @@ class ActionEvent {
         this._events = {};
         this._elements = elements4Event;
       //  this.on('click', e => this.handleEvent(e));
-        this.createListeners(entity);
+      //  this.createListeners(entity);
         //  console.log(elements4Event)
         this.on('selection', e => this.onSelection(e));
         this.on('change', e => this.onSelection(e));
+
         this.on('keypress', e => this.onKeyPress(e));
         this.on('keyup', e => this.onKeyUp(e));
-      //  this.on('click', e => this.onClick(e));
+        this.on('click', e => this.handleEvent(e));
         this.on('insertText', e => this.insertText(e));
         this.on('delButtonClicked', e => this.del(e));
+
     }
+
     createListeners(entity) {
        // console.log(entity)
         let events = dataHelpers.find(window, 'on')
       //  console.log(events)
         events.forEach((evt) => {
-            window[evt] = this.handleEvent
+       //     console.log(evt.substring(2))
+            this.on(evt.substring(2), e => this.handleEvent(e));
+            //window[evt] = this.handleEvent
         })
   //  console.clear()
     }
-
     addListener(eventName, fn) {
         this._events[eventName] = this._events[eventName] || [];
         this._events[eventName].push(fn);
@@ -46,34 +50,7 @@ class ActionEvent {
         });
         return true;
     }
-    handleEvent(event) {
-       
-        switch (event.type) {
-            case 'click':
-                console.log("click", event.type, event.target)
-                break;
-            case 'selectstart':
-                console.log("selectstart", event.type, event.target)
-                break;
-            case 'keypress':
-                this.onKeyPress(event)
-                console.log("keypress", event.type, event.target)
-                break;
-            case 'message':
-                console.log("message", event.type, event.target)
-                break;
-            case 'mousemove':
-               // console.log("mousemove", event.type, event.target)
-                break;
-            default:
-               // console.log("I don't know such values",event.type);
-        }
-        // console.log("handler", event.type, event.target.getAttribute('name'))
-        //  window.postMessage()
-
-        //filter the registerd events paired with Target
-
-    }
+   
 }
 class Entity { 
     constructor(input, output) {
@@ -184,86 +161,70 @@ class Entity {
     
 
 }
-class ActionView {
-    constructor(entity, element) {
-        console.log("Request for new View ", entity, element);
-        this._actionView = new Entity(entity, element);
-      //  console.log(" new View ", this._actionView.entity);
-    }
-    updateView() { 
 
-
-    }
-
-}
 class ActionController extends ActionEvent {
     constructor(model, view, actionEvent) {
         super()
         this.model = model
         this.view = view
         this.actionEvent = actionEvent
+        window.addEventListener('change', e => this.emit('change', e));
+        window.addEventListener('event', e => this.emit('click', e))
+        window.addEventListener('click', e => this.emit('click', e));
+        window.addEventListener('keypress', e => this.emit('keypress', e));
+        window.addEventListener('keyup', e => this.emit('keyup', e));
     }
 
-    conductEvent(event) {
-        console.log("handler", event.type, event.target)
+    handleEvent(event) {
+        console.log(event.type)
+        switch (event.type) {
+            case 'click':
+                //  console.log(this);
+                //  console.log("click", event.type, event.target)
+                break;
+            case 'selectstart':
+                //console.log("selectstart", event.type, event.target)
+                break;
+            case 'keypress':
+                //  this.emit('keypress', event)
+                //  this.onKeyPress(event)
+                // console.log("keypress", event.type, event.target)
+                break;
+            case 'message':
+                //  console.log("message", event.type, event.target)
+                break;
+            case 'mousemove':
+                // console.log("mousemove", event.type, event.target)
+                break;
+            default:
+            // console.log("I don't know such values",event.type);
+        }
+        // console.log("handler", event.type, event.target.getAttribute('name'))
+        //  window.postMessage()
+
+        //filter the registerd events paired with Target
+
     }
 
     onKeyPress(entity) {
-
+        
+        console.log("key pressed")
+        
         var currentSelection = window.getSelection();
+        
         var focusText = currentSelection.anchorNode.data;
+        
         var focusTextEntity = entity.target.textContent; //Pure text
+        
         var focusEntityInnerText = entity.target.innerText; // Rendered Text
         // console.log("focusEntityInnerText", currentSelection);
         var currentCaret = currentSelection.anchorOffset;
-        if (entity.key == 'Enter') {
-            return;
-        }
-        //  entity.preventDefault(entity);
-        //var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + entity.key + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
-
-        // currentSelection.anchorNode.data = response;
-
-        //  console.log("inserted", entity.key, "at", currentCaret, "in", entity.target);
-
-        // Caret.moveCaret(window, currentCaret +1);
-        //entity.target.innerText = response;
-
-
-
-
-
-        //         if (entity.keyCode == 32) { 
-        //       //     console.log("space key pressed")
-
-        //           //  var focusText = entity.target.innerText;
-
-        //             console.log("focusText",focusText)
-        //            // Caret.moveCaret(window, lastSpace);
-
-        //            
-
-        //             
-
-        //             var matches = snippets.filter(snippets => {
-
-
-        // })
-
-        //             // var match = isIn(lastWord, snippets);
-
-        //             // if (match.length === 1) { // is a exact Match. To be used for Space, {,[,(
-        //             //     entity.preventDefault();
-        //             //     console.log("match", match[0].prefix, match[0].body);
-        //             //     var response = Entity.insert(currentSelection.baseNode.textContent, currentSelection.anchorOffset, entity.key + match[0].body);
-        //             //     currentSelection.baseNode.textContent = response;
-        //             //     Caret.moveCaret(window, currentCaret + 1);
-        //             // }
-
-        //         }
 
     }
-
+    onKeyUp(entity) { 
+        console.log("keywas up")
+    }
+      
     onClick(entity) {
         //   console.log("clicked On", entity.target)
         //  insertBreakAtPoint(entity);
@@ -304,6 +265,18 @@ class ActionController extends ActionEvent {
 
 
         //console.log("Clicked",currentSelection,cartetAtPos);
+    }
+
+}
+class ActionView {
+    constructor(entity, element) {
+        console.log("Request for new View ", entity, element);
+        this._actionView = new Entity(entity, element);
+        //  console.log(" new View ", this._actionView.entity);
+    }
+    updateView() {
+
+
     }
 
 }

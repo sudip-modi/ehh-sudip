@@ -21,20 +21,24 @@ actionspaceeditor{
   background-color: white; 
 
 }
-
+/*
 
 *[id]:hover::before,
 *[before]:focus::before {
-  content: attr(id);
+ display: block;
+ width: 100%;
+ height: 5px;
+  color: black;
 
- 
-  display: inline-block;
-  margin-right: 6px;
-  
-  
 }
 
-[id='actionSpace#1']{
-    background-color: rgb(255, 255, 255);
+*/
+
+
+[id='sampleNote#1']:hover::before{
+  display: block;
+  content:attr(id);
+    
+  font-size: 34pt;
 }
 
