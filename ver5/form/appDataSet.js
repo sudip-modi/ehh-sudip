@@ -403,7 +403,7 @@ var basicLayout = {
             content: [
                 {
                     name: 'content',
-                    contentEditable: true,    
+                   // contentEditable: true,    
                     'class': 'content',
                     lineNumbers: true,
                     innerText: actionContent,

@@ -50,14 +50,13 @@ a {
 }
 
 leftSidebar {    
-  grid-area: leftSidebar;
-  background-color:#2d2d2d;
-  color: #d0d0d0;
 
+  grid-area: leftSidebar;
+  
   display: flex;
-    flex-direction: column;
-    border-right: 1px solid #141414;
-    z-index: 3;
+  flex-direction: column;
+
+
 }
 .rightSidebar {
   grid-area: rightSidebar;
@@ -71,7 +70,7 @@ actionSpaceEditor{
      border: none;
      width:60vw;
      height: 60vh;
-     background-color: rgb(255, 224, 224);
+ 
 }
 content {
   grid-area: content;

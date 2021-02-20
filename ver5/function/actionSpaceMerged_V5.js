@@ -8,27 +8,28 @@ class ActionEvent {
     constructor(elements4Event, entity) {
         this._events = {};
         this._elements = elements4Event;
-        window.addEventListener('message', e => this.emit('message', e));
-        this.on('message', e => this.handleEvent(e));
+      
+        this.on('click', e => this.handleEvent(e));
 
-      //  this.createListeners(entity);
+        this.createListeners(entity);
         //  console.log(elements4Event)
         this.on('selection', e => this.onSelection(e));
         this.on('change', e => this.onSelection(e));
         this.on('keypress', e => this.onKeyPress(e));
         this.on('keyup', e => this.onKeyUp(e));
-        this.on('click', e => this.onClick(e));
+      //  this.on('click', e => this.onClick(e));
         this.on('insertText', e => this.insertText(e));
         this.on('delButtonClicked', e => this.del(e));
 
     }
     createListeners(entity) {
         console.log(entity)
-        let events = dataHelpers.find(entity, 'on')
-        console.log(events)
+        let events = dataHelpers.find(window, 'on')
+      //  console.log(events)
         events.forEach((evt) => {
-            entity[evt] = this.handleEvent
+          //  window[evt] = this.handleEvent
         })
+  //  console.clear()
     }
 
     addListener(eventName, fn) {
@@ -49,6 +50,26 @@ class ActionEvent {
         return true;
     }
     handleEvent(event) {
+       
+        switch (event.type) {
+            case 'click':
+                console.log("click", event.type, event.target)
+                break;
+            case 'selectstart':
+                console.log("selectstart", event.type, event.target)
+                break;
+            case 'keypress':
+                console.log("keypress", event.type, event.target)
+                break;
+            case 'message':
+                console.log("message", event.type, event.target)
+                break;
+            case 'mousemove':
+                console.log("mousemove", event.type, event.target)
+                break;
+            default:
+               // console.log("I don't know such values",event.type);
+        }
         // console.log("handler", event.type, event.target.getAttribute('name'))
         //  window.postMessage()
 
@@ -183,27 +204,66 @@ class ActionController extends ActionEvent {
         this.model = model
         this.view = view
         this.actionEvent = actionEvent
-        
-
-        window.addEventListener('change', e => this.emit('change', e));
-        window.addEventListener('event', e => this.emit('click', e))
-        window.addEventListener('click', e => this.emit('click', e));
-        window.addEventListener('keypress', e => this.emit('keypress', e));
-        window.addEventListener('keyup', e => this.emit('keyup', e));
+        // window.addEventListener('change', e => this.emit('change', e));
+        // window.addEventListener('event', e => this.emit('click', e))
+         window.addEventListener('click', e => this.emit('click', e));
+        // window.addEventListener('keypress', e => this.emit('keypress', e));
+        // window.addEventListener('keyup', e => this.emit('keyup', e));
     }
-    conductEvent(event) { 
+
+    conductEvent(event) {
         console.log("handler", event.type, event.target)
-        
     }
-    onClick(event) { 
+    onClick(entity) {
+        //   console.log("clicked On", entity.target)
+        //  insertBreakAtPoint(entity);
+        /**
+         * check if the target entity has any click or data - command set, if yes, then process it.
+         */
 
+        var currentSelection = window.getSelection();
+        var cartetAtPos = Caret.getCaretPos(entity.data);
+        if (entity.target.hasAttribute('data')) {
+
+
+            var dataCommand = entity.target.getAttribute('data');
+
+            //  var parseCommand=  JSON.parse(dataCommand);
+            //  console.log(dataCommand)
+            var commandArray = dataCommand.split(",")
+            //    console.log(commandArray)
+            var entityName = document.getElementById('sampleNote#1').getAttribute('name');
+            var entityInnerHtml = document.getElementById('sampleNote#1').innerHTML;
+
+            localStorage.setItem(entityName, entityInnerHtml);
+
+            //    console.log(ActionSpace)
+            //   ActionStorage.save(document.getElementById('sampleNote#1').getAttribute('name'), entityInnerHtml);
+
+            //process.act(actionStorage, save, );
+            //insertInTextarea()
+            //  var methodToexecute = entity.target.data.value;
+            // console.log(methodToexecute);
+
+        }
+
+        //if(entity.target)
+
+
+
+
+
+        //console.log("Clicked",currentSelection,cartetAtPos);
     }
+
 }
- var actionSpaceElement = document.getElementById('actionSpace#1');
+
+
+var actionSpaceElement = document.getElementById('actionSpace#1');
  console.log(actionSpaceElement);
 const actionEntity = new Entity(basicLayout, {});
 const actionViewInstance = new ActionView(basicLayout, actionSpaceElement);
-const actionEventInstance = new ActionEvent(actionSpaceElement, this);
+const actionEventInstance = new ActionEvent(actionSpaceElement, window);
 const actionSpaceInstanceApp = new ActionController(actionEntity, actionViewInstance, actionEventInstance);
 
 
