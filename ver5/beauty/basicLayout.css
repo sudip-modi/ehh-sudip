@@ -11,26 +11,34 @@
 body {
  height: 100vh;
  font-family: 'Poppins';
+ color: white;
+background: linear-gradient(to right, #f0eed8, #2c73b1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 brand{
+  color: black;
+  font-weight: bold;
   margin-left: 21px;
   margin-right: 21px;
   display: contents;
   align-self: center;
-  background: rgb(13, 22, 141);
   width: 25vw;
   height: 100px;
   font-family: 'Poppins';
-  font-size: 1.5vh; 
+  font-size: 2vh; 
 }
 
 .searchBar{
-  margin-left:  14vw;
-  padding-left: 2vw;
+  margin-left:  9.5vw;
+  padding:3px;
+  padding-left: 1vw;
   font-family: 'Poppins';
   font-size: 2vh;
-  width: auto;
+  width: 34vw;
+       background-color: rgba(248, 248, 248, 0.438);
+       border:none;
+
   
 }
 section {
@@ -42,7 +50,7 @@ section {
 }
 actionLinkBar{
   float: right;
-  padding-right: 5vw;
+  padding-right: 13vw;
   
 }
 
@@ -50,32 +58,30 @@ actionLinkBar{
 leftSidebar {    
 
   grid-area: leftSidebar;
-  
+  height: 100%;
   display: block;
 
 }
 leftSidebar a {
-  color: black; /* Black text color */
+ color: rgba(0, 0, 0, 0.555); /* Black text color */
   display: block; /* Make the links appear below each other */
  /* Add some padding */
   margin: 2px;
 }
 
 a {
- 
+
   padding-left: 2vw; 
   padding-right: 2vw;
-  padding-top: 1.5vh;
-  padding-bottom: .25vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
     
 
 }
 
 
-
-
 button{
-  
+  color: rgba(0, 0, 0, 0.705); /* Black text color */
   background-color: rgb(231, 231, 231);
   border:none;
   border-radius: 5px;
@@ -84,15 +90,13 @@ button{
   padding-right: 1vw;
    padding-top: .5vh;
   padding-bottom: .5vh;
-
-
 }
 
 
 
 
 a:hover {
-  background-color: rgb(231, 231, 231);
+  background-color: rgba(231, 231, 231, 0.61);
   color: black; /* Black text color */
   cursor: pointer;
   border-radius: .5em;
@@ -109,18 +113,31 @@ a:hover {
 }
 actionSpaceEditor{
   
-     padding: 5vw;
      outline: none;
      border: none;
-     width:60vw;
-     height: 60vh;
- 
-}
-content {
-  grid-area: content;
-  position: relative;
+     width:70vw;
+     height: 70vh;
+  
+
 }
 
+
+actionstory {
+  margin-top: 1vh;
+  padding: 3vw;
+  grid-area: content;
+  display: block;
+  
+  position: relative;
+    
+}
+*[id]:hover{
+  color: black;
+     background-color: rgba(248, 248, 248, 0.438);
+     border-radius: 3px;
+box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.075);  
+
+}
 
 [contenteditable]::before{
     display: none;
@@ -131,11 +148,6 @@ content {
 
   
 }
-
-
-
-
-
 
 
 .header {
@@ -149,6 +161,8 @@ content {
   font-family: 'Montserrat';
   font-size: 1.2vh;
   grid-area: footer;
+  
+  color: rgba(0, 0, 0, 0.863); /* Black text color */
 }
 
 .actionSpace {
@@ -209,9 +223,4 @@ font-weight: bold;
   right: 0;
 }
 
-toolList {
-  position: relative;
-  width: 90px;
-
-}
 

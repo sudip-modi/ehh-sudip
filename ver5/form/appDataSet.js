@@ -153,7 +153,7 @@ var basicLayout = {
         rightSidebar: {
             name: "div",
             class: "box rightSidebar",
-            innerText: "right-sidebar"
+            innerText: ""
         },
       
         footer: {
