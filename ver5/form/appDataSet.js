@@ -331,6 +331,7 @@ var actionSapceLayoutV2 = {
     //         <a class="tabBtn" data-element="setting" href="#setting">setting</a>
     //     </actionLinkBar >
 //    < input id = "actionSearch" type = "text" class="searchBar" value = " search here..." >
+var element = { input: { type: "checkbox" } }
 
 var basicLayout = {
     actionSpace: {
@@ -500,6 +501,21 @@ var basicLayout = {
    
         
 
+}
+var actionSpaceBasicV1 = {
+   actionSpaceEditor: { 
+        name: 'editor',
+       // contentEditable: true,
+        'class': 'content tooltip',
+        'before':"name",
+        lineNumbers: true,
+        innerText: actionContent,
+         'mimeMode': 'HTML',//['html', 'richText', 'json', 'css', 'javascript'],
+        //  output: ['self', 'output'],
+        state: 'idle', //['selectable','selected','editable','inEdit','draggable','inDrag','locked','hidden']
+      //  class: "tooltip",
+        id: "richText"
+    }
 }
 
 // var userStates = [login, loginSuccess, loginError, logout, logoutSuccess]

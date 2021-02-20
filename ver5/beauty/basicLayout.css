@@ -1,9 +1,9 @@
-
+/*
 *:focus{
   border:none;
   outline:none;
 }
-
+*/
 body {
  height: 100vh;
  font-family: 'Poppins';
@@ -50,14 +50,13 @@ a {
 }
 
 leftSidebar {    
-  grid-area: leftSidebar;
-  background-color:#2d2d2d;
-  color: #d0d0d0;
 
+  grid-area: leftSidebar;
+  
   display: flex;
-    flex-direction: column;
-    border-right: 1px solid #141414;
-    z-index: 3;
+  flex-direction: column;
+
+
 }
 .rightSidebar {
   grid-area: rightSidebar;
@@ -65,13 +64,13 @@ leftSidebar {
 
 }
 actionSpaceEditor{
-   
+  
      padding: 5vw;
      outline: none;
      border: none;
      width:60vw;
      height: 60vh;
-     background-color: rgb(255, 224, 224);
+ 
 }
 content {
   grid-area: content;
@@ -87,10 +86,7 @@ list-style:none;
 .card{
   padding: 1rem;
 }
-a:hover,option:hover{
-background-color:#5183f5;
 
-}
 
 #autocomplete {
   visibility: hidden;

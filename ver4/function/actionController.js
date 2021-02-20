@@ -22,7 +22,6 @@ class ActionController extends ActionEvent {
 
     }
     eventHandler(event){
-        console.log("handler",event.type)
 
     }
     onSelection(entity) { 
