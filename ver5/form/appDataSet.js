@@ -514,7 +514,7 @@ var actionSpaceBasicV1 = {
         //  output: ['self', 'output'],
         state: 'idle', //['selectable','selected','editable','inEdit','draggable','inDrag','locked','hidden']
       //  class: "tooltip",
-        id: "richText"
+        id: "editor"
     }
 }
 
