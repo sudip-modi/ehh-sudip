@@ -8,9 +8,7 @@ class ActionEvent {
     constructor(elements4Event, entity) {
         this._events = {};
         this._elements = elements4Event;
-      
-        this.on('click', e => this.handleEvent(e));
-
+      //  this.on('click', e => this.handleEvent(e));
         this.createListeners(entity);
         //  console.log(elements4Event)
         this.on('selection', e => this.onSelection(e));
@@ -20,14 +18,13 @@ class ActionEvent {
       //  this.on('click', e => this.onClick(e));
         this.on('insertText', e => this.insertText(e));
         this.on('delButtonClicked', e => this.del(e));
-
     }
     createListeners(entity) {
-        console.log(entity)
+       // console.log(entity)
         let events = dataHelpers.find(window, 'on')
       //  console.log(events)
         events.forEach((evt) => {
-          //  window[evt] = this.handleEvent
+            window[evt] = this.handleEvent
         })
   //  console.clear()
     }
@@ -59,13 +56,14 @@ class ActionEvent {
                 console.log("selectstart", event.type, event.target)
                 break;
             case 'keypress':
+                this.onKeyPress(event)
                 console.log("keypress", event.type, event.target)
                 break;
             case 'message':
                 console.log("message", event.type, event.target)
                 break;
             case 'mousemove':
-                console.log("mousemove", event.type, event.target)
+               // console.log("mousemove", event.type, event.target)
                 break;
             default:
                // console.log("I don't know such values",event.type);
@@ -156,10 +154,10 @@ class Entity {
     static set(input, output, key, value, callback, callbackClass) {
         //  console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
-
+            output.setAttribute(key, value)
             if (operate.isInsideArray(key, htmlAttributesListV2)) {
                 //console.log("setting",key, value,"in",output)
-                output.setAttribute(key, value)
+             
 
             } else {
                 //  console.log(output,key);
@@ -204,16 +202,68 @@ class ActionController extends ActionEvent {
         this.model = model
         this.view = view
         this.actionEvent = actionEvent
-        // window.addEventListener('change', e => this.emit('change', e));
-        // window.addEventListener('event', e => this.emit('click', e))
-         window.addEventListener('click', e => this.emit('click', e));
-        // window.addEventListener('keypress', e => this.emit('keypress', e));
-        // window.addEventListener('keyup', e => this.emit('keyup', e));
     }
 
     conductEvent(event) {
         console.log("handler", event.type, event.target)
     }
+
+    onKeyPress(entity) {
+
+        var currentSelection = window.getSelection();
+        var focusText = currentSelection.anchorNode.data;
+        var focusTextEntity = entity.target.textContent; //Pure text
+        var focusEntityInnerText = entity.target.innerText; // Rendered Text
+        // console.log("focusEntityInnerText", currentSelection);
+        var currentCaret = currentSelection.anchorOffset;
+        if (entity.key == 'Enter') {
+            return;
+        }
+        //  entity.preventDefault(entity);
+        //var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + entity.key + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
+
+        // currentSelection.anchorNode.data = response;
+
+        //  console.log("inserted", entity.key, "at", currentCaret, "in", entity.target);
+
+        // Caret.moveCaret(window, currentCaret +1);
+        //entity.target.innerText = response;
+
+
+
+
+
+        //         if (entity.keyCode == 32) { 
+        //       //     console.log("space key pressed")
+
+        //           //  var focusText = entity.target.innerText;
+
+        //             console.log("focusText",focusText)
+        //            // Caret.moveCaret(window, lastSpace);
+
+        //            
+
+        //             
+
+        //             var matches = snippets.filter(snippets => {
+
+
+        // })
+
+        //             // var match = isIn(lastWord, snippets);
+
+        //             // if (match.length === 1) { // is a exact Match. To be used for Space, {,[,(
+        //             //     entity.preventDefault();
+        //             //     console.log("match", match[0].prefix, match[0].body);
+        //             //     var response = Entity.insert(currentSelection.baseNode.textContent, currentSelection.anchorOffset, entity.key + match[0].body);
+        //             //     currentSelection.baseNode.textContent = response;
+        //             //     Caret.moveCaret(window, currentCaret + 1);
+        //             // }
+
+        //         }
+
+    }
+
     onClick(entity) {
         //   console.log("clicked On", entity.target)
         //  insertBreakAtPoint(entity);
@@ -257,15 +307,64 @@ class ActionController extends ActionEvent {
     }
 
 }
+class StorageHelper {
+    constructor(entity) { 
+      //  this.entity = getEntityFromStorage()
+       StorageHelper.saveToStorage(entity.name, entity);    //Can we store Objects  
+        this.entity = StorageHelper.getFromStorage(entity.name);
+    }
+     static saveToStorage(key, data) {
+        console.log("I was called", key)
+        // data=JSON.stringify(data)
+         localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    static getFromStorage(key) {
+        let data = localStorage.getItem(key)
+        return JSON.parse(data);
+    }
+
+    static clearStorage() {
+        localStorage.clear()
+    }
+    static export(fileName, json) {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(json, null, 2)], {
+            type: "application/json"
+        }));
+        a.setAttribute("download", `${fileName}.json`);
+        document.body.appendChild(a);
+        a.click();
+    }
+}
+
 
 
 var actionSpaceElement = document.getElementById('actionSpace#1');
- console.log(actionSpaceElement);
-const actionEntity = new Entity(basicLayout, {});
-const actionViewInstance = new ActionView(basicLayout, actionSpaceElement);
+//console.log(actionSpaceElement);
+const actionEntity = new Entity(actionSpaceBasicV1, {});
+const actionViewInstance = new ActionView(actionSpaceBasicV1, actionSpaceElement);
 const actionEventInstance = new ActionEvent(actionSpaceElement, window);
 const actionSpaceInstanceApp = new ActionController(actionEntity, actionViewInstance, actionEventInstance);
 
+
+
+// console.log("actionSpaceInstanceApp : >>>>>", actionSpaceInstanceApp)
+// console.log("actionSpaceInstanceView : >>>>>", actionViewInstance._actionView.entity)
+// console.log("actionSpaceInstanceView.inner HTML : >>>>>", actionSpaceInstanceApp)
+
+
+var actionSpaceviewInstanceName = actionViewInstance._actionView.entity.getAttribute('id')
+//console.log(actionSpaceviewInstanceName);
+
+var storageEntityModel = {
+    name: actionSpaceviewInstanceName,
+    id: 'actionSpaceviewInstanceName_InLocalStorage_1',
+    innerHTML: actionViewInstance._actionView.entity.innerHTML,
+    storageClass: "localStorage",
+    innerText: actionViewInstance._actionView.entity.innerHTML
+}
+var actionStorageInstance = new StorageHelper(storageEntityModel)
 
 // const actionSpaceApp = new ActionController(), new ActionView(basicLayout, actionSpaceElement), new ActionEvent(actionSpaceElement,window))
 // console.log("actionSpaceApp", actionSpaceApp)

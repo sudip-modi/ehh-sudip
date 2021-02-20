@@ -1,9 +1,9 @@
-
+/*
 *:focus{
   border:none;
   outline:none;
 }
-
+*/
 body {
  height: 100vh;
  font-family: 'Poppins';
@@ -64,7 +64,7 @@ leftSidebar {
 
 }
 actionSpaceEditor{
-   
+  
      padding: 5vw;
      outline: none;
      border: none;
