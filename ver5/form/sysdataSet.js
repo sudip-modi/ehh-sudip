@@ -21,7 +21,7 @@ var InactivityInterval = {
     min20: 1200,
     min30: 1800
 };
-
+var tempo0 = {}
 var TypeListEnum = {
     ToDay: 1,
     All: 2,
