@@ -7,11 +7,14 @@ let engine = new Engine();
 
 engine.addRule({
     conditions: {
-        all: [
+        every1: [
             {
-                fact: "temperature",
                 operator: "equal",
-                value: 100
+                input: {
+                    arg1: 'arg1',
+                    arg2:'arg2'
+                }
+                
             }
         ]
     },
@@ -21,8 +24,8 @@ engine.addRule({
     onFailure() {
         console.log('on failure called')
     },
-    event: {
-        type: "message",
+    output: {
+        type: "message",//[event,self.output.key,self.output.values,]
         params: {
             data: "hello-world!"
         }
