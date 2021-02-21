@@ -1,0 +1,100 @@
+
+/*
+https://css-tricks.com/snippets/css/complete-guide-grid/
+*:focus{
+  border:none;
+  outline:none;
+}
+*{
+  border:none;
+  outline:none;
+
+*/
+
+
+
+body {
+  display: grid;
+  height: 100vh;
+  grid-template: auto 1fr auto/auto 1fr auto;
+  font-family: 'Poppins';
+  background-color: aqua  ;
+}
+
+/*
+*:before, *:after {
+  box-sizing: border-box;
+}
+*/
+
+header {
+ padding: 2rem;
+ grid-column: 1/4;
+ width: 100vw;
+ background-color: rgb(243, 243, 243);
+}
+
+brand{
+  margin-left: 21px;
+  margin-right: 21px;
+  display: contents;
+  align-self: center;
+  background: rgb(255, 255, 255);
+  width: 25vw;
+  height: 100px;
+  font-family: 'Poppins';
+  font-size: 1.5vh;
+    
+}
+
+.searchBar{
+  margin-left: 55px;
+  margin-right: 21px;
+  font-family: 'Poppins';
+  font-size: 2vh;
+  width: auto;
+}
+
+
+actionLinkBar{
+  float: right;
+  padding-right: 5vw;
+  
+}
+a {
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+.left-sidebar {
+  background: lightblue;
+  grid-column: 1/2;
+}
+
+actionspacev2 {
+    padding: 5rem;
+  background: rgb(255, 239, 233);
+  grid-column: 2/3;
+}
+
+content{
+
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    overflow-wrap: break-word;
+    background: #fafafa;
+}
+
+.right-sidebar {
+  background: yellow;
+  grid-column: 3/4;
+}
+
+footer {
+     padding: 2rem;
+  text-align: right;
+  grid-column: 1 / 4;
+  font-family: 'Montserrat';
+  font-size: 1.2vh;
+}
+
