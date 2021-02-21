@@ -6,3 +6,10 @@ var actionStoryTemplate = {
     'before': 'name'
     //  contentEditable: true
 }
+
+var HorizonticalMenuTemplateSchema = {
+
+
+}
+
+
