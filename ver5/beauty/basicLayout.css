@@ -31,7 +31,8 @@ brand{
 
 .searchBar{
   margin-left:  9.5vw;
-  padding:3px;
+  padding-top: .5vh;
+  padding-bottom: .5vh;
   padding-left: 1vw;
   font-family: 'Poppins';
   font-size: 2vh;
@@ -48,6 +49,7 @@ section {
     background: #5183f5;
     color: #fff;
 }
+
 actionLinkBar{
   float: right;
   padding-right: 13vw;
@@ -88,7 +90,7 @@ button{
   margin: 1px;
   padding-left: 1vw;
   padding-right: 1vw;
-   padding-top: .5vh;
+  padding-top: .5vh;
   padding-bottom: .5vh;
 }
 

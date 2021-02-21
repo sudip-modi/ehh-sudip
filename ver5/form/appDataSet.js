@@ -128,6 +128,17 @@ var basicLayout = {
                     class: 'material-icons',
                     'innerText': "delete"
                 },
+                {
+                    name: 'select',
+                    id: "delete",
+                   innerHTML : `<select name="cars" id="cars">
+                   <option value="rich text view">rich text view</option>
+                   <option value="Code">code view</option>
+                   <option value="opel">tree view</option>
+                   <option value="output Preview">output Preview</option>
+                 </select>`
+                    
+                },
 
 
             ],
