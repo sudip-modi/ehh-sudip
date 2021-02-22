@@ -539,47 +539,47 @@ function getCaretCoordinates() {
 }
 
 
-var actionSpaceElement = document.getElementById('actionSpace1');
-//console.log(actionSpaceElement);
-const actionEntity = new Entity(basicLayout, {});
-const actionViewInstance = new ActionView(basicLayout, actionSpaceElement);
-const actionEventInstance = new ActionEvent(actionSpaceElement, window);
-const actionSpaceInstanceApp = new ActionController(actionEntity, actionViewInstance, actionEventInstance);
+// var actionSpaceElement = document.getElementById('actionSpace1');
+// //console.log(actionSpaceElement);
+// const actionEntity = new Entity(basicLayout, {});
+// const actionViewInstance = new ActionView(basicLayout, actionSpaceElement);
+// const actionEventInstance = new ActionEvent(actionSpaceElement, window);
+// const actionSpaceInstanceApp = new ActionController(actionEntity, actionViewInstance, actionEventInstance);
 
 
 
-// console.log("actionSpaceInstanceApp : >>>>>", actionSpaceInstanceApp)
-// console.log("actionSpaceInstanceView : >>>>>", actionViewInstance._actionView.entity)
-// console.log("actionSpaceInstanceView.inner HTML : >>>>>", actionSpaceInstanceApp)
+// // console.log("actionSpaceInstanceApp : >>>>>", actionSpaceInstanceApp)
+// // console.log("actionSpaceInstanceView : >>>>>", actionViewInstance._actionView.entity)
+// // console.log("actionSpaceInstanceView.inner HTML : >>>>>", actionSpaceInstanceApp)
 
 
-var actionSpaceviewInstanceName = actionViewInstance._actionView.entity.getAttribute('id')
-console.log(actionSpaceviewInstanceName);
+// var actionSpaceviewInstanceName = actionViewInstance._actionView.entity.getAttribute('id')
+// console.log(actionSpaceviewInstanceName);
 
-var storageEntityModel = {
-    name: actionSpaceviewInstanceName,
-    id: 'actionSpaceviewInstanceName_InLocalStorage_1',
-    innerHTML: actionViewInstance._actionView.entity.innerHTML,
-    storageClass: "localStorage",
-    innerText: actionViewInstance._actionView.entity.innerHTML
-}
-var actionStorageInstance = new StorageHelper(storageEntityModel)
+// var storageEntityModel = {
+//     name: actionSpaceviewInstanceName,
+//     id: 'actionSpaceviewInstanceName_InLocalStorage_1',
+//     innerHTML: actionViewInstance._actionView.entity.innerHTML,
+//     storageClass: "localStorage",
+//     innerText: actionViewInstance._actionView.entity.innerHTML
+// }
+// var actionStorageInstance = new StorageHelper(storageEntityModel)
 
-var bindedHTML = document.createElement("bindedHtml");
+// var bindedHTML = document.createElement("bindedHtml");
 
-Object.keys(localStorage).forEach((entity) => {
-    // console.log(entity, JSON.parse(localStorage[entity]).id)
-    var newElement = document.createElement("a");
+// Object.keys(localStorage).forEach((entity) => {
+//     // console.log(entity, JSON.parse(localStorage[entity]).id)
+//     var newElement = document.createElement("a");
 
-    newElement.innerText = JSON.parse(localStorage[entity]).name;
-    newElement.setAttribute('name', JSON.parse(localStorage[entity]).name) ;
-    newElement.setAttribute('data-command', `[{"command":"load","entity": "actionContent","value":"innerHTML"}]`);
-    bindedHTML.appendChild(newElement);
-})
-console.log(bindedHTML);
-document.getElementById('leftSidebar').appendChild(bindedHTML);
-// const actionSpaceApp = new ActionController(), new ActionView(basicLayout, actionSpaceElement), new ActionEvent(actionSpaceElement,window))
-// console.log("actionSpaceApp", actionSpaceApp)
+//     newElement.innerText = JSON.parse(localStorage[entity]).name;
+//     newElement.setAttribute('name', JSON.parse(localStorage[entity]).name) ;
+//     newElement.setAttribute('data-command', `[{"command":"load","entity": "actionContent","value":"innerHTML"}]`);
+//     bindedHTML.appendChild(newElement);
+// })
+// console.log(bindedHTML);
+// document.getElementById('leftSidebar').appendChild(bindedHTML);
+// // const actionSpaceApp = new ActionController(), new ActionView(basicLayout, actionSpaceElement), new ActionEvent(actionSpaceElement,window))
+// // console.log("actionSpaceApp", actionSpaceApp)
 
 
-// if condition() is true then this and
+// // if condition() is true then this and
