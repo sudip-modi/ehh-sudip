@@ -109,12 +109,13 @@ class conductor {
     //  on param = [ anyEvent ]
   
     //    //arr.every(callback(element[, index[, array]])[, thisArg])
-    static onEvery1(a, b, callbacks) {
-        return callbacks.every(function (callback) {
-            return operate[callback](a, b);
+    static every1(methods, arg1) {
+        var self = this;
+        return methods.every(function (method) {
+            console.log(method.method, arg1, method.arguments)
+            return operate[method.method](arg1, method.arguments);
         });
     }
-
 
     static conductForEachFlow(a, b, options) {
 

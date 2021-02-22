@@ -22,13 +22,7 @@ class ActionSpaceSchema {
 }
 
 class operate1 {
-    static every1(methods,arg1) {
-        var self = this;
-        return methods.every(function (method) {
-            console.log(method.method, arg1, method.arguments)
-            return operate[method.method](arg1, method.arguments);
-        });
-    }
+  
 
     static isString(value) {
         if (typeof value === 'string') {
@@ -69,7 +63,7 @@ class Model {
       
         console.log(key,value)
       
-        if (operate1.every1(key.value.operator, value, key.value.operator.arguments)) {
+        if (conductor.every1(key.value.operator, value, key.value.operator.arguments)) {
             key.value = value;
             return true;
         }
@@ -130,7 +124,6 @@ var HTMLElementEntityModel = {
 var newEntity = new Model(HTMLElementEntityModel);
 
 newEntity.setName("div", 'name');
-newEntity.setId("01", 'name');
+newEntity.setId("01", 'id');
 console.log("New Entity", newEntity);
-newEntity.setName("23we", 'name');
 
