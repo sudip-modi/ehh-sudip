@@ -9,13 +9,12 @@
 }
 
 body {
- height: 100vh;
- font-family: 'Poppins';
+   height: 100%;
+    font-family: 'Poppins';
  color: white;
  /*
 background: linear-gradient(to right, #fcfae5, #2c73b1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 
 
 */
 background: radial-gradient(circle at center center, rgb(0, 194, 247), rgb(145, 152, 229))
-
 }
