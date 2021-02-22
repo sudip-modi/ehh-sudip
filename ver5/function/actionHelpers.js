@@ -109,7 +109,11 @@ class conductor {
     //  on param = [ anyEvent ]
   
     //    //arr.every(callback(element[, index[, array]])[, thisArg])
-    static onEvery1(a, b, callbacks) { return callbacks.every(function (callback) { return operate[callback](a, b); }); }
+    static onEvery1(a, b, callbacks) {
+        return callbacks.every(function (callback) {
+            return operate[callback](a, b);
+        });
+    }
 
 
     static conductForEachFlow(a, b, options) {
@@ -138,7 +142,7 @@ class operate {
      * @param {*} argB  is required to be not empty
      * 
      */
-    static isInsideArray(argA, argB) { return argB.indexOf(argA) > -1 ? true : false; }
+    static isInsideArray(argA, argB) { console.log("IsInside",argA, argB); return argB.indexOf(argA) > -1 ? true : false; }
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
     //for array's one sided value existence check, return true if each element of a is present in b
@@ -217,7 +221,7 @@ class operate {
 }
 
 var reqest = {
-    method: 'get',// [ get,set,create,put,delete]
+    method: 'get',// [ get,set,create,put,delete,filter, iterate,]
     entity: {
         entityIdentifier: '	ObjectID',
         entityModel: 'document',
