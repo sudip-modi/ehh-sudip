@@ -580,6 +580,6 @@ console.log(bindedHTML);
 document.getElementById('leftSidebar').appendChild(bindedHTML);
 // const actionSpaceApp = new ActionController(), new ActionView(basicLayout, actionSpaceElement), new ActionEvent(actionSpaceElement,window))
 // console.log("actionSpaceApp", actionSpaceApp)
-
+actionState.initState();
 
 // if condition() is true then this and

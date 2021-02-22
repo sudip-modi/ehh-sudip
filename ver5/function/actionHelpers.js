@@ -112,7 +112,7 @@ class conductor {
     static every1(methods, arg1) {
         var self = this;
         return methods.every(function (method) {
-            console.log(method.method, arg1, method.arguments)
+        //    console.log(method.method, arg1, method.arguments)
             return operate[method.method](arg1, method.arguments);
         });
     }
@@ -131,7 +131,7 @@ class operate {
     static isNotEmpty(argA) { return argA !== '' && argA !== null && typeof argA !== 'undefined' ? true : false }
     //returs the data Type of the input.
     static is(argA) {
-        console.log(argA);
+      //  console.log(argA);
         return Object.getPrototypeOf(argA).constructor.name;
     }
     static isInt(argA) { return Number.isInteger(argA); }
@@ -143,7 +143,10 @@ class operate {
      * @param {*} argB  is required to be not empty
      * 
      */
-    static isInsideArray(argA, argB) { console.log("IsInside",argA, argB); return argB.indexOf(argA) > -1 ? true : false; }
+    static isInsideArray(argA, argB) {
+       // console.log("IsInside", argA, argB);
+        return argB.indexOf(argA) > -1 ? true : false;
+    }
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
     //for array's one sided value existence check, return true if each element of a is present in b

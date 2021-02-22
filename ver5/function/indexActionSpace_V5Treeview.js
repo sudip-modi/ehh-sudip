@@ -1,4 +1,4 @@
-// var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceHolderElement')
-// console.log(basicLayout,actionSpaceElementInstanceIndom)
-// var newMenu = new Entity(basicLayout,actionSpaceElementInstanceIndom);
-// console.log(newMenu);
+var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer')
+ console.log(HorizonticalMenuTemplateSchema,actionSpaceElementInstanceIndom)
+var newMenu = new Entity(HorizonticalMenuTemplateSchema,actionSpaceElementInstanceIndom);
+console.log(newMenu.input);

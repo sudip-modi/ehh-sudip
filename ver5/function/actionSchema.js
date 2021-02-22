@@ -48,8 +48,8 @@ class operate1 {
 // Model.js
 class Model {
     constructor(modelSchema) {
-        this._entity = new Object(modelSchema)
-        console.log(this._entity)
+        this._entity = [ modelSchema ]
+     //   console.log(this._entity)
         // this.name = {
         //     value: null,
         //     Validator: ['isString', 'isNotEmpty']
@@ -61,7 +61,7 @@ class Model {
     }
     set(value, key) {
       
-        console.log(key,value)
+        console.log(key, value, key.value.operator.arguments)
       
         if (conductor.every1(key.value.operator, value, key.value.operator.arguments)) {
             key.value = value;
@@ -73,12 +73,12 @@ class Model {
 
        console.log(name)
         
-        this.set(name, this._entity.name);
-        console.log(this._entity.name)
+        this.set(name, this._entity[0].name);
+        console.log(this._entity[0].name)
     };
-    setId = function (id) {
+    setId(id) {
       //  console.log('setting', id)
-        this.set(id, this._entity.id);
+        this.set(id, this._entity[0].id);
         //console.log(this._entity.id);
     };
 }
@@ -121,9 +121,11 @@ var HTMLElementEntityModel = {
     }
 }
 
-var newEntity = new Model(HTMLElementEntityModel);
+// var newEntity = new Model(HTMLElementEntityModel);
 
-newEntity.setName("div", 'name');
-newEntity.setId("01", 'id');
-console.log("New Entity", newEntity);
+// newEntity.setName("div", 'id');
+// newEntity.setId("01", 'name');
+// //newEntity.setName("temp", 'name');
+
+// console.log("New Entity", newEntity);
 
