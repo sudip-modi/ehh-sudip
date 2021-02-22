@@ -85,10 +85,11 @@ class Entity {
         this.entity = process.processReq(input, output);
     }
     static create(input, output, key, value, callback, callbackClass) {
-         console.log('create request for ',output,key)
+       //  console.log('create request for ',output,key)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
             // var response = Object.create(output.constructor.prototype)
             if (operate.isInt(parseInt(key))) {
+                console.log("check me")
                 var response = document.createElement('option');
             }
             else {
@@ -156,13 +157,13 @@ class Entity {
     static set(input, output, key, value, callback, callbackClass) {
         //  console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
-            output.setAttribute(key, value)
+           
             if (operate.isInsideArray(key, htmlAttributesListV2)) {
-                //console.log("setting",key, value,"in",output)
-             
+             //   console.log("setting",key, value,"in",output)
+                output.setAttribute(key, value)
 
             } else {
-                //  console.log(output,key);
+                  console.log(output,key);
                 //var buffer = output;
                 output[key] = input[key];
                 //buffer=output;

@@ -79,7 +79,7 @@ class ActionEvent {
 }
 class Entity { 
     constructor(input, output) {
-        console.log("entity",input,output)
+      //  console.log("entity",input,output)
         this.input = input;
         this.output = output;
         this.entity = process.processReq(input, output);
@@ -156,10 +156,10 @@ class Entity {
     static set(input, output, key, value, callback, callbackClass) {
         //  console.log("setting",key, value,"in",output)
         if (operate.is(output).includes("HTML")) { //Only HTML creation
-            output.setAttribute(key, value)
+           
             if (operate.isInsideArray(key, htmlAttributesListV2)) {
                 //console.log("setting",key, value,"in",output)
-             
+              output.setAttribute(key, value)
 
             } else {
                 //  console.log(output,key);

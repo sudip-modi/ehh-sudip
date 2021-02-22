@@ -9,7 +9,30 @@ var actionStoryTemplate = {
 
 var HorizonticalMenuTemplateSchema = {
     menu: {
-        "name": "ul",   
+        "name": "ul",
+        "li": [
+            {'name': 'a',
+                'href': '#action',  
+                'innerText': 'action',
+            },
+            {
+                'name': 'a',
+                'href': '#people',
+                'innerText': 'People'
+            },
+            {
+                'name': 'a',
+                'href': '#setting',
+                'innerText': 'setting'
+            },
+            {
+                'name': 'a',
+                'href': '#about',
+                'innerText': 'about',
+              
+            }
+        ]
+       
     }
 
 }
