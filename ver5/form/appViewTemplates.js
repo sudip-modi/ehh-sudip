@@ -8,7 +8,9 @@ var actionStoryTemplate = {
 }
 
 var HorizonticalMenuTemplateSchema = {
-
+    menu: {
+        "name": "ul",   
+    }
 
 }
 
