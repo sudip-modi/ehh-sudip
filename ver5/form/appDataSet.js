@@ -11,7 +11,6 @@ var basicLayout = {
     actionSpace: {
         name: 'div',
         class: "actionSpace",
-        resize:true,
        // innerText: "ActionSpace",
         header: {
             'name': 'div',
@@ -147,7 +146,7 @@ var basicLayout = {
                     actionContentTitle: {
                         name: 'div',
                         innerText: actionStorySample.name,
-                        style:'visibility:hidden'
+                      
                     },
                     name:'actionStory',
                     'class': 'actionStory',

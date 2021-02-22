@@ -5,14 +5,15 @@
 *:focus{
   border:none;
   outline:none;
- 
 }
 
 body {
  height: 100vh;
  font-family: 'Poppins';
- color: white;
-background: linear-gradient(to right, #fcfae5, #2c73b1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+ background: radial-gradient(circle at center center, rgb(0, 194, 247), rgb(145, 152, 229));
+
+
 
 }
 
@@ -65,7 +66,7 @@ leftSidebar {
 
 }
 leftSidebar a {
- color: rgba(0, 0, 0, 0.555); /* Black text color */
+ color: rgba(255, 255, 255, 0.603); /* Black text color */
   display: block; /* Make the links appear below each other */
  /* Add some padding */
   margin: 2px;
@@ -129,13 +130,13 @@ actionstory {
   padding: 3vw;
   grid-area: content;
   display: block;
-  
+    background-color: rgba(248, 248, 248, 0.438);
   position: relative;
     
 }
 *[id]:hover{
-  color: black;
-     background-color: rgba(248, 248, 248, 0.438);
+ 
+   
      border-radius: 3px;
 box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.075);  
 
@@ -191,7 +192,6 @@ box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.075);
 .header,
 .footer {
     height: 5vh;
- 
 }
 
 .topleft {
@@ -214,7 +214,7 @@ box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.075);
 
 actionContentTitle{
   margin: 1%;
-font-weight: bold;
+  font-weight: bold;
   display: block;
   font-size: 34px;
 }
