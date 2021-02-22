@@ -12,7 +12,7 @@
 <body>
 
     <actionSpaceHolderElement id ='actionSpaceHolder'>
-
+<button></button>
     </actionSpaceHolderElement>
     <script type="text/javascript" src="form/appViewTemplates.js"></script>
     <script type="text/javascript" src="form/actionContent_UserData.js"></script>
@@ -27,9 +27,14 @@
 
 </body>
 <script>
-    document.onchange = trigger;
-    function trigger(e){
-        console.log(e.type,e.target)
-    }
+    // Notify us when any node within the document is modified, added removed, etc.
+        document.addEventListener("DOMSubtreeModified", function (e) {
+            // Notify of change!
+            console.warn("change!", e);
+        }, false);
+
+        // Now create a new element to see what it will look like
+        var a = document.createElement("a");
+        document.body.appendChild(a);
 </script>
 </html>
