@@ -7,17 +7,9 @@ const htmlElementSchemaModel = {
     "class":"class name",
 }
 
-entity = {
-    'description': "value",
+var entity = {
     "name/tagName": "name",
-    "title / label":
-    
+
+    'description': "value",
+    "title_label": "name",  
 }
-description
-
-
-class
-    entityType / 
-resource
-attributes / properties
-content
