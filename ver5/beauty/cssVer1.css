@@ -39,6 +39,9 @@ a:hover,button:hover {
   /* Add transition for hover effects */
 }
 
+li{
+display: inline-block;
+}
 #brand{
     align-self: center;
     margin: 21px;
@@ -104,5 +107,11 @@ iconbar{
     position: relative;
     left: -2rem;
    
+}
+#hotKeyAutoSuggestList{
+    padding: 13px;
+    display: block;
+    width: 21vw;
+   background-color: teal;
 }
 

@@ -223,7 +223,6 @@ var actionSpaceModel = {
      //   'textContent': "yo",
        // 'toolbar': iconBar,
         'editor': {
-            
             'richTextBar': richTextBar,
             'name': 'div',
             'id': "editor",
@@ -232,9 +231,7 @@ var actionSpaceModel = {
                 {   'id':'contentBlock',
                     'textContent': actionStoryTemplate
                 },
-],
-    
-            
+],      
         },
        //bottom bar like textNote to be added.
     }
@@ -273,9 +270,63 @@ var sidebar = {
 
 }
 
-var cardModel = {
-    cardName: "cardName",
-    cardType: 'List',
+var blockModelSchema= {
+    "name": "div",
+    "id": "blockModelSchma",
+    "blockType":"html"
 }
 
 var typeOfBlocks = ["richtext,json,tree,html,javascript,table,image,link,divider,style,script,@mention,embed,button,breadcrumb,annotation"]
+//should always be wrapped around a List/collection
+var itemModelSchema = {
+    "name": "div",
+    'class': "card",
+    "item": [
+        {
+            "name": "li",
+            'class': "card",
+            "textContent" :"Item1",
+            "innerItem": [
+
+
+            ]
+        },
+        {
+            "name": "li",
+            'class': "card",
+            "textContent": "Item1 Description",
+            "innerItem": [
+
+
+            ]
+        },
+    ]
+}
+var itemListModelSchema = {
+    itemList: {
+        name: "ol",
+        id: "itemListModelSchema",
+        "class": "material-icons",
+        "textContent":"shortcut",
+        "li": itemModelSchema,
+    }
+}
+    //hotKeyAutoSuggestItemModelSchema
+var hotKeyAutoSuggestItemViewSchema = [
+    {
+        'name': 'span',
+        "id": "listItemIcon",
+        'class': "material-icons",
+        'textContent': 'shortcut',
+    },
+    {
+        'name': 'span',
+        "id": "listItemId",
+        'textContent': '! html',
+    },
+    {
+        'name': 'div',
+        "id": "listItemId",
+        'textContent': 'List Item Content',
+    },
+]
