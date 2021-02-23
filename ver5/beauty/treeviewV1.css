@@ -16,7 +16,7 @@ body {
   overflow: hidden;
 }
 
-[class:'icon']{
+[class='icon']{
   vertical-align: bottom;
    font-size: 18px;
 }
@@ -40,7 +40,7 @@ ul {
 li {
   float: right;
   border-radius: 5px;
-  display: inline-flex;
+  
   vertical-align: middle;
   padding-top: 13px;
   padding-bottom: 13px;

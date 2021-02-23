@@ -166,7 +166,7 @@ class Entity {
                     console.log("setting", key, value, "in", output)
                 }
             } else {
-                console.log("set", key, value, "in", output)
+               // console.log("set", key, value, "in", output)
 
                 //var buffer = output;
                 output[key] = input[key];

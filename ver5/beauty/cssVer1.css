@@ -9,44 +9,74 @@ body {
    background-color: #f1f5f9;
    color: black;
 }
-
-#header{
-    display: flex;
-align-items: center;
-
-background-color: blue;
-}
-#brand{
+a{
     padding: 21px;
-    background-color: rgb(30, 255, 0);
-}
-input{
     margin: 21px;
-    height: auto;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
 }
-
-.row{
-   float: right;
-    background-color: rgb(30, 255, 0);
+*{
+     border-radius: 5px;
 }
-
-ul {
-  list-style: none;
-}
-
-
-a {
-  
-  
-  display:inline-block;
-  text-decoration: none;
-  align-self: center;
- 
-}
-
 button{
-  display: inline-block;
+       
+   
+  padding: 13px;
+  margin: 1px;
   border-style: none;
   background: none;
-  cursor: pointer;  
+  cursor: pointer;
+
 }
+a:hover,button:hover {
+  background-color:rgb(179, 227, 255);
+}
+
+#brand{
+    align-self: center;
+    margin: 21px;
+    padding: 21px;
+    font-size: large;
+    font-weight: bold;
+    font-family: 'Bai Jamjuree', sans-serif;
+}
+#actionSearch{
+    margin: 21px;
+    padding-left: 21px;
+    align-self: center;
+    font-family: 'Poppins';
+    height: 34px;
+    width: 34vw;
+    border-style: none;
+    font-size: 13pt;   
+    
+}
+#topmenu{
+    margin: auto;
+    color: black;
+    float: right;
+    align-content: center;
+    list-style: none;
+    padding: 21px;
+    margin-right: 21px;
+    
+}
+
+
+#actionSpace{
+        margin: 0 auto;
+        margin-left: 21vw;
+        padding: 8vw;
+         background-color: white;
+ }
+ section{
+     height: 54vh;   
+ }
+
+ #editor{
+    padding: 21px;
+    height: 100%;
+   
+ }
+
