@@ -12,9 +12,19 @@ body {
 }
 
 ul {
+
   margin: 8px;
   padding: 8px;
   list-style: none;
+ 
+}
+
+li{
+  background-color:rgb(255, 247, 179);
+  width:fit-content;
+  float: right;
+   margin: 13px;
+  align-content: center;
 }
 
 a {
@@ -25,11 +35,22 @@ a {
 
 a::before{ 
    content:"[";
-   padding-right: 10pt;
-  
- 
+   padding-right: 13pt;
+    visibility: hidden;
 }
 
+a::after{ 
+   content:"]";
+   padding-left: 13pt;
+    visibility: hidden;
+}
+
+a:hover::before{ 
+ visibility: visible;
+}
+a:hover::after{ 
+ visibility: visible;
+}
 /*
 a:hover::before{ 
    content:"[";
