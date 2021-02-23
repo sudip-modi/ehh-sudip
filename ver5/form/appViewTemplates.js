@@ -104,8 +104,8 @@ var headerModelSchemaV1 = {
 
     }
 }
-var iconBar = {
-    'iconBar': {
+var iconBar = 
+     {
         "name": "ul",
         "menu": [
             {
@@ -136,19 +136,21 @@ var iconBar = {
 
     }
 
-}
+
 var actionSpaceModel = {
     'actionSpace': {
         name: "section",
         id: "actionSpace",
+        'iconBar': iconBar,
      //   'textContent': "yo",
        // 'toolbar': iconBar,
         'editor': {
             'name': 'div',
             'id': "editor",
-            'textContent': "actionStorySample.name",
+            'contentEditable':'true',
+            'textContent': actionStoryTemplate,
         },
-        'iconBar':iconBar,
+       
     }
     }
 var sidebar = {
