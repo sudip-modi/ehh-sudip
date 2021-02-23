@@ -3,7 +3,6 @@
 *:focus{
   border:none;
   outline:none;
-
 }
 
 body {
@@ -12,33 +11,67 @@ body {
    background-color: #f1f5f9;
    color: black;
 }
-
-ul {
-  margin: 8px;
-  padding: 8px;
-  list-style: none;
- 
+[header]{
+ background-color: #333;
+  overflow: hidden;
 }
 
+[class:'icon']{
+  vertical-align: bottom;
+   font-size: 18px;
+}
+
+[id='actionSpaceContainer']{
+  display: block;
+  height: 90vh;
+}
+
+section{
+ display: block;
+background-color: blue;
+}
+
+ul {
+  list-style: none;
+}
+
+
+
 li {
-  background-color:rgb(179, 227, 255);
-  width:fit-content;
   float: right;
-   margin: 13px;
-     padding: 21px;      
-border-radius: 5px;
-  align-content: center;
+  border-radius: 5px;
+  display: inline-flex;
+  vertical-align: middle;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 21px;
+  padding-right: 21px;
 }
 
 a {
+  margin: 8px;
+  padding: 13px;
+  display: block;
   text-decoration: none;
-  margin: 13px;
-  padding: 21px;      
+  align-self: center;
+ 
 }
+
+button{
+  display: block;
+  padding: 13px;
+  margin: 1px;
+  border-style: none;
+  background: none;
+  cursor: pointer;
+  
+}
+
 
 a::before{ 
    content:"[";
    padding-right: 13pt;
+
     visibility: hidden;
 }
 
@@ -66,7 +99,7 @@ a:hover::after{
 
 }
 */
-a:hover {
-  background-color: rgb(255, 255, 255);
+a:hover,button:hover {
+  background-color:rgb(179, 227, 255);
 }
 

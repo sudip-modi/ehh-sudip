@@ -1,0 +1,52 @@
+*:focus{
+  border:none;
+  outline:none;
+}
+
+body {
+   height: 100%;
+   font-family: 'Poppins';
+   background-color: #f1f5f9;
+   color: black;
+}
+
+#header{
+    display: flex;
+align-items: center;
+
+background-color: blue;
+}
+#brand{
+    padding: 21px;
+    background-color: rgb(30, 255, 0);
+}
+input{
+    margin: 21px;
+    height: auto;
+}
+
+.row{
+   float: right;
+    background-color: rgb(30, 255, 0);
+}
+
+ul {
+  list-style: none;
+}
+
+
+a {
+  
+  
+  display:inline-block;
+  text-decoration: none;
+  align-self: center;
+ 
+}
+
+button{
+  display: inline-block;
+  border-style: none;
+  background: none;
+  cursor: pointer;  
+}
