@@ -9,21 +9,24 @@
 body {
    height: 100%;
    font-family: 'Poppins';
+   background-color: #f1f5f9;
+   color: black;
 }
 
 ul {
-
   margin: 8px;
   padding: 8px;
   list-style: none;
  
 }
 
-li{
-  background-color:rgb(255, 247, 179);
+li {
+  background-color:rgb(179, 227, 255);
   width:fit-content;
   float: right;
    margin: 13px;
+     padding: 21px;      
+border-radius: 5px;
   align-content: center;
 }
 
