@@ -18,24 +18,31 @@ ul {
 }
 
 a {
-
   text-decoration: none;
   margin: 13px;
   padding: 21px;      
 }
 
+a::before{ 
+   content:"[";
+   padding-right: 10pt;
+  
+ 
+}
 
+/*
 a:hover::before{ 
    content:"[";
-   padding-right: 21px;
+  
  
 }
 a:hover::after{
    content:"]";
-     padding-left: 21px;
+    
 
 }
+*/
 a:hover {
-  background-color: rgb(172, 172, 172);
+  background-color: rgb(255, 255, 255);
 }
 

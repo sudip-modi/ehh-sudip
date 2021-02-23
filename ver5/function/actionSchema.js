@@ -21,47 +21,17 @@ class ActionSpaceSchema {
 
 }
 
-class operate1 {
-  
 
-    static isString(value) {
-        if (typeof value === 'string') {
-            return true;
-        }
-        return false;
-    }
-    static isNotEmpty(value) {
-        if (value !== '' && value !== null && typeof value !== 'undefined') {
-        
-            return true;
-        }
-        console.log("is Empty")
-        return false;
-    }
-    static isInt = function (value) {
-        return Number.isInteger(value);
-    };
-
-    // any other rule you want to add
-}
 
 // Model.js
 class Model {
     constructor(modelSchema) {
         this._entity = [ modelSchema ]
-     //   console.log(this._entity)
-        // this.name = {
-        //     value: null,
-        //     Validator: ['isString', 'isNotEmpty']
-        // };
-        // this.age = {
-        //     value: null,
-        //     Validator: ['isInt']
-        // };
+   
     }
     set(value, key) {
       
-        console.log(key, value, key.value.operator.arguments)
+   //     console.log(key, value, key.value.operator.arguments)
       
         if (conductor.every1(key.value.operator, value, key.value.operator.arguments)) {
             key.value = value;
@@ -103,8 +73,7 @@ var HTMLElementEntityModel = {
             'operator': [
                 {
                     'method': 'isInsideArray',
-                    'arguments': HTMLElementList
-                    
+                    'arguments': HTMLElementList 
                 }
             ]
         }     
