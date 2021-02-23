@@ -1,10 +1,10 @@
 var actionStoryTemplate = {
-    name: 'actionStoryTemplate',
-    id: 'actionStoryTemplate',
-    innerHTML: "this is a template actionStory",
+    "name": 'actionStoryTemplate_title',
+    "id": 'actionStoryTemplate',
+    textContent: "this is a template actionStory",
     class: 'editable actionContent',
-    'before': 'name'
-    //  contentEditable: true
+    'before': 'name',
+     contentEditable: true
 }
 
 var HorizonticalMenuTemplateSchema = {
@@ -104,8 +104,10 @@ var headerModelSchemaV1 = {
 
     }
 }
+
 var iconBar = {
     'name': "iconBar",
+   // 'style':"visibility:hidden",
     'id': 'iconBar',
     'class': "material-icons",
     'textContent': 'drag_indicator',
@@ -113,46 +115,128 @@ var iconBar = {
     {
         'name': 'button',
         'class': "material-icons",
-        'href': '#action',
-        'textContent': 'add',
+        'href': '#create',
+        'textContent': 'create',
     },
     {
         'name': 'button',
         'href': '#people',
         'class': "material-icons",
-        'textContent': 'publish'
+        'textContent': 'inventory_2'
     },
     {
         'name': 'button',
         'href': '#setting',
         'class': "material-icons",
         'textContent': 'save'
-    },
-    {
-        'name': 'button',
-        'class': "material-icons",
-        'textContent': 'delete',
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'share',
 
-    }
-    ]}
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'delete',
 
-    
+        }
+    ]
+}
 
+var richTextBar = {
+    'name': "div",
+    'id': 'richTextBar',
+    'class': "material-icons",
+    'textContent': 'add',
+    "iconBarTools": [
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'href': '#title',
+            'textContent': 'notes',
+        },
+        {
+            'name': 'button',
+            'href': '#text_format',
+            'class': "material-icons",
+            'textContent': 'title'
+        },
+        {
+            'name': 'button',
+            'href': '#insert_photo',
+            'class': "material-icons",
+            'textContent': 'insert_photo'
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'code',
+
+        },
+          {
+            'name': 'button',
+            'class': "material-icons",
+              'textContent': 'attach_file',
+
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'horizontal_rule',
+
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'find_replace',
+
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'grid_4x4',
+
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'grid_4x4',
+
+        }
+    ]
+}
 
 var actionSpaceModel = {
     'actionSpace': {
+        //RouteNavBar to be added.
         name: "section",
         id: "actionSpace",
-        'iconBar': iconBar,
+      //  'iconBar': iconBar,
+        "loadedRouteTitle": {
+            "name": "div",
+            'id':"loadedRouteTitle",
+            "contentEditable":"true",
+            'textContent': actionStoryTemplate.name
+        },
      //   'textContent': "yo",
        // 'toolbar': iconBar,
         'editor': {
+            
+            'richTextBar': richTextBar,
             'name': 'div',
             'id': "editor",
-            'contentEditable':'true',
-            'textContent': actionStoryTemplate,
+            //'contentEditable':'true',
+            "ol": [
+                {   'id':'contentBlock',
+                    'textContent': actionStoryTemplate
+                },
+],
+    
+            
         },
-       
+       //bottom bar like textNote to be added.
     }
     }
 var sidebar = {
@@ -189,87 +273,9 @@ var sidebar = {
 
 }
 
-var actionSpaceEditor= {
-    toolList: [
-        {
-            name: 'button',
-            id: "add",
-            class: "material-icons",
-            'innerText': "add",
-            //'onclick': "document.execCommand('bold',false,null)",
-            'data-command': `[{"command":"new","entity": "actionContent","value":"innerHTML"}]`,
-            // 'data': `process.act(entity, insertBreakAtPoint, document)`,
-        },
-        {
-            name: 'button',
-            id: "save",
-            class: "material-icons",
-            'innerText': "save",
-            //'data': '[{ "call": "StorageHelper.saveToStorage(document.getElementById(actionContent).getAttribute(name),document.getElementById(actionContent).innerHTMl)" }]',
-            'data-command': `[{"command":"save","entity": "actionContent","value":"innerHTML","name":"actionContent.firstSibling.getAttribute('id')"}]`,
-
-
-        },
-        //'onclick': `StorageHelper.saveToStorage(,`,
-
-        {
-            name: 'button',
-            id: "format_bold",
-            class: "material-icons",
-            'innerText': "format_bold",
-            'onclick': "document.execCommand('bold',false,null)"
-            // 'data': `process.act(entity, insertBreakAtPoint, document)`,
-
-        },
-        {
-            name: 'button',
-            id: "format_italic",
-            class: 'material-icons',
-            'innerText': 'format_italic',
-            'data-cmd': 'italic',
-            'data': "process.act('italic', false, null, execCommand(), document)",
-        }, {
-            name: 'button',
-            id: "underline",
-            class: 'material-icons',
-            'innerText': 'format_underline',
-            'data-cmd': 'underline',
-            'onclick': ""
-        },
-        {
-            name: 'button',
-            id: "delete",
-            class: 'material-icons',
-            'innerText': "delete"
-        },
-        {
-            name: 'select',
-            id: "delete",
-            innerHTML: `<select name="cars" id="cars">
-                   <option value="rich text view">rich text view</option>
-                   <option value="Code">code view</option>
-                   <option value="opel">tree view</option>
-                   <option value="output Preview">output Preview</option>
-                 </select>`
-
-        },
-
-
-    ],
-    editor: [
-        {
-            actionContentTitle: {
-                name: 'div',
-            },
-            name: 'actionStory',
-            'class': 'actionStory',
-          //  'actionContent': actionStorySample,
-            // mimeMode: ['html', 'richText', 'json', 'css', 'javascript'],
-            //  output: ['self', 'output'],
-            state: 'idle', //['selectable','selected','editable','inEdit','draggable','inDrag','locked','hidden']
-            id: "actionStory"
-        },
-
-    ]
-
+var cardModel = {
+    cardName: "cardName",
+    cardType: 'List',
 }
+
+var typeOfBlocks = ["richtext,json,tree,html,javascript,table,image,link,divider,style,script,@mention,embed,button,breadcrumb,annotation"]
