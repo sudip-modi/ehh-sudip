@@ -2,8 +2,12 @@
   border:none;
   outline:none;
 }
-
+[class='material-icons']{
+  
+   font-size: 18px;
+}
 body {
+     list-style: none;
    height: 100%;
    font-family: 'Poppins';
    background-color: #f1f5f9;
@@ -20,8 +24,8 @@ a{
      border-radius: 5px;
 }
 button{
-       
-   
+       margin: 0,auto;
+   align-self: center;
   padding: 13px;
   margin: 1px;
   border-style: none;
@@ -31,6 +35,8 @@ button{
 }
 a:hover,button:hover {
   background-color:rgb(179, 227, 255);
+ 
+  /* Add transition for hover effects */
 }
 
 #brand{
@@ -53,30 +59,34 @@ a:hover,button:hover {
     
 }
 #topmenu{
-    margin: auto;
-    color: black;
-    float: right;
-    align-content: center;
-    list-style: none;
-    padding: 21px;
-    margin-right: 21px;
-    
+    display: inline-block;
+  color: black;  
+  align-items: center;
 }
 
 
 #actionSpace{
         margin: 0 auto;
-        margin-left: 21vw;
-        padding: 8vw;
-         background-color: white;
+        margin-left: 13vw;
+        padding: 5vw;
+     
  }
- section{
-     height: 54vh;   
+
+section{
+     height: 54vh;       
  }
 
  #editor{
-    padding: 21px;
+    padding: 54px;
     height: 100%;
-   
+    background-color: white; 
  }
+
+iconbar{
+position: -webkit-sticky;
+  position: sticky;
+  top: 0; 
+  
+  
+}
 

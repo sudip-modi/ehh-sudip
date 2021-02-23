@@ -65,10 +65,10 @@ var headerModelSchemaV1 = {
             'autocomplete': "off"
         },
         'menu': {
-            "name": "ul",
+            "name": "menu",
             'id': "topmenu",
             'class': 'row',
-            "li": [
+            "span": [
                 {
                     'name': 'a',
                     'href': '#action',
@@ -104,37 +104,39 @@ var headerModelSchemaV1 = {
 
     }
 }
-var iconBar = 
-     {
-        "name": "ul",
-        "menu": [
-            {
-                'name': 'button',
-                'class': "material-icons",
-                'href': '#action',
-                'textContent': 'add',
-            },
-            {
-                'name': 'button',
-                'href': '#people',
-                'class': "material-icons",
-                'textContent': 'publish'
-            },
-            {
-                'name': 'button',
-                'href': '#setting',
-                'class': "material-icons",
-                'textContent': 'save'
-            },
-            {
-                'name': 'button',
-                'class': "material-icons",
-                'textContent': 'delete',
-
-            }
-        ]
+var iconBar = {
+    'name': "iconBar",
+    'id': 'iconBar',
+    'class': "material-icons",
+    'textContent': 'drag_indicator',
+    "iconBarTools":[
+    {
+        'name': 'button',
+        'class': "material-icons",
+        'href': '#action',
+        'textContent': 'add',
+    },
+    {
+        'name': 'button',
+        'href': '#people',
+        'class': "material-icons",
+        'textContent': 'publish'
+    },
+    {
+        'name': 'button',
+        'href': '#setting',
+        'class': "material-icons",
+        'textContent': 'save'
+    },
+    {
+        'name': 'button',
+        'class': "material-icons",
+        'textContent': 'delete',
 
     }
+    ]}
+
+    
 
 
 var actionSpaceModel = {
