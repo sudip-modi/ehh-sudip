@@ -32,13 +32,14 @@ var fileContent = [
 var folderModel = {
     [folderName,folderID,FolderURL,FolderActors,folderContent]
 }
-var validEntityType = ['HTML','Object','object','string','function','Array','spreadsheet','doc']
+var validEntityType = ['HTML', 'Object', 'object', 'string', 'function', 'Array', 'spreadsheet', 'doc']
+var validEntityResources = [ "dom","localStorage","IndexDb","nativeFileSystem","HTTPService","buffer" ]
 // An entity is an javascript Object
 var entity = {
-    description : "a string value, to fill in description.",
-    tagName: 'systemName', // represents a string based identifier for the system. Not to be mistaken  with Normal name
-    collectionTag: ["array of tag's "],
-    "entityType": {
+    "description" : "a string value, to fill in description.",
+    "tagName": 'systemName', // represents a string based identifier for the system. Not to be mistaken  with Normal name
+    "collectionTag": ["array of tag's "],
+    "entityType_MimeType": {
         "value": {
             'operator': [
                 {
@@ -48,38 +49,26 @@ var entity = {
             ]
         }
     },
-   
+    'attributes': "an object of attributes",
+    'metaData': 'actorInfo',
+    'content': {
+        "value": {
+            'operator': [
+                {
+                    'method': 'isArray',
+                    'arguments': "ifTrue"
+                },
+            ]
+        }
+    },
 }
 
-entity	,
-    description	
-   
-title / label
-tag /
-    entityType /
-    spreadsheet /
-    HTML /
-    doc /
 
-
-
-    resource
-dom
-localStorage
-IndexDb
-nativeFileSystem
-HTTPService /
-    buffer
-
-attributes / properties	#REF!
-style
-visibility
-contenteditable
-class
-
-    content	This is where the content of any Entity is stored
-
-
+var actorInfo = [
+    "name",
+    "id",
+    "role" = [ viewer,]
+]
 
 
 var HTMLElementEntityModel = {
