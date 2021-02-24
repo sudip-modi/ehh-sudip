@@ -12,8 +12,17 @@ var actionUserContent = [
     {
         "name": 'block',
         'id': "block1",
-        'innerHTML': " Bring the cursor to the end of this line and start styping. < br > <br>https://alistapart.com/article/javascript-mvc/ https://github.com/bronzwikgk/everything-Happens-Here-Ver-O.1 https://web.dev/local-fonts/ I was changed <br> https://www.youtube.com/watch?v=Troaz3rGzTY <br>https://bgrins.github.io/devtools-snippets / <br>https://htmldom.dev/make-a-resizable-element/<br> https://htmldom.dev/create-resizable-split-views/"
-    }
+        'innerHTML': `
+        Welcome! This is a private page for you to play around with.
+        <br>Bring the cursor to the end of this line and start styping.
+        <br>https://alistapart.com/article/javascript-mvc/
+        <br>https://github.com/bronzwikgk/everything-Happens-Here-Ver-O.1 
+        <br>https://web.dev/local-fonts/
+        <br> https://www.youtube.com/watch?v=Troaz3rGzTY
+        <br>https://bgrins.github.io/devtools-snippets
+        <br>https://htmldom.dev/make-a-resizable-element/
+        <br>https://htmldom.dev/create-resizable-split-views/`
+        }
 
         ]
 

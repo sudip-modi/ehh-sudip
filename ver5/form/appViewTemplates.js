@@ -307,7 +307,7 @@ var itemListModelSchema = {
     itemList: {
         name: "ol",
         id: "itemListModelSchema",
-        "class": "material-icons",
+      //  "class": "material-icons",
         "textContent":"shortcut",
         "li": itemModelSchema,
     }
