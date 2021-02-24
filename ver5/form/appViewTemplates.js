@@ -214,7 +214,7 @@ var actionSpaceModel = {
         //RouteNavBar to be added.
         name: "section",
         id: "actionSpace",
-      //  'iconBar': iconBar,
+        'iconBar': iconBar,
         "loadedRouteTitle": {
             "name": "div",
             'id':"loadedRouteTitle",
@@ -331,3 +331,76 @@ var hotKeyAutoSuggestItemViewSchema = [
         'textContent': 'List Item Content',
     },
 ]
+
+var richtextToolBarButtonModel = [
+        {
+        name: 'select',
+        id: 'TextThemeStyleList',
+        class: 'toolTip',
+        data:"Select Text + Choose a text Style, or save a new style...",
+        option: [
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem1',
+                textContent: "H1",
+                class: "H1",
+            },
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem2',
+                textContent: "H2",
+                class: "H2",
+            },
+
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem2',
+                textContent: "H3",
+                class: "H3",
+            },
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem2',
+                textContent: "Select Text and Save a new Template",
+                
+            },
+
+        ]
+        },
+         {
+        name: 'select',
+        id: 'TextFontList',
+        class: 'toolTip',
+        data: "Select font style",
+        option: [
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem1',
+                textContent: "Helvitica",
+                class: "selectText",
+            },
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem2',
+                textContent: "Arial",
+                class: "H2",
+            },
+
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem2',
+                textContent: "H3",
+                class: "H3",
+            },
+            {
+                name: 'option',
+                id: 'TextThemeStyleitem2',
+                textContent: "Select Text and Save a new Template",
+
+            },
+
+        ]
+    }
+
+    ]
+
