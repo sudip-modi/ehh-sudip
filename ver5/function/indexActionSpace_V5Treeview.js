@@ -14,4 +14,4 @@ var newMenu = new Entity(headerModelSchemaV1,actionSpaceElementInstanceIndom);
 var actionSpace35 = new Entity(actionSpaceModel, actionSpaceElementInstanceIndom)
 
 
-var autoSuggestCard = new Entity(itemListModelSchema, document.getElementById('editor'));
+//var autoSuggestCard = new Entity(itemListModelSchema, document.getElementById('editor'));

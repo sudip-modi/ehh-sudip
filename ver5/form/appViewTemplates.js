@@ -1,7 +1,8 @@
 var actionStoryTemplate = {
     "name": 'actionStoryTemplate_title',
     "id": 'actionStoryTemplate',
-    textContent: "this is a template actionStory",
+    innerHTML: actionUserContent,
+    //textContent: "this is a template actionStory",
     class: 'editable actionContent',
     'before': 'name',
      contentEditable: true
