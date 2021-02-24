@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&family=Open+Sans&family=Poppins" rel="stylesheet">
     <title>Document</title>
     <style>
+        :root{
+            --menuWidth : 89px;
+        }
 body{
     display: grid;
     align-items: center;
@@ -17,13 +20,13 @@ li{
     display: block;
     align-items: center;
 }
-ul {   
- border-radius: 3px;
-position: relative;
+menu {   
+    border-radius: 3px;
+
+    width: calc(100vw - 80px);
     
-    
-  list-style-type: none;
-  width: fit-content;
+ 
+ 
   margin: 13px;
   padding: 13px ;
    background: teal;
@@ -31,7 +34,7 @@ position: relative;
     </style>
 </head>
 <body>
-    <ul>
+    <menu>
         <li>
             <input placeholder="filter actions..." description=" to filter or find an action">
         </li>
@@ -73,7 +76,7 @@ position: relative;
                 save
             </label>
         </li>
-    </ul>
+    </menu>
     
 </body>
 </html>
