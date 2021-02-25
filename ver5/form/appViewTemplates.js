@@ -1,3 +1,172 @@
+var basicLayout = {
+    actionSpace: {
+        name: 'div',
+        class: "actionSpace",
+        // innerText: "ActionSpace",
+        header: {
+            'name': 'div',
+            'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+            'id': 'header',
+            'class': 'box header',
+            //  'innerText':"header",
+            'brand': {
+                'name': 'div',
+                'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+                'id': 'brand',
+                'innerText': "[ everything happens here ]",
+                'class': 'brand'
+            },
+            'input': {
+                'name': 'input',
+                'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+                'id': 'actionSearch',
+                'placeholder': "search here...",
+                'class': 'searchBar'
+            },
+            'actionLinkBar': [
+                {
+                    'name': 'a',
+                    'desc': 'this leads to actionPage',
+                    'id': 'action button',
+                    'innerText': "action",
+                    'class': 'tabBtn',
+                    'data': 'action',
+                    'href': "#action",
+
+                },
+                {
+                    'name': 'a',
+                    'desc': 'this leads to actionPage',
+                    'id': 'people button',
+                    'innerText': "people",
+                    'class': 'tabBtn',
+                    'data': 'people',
+                    'href': "#people",
+
+                }, {
+                    'name': 'a',
+                    'desc': 'this leads to actionPage',
+                    'id': 'people button',
+                    'innerText': "settings",
+                    'class': 'tabBtn',
+                    'data': 'setting',
+                    'href': "#settings",
+                },
+
+
+
+            ],
+
+
+        },
+        leftSidebar: {
+            name: "div",
+            class: "box leftSidebar ",
+            //     innerText: "left-sidebar", 
+            id: 'leftSidebar'
+        },
+        actionSpaceEditor: {
+            toolList: [
+                {
+                    name: 'button',
+                    id: "add",
+                    class: "material-icons",
+                    'innerText': "add",
+                    //'onclick': "document.execCommand('bold',false,null)",
+                    'data-command': `[{"command":"new","entity": "actionContent","value":"innerHTML"}]`,
+                    // 'data': `process.act(entity, insertBreakAtPoint, document)`,
+                },
+                {
+                    name: 'button',
+                    id: "save",
+                    class: "material-icons",
+                    'innerText': "save",
+                    //'data': '[{ "call": "StorageHelper.saveToStorage(document.getElementById(actionContent).getAttribute(name),document.getElementById(actionContent).innerHTMl)" }]',
+                    'data-command': `[{"command":"save","entity": "actionContent","value":"innerHTML","name":"actionContent.firstSibling.getAttribute('id')"}]`,
+
+
+                },
+                //'onclick': `StorageHelper.saveToStorage(,`,
+
+                {
+                    name: 'button',
+                    id: "format_bold",
+                    class: "material-icons",
+                    'innerText': "format_bold",
+                    'onclick': "document.execCommand('bold',false,null)"
+                    // 'data': `process.act(entity, insertBreakAtPoint, document)`,
+
+                },
+                {
+                    name: 'button',
+                    id: "format_italic",
+                    class: 'material-icons',
+                    'innerText': 'format_italic',
+                    'data-cmd': 'italic',
+                    'data': "process.act('italic', false, null, execCommand(), document)",
+                }, {
+                    name: 'button',
+                    id: "underline",
+                    class: 'material-icons',
+                    'innerText': 'format_underline',
+                    'data-cmd': 'underline',
+                    'onclick': ""
+                },
+                {
+                    name: 'button',
+                    id: "delete",
+                    class: 'material-icons',
+                    'innerText': "delete"
+                },
+                {
+                    name: 'select',
+                    id: "delete",
+                    innerHTML: `<select name="cars" id="cars">
+                   <option value="rich text view">rich text view</option>
+                   <option value="Code">code view</option>
+                   <option value="opel">tree view</option>
+                   <option value="output Preview">output Preview</option>
+                 </select>`
+
+                },
+
+
+            ],
+            editor: [
+                {
+                    actionContentTitle: {
+                        name: 'div',
+                        innerText: actionStorySample.name,
+
+                    },
+                    name: 'actionStory',
+                    'class': 'actionStory',
+                    'actionContent': actionStorySample,
+                    // mimeMode: ['html', 'richText', 'json', 'css', 'javascript'],
+                    //  output: ['self', 'output'],
+                    state: 'idle', //['selectable','selected','editable','inEdit','draggable','inDrag','locked','hidden']
+                    id: "actionStory"
+                },
+
+            ],
+
+        },
+        rightSidebar: {
+            name: "div",
+            class: "box rightSidebar",
+            innerText: ""
+        },
+
+        footer: {
+            name: "div",
+            class: "footer",
+            innerHTML: `made with 🧠 & 🧡, < br > during 🌧️ at <b>shunya.ek</b>, goa, india.< br >with help from google & the world-wide - web tech community.`
+        }
+    }
+
+
+
+}
 var actionStoryTemplate = {
     "name": 'actionStoryTemplate_title',
     "id": 'actionStoryTemplate',
