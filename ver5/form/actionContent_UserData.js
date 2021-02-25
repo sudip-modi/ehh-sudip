@@ -1,3 +1,4 @@
+//This file shoud represent a collection of entityItems
 //This is user data
 var actionStorySample = {
     name: 'actionStorySample',
