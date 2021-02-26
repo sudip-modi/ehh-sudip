@@ -222,3 +222,20 @@ var editorJsBlock = {
     ],
     "version": "2.11.10"
 }
+
+var sampleJsonObject = {
+    "array": [
+        1,
+        2,
+        3
+    ],
+        "boolean": true,
+            "color": "gold",
+                "null": null,
+                    "number": 123,
+                        "object": {
+        "a": "b",
+            "c": "d"
+    },
+    "string": "Hello World"
+}
