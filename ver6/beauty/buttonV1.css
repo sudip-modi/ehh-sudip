@@ -1,10 +1,16 @@
-button{
+a,button{
   border: none;
   background: none;
   vertical-align: middle;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  background-color: blue;
-  padding: 13px;
+  color: var(--primary);
+  padding: 21px;
+  margin: 5px;
+   font-size: 17px;
+}
+a:hover,button:hover{
+    background-color: white;
+
 }

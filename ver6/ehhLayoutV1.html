@@ -14,18 +14,56 @@
     <link rel="stylesheet" href="beauty/actionSearchV1.css">
     <link rel="stylesheet" href="beauty/editorV1.css">
     <link rel="stylesheet" href="beauty/ehhGlobalV1.css">
-    <link rel="stylesheet" href="beauty/menuV1.css">
+    <link rel="stylesheet" href="beauty/menuV2.css">
     <link rel="stylesheet" href="beauty/layoutV1.css">
     <link rel="stylesheet" href="beauty/buttonV1.css">
     <link rel="stylesheet" href="beauty/customSelectV1.css">
+        <link rel="stylesheet" href="beauty/content.css">
+
 
 
 </head>
 <body>
     <div id = "actionSpace#1">
-        <div class = "row">
-            <span class="brand">[ everything happens here ]</span>
+        <div class="row" id="header" role ="ehhPrelaunchheader">
+            <div href="#home" class="brand">[ ehh ]</div>
+            <div class = "container menu" id="singnUpBar" >
+             
+                <input id="actionSearch" type="text" class="searchBar" value=" search here...">
+                <a href="#action">sign Up</a>
+                <a href="#contact">sign In</a>
+            </div>          
+        </div>
+
+        <div class="row" id="topmenu" role = "ehhVisitorMenu">
+            <div href="#home" class="brand">[ ehh ]</div>
+             
+           
+           
+            <a href="#action">ideas</a>
+            <a href="#contact">product</a>
+            <div class="dropdown">
+                <button class="dropbtn">solutions
+                </button>
+                <div class="dropdown-content">Dropdown
+                    <a href="#">create</a>
+                    <a href="#">open/import</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <a href="#about">About</a><input id="actionSearch" type="text" class="searchBar" value=" search here...">
+<div class="container" id="forward backward">
+    <button id="historyPrevious" class='material-icons rotate180'>arrow_forward_ios</button>
+    <button id="history next" class='material-icons'>arrow_forward_ios</button>
+    <button id="signUpButton">sign Up</button>
+    <button id="history next" >sign In</button>
+
+</div>
+        </div>
+        <div class="row" id="topmenu">
+            <div href="#home" class="brand">[ ehh ]</div>
             <select class="custom-select">
+                <option value="0">[ everything happens here ]</option>
                 <option value="0">Select @ctionSpace:</option>
                 <option value="1">Choose a Theme</option>
                 <option value="2">Or Choose a Collection</option>
@@ -41,31 +79,28 @@
                 <option value="11">Toyota</option>
                 <option value="12">Volvo</option>
             </select>
-        <div class = "container" id = "forward backward">
-            <button id="historyPrevious" class = 'material-icons rotate180'>arrow_forward_ios</button>
-            <button id = "history next" class = 'material-icons'>arrow_forward_ios</button>
+            <input id="actionSearch" type="text" class="searchBar" value=" search here...">
+            <div class="container" id="forward backward">
+                <button id="historyPrevious" class='material-icons rotate180'>arrow_forward_ios</button>
+                <button id="history next" class='material-icons'>arrow_forward_ios</button>
+            </div>
+            <a href="#action">action</a>
+            <a href="#contact">people</a>
+            <div class="dropdown">
+                <button class="dropbtn">setting
+                </button>
+                <div class="dropdown-content">Dropdown
+                    <a href="#">create</a>
+                    <a href="#">open/import</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <a href="#about">About</a>
+        
         </div>
 
-        <input id="actionSearch" type="text" class="searchBar" value=" search here...">
-        <div class="menu" id="topmenu">
-            <a class="abutton" id="actionLink">action</a>
-            <a class="abutton" id="actionLink">people</a>
-            <a class="abutton" id="actionLink">setting</a>
-        </div>
-           
-        </div>
+      
     </div>
-    
-        
-        
-
-
-   
-
-
-
-
-   
 </body>
 
 </html>

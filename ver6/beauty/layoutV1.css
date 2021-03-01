@@ -4,8 +4,17 @@ body {
   color: var(--gray-dark);
 }
 .row{
+  margin-bottom: 5px;
+  display: flex;
   align-items: center;
-  display: inline-flex;
-  background-color: blueviolet;
+  background-color: var(--light);
 }
+.container{
+  display: flex;
+  overflow: hidden;
+  margin-left: auto;
+  padding-right: 21px;
+  padding-left: 21px;
+}
+
 
