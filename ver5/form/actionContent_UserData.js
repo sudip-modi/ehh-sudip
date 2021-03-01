@@ -17,6 +17,8 @@ var actionUserContent = [
         Welcome! This is a private page for you to play around with.
         <br>Bring the cursor to the end of this line and start styping.
         <br>https://alistapart.com/article/javascript-mvc/
+        <br>https://csslayout.io/patterns
+        <br>
         https://codepen.io/dxbykov/pen/GQYBjb
         https://codepen.io/dapinitial/pen/ByQqqx
         <br>https://semantic-ui.com/usage/theming.html
