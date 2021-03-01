@@ -2,10 +2,11 @@
   border:none;
   outline:none;
 }
+
 [class='material-icons']{
-  
    font-size: 18px;
 }
+
 body {
      list-style: none;
    height: 100%;
@@ -42,6 +43,7 @@ a:hover,button:hover {
 li{
 display: inline-block;
 }
+
 #brand{
     align-self: center;
     margin: 21px;
@@ -50,6 +52,7 @@ display: inline-block;
     font-weight: bold;
     font-family: 'Bai Jamjuree', sans-serif;
 }
+
 #actionSearch{
     margin: 21px;
     padding-left: 21px;

@@ -13,3 +13,15 @@ This file contains all the global CSS.
   border:none;
   outline:none;
 }
+
+
+a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+    
+            text-decoration: none;
+            font-size: 17px;
+        }
+
