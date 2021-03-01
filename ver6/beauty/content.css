@@ -1,6 +1,14 @@
-.singnUpBar{
-    align-self: flex-end;
-}
+
 #ehhVisitorSiteNavBar{
     align-self: flex-start;
+}
+
+.align-right{
+ display: flex;
+   align-self: flex-end;
+}
+
+[ role = "ehhVisitorMenu"],[ role = "ehhPrelaunchheader"]{
+    visibility: hidden;
+    display: none;
 }

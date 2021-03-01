@@ -8,6 +8,7 @@
 
 .code div {
   counter-increment: listing;
+    counter-increment: listing;
 }
 
 .code div::before {
@@ -15,6 +16,7 @@
   display: inline-block;
   width: 8em;         /* now works */
   padding-left: auto; /* now works */
+  
   background-color: rgb(221, 221, 255);
   margin-left: auto;  /* now works */
   text-align: right;  /* now works */

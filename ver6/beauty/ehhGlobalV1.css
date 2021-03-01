@@ -28,7 +28,7 @@ Theme Colors
     --cyan: #1f9bcf;
     --white: #fff;
     --gray: #6c757d;
-    --gray-dark: #020202;
+    --gray-dark: #0e0e0e;
     --primary: #3f80ea;
     --secondary: #495057;
     --success: #4bbf73;
@@ -38,11 +38,14 @@ Theme Colors
     --light: #eff2f6;
     --dark: #293042;
       font-family: 'poppins';
-
+font-size: 8pt;
 }
 
 *{
     padding: 0;
+    margin: 0%;
+    box-sizing: border-box;
+    color:var(--gray-dark)
 /*
 	user-select: none;
 	-webkit-user-select: none;
@@ -50,26 +53,46 @@ Theme Colors
 }
 
 *:focus{
- 
     box-shadow: 0 0 10px #d6d6d6;
  outline:red;
 }
 
-
+/*
+*:focus::before{
+content: attr(class);
+position: absolute;
+ 
+  */
+ 
+}
 .material-icons{
-   font-size: 18px;
+ 
+   padding: 5px;
 }
 .rotate180{
    transform: rotate(180deg);
 }
 
 .brand{ 
-  margin: 13px;
+  align-self: center;
+  padding-left: 21px;
+  padding-right: 21px;
   font-size: 34pt;
   font-family: Bai Jamjuree;
-color: var(--gray-dark);
+  color: var(--gray-dark);
 }
 
+::selection { background: rgba(95,191,249,.4); }
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.bold{
+  font-weight: bold;
+}
 
 /*
 

@@ -4,8 +4,10 @@
   display: none;
   position: absolute;
   background-color: #f1f5f9;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 5px rgba(71, 71, 71, 0.121) ;
   z-index: 25;
+ flex-direction: column;
+
 }
 
 

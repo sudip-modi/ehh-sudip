@@ -5,18 +5,20 @@ a,button{
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  color: var(--primary);
+  color: var(--gray-dark);
   padding-left: 21px;
   padding-right: 21px;
   padding-top: 13px;
   padding-bottom: 13px;
   margin: 5px;
-  font-size: 21px;
+    font-size: 13pt;   
+
 }
 
 a:hover,button:hover{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.54);
     font-weight: bold;
-    border-radius: 5px;
-
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgba(71, 71, 71, 0.089) ;
 }
+
