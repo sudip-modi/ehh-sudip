@@ -1,0 +1,15 @@
+/*
+This file contains all the global CSS.
+*/
+
+
+/*
+*:before, *:after {
+  box-sizing: border-box;
+}
+*/
+
+*:focus{
+  border:none;
+  outline:none;
+}
