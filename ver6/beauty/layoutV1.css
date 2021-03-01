@@ -3,13 +3,18 @@ body {
   height: 100vh;
   grid-template: auto 1fr auto/auto 1fr auto;
   font-family: 'poppins';
+  background-color: #f1f5f9;
+   color: black;
 }
 
 
 .header {
-  background: lightpink;
-  padding: 2rem;
-  grid-column: 1/4;
+    padding-top: 0.875rem;
+    padding-right: 1.25rem;
+    padding-bottom: 0.875rem;
+    padding-left: 1.25rem;
+    grid-column: 1/4;
+    align-content: center;
 }
 
 .left-sidebar {

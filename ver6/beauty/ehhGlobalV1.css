@@ -9,19 +9,56 @@ This file contains all the global CSS.
 }
 */
 
-*:focus{
-  border:none;
-  outline:none;
+
+
+
+/*
+Theme Colors
+*/
+:root{
+    --blue: #3f80ea;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #d9534f;
+    --orange: #fd7e14;
+    --yellow: #e5a54b;
+    --green: #4bbf73;
+    --teal: #20c997;
+    --cyan: #1f9bcf;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #020202;
+    --primary: #3f80ea;
+    --secondary: #495057;
+    --success: #4bbf73;
+    --info: #1f9bcf;
+    --warning: #e5a54b;
+    --danger: #d9534f;
+    --light: #eff2f6;
+    --dark: #293042;
 }
 
 
-a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-    
-            text-decoration: none;
-            font-size: 17px;
-        }
+
+
+*{
+    margin: 5px;
+    padding: 0;
+/*
+	user-select: none;
+	-webkit-user-select: none;
+*/
+}
+*:focus{
+  border:none;
+  outline:none;
+  
+}
+
+
+*:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);  
+}
+
 
