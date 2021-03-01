@@ -4,5 +4,8 @@ body {
   color: var(--gray-dark);
 }
 .row{
+  align-items: center;
   display: inline-flex;
+  background-color: blueviolet;
 }
+

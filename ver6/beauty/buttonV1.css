@@ -1,0 +1,10 @@
+button{
+  border: none;
+  background: none;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background-color: blue;
+  padding: 13px;
+}

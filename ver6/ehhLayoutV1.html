@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="beauty/actionSearchV1.css">
     <link rel="stylesheet" href="beauty/editorV1.css">
     <link rel="stylesheet" href="beauty/ehhGlobalV1.css">
-        <link rel="stylesheet" href="beauty/menuV1.css">
-        <link rel="stylesheet" href="beauty/layoutV1.css">
-
-                <link rel="stylesheet" href="beauty/customSelectV1.css">
+    <link rel="stylesheet" href="beauty/menuV1.css">
+    <link rel="stylesheet" href="beauty/layoutV1.css">
+    <link rel="stylesheet" href="beauty/buttonV1.css">
+    <link rel="stylesheet" href="beauty/customSelectV1.css">
 
 
 </head>
@@ -25,16 +25,11 @@
     <div id = "actionSpace#1">
         <div class = "row">
             <span class="brand">[ everything happens here ]</span>
-        <input class="search" id="actionSearch">
-        <div class="menu" id="topmenu">
-            <a class="abutton" id="actionLink">action</a>
-            <a class="abutton" id="actionLink">people</a>
-            <a class="abutton" id="actionLink">setting</a>
-        </div>
-            <select class="custom-select" >
-                <option value="0">Select car:</option>
-                <option value="1">Audi</option>
-                <option value="2">BMW</option>
+            <select class="custom-select">
+                <option value="0">Select @ctionSpace:</option>
+                <option value="1">Choose a Theme</option>
+                <option value="2">Or Choose a Collection</option>
+                <option value="2">Or Choose an Organisation</option>
                 <option value="3">Citroen</option>
                 <option value="4">Ford</option>
                 <option value="5">Honda</option>
@@ -46,6 +41,18 @@
                 <option value="11">Toyota</option>
                 <option value="12">Volvo</option>
             </select>
+        <div class = "container" id = "forward backward">
+            <button id="historyPrevious" class = 'material-icons rotate180'>arrow_forward_ios</button>
+            <button id = "history next" class = 'material-icons'>arrow_forward_ios</button>
+        </div>
+
+        <input id="actionSearch" type="text" class="searchBar" value=" search here...">
+        <div class="menu" id="topmenu">
+            <a class="abutton" id="actionLink">action</a>
+            <a class="abutton" id="actionLink">people</a>
+            <a class="abutton" id="actionLink">setting</a>
+        </div>
+           
         </div>
     </div>
     

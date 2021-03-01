@@ -40,7 +40,6 @@ Theme Colors
 }
 
 *{
-    margin: 5px;
     padding: 0;
 /*
 	user-select: none;
@@ -53,9 +52,21 @@ Theme Colors
   
 }
 
+.material-icons{
+   font-size: 18px;
+}
+.rotate180{
+   transform: rotate(180deg);
+}
+
+
+/*
+
 
 *:hover{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);  
 }
 
 
+
+*/
