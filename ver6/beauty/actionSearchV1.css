@@ -1,8 +1,12 @@
 
 #actionSearch{
+   
     align-self: center;
     font-family: 'Poppins';
     border-style: none;
     font-size: 13pt;   
-    margin: 21px; 
+    margin-left: 34px;
+    margin-right: 34px;
+    padding: 13px;
+    border-radius: 5px;
 }

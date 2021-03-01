@@ -6,11 +6,17 @@ a,button{
   text-decoration: none;
   display: inline-block;
   color: var(--primary);
-  padding: 21px;
+  padding-left: 21px;
+  padding-right: 21px;
+  padding-top: 13px;
+  padding-bottom: 13px;
   margin: 5px;
-   font-size: 17px;
+  font-size: 21px;
 }
+
 a:hover,button:hover{
     background-color: white;
+    font-weight: bold;
+    border-radius: 5px;
 
 }

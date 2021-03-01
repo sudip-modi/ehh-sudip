@@ -54,9 +54,7 @@ Theme Colors
     box-shadow: 0 0 10px #d6d6d6;
  outline:red;
 }
-*:active{
- 
-}
+
 
 .material-icons{
    font-size: 18px;
@@ -69,7 +67,7 @@ Theme Colors
   margin: 13px;
   font-size: 34pt;
   font-family: Bai Jamjuree;
-
+color: var(--gray-dark);
 }
 
 

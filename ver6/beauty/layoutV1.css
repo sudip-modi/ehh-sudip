@@ -2,19 +2,26 @@ body {
   font-family: 'poppins';
   background-color: #f1f5f9;
   color: var(--gray-dark);
+  margin-left: 13vw;
+    margin-right: 13vw;
 }
+
+
 .row{
   margin-bottom: 5px;
   display: flex;
   align-items: center;
   background-color: var(--light);
+ 
 }
 .container{
   display: flex;
+  position: relative;
   overflow: hidden;
   margin-left: auto;
   padding-right: 21px;
   padding-left: 21px;
 }
+
 
 

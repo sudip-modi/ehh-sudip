@@ -1,3 +1,6 @@
 .singnUpBar{
     align-self: flex-end;
 }
+#ehhVisitorSiteNavBar{
+    align-self: flex-start;
+}
