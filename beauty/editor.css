@@ -1,0 +1,20 @@
+.code{
+    background-color: bisque;
+ white-space: pre-wrap;
+}
+
+
+.code::before {
+  counter-reset: listing;
+}
+.code div {
+  counter-increment: listing;
+}
+.code div::before {
+  content: counter(listing) ". ";
+  display: inline-block;
+  width: 8em;         /* now works */
+  padding-left: auto; /* now works */
+  margin-left: auto;  /* now works */
+  text-align: right;  /* now works */
+}
