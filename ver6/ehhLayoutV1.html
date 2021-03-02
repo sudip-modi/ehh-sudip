@@ -150,9 +150,15 @@
                         </select>
                     -->     
             </div>
-            <a href="loadFolder"><span id="loadFolder" class='material-icons'>inventory_2</span>load collection</a>
+
+                <a href="" id="a">click here to download your file</a>
+                <button onclick="processFile.download('file text', 'myfilename.txt', 'text/plain')">Create file</button>
+
+            <a onclick="processFile.getFileHandle()"><span id="loadFolder" class='material-icons' >inventory_2</span>load collection</a>
             <input type="file" id="files" name="files[]" multiple />
             <output id="list"></output>
+
+
             <li><span class="parent collection">my Stories</span>
                 <ul class="nested">
                     <li>story 1</li>
@@ -180,7 +186,6 @@
                     </li>
                 </ul>
             </li>
-     
             <span class="hozintalLine"></span>
             <li><span class="parent">Recent Files</span>
                 <ul class="nested">
@@ -302,7 +307,7 @@
                 </div>
             </div>
             <div id="title" class="title bold"  href= "file:\\\D:\bronzwik@0dot1Live\Department&Teams\Product _ Project Management\[_everything Happens here_]_VerO_9\knowledgeCenter\uiReferences\intro.mp4">everything happens here</div>
-            <div class = "actionBlockCollection" >
+            <div class = "actionBlockCollection" id="actionBlockCollection" >
                 <container class = "actionblock" >
                     <p class="content" role="content">
                         a new <span class="bold">lightweight</span>, modern and fully customizable
