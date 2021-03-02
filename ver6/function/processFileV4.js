@@ -218,6 +218,21 @@ class processFile {
     }
 }
 
-
-
+//https://code-boxx.com/create-save-files-javascript/
+//https://gist.github.com/liabru/11263260
+//https://github.com/GoogleChromeLabs/text-editor/blob/main/src/inline-scripts/idb-keyval-iife.js
 processFile.writeFile();
+
+function saveBlob(blob, fileName) {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+
+    var url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+};
+
+saveBlob(file, 'test.zip');

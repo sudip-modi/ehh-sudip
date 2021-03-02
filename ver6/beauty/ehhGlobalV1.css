@@ -9,8 +9,18 @@ This file contains all the global CSS.
 }
 */
 
-
-
+@font-face {
+  font-family: MyHelvetica;
+  src: local("Helvetica Neue Bold"),
+       local("HelveticaNeue-Bold"),
+       url(MgOpenModernaBold.ttf);
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+       url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
 
 /*
 Theme Colors
