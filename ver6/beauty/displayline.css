@@ -3,3 +3,8 @@
  border-left: 1px solid var(--gray);
  height: 34px; 
 }
+.hozintalLine{
+      
+ border-bottom: 3px solid var(--gray);
+ height: 34px; 
+}

@@ -8,7 +8,7 @@
    align-self: flex-end;
 }
 
-[ role = "ehhVisitorMenu"],[ role = "ehhPrelaunchheader"]{
+[ role = "ehhVisitorMenu"],[role ="ehhUserMenu"],[ role="sidebar"],[class="actionEditor"]{
     visibility: hidden;
     display: none;
 }

@@ -8,12 +8,14 @@
 }
 .storyIcon{
     display: block;
-    font-size: 89px;
+    font-size: 121px;
     width: fit-content;
     align-content: center;
+    color: var(--primary);
 }
+
 .storyIcon:hover{
-    background-color: var(--dark);
+    background-color: var(--primary);
     color: var(--light);
     border-radius: 5px;
 }
@@ -27,6 +29,9 @@
   display: inline-block;
   color: var(--gray-dark);
 
+}
+.h1{
+  font-size: 34px;
 }
 
 

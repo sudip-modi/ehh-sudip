@@ -66,8 +66,7 @@ position: absolute;
  
 }
 .material-icons{
- 
-   padding: 5px;
+   padding: 8px;
 }
 .rotate180{
    transform: rotate(180deg);
@@ -93,6 +92,60 @@ position: absolute;
 .bold{
   font-weight: bold;
 }
+
+
+.item{
+  align-self: center;
+  align-content: center;
+ 
+
+  width: 100%;
+  background-color: yellowgreen;
+}
+
+.item :hover{
+  background-color:white;
+}
+
+  .arrow {
+            border: solid var(--gray-dark);
+            border-width: 0 3px 3px 0;
+           display: inline-block;
+           float: left;
+            padding: 3px;
+            margin: 8px;
+        }
+  .right {
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+
+        .up {
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+        }
+
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+.section{
+  margin: auto;
+  align-self: center;
+}
+p{
+  margin-top: 21px;
+  align-items: center;
+  font: normal;
+  font-size: 13px;
+}
+
 
 /*
 

@@ -7,6 +7,7 @@
     box-shadow: 0 3px 5px rgba(71, 71, 71, 0.121) ;
   z-index: 25;
  flex-direction: column;
+ border-radius: 8px;
 
 }
 

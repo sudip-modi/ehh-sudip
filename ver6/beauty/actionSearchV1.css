@@ -1,11 +1,19 @@
 
-#actionSearch{
+.searchBar{
     align-self: center;
     font-family: 'Poppins';
     border-style: none;
     font-size: 13pt;   
     margin-left: 34px;
     margin-right: 34px;
-    padding: 13px;
+    padding: 8px;
+     box-sizing: border-box;
     border-radius: 5px;
+      -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
 }
+
+ 
+       .searchBar:focus {
+            width: 100%;
+        }
