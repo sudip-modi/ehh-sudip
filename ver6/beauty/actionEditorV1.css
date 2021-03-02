@@ -65,6 +65,30 @@
   margin-right: 13px;
 }
 
-p{ 
-  font-size: 16px;
+.content { 
+  font: size 16px;
+}
+
+span.quoted {
+    font-family: Georgia;
+    font-size: 16px;
+    display: block;
+    margin: 14px 0 0 0;
+    font-style: italic;
+}
+span.quoted:before {
+    content: "“";
+    font-size: 40px;
+    color: #999;
+    line-height: 0;
+    display: inline-block;
+    margin: 0 6px 0 0;
+}
+span.quoted:after {
+    content: " ”";
+    font-size: 40px;
+    color: #999;
+    line-height: 0;
+    display: inline-block;
+    margin: 0 0 0 4px;
 }

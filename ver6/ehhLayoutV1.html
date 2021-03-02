@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="beauty/sidebar.css">
     <link rel="stylesheet" href="beauty/treeV1.css">
     <link rel="stylesheet" href="beauty/sectionV1.css">
+    <link rel="stylesheet" href="beauty/collapsible.css">
 
 </head>
-
 <body>
     <div id = "actionSpace#1">
 
@@ -86,14 +86,8 @@
         
         -->
         <div class="row" id="header" role = "ehhUserMenu">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-            <select class="bold custom-select brand" >[ ehh ]
-                <option value="0">[ everything happens here ]</option>
-                <option value="1">Select @ctionSpace:</option>
-                <option value="2">or Choose a Theme</option>
-                <option value="3">or Choose a Collection</option>
-                <option value="4">or Choose an Organisation</option>
-            </select>
+     
+       
             <input id="actionSearch" type="text" class="searchBar" value=" search here...">
             <div class="container" id="forward backward">
                 <button id="historyPrevious" class='material-icons rotate180'>arrow_forward_ios</button>
@@ -116,7 +110,7 @@
                     <a class="dropbtn">people   
                     </a>
                     <div class="dropdown-content container coloumn">
-                        <a href="#" class="row">Present</a>
+                        <a href="file:///D:\bronzwik@0dot1Live\Department & Teams\Product _ Project Management\[ everything Happens here ] VerO.9 #wip\knowledgeCenter\UI references\intro.mp4" class="row">Present</a>
                         <a href="#" class="row">publish</a>
                         <a href="#" class="row">pricing</a>
                     </div>
@@ -141,84 +135,159 @@
             </div>
             
         </div>
-        <div id="sideBar" role="sidebar">
-            <div class="item row caret">
-                <i class="arrow right"></i>
-                <span class="material-icons" role="icon">image</span>
-                my Stories
-                <span class="material-icons" role="icon">add</span>
-            </div>
-            <li><span class="caret">Root</span>
-                <ul class="nested">
-                    <li>
-                    <li><span class="caret">node</span>
-                        <ul class="nested">
-                            <li>leaf</li>
-                            <li>leaf</li>
-                            <li>leaf</li>
-                            <li>leaf</li>
-                            <div class="item"><span class="material-icons" role="icon">image</span>my Stories</div>
 
-                        </ul>
-                    </li>
-                    leaf
-            </li>
-            <li>leaf</li>
-            <li><span class="caret">node</span>
+        <div id="sideBar" role="fileNavigation">
+            <div class="container" id = "sidebarBrand">
+                    <div href="#home" class="brand">[ ehh ]</div>
+                    <!--
+                        <select class="bold custom-select brand">
+                          <option value="1">Select @ctionSpace:</option>
+                            <option value="2">or Choose a Theme</option>
+                            <option value="3">or Choose a Collection</option>
+                            <option value="4">or Choose an Organisation</option>
+                        </select>
+                    -->     
+            </div>
+            <li><span class="parent collection">my Stories</span>
                 <ul class="nested">
-                    <li>leaf</li>
-                    <li>leaf</li>
-                    <li><span class="caret">node</span>
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                        <li><span class="parent">my Nested Stories</span>
+                            <ul class="nested">
+                                <li>story 1</li>
+                                <li>story 2</li>
+                                <li>story 3</li>
+                                <li>story 4</li>
+                            </ul>
+                        </li>
+                        errands
+                    </li>
+                    
+                    <li><span class="parent">recent Stories</span>
                         <ul class="nested">
                             <li>leaf</li>
                             <li>leaf</li>
-                            <li>leaf</li>
-                            <li>leaf</li>
+                          
                         </ul>
                     </li>
+                </ul>
+            </li>
+     
+            <span class="hozintalLine"></span>
+            <li><span class="parent">Recent Files</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+            
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+            
                 </ul>
             </li>
             </ul>
             </li>
             <span class="hozintalLine"></span>
-            <div class="item">Recent Files</div>
-            <div class="item">Tags</div>
-            <div class="item">Starred</div>
-            <div class="item">Trash</div>
-            <ul id="myUL">
-                <li><span class="caret">Root</span>
-                    <ul class="nested">
-                        <li>
-                        <li><span class="caret">node</span>
-                            <ul class="nested">
-                                <li>leaf</li>
-                                <li>leaf</li>
-                                <li>leaf</li>
-                                <li>leaf</li>
-                            </ul>
-                        </li>
-                        leaf
-                </li>
-                <li>leaf</li>
-                <li><span class="caret">node</span>
-                    <ul class="nested">
-                        <li>leaf</li>
-                        <li>leaf</li>
-                        <li><span class="caret">node</span>
-                            <ul class="nested">
-                                <li>leaf</li>
-                                <li>leaf</li>
-                                <li>leaf</li>
-                                <li>leaf</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <li><span class="parent">Starred</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+            
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+            
+                </ul>
             </li>
             </ul>
+            </li>
+            <li><span class="parent">Tags</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+            
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+            
+                </ul>
+            </li>
+            </ul>
+            </li>
+            <li><span class="parent">Trash</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+            
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+            
+                </ul>
+            </li>
+            </ul>
+            </li>
+          
         </div>
-      
         <div class = "actionEditor">
             <div class= "material-icons storyIcon">change_history</div>
             <div id = titleTools class="row titleTools" role = "titleTools">
@@ -227,73 +296,53 @@
                     <a class="small"><span class="material-icons" role="icon">image</span>add logline</a>
                 </div>
             </div>
-            <div id="title"class="title bold" contenteditable="">[ everything happens here ]</div>
-            <div class = "actionBlockCollection" contenteditable="">
-                <div class="section">
-                    <content>
-                        <section>
-                            <container>
-                                <h1 class="brand"></h1>
-                                <p class = "actionblock" role= "content">
-                                    a new <b class="b">lightweight</b>, modern and fully customizable
-                                    <b>work-space/work-shop</b>.<br>
-                                    your own <b class="b">secure</b> ecosystem for a seamless, integrated experience across devices
-                                    & services.<br>
-                                </p>
-                                <p class = "actionblock" role= "content">
-                                    for creators, collaborators, buyers, retailers, educators & influencers.<br>
-                                    the hardest working <b>animal</b> on this planet,<br>
-                                    us 😊.
-                                </p>
-                                <toggle class="toggle"><i class="material-icons">expand_more</i></toggle>
-                                <p class="collapsible" >
-                                    for the dreams of those who are <b>[ macFreak ] </b> or<b> [ windowGeek]</b>,
-                                    <br>the ideas of one's past, here alive in present,
-                                    <br>in a simplestic form, with customizable functions & desirable beauty...
-                                    <br>mutating the vision from the future, come alive in #realTime....
-                                    <br>
-                                </p>
-                                <br>
-                                it's <b>@ctionSpaces</b> are full of action, drama, <b>integration, automation,</b> pinch of comedy
-                                and a dash of Ai.
-                                </p>
-                                <actionBar class="bar" id="actionBar">
-                                    <button ehhId="selfInvite" href="#selfInvite">self-invite</button>
-                                    <button ehhId="knowMore" href="#knowMore">know More</button>
-                                </actionBar>
-                            </container>
-                        </section>
-                    </content>
-                </div>
-                <p class = "actionblock" role= "content">
-                    a new lightweight, modern and fully customizable work-space/work-shop.
-                    your own secure ecosystem for a seamless, integrated experience across devices & services.
-                    for creators, collaborators, buyers, retailers, educators & influencers.
-                    the hardest working animal on this planet, us 😊.
-                </p>
+            <div id="title" class="title bold"  href= "file:\\\D:\bronzwik@0dot1Live\Department&Teams\Product _ Project Management\[_everything Happens here_]_VerO_9\knowledgeCenter\uiReferences\intro.mp4">[ everything happens here ]</div>
+            <div class = "actionBlockCollection" >
+                <container class = "actionblock" >
+                    <p class="content" role="content">
+                        a new <span class="bold">lightweight</span>, modern and fully customizable
+                        <b>work-space/work-shop</b>.<br>
+                        your own <b class="b">secure</b> ecosystem for a seamless, integrated experience across devices
+                        & services.<br>
+                    </p>
+                    <p class=class="content" role="content">
+                        for creators, collaborators, buyers, retailers, educators & influencers.<br>
+                        the hardest working <b>animal</b> on this planet,<br>
+                        us 😊.
+                    </p>
+                    <p class="collapsible">
+                        for the dreams of those who are <b>[ macFreak ] </b> or<b> [ windowGeek]</b>,
+                        <br>the ideas of one's past, here alive in present,
+                        <br>in a simplestic form, with customizable functions & desirable beauty...
+                        <br>mutating the vision from the future, come alive in #realTime....
+                        <br>
+                    </p>
+                    <br>
+                    <p>it's <b>@ctionSpaces</b> are full of action, drama, <b>integration, automation,</b> pinch of comedy
+                        and a dash of Ai.
+                    </p>
+                    <actionBar class="bar" id="actionBar">
+                        <button ehhId="selfInvite" href="#selfInvite">self-invite</button>
+                        <button ehhId="knowMore" href="#knowMore">know More</button>
+                    </actionBar>
+                </container>
+        
             </div>
 
         </div>
-        
-        <div id="mySidenav" class="sidenav coloumn">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">Collection Type 1</a>
-            <a href="#">Collection Type 2</a>
-            <a href="#">Collection Type 3</a>
-            <a href="#">Collection Type 4</a>
-        </div>
+    
 
     </div>
     <script>
-        var toggler = document.getElementsByClassName("caret");
-        var i;
+        var toggler = document.getElementsByClassName("parent");
+            var i;
 
-        for (i = 0; i < toggler.length; i++) {
-            toggler[i].addEventListener("click", function () {
-                this.parentElement.querySelector(".nested").classList.toggle("active");
-                this.classList.toggle("caret-down");
-            });
-        }
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("parent-down");
+                });
+            }
     </script>
 </body>
 
