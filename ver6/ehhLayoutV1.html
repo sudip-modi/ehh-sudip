@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="beauty/sectionV1.css">
     <link rel="stylesheet" href="beauty/collapsible.css">
 
+
+        <link rel="stylesheet" href="beauty/selectV1.css">
+
 </head>
 <body>
     <div id = "actionSpace#1">
@@ -85,15 +88,15 @@
         
         
         -->
-        <div class="row" id="header" role = "ehhUserMenu">
+        <div class="container row" id="header" role = "ehhUserMenu">
      
        
-            <input id="actionSearch" type="text" class="searchBar" value=" search here...">
+            <input id="actionSearch" type="text" class="searchBar" placeholder=" search here...">
             <div class="container" id="forward backward">
                 <button id="historyPrevious" class='material-icons rotate180'>arrow_forward_ios</button>
                 <button id="history next" class='material-icons'>arrow_forward_ios</button>
             </div>
-            <div class="row align-right">
+            <div class="container row align-right">
                 <span class="verticleline"></span>
                 <div class="dropdown">
                     <a class="dropbtn">action
@@ -135,7 +138,6 @@
             </div>
             
         </div>
-
         <div id="sideBar" role="fileNavigation">
             <div class="container" id = "sidebarBrand">
                     <div href="#home" class="brand">[ ehh ]</div>
@@ -148,6 +150,9 @@
                         </select>
                     -->     
             </div>
+            <a href="loadFolder"><span id="loadFolder" class='material-icons'>inventory_2</span>load collection</a>
+            <input type="file" id="files" name="files[]" multiple />
+            <output id="list"></output>
             <li><span class="parent collection">my Stories</span>
                 <ul class="nested">
                     <li>story 1</li>
@@ -289,14 +294,14 @@
           
         </div>
         <div class = "actionEditor">
-            <div class= "material-icons storyIcon">change_history</div>
+            <div class= "material-icons storyIcon content">change_history</div>
             <div id = titleTools class="row titleTools" role = "titleTools">
                 <div class ="buttonGroup">
                     <a class="small"><span class="material-icons" role="icon">image</span>add poster</a>
                     <a class="small"><span class="material-icons" role="icon">image</span>add logline</a>
                 </div>
             </div>
-            <div id="title" class="title bold"  href= "file:\\\D:\bronzwik@0dot1Live\Department&Teams\Product _ Project Management\[_everything Happens here_]_VerO_9\knowledgeCenter\uiReferences\intro.mp4">[ everything happens here ]</div>
+            <div id="title" class="title bold"  href= "file:\\\D:\bronzwik@0dot1Live\Department&Teams\Product _ Project Management\[_everything Happens here_]_VerO_9\knowledgeCenter\uiReferences\intro.mp4">everything happens here</div>
             <div class = "actionBlockCollection" >
                 <container class = "actionblock" >
                     <p class="content" role="content">
@@ -331,7 +336,6 @@
 
         </div>
     
-
     </div>
     <script>
         var toggler = document.getElementsByClassName("parent");
@@ -344,6 +348,7 @@
                 });
             }
     </script>
+    <script type="text/javascript" src="function/processFileV4.js"></script>
 </body>
 
 </html>

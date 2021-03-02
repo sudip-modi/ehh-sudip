@@ -30,8 +30,22 @@
   color: var(--gray-dark);
 
 }
+
+.title::before{
+  content: '\005B';
+    font-family: Bai Jamjuree;
+padding: 13px;
+
+}
+.title::after{
+  content: '\005D';
+    font-family: Bai Jamjuree;
+padding: 13px;
+
+}
+
 .h1{
-  font-size: 34px;
+ font-size: 34px;
 }
 
 
