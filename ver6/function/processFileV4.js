@@ -22,13 +22,6 @@
 //For Eg.createFile should be able to take an input(blob, metadata for attributes, location) and should be able to create a file of mimeTypes 
 //allowed in javaScipt
 
-/**
- * The class provides several interfaces for accessing files from a 'local' filesystem:
-
-File - an individual file; provides readonly information such as name, file size, mimetype, and a reference to the file handle.
-FileList - an array-like sequence of File objects. (Think <input type="file" multiple> or dragging a directory of files from the desktop).
-Blob - Allows for slicing a file into byte ranges.
- */
 
 /**
  * fileParts – is an array of Blob/BufferSource/String values.
@@ -97,6 +90,7 @@ class processFile {
             console.log({ file, name, type, size });
         }
     }
+    
     readImage(file) {
         // Check if the file is an image.
         if (file.type && file.type.indexOf('image') === -1) {
@@ -179,7 +173,33 @@ class processFile {
             return false; // 
         }
     }
-   
+   /**
+ * Create a handle to a new (text) file on the local file system.
+ *
+ * @return {!Promise<FileSystemFileHandle>} Handle to the new file.
+ */
+    static getNewFileHandle() {
+    // For Chrome 86 and later...
+    if ('showSaveFilePicker' in window) {
+        const opts = {
+            types: [{
+                description: 'Text file',
+                accept: { 'text/plain': ['.txt'] },
+            }],
+        };
+        return window.showSaveFilePicker(opts);
+    }
+    // For Chrome 85 and earlier...
+    const opts = {
+        type: 'save-file',
+        accepts: [{
+            description: 'Text file',
+            extensions: ['txt'],
+            mimeTypes: ['text/plain'],
+        }],
+    };
+    return window.chooseFileSystemEntries(opts);
+}
     static getFileHandle() {
         const opts = {
             types: [
@@ -221,7 +241,8 @@ class processFile {
 //https://code-boxx.com/create-save-files-javascript/
 //https://gist.github.com/liabru/11263260
 //https://github.com/GoogleChromeLabs/text-editor/blob/main/src/inline-scripts/idb-keyval-iife.js
-processFile.writeFile();
+
+//processFile.writeFile();
 
 function saveBlob(blob, fileName) {
     var a = document.createElement("a");

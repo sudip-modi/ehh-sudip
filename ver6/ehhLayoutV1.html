@@ -24,9 +24,7 @@
     <link rel="stylesheet" href="beauty/treeV1.css">
     <link rel="stylesheet" href="beauty/sectionV1.css">
     <link rel="stylesheet" href="beauty/collapsible.css">
-
-
-        <link rel="stylesheet" href="beauty/selectV1.css">
+    <link rel="stylesheet" href="beauty/selectV1.css">
 
 </head>
 <body>
@@ -154,7 +152,7 @@
                 <a href="" id="a">click here to download your file</a>
                 <button onclick="processFile.download('file text', 'myfilename.txt', 'text/plain')">Create file</button>
 
-            <a onclick="processFile.getFileHandle()"><span id="loadFolder" class='material-icons' >inventory_2</span>load collection</a>
+            <a onclick="processFile.openFileHandle()"><span id="loadFolder" class='material-icons' >inventory_2</span>load collection</a>
             <input type="file" id="files" name="files[]" multiple />
             <output id="list"></output>
 
@@ -336,11 +334,8 @@
                         <button ehhId="knowMore" href="#knowMore">know More</button>
                     </actionBar>
                 </container>
-        
             </div>
-
         </div>
-    
     </div>
     <script>
         var toggler = document.getElementsByClassName("parent");
@@ -353,7 +348,7 @@
                 });
             }
     </script>
-    <script type="text/javascript" src="function/processFileV4.js"></script>
+    <script type="text/javascript" src="function/processFileV5.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+   :root{
+    --blue: #3f80ea;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #d9534f;
+    --orange: #fd7e14;
+    --yellow: #e5a54b;
+    --green: #4bbf73;
+    --teal: #20c997;
+    --cyan: #1f9bcf;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #0e0e0e;
+    --primary: #3f80ea;
+    --secondary: #495057;
+    --success: #4bbf73;
+    --info: #1f9bcf;
+    --warning: #e5a54b;
+    --danger: #d9534f;
+    --light: #eff2f6;
+    --dark: #293042;
+    font-family: 'poppins';
+    font-size: 13pt;
+}
+*{ 
+  list-style-type: none;
+    padding: 0;
+    margin: 0%;
+    box-sizing: border-box;
+    color:var(--gray-dark);
+  
+    
+/*
+	user-select: none;
+	-webkit-user-select: none;
+*/
+}
+body {
+  background-color: lightblue;
+  color: var(--gray-dark);
+  width: 100%;
+  height: 100%;
+}
+
+
+.container{
+    width: max-content;
+    height: 100%;
+    display: flex;
+    position: relative;
+    background-color: lightcoral;
+}
+.row {
+     flex-direction: row;  /* make main axis vertical */
+/*
+     justify-content: center; /* center items vertically, in this case */
+}
+.col{
+     flex-direction: column;  /* make main axis vertical */
+/*
+     align-items: center;     /* center items horizontally, in this case */
+}
+
+.item {
+    text-align: center;
+}
+#sideMenu{
+    align-self: flex-start;
+    width: 13vw;
+}
+#topMenu{
+    padding: 1vw;
+    width: 100vw;
+}
+#actionEditor{
+    padding-top: 34px;
+    padding-left: 34px;
+    background-color: lightgoldenrodyellow;
+    border: lightgreen;
+    width: 70vw;
+}
+.item{
+    background-color: lightpink;
+}
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&family=Open+Sans&family=Poppins"
+    rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<body>
+    <div class="container col" id="actionSpace">
+        <div class="container row" id="topMenu">topMenu</div>
+        <div class="container row">
+            <div class="container col" id="sideMenu">sidebar
+                <div class = "item" id="sideBarItem" onclick="processFile.openFileHandle()">
+                    <i class="material-icons" id="create">create</i>
+                    create
+                </div>
+                <a class="item" id="sideBarItem" onclick="ActionController.addFile()">
+                    <i class="material-icons" id="create" >add</i>
+                    add
+                </a>
+                <div class="item" id="sideBarItem"onclick="ActionController.saveFile(event,`actionStoryBlockCollection`)">
+                    <i class="material-icons" id="create" >save</i>
+                    save
+                </div>
+            </div>
+            <div id="actionEditor">
+                <div class="container col tab" id="actionStoryCollection">
+                    <div class="container fileView" id="actionStoryBlockCollection">
+                        <div class="content item" id="actionblock">
+                            let's create something.
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+    </div>
+
+</body>
+    <script type="text/javascript" src="function/processFileV5.js"></script>
+    <script type="text/javascript" src="function/allMergedV6.js"></script>
+    <script type="text/javascript" src="function/actionDataBaseV1.js"></script>
+</html>
+    
