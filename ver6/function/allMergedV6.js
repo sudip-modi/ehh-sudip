@@ -360,7 +360,7 @@ async function  test1() {
     const [fileHandle] = await window.showOpenFilePicker();
    
    
-    var request = window.indexedDB.open("files", dbVersion);
+    var request = window.indexedDB.open("files");
     request.onerror = function (event) {
             // Do something with request.errorCode!
             console.log("Why didn't you allow my web app to use IndexedDB?!");
@@ -369,7 +369,7 @@ async function  test1() {
             // Do something with request.result!
             var db = request.result;
             console.log("success", db);
-            db.createObjectStore("openFiles", { keyPath: 'fileName' });
+           var openFilesStore = db.createObjectStore("openFiles", { keyPath: 'fileName' });
            // console.log(db);
             var transaction = db.transaction("openFiles", "readwrite");
             console.log(transaction);
