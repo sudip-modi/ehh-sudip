@@ -3,6 +3,7 @@
 if (!window.indexedDB) {
     console.log("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
 }
+
 // In the following line, you should include the prefixes
 // of implementations you want to test.
 window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
@@ -45,8 +46,6 @@ class actionDataBase {
             // Do something with request.result!
             var db = request.result;
             console.log(db);
-
-           
             db.onerror = function (event) {
                 // Generic error handler for all errors targeted at this database's
                 // requests!
@@ -85,7 +84,7 @@ class actionDataBase {
             console.log("entity Already exists in the DataBase");
         }
     }
-    static add2ObjectStore(objectStore) { 
+    static add2ObjectStore(objectStore,entity) { 
         let transaction = db.transaction("books", "readwrite"); // (1)
         // get an object store to operate on it
         let books = transaction.objectStore("books"); // (2)

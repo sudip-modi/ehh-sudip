@@ -349,10 +349,45 @@ class ActionView {
     }
 }
 
+
+//window.onload = test1;
+
+async function  test1() { 
+    var entity = document.getElementById("actionStoryBlockCollection");
+    var newFile = document.createElement("div");
+    newFile.class = "content item";
+    newFile.id = "actionBlock";
+    const [fileHandle] = await window.showOpenFilePicker();
+    
+    await set(fileHandle.name, fileHandle);
+    console.log(`Stored file handle for "${fileHandle.name}" in IndexedDB.`);
+    //let fileHandle;
+     //var fileHandle = localStorage.getItem("2.html");
+    //console.log(fileHandle)
+    // const root = await navigator.storage.getDirectory(); console.log("root",root)
+
+    // // Create a new file handle.
+    // const fileHandle = await root.getFileHandle('Untitled.txt', { create: true }); console.log("FileHandle", fileHandle)
+    // // Create a new directory handle.
+    // const dirHandle = await root.getDirectoryHandle('New Folder', { create: true }); console.log("FolderHandle", dirHandle)
+    // // Recursively remove a directory.
+    // await root.removeEntry('Old Stuff', { recursive: true });
+    // // [fileHandle] = await window.showOpenFilePicker();
+    
+    
+    
+    // const file = await fileHandle.getFile();
+    // const contents = await file.text();
+    // console.log("content", contents)
+    // newFile.innerHTML = contents
+    // entity.appendChild(newFile);
+
+
+}
 //USe case
 // Highlight first 100 lines, then schedule setTimeout (with zero-delay) for the next 100 lines, and so on.
 function autoSave() { 
-    
+
     // repeat with the interval of 2 seconds
   //  let timerId = setInterval(func | code, 2000, [arg1], [arg2], ...)
     // repeat with the interval of 2 seconds
