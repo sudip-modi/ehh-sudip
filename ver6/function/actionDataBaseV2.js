@@ -122,7 +122,7 @@ class actionDataSets {
     }
     static add2Store(databaseName,storeName,entity,entityValue) { 
         
-        console.log("creating store")
+        console.log("add2Store")
         var databaseWip = window.indexedDB.open(databaseName, dbVersion);
         databaseWip.onerror = function (event) {
             // Do something with request.errorCode!
@@ -134,11 +134,13 @@ class actionDataSets {
             var db = databaseWip.result;
             console.log(" databaseWip open success", db);
             let transaction = db.transaction(storeName, "readwrite"); // (1)
+            console.log(transaction)
             // get an object store to operate on it
-            //let entityTransaction = transaction.objectStore(entity); // (2)
-
-
-            //let request = entityTransaction.add(entityValue);
+            let entityTransaction = transaction.objectStore(storeName); // (2)
+            let request = entityTransaction.add(entityValue);
+            request.onsuccess = function (event) { 
+                console.log("successFull transaction");
+            }
 
 
 
