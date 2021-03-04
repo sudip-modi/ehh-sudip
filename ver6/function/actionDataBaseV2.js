@@ -120,26 +120,30 @@ class actionDataSets {
     };
         return tx;
     }
-    static add2Store(databaseName,storeName,entity,entityValue) { 
+    static add2Store(databaseName,dbVersion,storeName,entity,entityValue) { 
         
-        console.log("add2Store")
+       // console.log("add2Store")
         var databaseWip = window.indexedDB.open(databaseName, dbVersion);
         databaseWip.onerror = function (event) {
             // Do something with request.errorCode!
-            console.log(request.error.message)
+            console.log(databaseWip.error.message)
             console.log("Why didn't you allow my web app to use IndexedDB?!");
         };
         databaseWip.onsuccess = function (event) {
             // Do something with request.result!
             var db = databaseWip.result;
-            console.log(" databaseWip open success", db);
+          //  console.log(" databaseWip open success", db);
             let transaction = db.transaction(storeName, "readwrite"); // (1)
-            console.log(transaction)
+            
             // get an object store to operate on it
             let entityTransaction = transaction.objectStore(storeName); // (2)
-            let request = entityTransaction.add(entityValue);
+            console.log(entityTransaction)
+            var value = { 'entity': entityValue, timestamp: Date.now() };
+            console.log("value",value)
+            let request = entityTransaction.add(value);
             request.onsuccess = function (event) { 
                 console.log("successFull transaction");
+              
             }
 
 
@@ -175,13 +179,12 @@ class actionDataSets {
 
         };
     }
-
 }
 
 
 //var filesDatabase = actionDataSets.openDataBase("filesDatabase", 1);
-//var objectStoreLive = actionDataSets.createStore("filesDatabase",3, "recentFilesStore");
-actionDataSets.add2Store("files","recentFileStore","filename","fileContent")
+//var objectStoreLive = actionDataSets.createStore("files",3, "openFileStore");
+//actionDataSets.add2Store("files","recentFileStore","filename","fileContent")
 //actionDataSets.deleteStore("filesDatabase", 11, "recentFiles");
 //actionDataSets.deleteDatabase("filesDatabase");
 //var request = objectStore.clear();

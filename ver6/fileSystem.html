@@ -51,8 +51,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
-
 .container{
     width: max-content;
     height: 100%;
@@ -90,7 +88,16 @@ body {
     width: 70vw;
 }
 .item{
-    background-color: lightpink;
+  
+}
+.fileView{
+    background-color: lightblue;
+    width: 100%;
+}
+#fileViewMenu{
+background-color: lightcoral;
+width: 70px
+
 }
 
 </style>
@@ -114,10 +121,20 @@ body {
                     <i class="material-icons" id="create" >save</i>
                     save
                 </div>
+                <div class="item" id="sideBarItem" onclick="ActionController.saveFile2IndexDb(event,`actionStoryBlockCollection`)">
+                    <i class="material-icons" id="create">save</i>
+                    saveInIndexedDb
+                </div>
             </div>
             <div id="actionEditor">
                 <div class="container col tab" id="actionStoryCollection">
                     <div class="container fileView" id="actionStoryBlockCollection">
+                        <div class="container row" id="fileViewMenu">
+                            <button>close</button>
+                            <button>
+
+</button>
+                        </div>
                         <div class="content item" id="actionblock">
                             let's create something.
                         </div>
