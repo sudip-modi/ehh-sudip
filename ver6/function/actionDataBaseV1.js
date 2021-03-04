@@ -38,7 +38,7 @@ class actionDataBase {
      */
     static openDataBase(databaseName, dbVersion) { 
       var request = window.indexedDB.open(databaseName, dbVersion);
-        request.onerror = function (event) {
+            request.onerror = function (event) {
             // Do something with request.errorCode!
             console.log("Why didn't you allow my web app to use IndexedDB?!");
         };
@@ -55,7 +55,8 @@ class actionDataBase {
         };
         request.onupgradeneeded = function (event) {
             // the existing database version is less than 2 (or it doesn't exist)
-            let db = openRequest.result;
+            let db = request.result;
+            console.log(db);
             switch (event.oldVersion) { // existing db version
                 case 0:
                 // version 0 means that the client had no database
@@ -76,27 +77,44 @@ class actionDataBase {
         autoIncrement – if true, then the key for a newly stored object is generated automatically, as an ever-incrementing number.
         eg -db.createObjectStore('books', {keyPath: 'id'});
      */
-    static createObjectStore(db, entityName, keyOptions) { 
-        if (!db.objectStoreNames.contains(entityName)) {
-            // db.createObjectStore(entityName);
-            db.createObjectStore(entityName, keyOptions);
-        } else { 
-            console.log("entity Already exists in the DataBase");
-        }
-    }
-    static add2ObjectStore(objectStore,entity) { 
-        let transaction = db.transaction("books", "readwrite"); // (1)
-        // get an object store to operate on it
-        let books = transaction.objectStore("books"); // (2)
+    static createObjectStore(databaseName, entityName, keyOptions) { 
 
-        let book = {
-            id: 'js',
-            price: 10,
-            created: new Date()
+        let request = indexedDB.open(databaseName,1);
+
+        // create/upgrade the database without version checks
+        request.onupgradeneeded = function () {
+            let db = request.result;
+            if (!db.objectStoreNames.contains(entityName)) { // if there's no "books" store
+                db.createObjectStore(entityName); // create it
+                console.log(db.objectStoreNames)
+            } else { 
+                if (db.objectStoreNames.contains(entityName)) { // if there's no "books" store
+                    //db.createObjectStore(entityName); // create it
+                    console.log(db.objectStoreNames)
+                }
+            }
+        };
+       // console.log(db.objectStoreNames)
+    
+    }
+    static add2ObjectStore(databaseName,entity, value) { 
+        let request = indexedDB.open(databaseName, 1);
+        // create/upgrade the database without version checks
+        request.onsuccess = function () {
+           
+            let db = request.result;
+
+
+            let transaction = db.transaction(entity, "readwrite"); // (1)
+            // get an object store to operate on it
+            let entityTransaction = transaction.objectStore(entity); // (2)
+
+
+            let request = entityTransaction.add(value); // (3)
+            return transaction.complete;
         };
 
-        let request = books.add(book); // (3)
-        return transaction.complete;
+
         
     }
     static put2ObjectStore() { 
@@ -109,7 +127,6 @@ class actionDataBase {
     static getObjectStore() { 
         var response = db.objectStoreNames;
     }
-
     static deleteDatabase(databaseName) { 
         let deleteRequest = indexedDB.deleteDatabase(name);
 

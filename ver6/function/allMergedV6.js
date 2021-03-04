@@ -358,9 +358,45 @@ async function  test1() {
     newFile.class = "content item";
     newFile.id = "actionBlock";
     const [fileHandle] = await window.showOpenFilePicker();
+   
+   
+    var request = window.indexedDB.open("files", dbVersion);
+    request.onerror = function (event) {
+            // Do something with request.errorCode!
+            console.log("Why didn't you allow my web app to use IndexedDB?!");
+    };
+        request.onsuccess = function (event) {
+            // Do something with request.result!
+            var db = request.result;
+            console.log("success", db);
+            db.createObjectStore("openFiles", { keyPath: 'fileName' });
+           // console.log(db);
+            var transaction = db.transaction("openFiles", "readwrite");
+            console.log(transaction);
+            // create an object store on the transaction
+            var objectStore = transaction.objectStore(fileHandle.name);
+
+            // add our newItem object to the object store
+            var objectStoreRequest = objectStore.add(fileHandle);
+            objectStoreRequest.onsuccess = function (event) {
+                // report the success of the request (this does not mean the item
+                // has been stored successfully in the DB - for that you need transaction.oncomplete)
+                console.log(`Stored file handle for "${fileHandle.name}" in IndexedDB.`);
+            };
+
+
+            db.onerror = function (event) {
+                // Generic error handler for all errors targeted at this database's
+                // requests!
+                console.error("Database error: " + event.target.errorCode);
+            };
     
-    await set(fileHandle.name, fileHandle);
-    console.log(`Stored file handle for "${fileHandle.name}" in IndexedDB.`);
+        //        return db;
+        };
+   
+
+   // await set(fileHandle.name, fileHandle);
+   
     //let fileHandle;
      //var fileHandle = localStorage.getItem("2.html");
     //console.log(fileHandle)
