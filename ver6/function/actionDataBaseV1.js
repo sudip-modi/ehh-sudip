@@ -68,7 +68,6 @@ class actionDataBase {
         };
        
     }
-
 /**
      * 
      * @param {*} db  Name of the Database
@@ -101,8 +100,6 @@ class actionDataBase {
         return transaction.complete;
         
     }
-
-
     static put2ObjectStore() { 
 
     }

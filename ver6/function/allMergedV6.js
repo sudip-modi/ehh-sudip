@@ -303,16 +303,11 @@ class ActionController extends ActionEvent {
             // error handling
 
         } finally { 
-            console.log(err);
-            localStorage.setItem(err.name, err);
+           // console.log(err);
+         //   localStorage.setItem(err.name, err);
         }
        
         //debugger;
-      
-       
-   
-        
-   
     }
     static async writeFile(fileHandle,contents) { 
         // Create a FileSystemWritableFileStream to write to.
@@ -357,6 +352,7 @@ class ActionView {
 //USe case
 // Highlight first 100 lines, then schedule setTimeout (with zero-delay) for the next 100 lines, and so on.
 function autoSave() { 
+    
     // repeat with the interval of 2 seconds
   //  let timerId = setInterval(func | code, 2000, [arg1], [arg2], ...)
     // repeat with the interval of 2 seconds
