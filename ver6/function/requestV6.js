@@ -5,6 +5,16 @@
 //(for example, an IDBCursor instance, or the key for a value that you just inserted into the database).
 
 
+
+
+var userflow = {
+    step1: {
+        process: `make HTTP req`,
+        
+    }
+
+}
+
 var reqest = {
     method: 'get',// [ get,set,create,put,delete,filter, iterate,]
     entity: {
@@ -27,6 +37,3 @@ var reqest = {
 
     }
 }
-
-
-
