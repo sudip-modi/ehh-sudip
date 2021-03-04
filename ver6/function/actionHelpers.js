@@ -226,28 +226,6 @@ class operate {
    
 }
 
-var reqest = {
-    method: 'get',// [ get,set,create,put,delete,filter, iterate,]
-    entity: {
-        entityIdentifier: '	ObjectID',
-        entityModel: 'document',
-        entityLocation: 'currentTab',
-        entityType: 'HTML',
-        entityName: "NameofEntity",
-        entityId: 'entityId',
-        entityLocation: 'Dom',
-        entityServiceClass: "Particular Class which has it's Crud operators, for eg. document is one service class, similarly SpreadsheetApp is a service class in AppScript and ActionEntity is a service classfor any entity in actionSpace "
-    },
-    //a generic Optional Parameter for every method in across classes		
-    options: {
-        recurse: true, // operate.isoneof(value,[true,false])
-        'and': {
-
-        }
-
-
-    }
-}
 
 class dataHelpers {
 
