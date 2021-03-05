@@ -37,3 +37,21 @@ var reqest = {
 
     }
 }
+
+
+var userFlow = {
+    create: {
+        id:"createFi"
+    }
+
+}
+//1 get
+var actorRequest = {
+    entity: {
+
+    },
+    entityObjectModel: {
+        value: String,
+        operate:[isOneof(document,)]
+    }
+}

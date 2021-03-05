@@ -328,10 +328,6 @@ class ActionController extends ActionEvent {
     }
 }
 
-
-
-
-
 class ActionView {
     constructor(entity, element) {
         console.log("Request for new View ", entity, element);
@@ -396,3 +392,8 @@ function autoSave() {
 // }, delay);
 }
 autoSave();
+
+
+class actionEngine { 
+    
+}

@@ -36,6 +36,10 @@
 	-webkit-user-select: none;
 */
 }
+*:focus{
+  border:none;
+  outline:none;
+}
 .material-icons{
    padding: 8px;
 }

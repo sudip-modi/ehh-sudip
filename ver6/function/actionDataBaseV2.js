@@ -112,7 +112,6 @@ class actionDataSets {
 
         };
     }
-    
     static makeTransaction(storeName, mode) {
     let tx = db.transaction(storeName, mode);
     tx.onerror = (err) => {

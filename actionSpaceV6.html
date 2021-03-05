@@ -145,7 +145,7 @@
                                     <i class="material-icons" id="create">close</i>
                                 </div>
                             </div>
-                            <div id="tabContentCollection" contenteditable onkeydown="bind2Element(event)">
+                            <div id="tabContentCollection" contenteditable onkeyup="bind2Element(event)">
                                 <div id="actionStory1" class="tabcontent" style="display: block;">
                                     <h3>actionStory1</h3>
                                     <p>London is the capital city of England.
@@ -202,11 +202,17 @@
             evt.currentTarget.className += "active";
         }
     function bind2Element(event) {
+
+        // var code = document.getElementById("editor").value;
+        // var data_url = "data:text/html;charset=utf-8;base64," + $.base64.encode(code);
+        // document.getElementById("result").src = data_url;
+        
       //  console.log("saw an event", event)
-        var content = document.getElementById('actionStory1');
+        var content = document.getElementById('actionStory1').value;
+        var data_url = "data:text/html;charset=utf-8;base64," + $.base64.encode(content);
         var outputView = document.getElementById('activeActionStory');
       //  console.log("here", content, outputView)
-        outputView.innerHTML = content.innerHTML;
+        outputView.src = data_url;
     }
           function myFunction() {
                 var x = document.getElementById("myTopnav");
@@ -216,6 +222,10 @@
                     x.className = "topnav";
                 }
             }
+
+
+           
+
     </script>
    
 

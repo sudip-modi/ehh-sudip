@@ -472,6 +472,9 @@ class StorageHelper {
     static clearStorage() {
         localStorage.clear()
     }
+    getMemoryUse(name, callback) {
+        chrome.storage.local.getBytesInUse(name, callback);
+    };
     static export(fileName, json) {
         const a = document.createElement("a");
         a.href = URL.createObjectURL(new Blob([JSON.stringify(json, null, 2)], {
