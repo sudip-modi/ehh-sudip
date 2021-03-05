@@ -5,7 +5,11 @@
 //(for example, an IDBCursor instance, or the key for a value that you just inserted into the database).
 
 
+//Object Model's define the resource Parameter of an entity
 
+var objectModels: {
+
+}
 
 var userflow = {
     step1: {
