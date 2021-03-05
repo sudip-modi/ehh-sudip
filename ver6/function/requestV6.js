@@ -7,7 +7,21 @@
 
 //Object Model's define the resource Parameter of an entity
 
-var objectModels: {
+var GlobalObjectModels = {
+    'dom': {
+        name: "dom",
+        'globalObjectName': "Document",
+    },
+    'wom': {
+        name: 'wom',
+        'globalObjectName': "window",
+    },
+    'com': {
+        name: 'com',
+        'globalObjectName':'chrome',
+    }
+    
+    
 
 }
 
@@ -52,10 +66,17 @@ var userFlow = {
 //1 get
 var actorRequest = {
     entity: {
-
+        entityIdentifier: "entityIdentifier",
+        
+        entityObjectModel: {
+            value: String,
+            operate: [isOneof(Object.keys(GlobalObjectModels))]
+        }
     },
-    entityObjectModel: {
-        value: String,
-        operate:[isOneof(document,)]
+    request: {
+        method: "",
+        class: this.entityObjectModel.globalObjectName,
+        
     }
+    
 }

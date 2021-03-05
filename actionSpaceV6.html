@@ -172,8 +172,6 @@
                             </div>
                             <div id="activeActionStory" class="output container col">
                                 this should be the output
-                                <h3>actionStory1</h3>
-                                <p>London is the capital city of England.</p>
                             </div>
                         </div>
                     </div>
@@ -209,9 +207,10 @@
         
       //  console.log("saw an event", event)
         var content = document.getElementById('actionStory1').value;
-        var data_url = "data:text/html;charset=utf-8;base64," + $.base64.encode(content);
+        console.log(content);
+        var data_url = "data:text/html;charset=utf-8;base64," + window.btoa(content);
         var outputView = document.getElementById('activeActionStory');
-      //  console.log("here", content, outputView)
+        console.log("here", content, outputView)
         outputView.src = data_url;
     }
           function myFunction() {
