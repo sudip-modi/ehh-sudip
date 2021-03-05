@@ -25,13 +25,6 @@ var GlobalObjectModels = {
 
 }
 
-var userflow = {
-    step1: {
-        process: `make HTTP req`,
-        
-    }
-
-}
 
 var reqest = {
     method: 'get',// [ get,set,create,put,delete,filter, iterate,]
@@ -61,22 +54,88 @@ var userFlow = {
     create: {
         id:"createFi"
     }
-
 }
 //1 get
 var actorRequest = {
-    entity: {
+   
+    request: {
+        method: "",
+        class: this.entityObjectModel.globalObjectName,
+        entity: {
         entityIdentifier: "entityIdentifier",
-        
         entityObjectModel: {
             value: String,
             operate: [isOneof(Object.keys(GlobalObjectModels))]
         }
     },
-    request: {
-        method: "",
-        class: this.entityObjectModel.globalObjectName,
+    }
+}
+
+var simpleReq = {
+    class: 'className',
+    method: 'methodName',
+    arguments: [input,otherArguments],
+    options: {
+        recurse: true,
+        output:self//[self,callback,both]
+    }
+    
+}
+
+
+
+var requestPromise = {
+    states =[
+        { "Pending": " you don’t know if you will complete learning JavaScript by the next month " },
+        { 'Fulfilled': "you complete learning JavaScript by the next month." },
+        {   'Rejected': "you don’t learn JavaScript at all."}
+    ],
+    methods: [ "then", "catch" ,"finally" ]
+    
+}
+
+var content = document.getElementById('actionStory1').innerHTML;
+//  console.log(content);
+var outputView = document.getElementById('activeActionStory');
+// console.log("here", data_url, outputView)
+outputView.innerHTML = content;
+
+var bindReq = [
+     {
+        class: 'document',
+        method: 'getElementById',
+        arguments: [actionStory1, activeActionStory],
+        options: {
+            recurse: false,
+            output: self//[self,callback,both]
+        }
+    }
+]
+
+
+class ActionEngine {
+    constructor() {
+        
+    }
+
+
+    executeRequest(reqest) {
+        let completed = true;
+
+        let requestInpromise = new Promise(function (resolve, reject) {
+            if (completed) {
+                resolve("I have completed learning JS.");
+            } else {
+                reject("I haven't completed learning JS yet.");
+            }
+        });
+        requestInpromise
+            .then(handleResolvedA)
+            .then(handleResolvedB)
+            .then(handleResolvedC)
+            .catch(handleRejectedAny);
         
     }
     
 }
+

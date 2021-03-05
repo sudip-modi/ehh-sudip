@@ -208,12 +208,12 @@
       //  console.log("saw an event", event)
         var content = document.getElementById('actionStory1').innerHTML;
       //  console.log(content);
-        var data_url = "data:text/html;charset=utf-8;base64," + window.btoa(content);
-        var outputView = document.getElementById('activeActionStory');
+      var outputView = document.getElementById('activeActionStory');
        // console.log("here", data_url, outputView)
         outputView.innerHTML = content;
     }
-          function myFunction() {
+
+    function myFunction() {
                 var x = document.getElementById("myTopnav");
                 if (x.className === "topnav") {
                     x.className += " responsive";
