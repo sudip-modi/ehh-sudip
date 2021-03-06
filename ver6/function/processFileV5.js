@@ -151,6 +151,9 @@ class processFile {
         });
         return reader.readAsDataURL(file);
     }
+    static readFolder(folder){
+    
+    }
     static saveNewFileHandle() {
         // For Chrome 86 and later...
         if ('showSaveFilePicker' in window) {
