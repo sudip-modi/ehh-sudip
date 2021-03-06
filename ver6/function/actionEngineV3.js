@@ -73,7 +73,7 @@ var messMethod = {
     methodName : messEntity.entityId
 }
 
-console.log(messMethod)
+//console.log(messMethod)
 
 
 class ActionEngine {
@@ -127,6 +127,7 @@ class ActionEngine {
 
     
 }
+
 var actionSpaceEngineInstance = new ActionEngine();
 actionSpaceEngineInstance.processRequest(actionRequest);
 
