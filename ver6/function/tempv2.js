@@ -18,6 +18,7 @@ const exeReq = function (req) {
     // var response = new Function( requestbuild);
     // var output = response();
     var response = window[actionRequest.entityObjectModel][actionRequest.methodName](actionRequest.entity);
+        
  //   var response = this[actionRequest.methodName](actionRequest.entity);
     console.log(response);
 }

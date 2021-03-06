@@ -360,8 +360,8 @@ async function  test1() {
     newFile.id = "actionBlock";
     const [fileHandle] = await window.showOpenFilePicker();
     actionDataSets.add2Store("files", "recentFileStore", fileHandle.name, [fileHandle])
-
 }
+
 //USe case
 // Highlight first 100 lines, then schedule setTimeout (with zero-delay) for the next 100 lines, and so on.
 function autoSave() { 
