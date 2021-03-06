@@ -78,7 +78,4 @@ static unbuildEndodedUri(request) {
 
 }
 
-
-
-
 }

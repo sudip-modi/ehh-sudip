@@ -28,7 +28,7 @@ var data = {
 
 //service URL File https://docs.google.com/spreadsheets/d/1UyeN78yNshJxn1v12jQtT-idQFt7uF6F35qKoE3O6AQ/edit#gid=1748866202
 
-serviceUrl = "https://script.google.com/macros/s/AKfycby2WeCEktlFN6GrKl_x84n5CjGSv4bzsivNYWDy5qix0mUUFROfW2my/exec";
+
 
 let url = serviceUrl;
 request = {

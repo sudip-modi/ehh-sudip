@@ -9,6 +9,7 @@ function processButtonClick(e) {
         request.method = "GET";
         var encodedParam = clientNodeFetch.buildEncodedUri(request);
         var url2 = url + "?" + encodedParam;
+        console.log(url2);
         clientNodeFetch.fetchUrl(url2);
     }
     if (e.target.id === 'post') {
