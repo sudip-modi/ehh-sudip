@@ -40,21 +40,27 @@ static unbuildEndodedUri(request) {
 }
 //Added Response mutation as per the headers in response.
     static fetchUrl(url, request) {
-        fetch(url, request)
+        console.log(url, request)
+        if (!request) {
+            var req = url;
+        } else {
+            var req=[url,request]
+        }
+        fetch(req)
         .then(response => {
             const contentType = response.headers.get('content-type');
-            console.log("headers", response.headers);
-            console.log("response Type is ", contentType);
+          //  console.log("headers", response.headers);
+          //  console.log("response Type is ", contentType);
             if (contentType.includes('application/json')) {
-                console.log(contentType, "Caught Json");
+             //   console.log(contentType, "Caught Json");
                 return response.json();
             }
             if (contentType.includes('text/html')) {
-                console.log(contentType, "Caught HTML");
+              //  console.log(contentType, "Caught HTML");
                 return response.text();
             }
             if (contentType.includes('image/jpeg')) {
-                console.log(contentType, "Caught Image");
+               // console.log(contentType, "Caught Image");
                 response.blob()
                     .then(function (myBlob) {
                         var objectURL = URL.createObjectURL(myBlob);
@@ -64,18 +70,15 @@ static unbuildEndodedUri(request) {
                     });
             }
             if (contentType.includes('text/plain')) {
-                console.log(contentType, "Caught Text");
+               // console.log(contentType, "Caught Text");
                 return response.text();
             }
         })
         .then(data => {
-            console.log("data is ", typeof data, data); /* process your data further */
+            console.log("response if ", typeof data, data); /* process your data further */
         })
             .catch(error => console.log(error));
-        
-        
-
-
+    //    return data;
 }
 
 }

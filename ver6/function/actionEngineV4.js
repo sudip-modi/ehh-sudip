@@ -34,7 +34,7 @@ var actionFlowRequestFetch = [
 class ActionEngine {
     constructor() {
     }
-
+//need to add an optional parameter of callback functions
     buildReq(jsonReq) {
         var response = [];
         for (var key in jsonReq) { //iterating Each key of req
@@ -61,6 +61,9 @@ class ActionEngine {
         var response = new Function(exeCommand)();
         console.log(response);
         return response;
+    }
+    processRequestFlow(requestFlow) {
+        
     }
 }
 
