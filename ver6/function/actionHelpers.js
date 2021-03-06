@@ -95,17 +95,6 @@ class process {
 }
 
 
-
-// Query for all available fonts and log metadata.
-// const fonts = navigator.fonts.query();
-// try {
-//   for await (const metadata of fonts) {
-//     console.log(`${metadata.family} (${metadata.fullName})`);
-//   }
-// } catch (err) {
-//   console.error(err);
-// }
-
 class conductor {
     //this function calls a callback function with a and b parameter. Conducted Routes have to be registered before else will throw error.
     //  on param = [ anyEvent ]
