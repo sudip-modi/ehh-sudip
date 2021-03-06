@@ -22,12 +22,6 @@ let actionClasses = [
  * Setup
  */
 
-// create context object
-var context = {};
-
-// assign functions to the object
-context["document"] = document;
-context["window"] = window;
 
 // this is the method performing execution of functions
 function execFn(fnName, ctx /*, args */) {
@@ -46,6 +40,13 @@ class ActionEngine {
 
     }
     static execFn(fnName, ctx /*, args */) {
+        // create context object
+        var context = {};
+
+        // assign functions to the object
+        context["document"] = document;
+        context["window"] = window;
+
     // get passed arguments except first two (fnName, ctx)
     var args = Array.prototype.slice.call(arguments, 2);
     // execute the function with passed parameters and return result
@@ -77,8 +78,8 @@ class ActionEngine {
 }
 
 var actionRequest = {
-    'entityObjectModel': 'document()',
-    'methodName': 'getElementById()',
+    'entityObjectModel': 'document',
+    'methodName': 'getElementById',
     'entity': 'actionStory1'
 
 }

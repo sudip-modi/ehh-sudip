@@ -1,14 +1,13 @@
-var Tester;
-var Message;
 
-function fnLogin(userName, password) {
-    Tester.Message("User: " + userName);
-    Tester.Message("Pass: " + password);
+var actionRequest = {
+    'entityObjectModel': 'document',
+    'methodName': 'getElementById',
+    'entity': 'actionStory1'
+
 }
 
-function fnLogout() {
-    Tester.Message("Logged out");
-}
-
-var strfn = "fnLogin";
-
+var classtoCall = actionRequest.entityObjectModel;
+var method2Call = actionRequest.methodName;
+var entity2Call = actionRequest.entity;
+var response = classtoCall[method2Call].call(entity2Call);
+console.log(response);
