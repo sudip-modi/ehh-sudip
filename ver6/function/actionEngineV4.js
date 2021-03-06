@@ -19,9 +19,9 @@ var fetchReq = {
     request: {
         method: 'fetchUrl',
         arguments: "(" +"testingServerServiceUrl" + ")",
-        entityId: "(" + '"' + reqEntity.entityId + '"' + ")"
+       // entityId: "(" + '"' + reqEntity.entityId + '"' + ")"
     },
-    and: 'innerHTML',
+//    and: 'innerHTML',
 
 }
 var actionFlowRequestFetch = [
