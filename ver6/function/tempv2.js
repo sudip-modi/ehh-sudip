@@ -13,13 +13,13 @@ var entity2Call = "actionStory1";
 const exeReq = function (req) {
     //this = actionRequest.entityObjectModel;
   //  window[actionRequest.entityObjectModel];
-    var requestbuild = "return " + req.entityObjectModel + "." + req.methodName + "(" + actionRequest.entity + ")";
-    console.log(requestbuild);
-    var response = new Function( requestbuild);
-    var output = response();
-
+    // var requestbuild = "return " + req.entityObjectModel + "." + req.methodName + "(" + actionRequest.entity + ")";
+    // console.log(requestbuild);
+    // var response = new Function( requestbuild);
+    // var output = response();
+    var response = window[actionRequest.entityObjectModel][actionRequest.methodName](actionRequest.entity);
  //   var response = this[actionRequest.methodName](actionRequest.entity);
-    console.log(output);
+    console.log(response);
 }
 exeReq(actionRequest);
 
@@ -37,9 +37,13 @@ function executeFunctionByName(functionName, context /*, args */) {
     var namespaces = functionName.split(".");
     var func = namespaces.pop();
     for (var i = 0; i < namespaces.length; i++) {
+        console.log(context, namespaces[i])
         context = context[namespaces[i]];
+        console.log(context)
+
     }
-    return context[func].apply(context, args);
+    console.log(context)
+    return context[func].call(context, args);
 }
 
 console.log(executeFunctionByName(method2Call,classtoCall,entity2Call))
