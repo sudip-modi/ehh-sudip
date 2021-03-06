@@ -12,7 +12,8 @@ task = {
 }
 
 Task queues vs microtasks
-Promise callbacks are handled as a Microtask whereas setTimeout() callbacks are handled as Task queues.
+
+Promise callbacks are handled as a Microtask whereas callbacks are handled as Task queues with setTimeout().
 
 In Lay man terms, it'a  JavaScript promise Wrapper around every execution of registered method.
 

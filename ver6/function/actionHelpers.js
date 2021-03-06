@@ -82,37 +82,8 @@ class process {
         // console.log("iterator Array response", response);
         return response;
     }
-    static act(callbackClass,method, a, b, c, d,) {
-        console.log(callbackClass, method, a, b, c, d)
-       // eval(callbackClass.callback(a, b))
-//        var response = callbackClass[method](a);
-        console.log("act response",response)
-        return response;
-    }
-    
-    
-
 }
 
-
-class conductor {
-    //this function calls a callback function with a and b parameter. Conducted Routes have to be registered before else will throw error.
-    //  on param = [ anyEvent ]
-  
-    //    //arr.every(callback(element[, index[, array]])[, thisArg])
-    static every1(methods, arg1) {
-        var self = this;
-        return methods.every(function (method) {
-        //    console.log(method.method, arg1, method.arguments)
-            return operate[method.method](arg1, method.arguments);
-        });
-    }
-
-    static conductForEachFlow(a, b, options) {
-
-
-    }
-}
 
 
 class operate {
