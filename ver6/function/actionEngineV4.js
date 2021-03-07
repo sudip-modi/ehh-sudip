@@ -28,7 +28,28 @@ var buildActionRequest = {
 
     }
 }
-
+/***    
+ * This ActionEngine is a workflow Conductor. It uses methods from differant class of ehh to execute any kind of task/command. 
+ * Here we call them story. every story has a step, group of steps are actionflows and they all begin at a simple req.
+ * Client/System can use this to create 
+ *  1. Sequntial ActionStory Pipeline defined in a structured JSON.
+ *  2. Parralel ActionStory Pipeline 
+ * Both the pipelines can be synchronous || asynchronous
+ * It has methods as below.
+ *  constructor() : primarly used to create an Instance of the actionEngine. 
+ *  When an Instance is always created in the Global Context.ie. this for eg :  let newActionEngineInstance = new ActionEngine(this);
+ * 2. buildReq. : It takes in a predefined SchemaModel call BuildActionReq as input and creates a string which can be executed using processStringReq method of the ActionEngine Class.
+ * requires a JSON Input, validation for model has to be added. A temporary Implementation of Callback has been done.
+ * 3. processStringReq : It does nothing beyond executing a string command in a private scope, with all the arguments and optionally returns the output.
+ *  you can call him. cousin of the next one. Is a temporary plugin , has to be replaced with a stronger concept.
+ * 4. conductCallback : Takes in a defined Req and executes the function
+ * 5. processActionFlow: Takes in a array of req and conduts them sequentially
+ * 6. buildPromise: takes in a req creates it into a State based Asyn function and executes it's. Core behind every Validation. 
+ it usage setTimeOut(callbackk) method to invoke a method right after the current que is done. UseCases Signup Login Fetch HTTP DATA. Building conditional logics which are dependent on external resource
+ 7. conductOnEvery1: a synchronous execution of a method on an array of arguments.returns true if output of all is true.
+ cousin of the next() one. Has similar sibling  conductOneSome : which should return true, if even one is true.
+  8.  buildPromissAll: Cousin of the previousOne(). does the same job, only you can add a callback and is Async in operation. Does a handful Job.
+ */
 class ActionEngine {
     constructor() {
     }
@@ -54,9 +75,9 @@ class ActionEngine {
             */
             //  console.log(response);
             var builtReq = "return "+response.join(".");
-            console.log(builtReq);
+            console.log(buildReq.buildParams.output.outputType);
             if (buildReq.buildParams.output.outputType === 'callback') {
-                //console.log(buildReq.buildParams.output.outputArg);
+                console.log(buildReq.buildParams.output.outputArg);
                 return this.conductCallback(buildReq.buildParams.output.outputArg);
                // buildReq.buildParams.output.outputArg.callback.call(buildReq.buildParams.output.outputArg)    
             }
@@ -64,7 +85,7 @@ class ActionEngine {
         }
         
     }
-    processRequest(reqObject) {
+    processStringRequest(reqObject) {
         var exeCommand = this.buildReq(reqObject);
         console.log("executing command",exeCommand);
       //  var codeToExecute = "return document.getElementById('action').innerHTML";
@@ -73,7 +94,7 @@ class ActionEngine {
         return response;
     }
     conductCallback(callback) {
-        
+        console.log("conducting callback",callback);
         
     }
     processRequestFlow(requestFlow) {
