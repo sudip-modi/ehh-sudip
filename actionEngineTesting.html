@@ -18,11 +18,12 @@
 
     </output>
     <div id="getResponse"></div>
-    <button onclick="actionSpaceEngineInstance.processRequest(fetchReq)">fetch fetchReq</button>
+    <button onclick="actionEngineV5Instance.processStringRequest(fetchStringReq)">fetch fetchReq</button>
+    <button onclick="actionEngineV5Instance.executeAsynActionStep(actionStepRequest)">Async fetchReq</button>
     <button id="get">doGet</button>
     <button id="post">doPost </button>
     <div id="postResponse"></div>
-    <script type="text/javascript" src="ver6/function/clientNodeFetchV2.js"></script>
+    <script type="text/javascript" src="ver6/function/httpServiceV2.js"></script>
     <script type="text/javascript" src="ver6/function/ehhEvent.js"></script>
     <script type="text/javascript" src="ver6/form/userServiceDataSet.js"></script>
     <script type="text/javascript" src="ver6/function/actionHelpers.js"></script>

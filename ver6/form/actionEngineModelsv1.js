@@ -68,7 +68,7 @@ var buildActionRequest = {
     }
 }
 
-var fetchReq = {
+var fetchStringReq = {
     entityObjectModel: 'clientNodeFetch',
     request: {
         method: 'fetchUrl',

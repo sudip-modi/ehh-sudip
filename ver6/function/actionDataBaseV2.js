@@ -1,6 +1,36 @@
 //indexedDB === database
 //contains object === tables 
+//https://javascript.info/indexeddb
+//https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#version_changes_while_a_web_app_is_open_in_another_tab
+if (!window.indexedDB) {
+    console.log("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+}
 
+// In the following line, you should include the prefixes
+// of implementations you want to test.
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+// DON'T use "var indexedDB = ..." if you're not in a function.
+// Moreover, you may need references to some window.IDB* objects:
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+// (Mozilla has never prefixed these objects, so we don't
+//  need window.mozIDB*)
+dbVersion = 1.0;
+
+// Let us open our database
+//var request = window.indexedDB.open("actionDataBase", dbVersion);
+
+
+var dataBaseModel = {
+    databaseName: "databaseName",
+    dbVersion: "dbVersion",
+    objectStore: { //Collection || tables 
+        object: {
+            key: "keyName",
+            value: "value"
+        }
+    }
+}
 var dbVersion = 1;
 class actionDataSets { 
     static openDataBase(databaseName, dbVersion) {
