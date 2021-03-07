@@ -15,13 +15,13 @@ var buildActionRequest = {
         outPutCondition: null,//an operator can be added,if True, if False
         output: {
             outputType: 'callback',// [isOneof ( response, callback//operator) ]
-            outputArg: {
-                callback: {
-                    callbackClass: 'ActionEngine',
-                    callbackMethod: 'processReq',
-                    callbackArg: 'this.response'
-                }
-                
+            callBackArguments: { //Inside Entity defineing the request to build. 
+                entityObjectModel: 'ActionEngine',
+                request: {
+                    method: 'processStringRequest',
+                    args: "(" + '"' + this.response + '"' + ")",
+                },
+
             }
         }
 
@@ -60,7 +60,6 @@ class ActionEngine {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", buildReq,"look like JSON to you. It's damn",operate.is(buildReq));
         } else {
             console.log("building", buildReq);
-
             var response = [];
             for (var key in buildReq.buildArguments) { //iterating Each key of req
                 if (typeof buildReq.buildArguments[key] === "object") {
@@ -75,12 +74,14 @@ class ActionEngine {
             */
             //  console.log(response);
             var builtReq = "return "+response.join(".");
-            console.log(buildReq.buildParams.output.outputType);
+          //  console.log(buildReq.buildParams.output.outputType);
             if (buildReq.buildParams.output.outputType === 'callback') {
-                console.log(buildReq.buildParams.output.outputArg);
-                return this.conductCallback(buildReq.buildParams.output.outputArg);
+              //  this[buildReq.buildParams.output.callBackArguments.request.method](buildReq);
+                //console.log(buildReq.buildParams.output.callBackArguments, response);
+                return;
                // buildReq.buildParams.output.outputArg.callback.call(buildReq.buildParams.output.outputArg)    
             }
+            console.log('builtReq', builtReq);
             return builtReq;
         }
         
@@ -93,10 +94,7 @@ class ActionEngine {
       //  console.log(response);
         return response;
     }
-    conductCallback(callback) {
-        console.log("conducting callback",callback);
-        
-    }
+    
     processRequestFlow(requestFlow) {
         
     }
