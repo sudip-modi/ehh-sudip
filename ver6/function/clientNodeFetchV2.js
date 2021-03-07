@@ -75,7 +75,7 @@ static unbuildEndodedUri(request) {
             }
         })
         .then(data => {
-            console.log("response if ", typeof data, data); /* process your data further */
+            console.log("response of ", typeof data, data); /* process your data further */
         })
             .catch(error => console.log(error));
     //    return data;

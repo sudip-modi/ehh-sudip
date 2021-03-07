@@ -9,11 +9,17 @@ var actionRequest1 = {
         method: 'get',
         entity: 'Element',
         entityIdentifier: 'ById',
-        entityId: "(" +'"'+ reqEntity.entityId +'"'+ ")"
+        entityId: "(" + '"' + reqEntity.entityId + '"' + ")",
+        test: {
+            'ref': `entityObjectModel.request.method`
+        }
     },
     and:'innerHTML',
     
 }
+
+
+
 var fetchReq = {
     entityObjectModel: 'clientNodeFetch',
     request: {
@@ -69,3 +75,28 @@ class ActionEngine {
 
 
 var actionSpaceEngineInstance = new ActionEngine();
+
+
+var test2={
+    "$schema": "http://json-schema.org/draft-07/schema#",
+
+        "definitions": {
+        "address": {
+            "type": "object",
+                "properties": {
+                "street_address": { "type": "string" },
+                "city": { "type": "string" },
+                "state": { "type": "string" }
+            },
+            "required": ["street_address", "city", "state"]
+        }
+    },
+
+    "type": "object",
+
+        "properties": {
+        "billing_address": { "$ref": "#/definitions/address" },
+        "shipping_address": { "$ref": "#/definitions/address" }
+    }
+}
+console.log(test2);
