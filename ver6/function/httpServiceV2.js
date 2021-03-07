@@ -1,5 +1,5 @@
 //clientNodeFetch class is to interact with ehh AppScript Server Node.
-
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
 class httpServiceV2 { 
 
 
@@ -27,9 +27,32 @@ static unbuildEndodedUri(request) {
 
     return data;
     }
+    static serverNodeRequest(url, request) {
+        if (e.target.id === 'get') {
+            request.method = "GET";
+            var encodedParam = clientNodeFetch.buildEncodedUri(request);
+            var url2 = url + "?" + encodedParam;
+            console.log(url2);
+            clientNodeFetch.fetchUrl(url2);
+        }
+        if (e.target.id === 'post') {
+            //request = getRequest;
+            request.method = "POST";
+            clientNodeFetch.fetchHttpRequest(url, request);
+        }
+
+        console.log(url, request)
+        if (!request) {
+            var req = url;
+        } else {
+            var req = [url, request]
+        }
+        fetch(req);
+    }
     //This is a basic working version. 
-    static fetchHttpRequest(url, request) {
-   return fetch(url, request)
+    static fetchHttpRequest(url,request) {
+        console.log("args", url, request)
+        return fetch(url, )
         // .then(response => {
         //     if (!response.ok) { throw new Error("Could not reach website."); }
         //    // console.log("reponsetex", response.text())

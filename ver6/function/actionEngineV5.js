@@ -29,14 +29,24 @@ var buildActionRequest = {
 
     }
 }
+
 let url = testingServerServiceUrl;
 
 console.log(url)
 
+var requestBody = {
+    queryString:"signUpFromSchemaModel",
+}
+var httpReqObject = {
+    method: 'GET',
+    mode: 'no-cors',
+    body: JSON.stringify(requestBody)
+}
+
 var actionStepRequest = {
     class: httpServiceV2,
     method: 'fetchHttpRequest',
-    arguments: [url],
+    arguments: [url, JSON.stringify(httpReqObject)],
     'stepParams': { // defining the parameters of recusiosn and output
         'Every1': false,// this is to check if Need to apply same method on all the argument individually.
         outPutCondition: null,//an operator can be added,if True, if False
@@ -46,7 +56,8 @@ var actionStepRequest = {
                 callbackClass: document,
                 callback: 'getElementById',
                 args: "output",
-               // andThen: 'setAttribute(innerHTML,"this.response")',
+                andThen: 'innerHTML',
+                andThenArgs: ['innerHTML'],
                 //      test: buildActionRequest.buildParams.recurse
             }
         }
@@ -54,6 +65,7 @@ var actionStepRequest = {
 
     }
 }
+
 
 //console.log("test",buildActionRequest.buildParams.output.callBackReq.test)
 class ActionEngineV5 {
@@ -114,18 +126,24 @@ class ActionEngineV5 {
          
     }
     //SetTimeOut(Now) optional attribute to be added to this method, which allows to conduct this callback Immidietly in the que.
-    conductCallback(callbackClass, callback, args, andThen) {
-       console.log("conducting", callbackClass, callback, args);
+    conductCallback(callbackClass, callback, args, andThen, andthenArgs) {
+        console.log("conducting", callbackClass, callback, args, andThen,andthenArgs);
      //   var classToCall = window[callbackClass];
       //  console.log("here", window[callbackClass],classToCall) //This needs to be looked inTo
-         
-        var response = callbackClass[callback](args[0]);
+        if (andThen) {
+            console.log("andThen", andThen, andthenArgs[0], andthenArgs[1])
+            var response = callbackClass[callback](args[0])[andThen] = andthenArgs[1];
+            console.log(response)
+        } else {
+            var response = callbackClass[callback](args[0]);
+        }
+        
          console.log("conduct call back response",response);
          return response;
     }
     executeAsynActionStep(actionStep) {
-   //     console.log("here")
-        var promise1 = actionStep.class[actionStep.method](actionStep.arguments[0])
+        console.log(JSON.stringify(actionStep.arguments[1]))
+        var promise1 = actionStep.class[actionStep.method](actionStep.arguments[0],actionStep.arguments[1])
             .then(response => {
                 if (!response.ok) { throw new Error("Could not reach website."); }
                 return response.text();
@@ -137,9 +155,10 @@ class ActionEngineV5 {
                     var callbackClass = actionStepRequest.stepParams.output.callBackReq.callbackClass;
                     var callback = actionStepRequest.stepParams.output.callBackReq.callback;
                     var args = actionStepRequest.stepParams.output.callBackReq.args;
-                   // var andThen = actionStepRequest.stepParams.output.callBackReq.andThen;
-                    
-                    var response  = this.conductCallback(callbackClass,callback,[args])
+                    var andThen = actionStepRequest.stepParams.output.callBackReq.andThen;
+                    var andThenArgs = actionStepRequest.stepParams.output.callBackReq.andThenArgs;
+                    andThenArgs.push(data);
+                    var response = this.conductCallback(callbackClass, callback, [args],andThen,andThenArgs)
                     console.log("Data", data, response);
                 }
                 
@@ -172,3 +191,32 @@ var callBackReqModel = {
 }
 //var tempo = ActionEngineV5.conductCallback(request2.callbackClass, request2.callback, request2.args);
 //console.log(tempo);
+
+
+var buildActionRequest = {
+    buildArguments: { //Inside Entity defineing the request to build. 
+        entityObjectModel: 'document',
+        request: {
+            method: 'get',
+            entity: 'Element',
+            entityIdentifier: 'ById',
+            entityId: "(" + '"' + reqEntity.entityId + '"' + ")",
+        },
+        //  and: 'innerHTML',
+    },
+    'buildParams': { // defining the parameters of recusiosn and output
+        recurse: null,// this is to check if arguments have to be recursed or not.
+        outPutCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'callback',// [isOneof ( response, callback//operator) ]
+            callBackReq: {
+                callbackClass: 'actionEngineV5Instance',
+                callback: 'processStringRequest',
+                args: "cleanReq",
+                andThen: 'innerHTML',
+                test: JSON.stringify(buildActionRequest.buildArguments.entityObjectModel)
+            }
+        }
+    }
+}
+//console.log(buildActionRequest)
