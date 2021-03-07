@@ -1,4 +1,4 @@
-
+var mode
 var request = {
     resource: {
         serviceName: 'SpreadsheetApp',

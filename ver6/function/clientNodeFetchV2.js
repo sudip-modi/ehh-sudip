@@ -50,9 +50,9 @@ static unbuildEndodedUri(request) {
         .then(response => {
             const contentType = response.headers.get('content-type');
           //  console.log("headers", response.headers);
-          //  console.log("response Type is ", contentType);
+            console.log("response Type is ", contentType);
             if (contentType.includes('application/json')) {
-             //   console.log(contentType, "Caught Json");
+               console.log(contentType, "Caught Json",response);
                 return response.json();
             }
             if (contentType.includes('text/html')) {
@@ -70,7 +70,7 @@ static unbuildEndodedUri(request) {
                     });
             }
             if (contentType.includes('text/plain')) {
-               // console.log(contentType, "Caught Text");
+                console.log(contentType, "Caught Text");
                 return response.text();
             }
         })

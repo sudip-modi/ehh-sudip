@@ -64,16 +64,7 @@ var actorRequest = {
     }
 }
 
-var simpleReq = {
-    class: 'className',
-    method: 'methodName',
-    arguments: [input, otherArguments],
-    options: {
-        recurse: true,
-        output: self//[self,callback,both]
-    }
 
-}
 
 
 
