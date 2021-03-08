@@ -19,8 +19,8 @@ output will be here
     </output>
     <div id="getResponse"></div>
     <button onclick="actionEngineV5Instance.processStringRequest(fetchStringReq)">fetch fetchReq</button>
-    <button onclick="actionEngineV5Instance.executeAsynActionStep(actionStepRequest)">Async fetchReq</button>
-    <button id="get">doGet</button>
+    <button onclick="actionEngineV5Instance.executeAsynActionStep(actionStepGetRequest)">Async GetfetchReq</button>
+    <button onclick="httpServiceV2.serverNodeReqSwitcher(serviceUrl,actionStepPostRequest)">Async PostfetchReq</button>
     <button id="post">doPost </button>
     <div id="postResponse"></div>
     <script type="text/javascript" src="ver6/function/httpServiceV2.js"></script>

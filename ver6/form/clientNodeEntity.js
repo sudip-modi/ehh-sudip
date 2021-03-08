@@ -34,9 +34,9 @@ var data = {
 request = {
     method: 'GET',
     mode: 'no-cors',
-    followRedirects: true,
-    muteHttpExceptions: true,
-    contentType: 'application/json',
+    // followRedirects: true,
+    // muteHttpExceptions: true,
+    // contentType: 'application/json',
     body: JSON.stringify(data)
 }
 

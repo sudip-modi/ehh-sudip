@@ -1,5 +1,8 @@
 //clientNodeFetch class is to interact with ehh AppScript Server Node.
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+let testingServerServiceUrl = "https://script.google.com/macros/s/AKfycbyb5N580eqaGTz5iMNC4joFgWshYePsqnDzOlnaGc3eFycgZB_eqZLA5PKQAaMYy9nd/exec/exec";
+let serviceUrl = testingServerServiceUrl;
+
 class httpServiceV2 { 
 
 
@@ -18,22 +21,58 @@ class httpServiceV2 {
 // unbuilds the URL parameters and returns an object
 static unbuildEndodedUri(request) {
     var urifragment = request.split("&"), data = {}, i, parts;
+
     //process each parameter
     for (i = 0; i < urifragment.length; i++) {
+        console.log(urifragment[i]);
         parts = urifragment[i].split("=");
         if (parts.length < 2) {
             parts.push("");
             console.log(parts);
         }
-        data[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+       // console.log("unbuild", , );
+        data[JSON.parse(decodeURIComponent(parts[0]))] = JSON.parse(decodeURIComponent(parts[1]));
+        
     }
 
-    console.log("Returning from", arguments.callee.name, data);
+  //  console.log("Returning from", arguments.callee.name, data);
 
     return data;
     }
+
+ //'get', 'update', 'delete', 'validate'
+
+static serverNodeReqSwitcher(url,request) {
+    var req;
+    console.log(request)
+    switch (request.method) {
+        case 'GET':
+            var encodedParam = httpServiceV2.buildEncodedUri(request);
+            var req = url + "?" + encodedParam;
+            console.log(req);
+            return httpServiceV2.fetchHttpRequest(req);
+           // return "get";
+        case 'POST':
+            console.log(request)
+            var req = [url, JSON.stringify(request)];
+            return httpServiceV2.fetchHttpRequest(req);
+           // return "update";
+        case 'PUT':
+            return "delete";
+        case 'DELETE':
+            return "validate";
+        default:
+            return "UnIdentified Action"
+    }
+    
+}
+
     static serverNodeRequest(url, request) {
-        console.log("Server Req",request)
+        console.log("Server Req", request)
+        
+
+
+
      if (request.method === 'GET') {
        //  console.log("get Req")
            // request.method = "GET";
@@ -54,14 +93,9 @@ static unbuildEndodedUri(request) {
        return httpServiceV2.fetchHttpRequest(req);
     }
     //This is a basic working version. 
-    static fetchHttpRequest(request) {
-        console.log("args", request)
-         // if (!request) {
-        //     var req = url;
-        // } else {
-        //     var req = [url, request]
-        // }
-        return fetch(request);
+    static fetchHttpRequest(req) {
+     
+        return fetch(req);
         // .then(response => {
         //     if (!response.ok) { throw new Error("Could not reach website."); }
         //    // console.log("reponsetex", response.text())

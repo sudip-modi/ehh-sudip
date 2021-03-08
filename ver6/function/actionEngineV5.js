@@ -31,23 +31,27 @@ var buildActionRequest = {
     }
 }
 
-let url = testingServerServiceUrl;
 
-console.log(url)
+//console.log(url)
 
 var requestBody = {
-    queryString:"signUpFromSchemaModel",
+    'entityName':"signUpFromSchemaModel",
 }
-var httpReqObject = {
+var httpGetReqObject = {
     method: 'GET',
     mode: 'no-cors',
     body: requestBody,
 }
+var httpPostReqObject = {
+    method: "POST",
+    //mode: 'no-cors',
+  //  body: requestBody,
+}
 
-var actionStepRequest = {
+var actionStepGetRequest = {
     class: httpServiceV2,
-    method: 'serverNodeRequest',
-    arguments: [url, httpReqObject],
+    method: 'serverNodeReqSwitcher',
+    arguments: [serviceUrl, httpGetReqObject],
     'stepParams': { // defining the parameters of recusiosn and output
         'Every1': false,// this is to check if Need to apply same method on all the argument individually.
         outPutCondition: null,//an operator can be added,if True, if False
@@ -67,13 +71,34 @@ var actionStepRequest = {
     }
 }
 
+var actionStepPostRequest = {
+    class: httpServiceV2,
+    method: 'serverNodeReqSwitcher',
+    arguments: [serviceUrl, httpPostReqObject],
+    'stepParams': { // defining the parameters of recusiosn and output
+        'Every1': false,// this is to check if Need to apply same method on all the argument individually.
+        outPutCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'callback',// [isOneof ( response, callback//operator) ]
+            callBackReq: {
+                callbackClass: document,
+                callback: 'getElementById',
+                args: "output",
+                andThen: 'innerHTML',
+                andThenArgs: ['innerHTML'],
+                //      test: buildActionRequest.buildParams.recurse
+            }
+        }
+
+
+    }
+}
 
 //console.log("test",buildActionRequest.buildParams.output.callBackReq.test)
 class ActionEngineV5 {
     constructor() {
         
     }
-
     buildActionRequest(buildReq) {
          console.log(buildReq)
         if (operate.isObject(buildReq) != true) {
@@ -115,7 +140,7 @@ class ActionEngineV5 {
     processStringRequest(request) {
         console.log(request)
         if (operate.isString(request) != true) {
-            return console.error("not my job")
+            return console.error("not my job")//To be routed through BuildActionReq
         } else {
             //var exeCommand = this.buildActionRequest(reqObject);
             console.log("executing command", request)
@@ -153,19 +178,32 @@ class ActionEngineV5 {
                 if (actionStep.stepParams) {
                   //  console.log(actionStep.stepParams);
                     console.log("Data", data);
-                    var callbackClass = actionStepRequest.stepParams.output.callBackReq.callbackClass;
-                    var callback = actionStepRequest.stepParams.output.callBackReq.callback;
-                    var args = actionStepRequest.stepParams.output.callBackReq.args;
-                    var andThen = actionStepRequest.stepParams.output.callBackReq.andThen;
-                    var andThenArgs = actionStepRequest.stepParams.output.callBackReq.andThenArgs;
+                    var callbackClass = actionStep.stepParams.output.callBackReq.callbackClass;
+                    var callback = actionStep.stepParams.output.callBackReq.callback;
+                    var args = actionStep.stepParams.output.callBackReq.args;
+                    var andThen = actionStep.stepParams.output.callBackReq.andThen;
+                    var andThenArgs = actionStep.stepParams.output.callBackReq.andThenArgs;
                     andThenArgs.push(data);
                     var response = this.conductCallback(callbackClass, callback, [args],andThen,andThenArgs)
-                    console.log("Data", data, response);
+                //    console.log("Data",  response);
+                    this.handleResponse(data);
                 }
                 
             })
             .catch(err => console.error(err))
        
+    }
+    handleResponse(response) {
+
+        console.log(response, operate.is(response));
+        var responseJSON = JSON.parse(response);
+      //  var responseUnbuild = httpServiceV2.unbuildEndodedUri(response);
+        console.log(responseJSON);
+        for (var key in (responseJSON)) {
+            
+            console.log(key, responseJSON[key], operate.is(responseJSON[key]))
+        }
+
     }
 
     runActionFlow(actionFlow) {
