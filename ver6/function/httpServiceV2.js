@@ -27,7 +27,7 @@ static unbuildEndodedUri(request) {
 
     return data;
     }
-    static serverNodeRequest(url, request) {
+ static serverNodeRequest(url, request) {
         if (e.target.id === 'get') {
             request.method = "GET";
             var encodedParam = clientNodeFetch.buildEncodedUri(request);
