@@ -4,9 +4,14 @@ class httpServiceV2 {
 
 
 ///it takes a inputobject and build's it into a encodedURI
-static buildEncodedUri(request) {
+    static buildEncodedUri(request) {
+    console.log("buildEncodedUri",request)
     const response = [];
-    for (let d in request) { response.push(encodeURIComponent(d) + '=' + encodeURIComponent(request[d])); }
+        for (let d in request) {
+            console.log("here",request[d])
+            response.push(encodeURIComponent(JSON.stringify(d)) + '=' + encodeURIComponent(JSON.stringify(request[d])));
+        }
+   // console.log("Encoded URIresponse",response)
     return response.join('&');
 }
 
@@ -27,32 +32,36 @@ static unbuildEndodedUri(request) {
 
     return data;
     }
- static serverNodeRequest(url, request) {
-        if (e.target.id === 'get') {
-            request.method = "GET";
-            var encodedParam = clientNodeFetch.buildEncodedUri(request);
-            var url2 = url + "?" + encodedParam;
-            console.log(url2);
-            clientNodeFetch.fetchUrl(url2);
+    static serverNodeRequest(url, request) {
+        console.log("Server Req",request)
+     if (request.method === 'GET') {
+       //  console.log("get Req")
+           // request.method = "GET";
+         var encodedParam = httpServiceV2.buildEncodedUri(request);
+
+         var req = url + "?" + encodedParam;
+         console.log(req);
+         //   clientNodeFetch.fetchUrl(url2);
         }
-        if (e.target.id === 'post') {
+        if (request.method === 'POST') {
             //request = getRequest;
-            request.method = "POST";
-            clientNodeFetch.fetchHttpRequest(url, request);
+         console.log("POST Req")
+          //  clientNodeFetch.fetchHttpRequest(url, request);
         }
 
-        console.log(url, request)
-        if (!request) {
-            var req = url;
-        } else {
-            var req = [url, request]
-        }
-        fetch(req);
+       // console.log(url, request)
+       
+       return httpServiceV2.fetchHttpRequest(req);
     }
     //This is a basic working version. 
-    static fetchHttpRequest(url,request) {
-        console.log("args", url, request)
-        return fetch(url, )
+    static fetchHttpRequest(request) {
+        console.log("args", request)
+         // if (!request) {
+        //     var req = url;
+        // } else {
+        //     var req = [url, request]
+        // }
+        return fetch(request);
         // .then(response => {
         //     if (!response.ok) { throw new Error("Could not reach website."); }
         //    // console.log("reponsetex", response.text())

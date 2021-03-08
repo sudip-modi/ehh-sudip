@@ -33,7 +33,10 @@ var data = {
 //let url = serviceUrl;
 request = {
     method: 'GET',
-    mode: 'no-cors', 
+  mode: 'no-cors',
+  followRedirects: true,
+  muteHttpExceptions: true,
+  contentType: 'application/json',
     body: JSON.stringify(data)
 }
 

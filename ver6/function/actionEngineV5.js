@@ -1,6 +1,7 @@
 
 //An eg  usage of BuildActionRequest || ProcessStringRequest || ConductCallBack
 //var buildParams;
+//This is a sample obj to be used to build a String Process Req.
 var buildActionRequest = {
     buildArguments: { //Inside Entity defineing the request to build. 
         entityObjectModel: 'document',
@@ -40,13 +41,13 @@ var requestBody = {
 var httpReqObject = {
     method: 'GET',
     mode: 'no-cors',
-    body: JSON.stringify(requestBody)
+    body: requestBody,
 }
 
 var actionStepRequest = {
     class: httpServiceV2,
-    method: 'fetchHttpRequest',
-    arguments: [url, JSON.stringify(httpReqObject)],
+    method: 'serverNodeRequest',
+    arguments: [url, httpReqObject],
     'stepParams': { // defining the parameters of recusiosn and output
         'Every1': false,// this is to check if Need to apply same method on all the argument individually.
         outPutCondition: null,//an operator can be added,if True, if False
@@ -142,7 +143,7 @@ class ActionEngineV5 {
          return response;
     }
     executeAsynActionStep(actionStep) {
-        console.log(JSON.stringify(actionStep.arguments[1]))
+    //    console.log(JSON.parse(actionStep.arguments[1]))
         var promise1 = actionStep.class[actionStep.method](actionStep.arguments[0],actionStep.arguments[1])
             .then(response => {
                 if (!response.ok) { throw new Error("Could not reach website."); }
@@ -192,31 +193,3 @@ var callBackReqModel = {
 //var tempo = ActionEngineV5.conductCallback(request2.callbackClass, request2.callback, request2.args);
 //console.log(tempo);
 
-
-var buildActionRequest = {
-    buildArguments: { //Inside Entity defineing the request to build. 
-        entityObjectModel: 'document',
-        request: {
-            method: 'get',
-            entity: 'Element',
-            entityIdentifier: 'ById',
-            entityId: "(" + '"' + reqEntity.entityId + '"' + ")",
-        },
-        //  and: 'innerHTML',
-    },
-    'buildParams': { // defining the parameters of recusiosn and output
-        recurse: null,// this is to check if arguments have to be recursed or not.
-        outPutCondition: null,//an operator can be added,if True, if False
-        output: {
-            outputType: 'callback',// [isOneof ( response, callback//operator) ]
-            callBackReq: {
-                callbackClass: 'actionEngineV5Instance',
-                callback: 'processStringRequest',
-                args: "cleanReq",
-                andThen: 'innerHTML',
-                test: JSON.stringify(buildActionRequest.buildArguments.entityObjectModel)
-            }
-        }
-    }
-}
-//console.log(buildActionRequest)
