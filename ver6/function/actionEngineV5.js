@@ -1,3 +1,4 @@
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
 
 //An eg  usage of BuildActionRequest || ProcessStringRequest || executeSyncnActionStep
 //var buildParams;
@@ -243,22 +244,21 @@ class ActionEngineV5 {
          
     }
     //SetTimeOut(Now) optional attribute to be added to this method, which allows to conduct this callback Immidietly in the que.
-    executeSyncActionStep(actionStep,andThen) {
-       // console.log("conducting", callbackClass, callback, args, andThen,andthenArgs);
-     //   var classToCall = window[callbackClass];
-      //  console.log("here", window[callbackClass],classToCall) //This needs to be looked inTo
+    executeSyncActionStep(actionStep, andThen) {
+        var response;
+    
         if (andThen) {
            // console.log("andThen", andThen, andthenArgs[0], andthenArgs[1])
             //var response = callbackClass[callback](args[0])[andThen] = andthenArgs[1];
           //  console.log(response)
         } else {
             //var response = callbackClass[callback](args[0]);
-            console.log(actionStep)
+           
             var response = actionStep.class[actionStep.method](actionStep.arguments[0], actionStep.arguments[1])
-
+            console.log(response)
         }
         
-       //  console.log("conduct call back response",response);
+        console.log("executeSyncActionStep response",response);
          return response;
     }
     executeAsyncActionStep(actionStep) {
@@ -316,19 +316,25 @@ class ActionEngineV5 {
     //This acts like a router to all the registered methods in ActionEngine.
     //It also maintains a buffer for status(for retry's/timeouts/sotrage in case or error) and a buffer [this.output], for dependentarguments 
     runSyncActionFlow(actionFlowReq) {
+        var bufferResponse = [];
+
         console.log(actionFlowReq.flowRequest)
         for (var key in actionFlowReq.flowRequest) {
-            var i=0; i=i+1;
+            var i = 0; i = i + 1;
+            var step = {};
+            step['actionStepName'] = actionFlowReq.flowRequest[key].actionStepName;
             console.log("actionSteps", i, key, actionFlowReq.flowRequest[key].actionStepReq)
             
             var response = this.executeSyncActionStep(actionFlowReq.flowRequest[key].actionStepReq);
-            console.log('runSyncActionFlow',response);
-
-            
+            console.log('runSyncActionFlow', response);
+            step['response'] = response
+            bufferResponse.push(step);
+            console.log("bufferResponse",bufferResponse);
         }
     }
     
     runAsyncActionFlow(actionFlow) {
+        
 
         // for await (var key of actionFlow) {
 
