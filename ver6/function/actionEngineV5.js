@@ -229,7 +229,13 @@ class ActionEngineV5 {
         }
 
     }
-    runSyncActionFlow() {
+    runSyncActionFlow(actionFlowReq) {
+        
+    }
+    validateAll() {
+        
+    }
+    validateSome() {
         
     }
     runAsyncActionFlow(actionFlow) {
