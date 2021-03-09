@@ -145,6 +145,20 @@ var getElementByIdReq = {
 
     }
 }
+var obj2Req = {
+    class: mutate,
+    method: 'Obj2',
+    arguments: ['fromPrevious',{}],
+    'stepParams': { // defining the parameters of recusiosn and output
+        'Every1': false,// this is to check if Need to apply same method on all the argument individually.
+        outPutCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'response',// [isOneof ( response, callback//operator) ]
+        }
+
+
+    }
+}
 
 var actionFlowModelReq = {
     flowRequest: [
@@ -156,7 +170,7 @@ var actionFlowModelReq = {
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#2',
-            actionStepReq: 'mutateArr2Obj',
+            actionStepReq: 'obj2Req',
             actionStepArgs :'fromPrevious'
         },
         {
@@ -253,14 +267,14 @@ class ActionEngineV5 {
           //  console.log(response)
         } else {
             //var response = callbackClass[callback](args[0]);
-            console.log("actionStep", actionStep, actionStep.arguments)
+//            console.log("actionStep", actionStep, actionStep.arguments)
             
 
             var response = actionStep.class[actionStep.method](actionStep.arguments)
-            console.log(response)
+          //  console.log(response)
         }
         
-        console.log("executeSyncActionStep response",response);
+  //      console.log("executeSyncActionStep response",response);
          return response;
     }
     executeAsyncActionStep(actionStep) {
@@ -324,12 +338,26 @@ class ActionEngineV5 {
         for (var key in actionFlowReq.flowRequest) {
             var i = 0; i = i + 1;
             var step = {};
+            step['runningIndex'] = i;
             step['actionStepName'] = actionFlowReq.flowRequest[key].actionStepName;
-            console.log("actionSteps", i, key, actionFlowReq.flowRequest[key].actionStepReq)
+            step['thisStepReqMethod'] = actionFlowReq.flowRequest[key].actionStepReq;
+            step['thisStepReq'] = actionFlowReq.flowRequest[key];
+            console.log(typeof actionFlowReq.flowRequest[key].actionStepReq.arguments, actionFlowReq.flowRequest[key].actionStepReq.arguments)
+            // if (actionFlowReq.flowRequest[key].actionStepArgs.includes('fromPrevious')) {
+               
+            //     console.log(actionFlowReq.flowRequest[key].actionStepArgs)
+            //     console.log(step['thisStepReq'].actionStepArgs)
+            //     step['thisStepReq'].actionStepArgs;
+            //     console.log(step['thisStepReq'].actionStepArgs,"<<<<" )
+
+                
+            // }
             
-            var response = this.executeSyncActionStep(actionFlowReq.flowRequest[key].actionStepReq);
+
+            var response = this.executeSyncActionStep(step['thisStepReqMethod']);
+            
             console.log('runSyncActionFlow', response);
-            step['response'] = response
+            step['response'] = response;
             bufferResponse.push(step);
             console.log("bufferResponse", bufferResponse);
             
