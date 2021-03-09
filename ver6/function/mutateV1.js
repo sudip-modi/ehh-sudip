@@ -1,5 +1,5 @@
 function getEntityType(entity) {
-    console.log("Entity" + entity);
+   // console.log("Entity" + entity);
     return Object.getPrototypeOf(entity).constructor.name;//entity.__proto__.constructor.name
 }
 
@@ -38,9 +38,10 @@ class mutate {
         //  console.log("updated Row",currentRow)
         return currentRow;
     }
-    static setEntity(input, output, key) { 
+    static setEntity(input, output, key) {
+        console.log(input, output, output?.constructor.name);
        var  outputType = getEntityType(output);
-      //  console.log(outputType);
+   
         switch (output?.constructor) { 
             case Object:
                 output[key] = input[key];
@@ -57,9 +58,9 @@ class mutate {
         return output;
     }
     static Obj2(input, output, previousRow, currentRow, currentKey, d, path, parent) {
-        if (!previousRow) {
+       console.log("Obj2      ",input,output);
+        if (!previousRow && operate.is(output) === 'Array') {
             mutate.setEntity(row, output);
-            
             previousRow = output[0];
             //  parent = "root";
           //  console.log(previousRow);
@@ -78,7 +79,7 @@ class mutate {
             default:
             // return
         }
-        //  console.log(output)
+         console.log("output",output)
         return output;
     }
     static processObj(input, output, previousRow, currentRow, currentKey, d, path, parent) {

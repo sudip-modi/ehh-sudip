@@ -267,10 +267,15 @@ class ActionEngineV5 {
           //  console.log(response)
         } else {
             //var response = callbackClass[callback](args[0]);
-//            console.log("actionStep", actionStep, actionStep.arguments)
-            
+      
+            if (operate.isString(actionStep.arguments)) {
+                var response = actionStep.class[actionStep.method](actionStep.arguments)//need to get this argument thing working
+            } else  {
+                console.log("Object found", actionStep.arguments)
+                var response = actionStep.class[actionStep.method](actionStep.arguments[0], actionStep.arguments[1])//need to get this argument thing working
+            }
 
-            var response = actionStep.class[actionStep.method](actionStep.arguments)
+            
           //  console.log(response)
         }
         
@@ -342,16 +347,19 @@ class ActionEngineV5 {
             step['actionStepName'] = actionFlowReq.flowRequest[key].actionStepName;
             step['thisStepReqMethod'] = actionFlowReq.flowRequest[key].actionStepReq;
             step['thisStepReq'] = actionFlowReq.flowRequest[key];
-            console.log(">>>>", step['thisStepReq'].actionStepReq )
-            // if (actionFlowReq.flowRequest[key].actionStepArgs.includes('fromPrevious')) {
+            console.log(">>>>", step['thisStepReq'].actionStepReq.arguments)
+
+            if (step['thisStepReq'].actionStepReq.arguments.includes('fromPrevious')) {
+
                
-            //     console.log(actionFlowReq.flowRequest[key].actionStepArgs)
-            //     console.log(step['thisStepReq'].actionStepArgs)
-            //     step['thisStepReq'].actionStepArgs;
-            //     console.log(step['thisStepReq'].actionStepArgs,"<<<<" )
+                console.log("yo",step['thisStepReq'].actionStepReq.arguments[step['thisStepReq'].actionStepReq.arguments.indexOf('fromPrevious')])
+                step['thisStepReq'].actionStepReq.arguments[step['thisStepReq'].actionStepReq.arguments.indexOf('fromPrevious')] = bufferResponse[i - 1].response;
+                console.log(step['thisStepReqMethod'])
+                //step['thisStepReq'].actionStepArgs;
+              //  console.log(step['thisStepReq'].actionStepArgs,"<<<<" )
 
                 
-            // }
+            }
             
 
             var response = this.executeSyncActionStep(step['thisStepReqMethod']);
@@ -359,7 +367,7 @@ class ActionEngineV5 {
         //    console.log('runSyncActionFlow', response);
             step['response'] = response;
             bufferResponse.push(step);
-            console.log("bufferResponse", bufferResponse[0].response);
+          //  console.log("bufferResponse", bufferResponse[0].response);
             
         }
     }

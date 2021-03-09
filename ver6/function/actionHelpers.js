@@ -7,6 +7,12 @@
 // } catch (err) {
 //   console.error(err);
 // }
+console.log(JSON.stringify({ alpha: 'A', beta: 'B' }, null, '\t'));
+// Result:
+// '{
+//     "alpha": A,
+//     "beta": B
+// }'
 function obj_to_array(arg) {
     return Object.entries(arg).map(([key, value]) => `${key}: ${value}`);
 }
@@ -252,7 +258,9 @@ class AutoComplete {
             return false;
         }
     }
-
+    static uniqueArray(array) {
+        const uniqueArray = [...new Set(array)];
+    }
     static removeSpecialCharacters(keyword) {
         // console.log(keyword)
         const desired = keyword.replace(/[^\w\s]/gi, '');
