@@ -127,10 +127,10 @@ class mutate {
         return output
     }
     static arr2Object(input, parent, output) {
-        console.log("this.arr2Object",input[0],parent)
+      // console.log("this.arr2Object",input[0],parent)
         for(var j in input){ 
             var index;
-            console.log(input[j])
+          //  console.log(input[j])
          //   continue;
           if(input[j][2] === parent[3]&&((input[j][5].includes(parent[5]) && parseInt(input[j][1]) === 1+ parseInt(parent[1]))||((input[j][1]=== "1"||input[j][1]===1)&&parent[1]==="d"))){
             if(parent[4] === "Array" && (input[j][4] === "String"|| input[j][4] === "Number")){
@@ -163,13 +163,13 @@ class mutate {
 
 function start1() {
    
-    console.log("Input:- Object To Array");
-    console.log(actionflowSample);
+   // console.log("Input:- Object To Array");
+   // console.log(actionflowSample);
     var outputArray = mutate.Obj2(actionflowSample, []);
-    console.log("output Array[Input:- Array To Object] ", outputArray);
+   // console.log("output Array[Input:- Array To Object] ", outputArray);
     document.getElementById('opArray').value = outputArray;
     var outputJson = mutate.arr2Object(outputArray,outputArray[0] ,{});
-    console.log("Output :- Array To Object");
-    console.log(outputJson);
+   // console.log("Output :- Array To Object");
+   // console.log(outputJson);
     document.getElementById('opJSON').value = outputJson;
 }
