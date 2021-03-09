@@ -31,20 +31,24 @@ var buildActionRequest = {
     }
 }
 
-
-//console.log(url)
-
 var requestBody = {
-    'entityName':"signUpFromSchemaModel",
+    resourceID: '1LIFMxfGptICuOEoPZAd-IrKLy1dhN3s9Fem4SDweSJk',
+    entityName: 'signUpFromSchemaModel',
+    
 }
+
 var httpGetReqObject = {
     method: 'GET',
     mode: 'no-cors',
     body: requestBody,
 }
 var httpPostReqObject = {
-    method: "POST",
-    //mode: 'no-cors',
+    method: 'POST', // or 'PUT'
+    mode: 'no-cors',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    // cache: 'no-cache',
   //  body: requestBody,
 }
 
@@ -92,6 +96,13 @@ var actionStepPostRequest = {
 
 
     }
+}
+
+var callBackReqModel = {
+    callbackClass: 'document',
+    callback: 'getElementById',
+    args: "action",
+    andThen: 'innerHTML'
 }
 
 //console.log("test",buildActionRequest.buildParams.output.callBackReq.test)
@@ -153,18 +164,18 @@ class ActionEngineV5 {
     }
     //SetTimeOut(Now) optional attribute to be added to this method, which allows to conduct this callback Immidietly in the que.
     conductCallback(callbackClass, callback, args, andThen, andthenArgs) {
-        console.log("conducting", callbackClass, callback, args, andThen,andthenArgs);
+       // console.log("conducting", callbackClass, callback, args, andThen,andthenArgs);
      //   var classToCall = window[callbackClass];
       //  console.log("here", window[callbackClass],classToCall) //This needs to be looked inTo
         if (andThen) {
-            console.log("andThen", andThen, andthenArgs[0], andthenArgs[1])
+           // console.log("andThen", andThen, andthenArgs[0], andthenArgs[1])
             var response = callbackClass[callback](args[0])[andThen] = andthenArgs[1];
-            console.log(response)
+          //  console.log(response)
         } else {
             var response = callbackClass[callback](args[0]);
         }
         
-         console.log("conduct call back response",response);
+       //  console.log("conduct call back response",response);
          return response;
     }
     executeAsynActionStep(actionStep) {
@@ -177,7 +188,7 @@ class ActionEngineV5 {
             .then(data => {
                 if (actionStep.stepParams) {
                   //  console.log(actionStep.stepParams);
-                    console.log("Data", data);
+                  //  console.log("Data", data);
                     var callbackClass = actionStep.stepParams.output.callBackReq.callbackClass;
                     var callback = actionStep.stepParams.output.callBackReq.callback;
                     var args = actionStep.stepParams.output.callBackReq.args;
@@ -193,6 +204,11 @@ class ActionEngineV5 {
             .catch(err => console.error(err))
        
     }
+    // response.text() – read the response and return as text,
+    //     response.json() – parse the response as JSON,
+    //         response.formData() – return the response as FormData object(explained in the next chapter),
+    //             response.blob() – return the response as Blob (binary data with type),
+    //                 response.arrayBuffer()
     handleResponse(response) {
 
         console.log(response, operate.is(response));
@@ -201,7 +217,7 @@ class ActionEngineV5 {
         console.log(responseJSON);
         for (var key in (responseJSON)) {
             
-            console.log(key, responseJSON[key], operate.is(responseJSON[key]))
+         //   console.log(key, responseJSON[key], operate.is(responseJSON[key]))
         }
 
     }
@@ -219,15 +235,3 @@ class ActionEngineV5 {
 
 
 var actionEngineV5Instance = new ActionEngineV5();
-
-//var tempoOut = actionEngineV5Instance.buildActionRequest(buildActionRequest)
-
-var callBackReqModel = {
-    callbackClass: 'document',
-    callback: 'getElementById',
-    args: "action",
-    andThen:'innerHTML'
-}
-//var tempo = ActionEngineV5.conductCallback(request2.callbackClass, request2.callback, request2.args);
-//console.log(tempo);
-

@@ -7,11 +7,11 @@ class httpServiceV2 {
 
 
 ///it takes a inputobject and build's it into a encodedURI
-    static buildEncodedUri(request) {
-    console.log("buildEncodedUri",request)
+static buildEncodedUri(request) {
+   // console.log("buildEncodedUri",request)
     const response = [];
         for (let d in request) {
-            console.log("here",request[d])
+         //   console.log("here",request[d])
             response.push(encodeURIComponent(JSON.stringify(d)) + '=' + encodeURIComponent(JSON.stringify(request[d])));
         }
    // console.log("Encoded URIresponse",response)
@@ -24,11 +24,11 @@ static unbuildEndodedUri(request) {
 
     //process each parameter
     for (i = 0; i < urifragment.length; i++) {
-        console.log(urifragment[i]);
+     //   console.log(urifragment[i]);
         parts = urifragment[i].split("=");
         if (parts.length < 2) {
             parts.push("");
-            console.log(parts);
+      //      console.log(parts);
         }
        // console.log("unbuild", , );
         data[JSON.parse(decodeURIComponent(parts[0]))] = JSON.parse(decodeURIComponent(parts[1]));
@@ -44,18 +44,19 @@ static unbuildEndodedUri(request) {
 
 static serverNodeReqSwitcher(url,request) {
     var req;
-    console.log(request)
+  //  console.log(request)
     switch (request.method) {
         case 'GET':
             var encodedParam = httpServiceV2.buildEncodedUri(request);
             var req = url + "?" + encodedParam;
-            console.log(req);
+         //   console.log(req);
             return httpServiceV2.fetchHttpRequest(req);
            // return "get";
         case 'POST':
-            console.log(request)
-            var req = [url, JSON.stringify(request)];
-            return httpServiceV2.fetchHttpRequest(req);
+         //   console.log(request)
+            //var requestString = JSON.stringify(request)
+            var req = [url, request];
+            return httpServiceV2.fetchHttpRequest(url, request);
            // return "update";
         case 'PUT':
             return "delete";
@@ -93,9 +94,9 @@ static serverNodeReqSwitcher(url,request) {
        return httpServiceV2.fetchHttpRequest(req);
     }
     //This is a basic working version. 
-    static fetchHttpRequest(req) {
+    static async fetchHttpRequest(req) {
      
-        return fetch(req);
+        return await fetch(req);
         // .then(response => {
         //     if (!response.ok) { throw new Error("Could not reach website."); }
         //    // console.log("reponsetex", response.text())
