@@ -105,9 +105,33 @@ var callBackReqModel = {
     andThen: 'innerHTML'
 }
 
-var getSignUpFormReq = {
 
+
+
+var nestedReq = [
+    {
+        index: 1,
+        entity: (action),
+        method: 'innerHTML',
+    },
+]
+
+var getSignUpFormReq = {
+    class: httpServiceV2,
+    method: 'serverNodeReqSwitcher',
+    arguments: [serviceUrl, httpGetReqObject],
+    'stepParams': { // defining the parameters of recusiosn and output
+        'Every1': false,// this is to check if Need to apply same method on all the argument individually.
+        outPutCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'response',// [isOneof ( response, callback//operator) ]
+        }
+
+
+    }
 }
+
+
 
 var actionFlowModelReq = {
     flowRequest: [
@@ -120,11 +144,14 @@ var actionFlowModelReq = {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#2',
             actionStepReq: 'mutateArr2Obj',
+            actionStepArgs :'fromPrevious'
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#3',
-            actionStepReq: 'Obj2Html',
+            actionStepReq: 'new Entity',
+            actionStepArgs: ['fromPrevious',`document.createElement('div')`],
+
         },
 
     ],
@@ -246,10 +273,11 @@ class ActionEngineV5 {
        
     }
     // response.text() – read the response and return as text,
-    //     response.json() – parse the response as JSON,
-    //         response.formData() – return the response as FormData object(explained in the next chapter),
-    //             response.blob() – return the response as Blob (binary data with type),
-    //                 response.arrayBuffer()
+    //response.json() – parse the response as JSON,
+    //response.formData() – return the response as FormData object(explained in the next chapter),
+    //response.blob() – return the response as Blob (binary data with type),
+    //response.arrayBuffer()
+
     handleResponse(response) {
 
         console.log(response.length, operate.is(response));
@@ -272,9 +300,9 @@ class ActionEngineV5 {
     //This acts like a router to all the registered methods in ActionEngine.
     //It also maintains a buffer for status(for retry's/timeouts/sotrage in case or error) and a buffer [this.output], for dependentarguments 
     runSyncActionFlow(actionFlowReq) {
-        console.log(actionFlowReq)
-        for (var key in actionFlowReq) {
-            var i=0; i++;
+        console.log(actionFlowReq.flowRequest)
+        for (var key in actionFlowReq.flowRequest) {
+            var i=0; i=i+1;
             console.log("actionSteps",i, key, actionFlowReq)
         }
     }
@@ -304,15 +332,6 @@ var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
 
 
 
-
-
-var nestedReq = [
-    {
-        index: 1,
-        entity: (action),
-        
-    },
-]
 
 console.log(nestedReq)
 
