@@ -19,8 +19,9 @@ function obj_to_array(arg) {
 
 class process {
     static processReq(input, output, key, value) {
-     //   console.log(input, output)
-        if (operate.is(input) === 'Object') {
+        console.log("process req", input, output, operate.is(input),typeof input)
+        if (typeof input === 'object') {
+            console.log("process req", input, output)
             var buffer = process.iterateObj(input, output, key);
         } else if (operate.is(input) === 'Array') {
             var buffer = process.iterateObj(input, output, key);
@@ -33,7 +34,7 @@ class process {
     static iterateObj(input, output) {
         for (var key in input) {
             var value = input[key];
-            //console.log("found",key,input[key])
+          //  console.log("found",key,input[key])
             if (operate.is(value) === 'Object') {
                 // console.log("Object",output);
                 var buffer = Entity.create(input, output, value.name);

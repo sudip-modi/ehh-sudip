@@ -146,8 +146,9 @@ var getElementByIdReq = {
     }
 }
 var obj2Req = {
-    class: mutate,
-    method: 'Obj2',
+    class: process,
+    //command: process,
+    method: 'processReq',
     arguments: ['fromPrevious',{}],
     'stepParams': { // defining the parameters of recusiosn and output
         'Every1': false,// this is to check if Need to apply same method on all the argument individually.
@@ -206,14 +207,15 @@ class ActionEngineV5 {
         
     }
     buildActionRequest(buildReq) {
-         console.log(buildReq)
+         console.log("BUildReq",buildReq)
         if (operate.isObject(buildReq) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", buildReq, "look like JSON to you. It's damn", operate.is(buildReq));
         } else {
-         //   console.log("building", buildReq);
+            console.log("building", buildReq);
             var response = [];
             for (var key in buildReq.buildArguments) { //iterating Each key of req
                 if (typeof buildReq.buildArguments[key] === "object") {
+                    console.log("udi",Object.values(buildReq.buildArguments[key]));
                     response.push(Object.values(buildReq.buildArguments[key]).join(" ").replace(/\s/g, ""))
                 } else {
                     response.push(buildReq.buildArguments[key]);
@@ -233,7 +235,9 @@ class ActionEngineV5 {
                 var andThen = buildReq.buildParams.output.callBackReq.andThen;
                 var paraArg = buildReq.buildParams.output.callBackReq.args
                 var args = this[paraArg];
-                var callbackResponse = this.executeSyncnActionStep(classToCall, methodtoCall, args,andThen);
+                console.log(args)
+                var callbackResponse = this.executeSyncnActionStep(classToCall, methodtoCall, args, andThen);
+                
                 return callbackResponse;
             } else {
                 console.log('builtReq', builtReq);
@@ -244,7 +248,7 @@ class ActionEngineV5 {
 
     }
     processStringRequest(request) {
-        console.log(request)
+        console.log("request",request)
         if (operate.isString(request) != true) {
             return console.error("not my job")//To be routed through BuildActionReq
         } else {
@@ -259,27 +263,29 @@ class ActionEngineV5 {
     }
     //SetTimeOut(Now) optional attribute to be added to this method, which allows to conduct this callback Immidietly in the que.
     executeSyncActionStep(actionStep, andThen) {
+        console.log(actionStep)
         var response;
-    
-        if (andThen) {
-           // console.log("andThen", andThen, andthenArgs[0], andthenArgs[1])
-            //var response = callbackClass[callback](args[0])[andThen] = andthenArgs[1];
-          //  console.log(response)
+        if (actionStep.command) {
+            console.log(actionStep, "found command", actionStep.command, actionStep.arguments[0], actionStep.arguments[1]);
+            window[actionStep.command];
+            console.log(actionStep.command)
+
         } else {
             //var response = callbackClass[callback](args[0]);
       
             if (operate.isString(actionStep.arguments)) {
                 var response = actionStep.class[actionStep.method](actionStep.arguments)//need to get this argument thing working
             } else  {
-                console.log("Object found", actionStep.arguments)
+                console.log("Object found", actionStep)
                 var response = actionStep.class[actionStep.method](actionStep.arguments[0], actionStep.arguments[1])//need to get this argument thing working
+                  console.log(response)
+
             }
 
             
-          //  console.log(response)
         }
         
-  //      console.log("executeSyncActionStep response",response);
+      console.log("executeSyncActionStep response",response);
          return response;
     }
     executeAsyncActionStep(actionStep) {
@@ -339,7 +345,7 @@ class ActionEngineV5 {
     runSyncActionFlow(actionFlowReq) {
         var bufferResponse = [];
 
-        console.log(actionFlowReq.flowRequest)
+      //  console.log(actionFlowReq.flowRequest)
 
         for (var key in actionFlowReq.flowRequest) {
             var i = 0; i = i + 1; var step = {};
@@ -347,21 +353,21 @@ class ActionEngineV5 {
             step['actionStepName'] = actionFlowReq.flowRequest[key].actionStepName;
             step['thisStepReqMethod'] = actionFlowReq.flowRequest[key].actionStepReq;
             step['thisStepReq'] = actionFlowReq.flowRequest[key];
-            console.log(">>>>", step['thisStepReq'].actionStepReq.arguments)
+           // console.log(">>>>", step['thisStepReq'].actionStepReq.arguments)
 
             if (step['thisStepReq'].actionStepReq.arguments.includes('fromPrevious')) {
 
                
-                console.log("yo",step['thisStepReq'].actionStepReq.arguments[step['thisStepReq'].actionStepReq.arguments.indexOf('fromPrevious')])
+              //  console.log("yo",step['thisStepReq'].actionStepReq.arguments[step['thisStepReq'].actionStepReq.arguments.indexOf('fromPrevious')])
                 step['thisStepReq'].actionStepReq.arguments[step['thisStepReq'].actionStepReq.arguments.indexOf('fromPrevious')] = bufferResponse[i - 1].response;
-                console.log(step['thisStepReqMethod'])
+             //   console.log(step['thisStepReqMethod'])
                 //step['thisStepReq'].actionStepArgs;
               //  console.log(step['thisStepReq'].actionStepArgs,"<<<<" )
 
                 
             }
             
-
+            console.log(step['thisStepReqMethod'])
             var response = this.executeSyncActionStep(step['thisStepReqMethod']);
             
         //    console.log('runSyncActionFlow', response);
@@ -390,11 +396,64 @@ class ActionEngineV5 {
    
 }
 
+var processReqModel = {
+    processClass: 'processV3',
+    processMethod: 'get',//[create,get,set,append,update,delete,replace,]
 
+    processArguments: { //Inside Entity defineing the request to build. 
+        processClass: 'processV3',
+        processMethod: 'get',//[create,get,set,append,update,delete,replace,]
+        
+        request: {
+            method: 'get',
+            entity: 'Element',
+            entityIdentifier: 'ById',
+            entityId: "(" + '"' + reqEntity.entityId + '"' + ")",
+        },
+        //  and: 'innerHTML',
+    },
+    'processParams': { // defining the parameters of recusiosn and output
+        'recurse': true,// this is to check if arguments have to be recursed or not.
+        outputCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'response',// [isOneof ( response, callback//operator) ]
+           outputDummy:'' //[ an live Object,HTMLElement,An Array,An String ]
+        }
+
+
+    }
+}
+
+//this Object is istended to work as a req for any kind of process related with any kind of entity.
+var reqOutputModel = {
+    entityName: 'entityName',
+    entityId: 'entityId',
+    depth: '1',
+    parent:"parent",
+    entityAttributes: {
+        key: ['selected Array of Keys ', "or an condition"],
+        value:[ 'all of selected type of Values', "or an condiotn"]
+    }
+}
+var processReqModelV2 = {
+    processName:'ObjeMutate',
+    processClass: 'processV3',
+    processMethod: 'create',
+    methodArgument: ['input',],
+    processParams: {
+        recurse: true,
+        output: {
+            outputType: 'response',// [isOneof ( response, callback//operator) ]
+            outputDummy: ''
+        }
+
+    },    
+    andThen: ''
+}
 class processV3{
     static processReq(input, output, key, value) {
         //   console.log(input, output)
-        if (operate.is(input) === 'Object') {
+        if (typeof input === 'object') {
             var buffer = process.iterateObj(input, output, key);
         } else if (operate.is(input) === 'Array') {
             var buffer = process.iterateObj(input, output, key);
@@ -406,24 +465,7 @@ class processV3{
     }
     static iterateObj(input, output) {
         for (var key in input) {
-            var value = input[key];
-            //console.log("found",key,input[key])
-            if (operate.is(value) === 'Object') {
-                // console.log("Object",output);
-                var buffer = Entity.create(input, output, value.name);
-                process.iterateObj(input[key], buffer, key, value)
-                Entity.append(buffer, output);
-            } else if (operate.is(value) === 'Array') {
-                //  console.log("foundArray", key)
-                var buffer = Entity.create(input, output, key);
-                process.iterateArr(input[key], buffer, key, value)
-                Entity.append(buffer, output);
-                // console.log('Array',key, value, buffer);
-            } else if (operate.is(value) === 'String' || operate.is(value) === 'Boolean') {
-                //  console.log('String',key, value,output);
-                Entity.set(input, output, key, value);
-                //Entity.set(input,this.entity,key,value);           
-            }
+          
 
         }
         // console.log('Iterate Objoutput',output)
@@ -433,31 +475,7 @@ class processV3{
         //  console.log("Iterating Array", input, output, key, value);
 
         for (var i = 0; i < input.length; i++) {
-            //console.log("Object found in array", input[i]);
-
-            if (operate.is(input[i]) === 'Object') { //console.log("Object in array",response)
-
-                var response = Entity.create(input[i], output, input[i].name);
-                process.iterateObj(input[i], response, input[i].name,)
-                Entity.append(response, output);
-
-            } else if (operate.is(input[i]) === 'Array') { // console.log("found Array", key, input[key])
-
-            } else if (operate.is(input[i]) == 'String') { //  console.log("found property, Set Attributes in output", key, input[key])
-
-                // Entity.set(input,output,key,input[key])
-            } else {
-
-                //  console.log("stray found")
-            }
-            //console.log(callbackClass,callback)
-            //   console.log(key, input[key])
-            //var response = operate.isNotEmpty(callback) ? conductor.conduct(input, output, key, input[key], callback, callbackClass) : null;
-            if (operate.isNotEmpty(callback)) {
-
-                //  var response = conductor.conduct(input, output, key, input[key], callback, callbackClass);
-
-            }
+       
         }
         // console.log("iterator Array response", response);
         return response;
@@ -480,8 +498,8 @@ var exportJson4mHtmlFlow = [
 var actionEngineV5Instance = new ActionEngineV5();
 var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
 
+// var response2 = new Entity(nestedReq, document.createElement('div'));
 
 
-
-console.log(nestedReq)
+// console.log(response2.entity)
 
