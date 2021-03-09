@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="ver6/beauty/Global/globa.css">
     <link rel="stylesheet" href="ver6/beauty/mainStyle/mainStyle.css">
+    <link rel="stylesheet" href="ver6/beauty/actionSpaceV10.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 </head>
 
@@ -524,11 +525,21 @@
                             </div>
                         </div>
                     </div>
-                    <div id="BodyWorkspace" contenteditable="true">
+                    <div id="BodyWorkspace">
                         <!-- HERE WILL BE THE BODY CONTENT -->
+                        <div id='actionSpace' class ="row">
+                            <div id="editor"  contenteditable="true"class = "column">
+                                <div id="lines"><span>1</span><br></div>
+                                <div id="content">
+                                    <span id="cursor-placeholder">|</span></div>
+                            </div>
+                        <span id="blinking-cursor" style="top: 70.4375px; left: 137.5px;">|</span>
+                            <div id='output' class = "column"></div>
+                        </div>
+                        
                     </div>
                     <div class="workspaceFooter">
-                        <p>https://www.fiverr.com</p>
+                        <p>https://www.0dot1.live</p>
                     </div>
                 </div>
             </section>
@@ -717,8 +728,9 @@
             </div>
         </div>
     </div>
-    <script src="ver6/function/actionEntityV6.js"></script>
+  
     <script src="ver6/function/actionSpaceV10.js"></script>
+    <script src="ver6/function/actionEditorV7.js"></script>
 
 </body>
 
