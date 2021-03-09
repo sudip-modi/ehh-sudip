@@ -14,7 +14,7 @@ class HttpService{
         }
         if(body !== undefined)
                 request['body'] = body;              
-            request['body'] = body;
+                 request['body'] = body;
                 request['body'] = body;              
         return request;
     }
