@@ -258,19 +258,19 @@ class ActionEngineV5 {
         var outputJson = mutate.arr2Object(responseJSON, responseJSON[0], {});
         console.log("Output :- Array To Object");
         console.log(outputJson);
-        document.getElementById('output').value = outputJson;
+        document.getElementById('output').value = JSON.stringify(outputJson);
 
-
-      // 
-      //  var responseUnbuild = httpServiceV2.unbuildEndodedUri(response);
-       // 
+          // 
+          //  var responseUnbuild = httpServiceV2.unbuildEndodedUri(response);
+            // 
         for (var key in (responseJSON)) {
             
          //   console.log(key, responseJSON[key], operate.is(responseJSON[key]))
         }
 
     }
-    
+    //This acts like a router to all the registered methods in ActionEngine.
+    //It also maintains a buffer for status(for retry's/timeouts/sotrage in case or error) and a buffer [this.output], for dependentarguments 
     runSyncActionFlow(actionFlowReq) {
         console.log(actionFlowReq)
         for (var key in actionFlowReq) {
@@ -301,3 +301,18 @@ class ActionEngineV5 {
 
 var actionEngineV5Instance = new ActionEngineV5();
 var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
+
+
+
+
+
+var nestedReq = [
+    {
+        index: 1,
+        entity: (action),
+        
+    },
+]
+
+console.log(nestedReq)
+
