@@ -131,14 +131,12 @@ var getSignUpFormReq = {
     }
 }
 
-
-
 var actionFlowModelReq = {
     flowRequest: [
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#1',
-            actionStepReq: 'getSignUpFormReq',
+            actionStepReq: getSignUpFormReq,
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
@@ -231,22 +229,25 @@ class ActionEngineV5 {
          
     }
     //SetTimeOut(Now) optional attribute to be added to this method, which allows to conduct this callback Immidietly in the que.
-    executeSyncnActionStep(callbackClass, callback, args, andThen, andthenArgs) {
+    executeSyncActionStep(actionStep,andThen) {
        // console.log("conducting", callbackClass, callback, args, andThen,andthenArgs);
      //   var classToCall = window[callbackClass];
       //  console.log("here", window[callbackClass],classToCall) //This needs to be looked inTo
         if (andThen) {
            // console.log("andThen", andThen, andthenArgs[0], andthenArgs[1])
-            var response = callbackClass[callback](args[0])[andThen] = andthenArgs[1];
+            //var response = callbackClass[callback](args[0])[andThen] = andthenArgs[1];
           //  console.log(response)
         } else {
-            var response = callbackClass[callback](args[0]);
+            //var response = callbackClass[callback](args[0]);
+            console.log(actionStep)
+            var response = actionStep.class[actionStep.method](actionStep.arguments[0], actionStep.arguments[1])
+
         }
         
        //  console.log("conduct call back response",response);
          return response;
     }
-    executeAsynActionStep(actionStep) {
+    executeAsyncActionStep(actionStep) {
     //    console.log(JSON.parse(actionStep.arguments[1]))
         var promise1 = actionStep.class[actionStep.method](actionStep.arguments[0],actionStep.arguments[1])
             .then(response => {
@@ -263,7 +264,7 @@ class ActionEngineV5 {
                     var andThen = actionStep.stepParams.output.callBackReq.andThen;
                     var andThenArgs = actionStep.stepParams.output.callBackReq.andThenArgs;
                     andThenArgs.push(data);
-                    var response = this.executeSyncnActionStep(callbackClass, callback, [args],andThen,andThenArgs)
+                    var response = this.executeSyncActionStep(callbackClass, callback, [args],andThen,andThenArgs)
                 //    console.log("Data",  response);
                     this.handleResponse(data);
                 }
@@ -287,7 +288,8 @@ class ActionEngineV5 {
         console.log(outputJson);
         var output = new Entity(outputJson, document.createElement('div'));
         document.getElementById('output').appendChild(output.entity);
-
+        var tempo = mutate.Obj2(output.entity, []);
+        console.log(tempo);
           // 
           //  var responseUnbuild = httpServiceV2.unbuildEndodedUri(response);
             // 
@@ -303,9 +305,19 @@ class ActionEngineV5 {
         console.log(actionFlowReq.flowRequest)
         for (var key in actionFlowReq.flowRequest) {
             var i=0; i=i+1;
-            console.log("actionSteps", i, key, actionFlowReq)
+            console.log("actionSteps", i, key, actionFlowReq.flowRequest[key].actionStepReq)
+            
+            this.executeSyncActionStep(actionFlowReq.flowRequest[key].actionStepReq);
+
             
         }
+    }
+    
+    runAsyncActionFlow(actionFlow) {
+
+        // for await (var key of actionFlow) {
+
+        // }
     }
 
     validateAll(a, b, callbacks) {
@@ -315,21 +327,25 @@ class ActionEngineV5 {
     validateSome() {
         
     }
-    runAsyncActionFlow(actionFlow) {
-
-        // for await (var key of actionFlow) {
-            
-        // }
-    }
+   
 }
 
 
 
+var exportJson4mHtmlFlow = [
+    {
+        step: 1, method: document.getElementById('action'),
+        stepParams: {
+            
+        }
+    },
+
+]
 
 
 
 var actionEngineV5Instance = new ActionEngineV5();
-var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
+//var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
 
 
 
