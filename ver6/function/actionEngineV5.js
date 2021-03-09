@@ -213,16 +213,27 @@ class ActionEngineV5 {
 
         console.log(response, operate.is(response));
         var responseJSON = JSON.parse(response);
+        console.log("responseJson",responseJSON);
+        var outputJson = mutate.arr2Object(response, response[0], {});
+        console.log("Output :- Array To Object");
+        console.log(outputJson);
+        document.getElementById('output').value = outputJson;
+
+
+      // 
       //  var responseUnbuild = httpServiceV2.unbuildEndodedUri(response);
-        console.log(responseJSON);
+       // 
         for (var key in (responseJSON)) {
             
          //   console.log(key, responseJSON[key], operate.is(responseJSON[key]))
         }
 
     }
+    runSyncActionFlow() {
+        
+    }
+    runAsyncActionFlow(actionFlow) {
 
-    runActionFlow(actionFlow) {
         // for await (var key of actionFlow) {
             
         // }
