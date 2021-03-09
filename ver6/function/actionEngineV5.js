@@ -114,17 +114,17 @@ var actionFlowModel = {
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#1',
-            actionStepReq: getSignUpFormReq,
+            actionStepReq: 'getSignUpFormReq',
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#2',
-            actionStepReq: mutateArr2Obj,
+            actionStepReq: 'mutateArr2Obj',
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#3',
-            actionStepReq: Obj2Html,
+            actionStepReq: 'Obj2Html',
         },
 
     ],
@@ -270,9 +270,17 @@ class ActionEngineV5 {
         }
 
     }
+    
     runSyncActionFlow(actionFlowReq) {
+        console.log(actionFlowReq)
+        for (var key in actionFlowReq) {
+            var i=0; i++;
+            console.log("actionSteps",i, key, actionFlowReq)
+        }
+            
         
     }
+
     validateAll(a, b, callbacks) {
         return callbacks.every(function (callback) { return operate[callback](a, b); });
        

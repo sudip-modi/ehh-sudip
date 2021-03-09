@@ -126,9 +126,12 @@ class mutate {
         }
         return output
     }
-    static arr2Object (input ,parent,output){
+    static arr2Object(input, parent, output) {
+        console.log("this.arr2Object",input[0],parent)
         for(var j in input){ 
-         var index;      
+            var index;
+            console.log(input[j])
+         //   continue;
           if(input[j][2] === parent[3]&&((input[j][5].includes(parent[5]) && parseInt(input[j][1]) === 1+ parseInt(parent[1]))||((input[j][1]=== "1"||input[j][1]===1)&&parent[1]==="d"))){
             if(parent[4] === "Array" && (input[j][4] === "String"|| input[j][4] === "Number")){
               output.unshift(input[j][3]);
