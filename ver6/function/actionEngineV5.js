@@ -130,13 +130,27 @@ var getSignUpFormReq = {
 
     }
 }
+var getElementByIdReq = {
+    class: document,
+    method: 'getElementById',
+    arguments: 'action',
+    'stepParams': { // defining the parameters of recusiosn and output
+        'Every1': false,// this is to check if Need to apply same method on all the argument individually.
+        outPutCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'response',// [isOneof ( response, callback//operator) ]
+        }
+
+
+    }
+}
 
 var actionFlowModelReq = {
     flowRequest: [
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#1',
-            actionStepReq: getSignUpFormReq,
+            actionStepReq: getElementByIdReq,
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
@@ -307,7 +321,8 @@ class ActionEngineV5 {
             var i=0; i=i+1;
             console.log("actionSteps", i, key, actionFlowReq.flowRequest[key].actionStepReq)
             
-            this.executeSyncActionStep(actionFlowReq.flowRequest[key].actionStepReq);
+            var response = this.executeSyncActionStep(actionFlowReq.flowRequest[key].actionStepReq);
+            console.log('runSyncActionFlow',response);
 
             
         }
@@ -345,7 +360,7 @@ var exportJson4mHtmlFlow = [
 
 
 var actionEngineV5Instance = new ActionEngineV5();
-//var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
+var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
 
 
 
