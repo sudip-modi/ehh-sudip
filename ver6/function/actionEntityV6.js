@@ -4,21 +4,27 @@
 
 // iterateAllTheKey's in the Object, InvokeApproprieteMethodOrCallBack.
 var entityModel = {
-    nameTagName: {
-        value: null,
+    'nameTagName': {
+        value: 'input.nameTagName',
         operate:[isString],
     },
     // description : "",
     'id': {
-        value: null,
+        value: 'input.id',
         operate: ['ifNotPresentGenerate'],
     },
-    entityType: {
-        value: null,
+    'entityType': {
+        value: 'input.type',
         operate: [isoptional],
     },
-    "resource": '#IDorfileName',
-     "attributes/properties": '',
+    resource: {
+        value: 'input.url',
+        operate: [isUrl],
+    },
+    attributes: {
+        value: null,
+        operate: [find(input.attributes,['class','style','src'])],
+    },
     content: '',
     'contentMimeType': '',//[HTML,JSON,TEXT,JAVASCRIPT],
      resourceBinding:''
@@ -103,4 +109,8 @@ class ActionEntityV6 {
     delete(req) {
         
     }
+}
+
+function processReq(req) {
+    
 }
