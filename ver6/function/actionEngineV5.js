@@ -166,12 +166,12 @@ var actionFlowModelReq = {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#1',
             actionStepReq: getElementByIdReq,
+            response:{},
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#2',
             actionStepReq: 'obj2Req',
-            actionStepArgs :'fromPrevious'
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
@@ -336,13 +336,13 @@ class ActionEngineV5 {
 
         console.log(actionFlowReq.flowRequest)
         for (var key in actionFlowReq.flowRequest) {
-            var i = 0; i = i + 1;
-            var step = {};
+            var i = 0; i = i + 1; var step = {};
             step['runningIndex'] = i;
             step['actionStepName'] = actionFlowReq.flowRequest[key].actionStepName;
             step['thisStepReqMethod'] = actionFlowReq.flowRequest[key].actionStepReq;
             step['thisStepReq'] = actionFlowReq.flowRequest[key];
-            console.log(typeof actionFlowReq.flowRequest[key].actionStepReq.arguments, actionFlowReq.flowRequest[key].actionStepReq.arguments)
+            
+            console.log("345",typeof actionFlowReq.flowRequest[key].actionStepReq.arguments, actionFlowReq.flowRequest[key].actionStepReq.arguments)
             // if (actionFlowReq.flowRequest[key].actionStepArgs.includes('fromPrevious')) {
                
             //     console.log(actionFlowReq.flowRequest[key].actionStepArgs)
@@ -356,10 +356,10 @@ class ActionEngineV5 {
 
             var response = this.executeSyncActionStep(step['thisStepReqMethod']);
             
-            console.log('runSyncActionFlow', response);
+        //    console.log('runSyncActionFlow', response);
             step['response'] = response;
             bufferResponse.push(step);
-            console.log("bufferResponse", bufferResponse);
+            console.log("bufferResponse", bufferResponse[0].response);
             
         }
     }
