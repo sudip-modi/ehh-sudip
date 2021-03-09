@@ -253,8 +253,10 @@ class ActionEngineV5 {
           //  console.log(response)
         } else {
             //var response = callbackClass[callback](args[0]);
-           
-            var response = actionStep.class[actionStep.method](actionStep.arguments[0], actionStep.arguments[1])
+            console.log("actionStep", actionStep, actionStep.arguments)
+            
+
+            var response = actionStep.class[actionStep.method](actionStep.arguments)
             console.log(response)
         }
         
@@ -329,7 +331,8 @@ class ActionEngineV5 {
             console.log('runSyncActionFlow', response);
             step['response'] = response
             bufferResponse.push(step);
-            console.log("bufferResponse",bufferResponse);
+            console.log("bufferResponse", bufferResponse);
+            
         }
     }
     
