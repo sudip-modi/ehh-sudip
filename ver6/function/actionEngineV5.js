@@ -105,6 +105,47 @@ var callBackReqModel = {
     andThen: 'innerHTML'
 }
 
+var getSignUpFormReq = {
+
+}
+
+var actionFlowModel = {
+    flowRequest: [
+        {
+            actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
+            actionStepIndex: 'index#1',
+            actionStepReq: getSignUpFormReq,
+        },
+        {
+            actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
+            actionStepIndex: 'index#2',
+            actionStepReq: mutateArr2Obj,
+        },
+        {
+            actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
+            actionStepIndex: 'index#3',
+            actionStepReq: Obj2Html,
+        },
+
+    ],
+    actionFlowParams: {
+        flowAction: 'sync',//Can be ASync,
+        ifError: 'ignore',//
+        runtimeStorage: 'localStorage',
+        outPutCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'callback',// [isOneof ( response, callback//operator) ]
+            callBackReq: {
+                callbackClass: 'actionEngineV5Instance',
+                callback: 'processStringRequest',
+                args: "cleanReq",
+                andThen: 'innerHTML',
+                //      test: buildActionRequest.buildParams.recurse
+            }
+        }
+    }
+}
+
 //console.log("test",buildActionRequest.buildParams.output.callBackReq.test)
 class ActionEngineV5 {
     constructor() {
@@ -232,8 +273,9 @@ class ActionEngineV5 {
     runSyncActionFlow(actionFlowReq) {
         
     }
-    validateAll() {
-        
+    validateAll(a, b, callbacks) {
+        return callbacks.every(function (callback) { return operate[callback](a, b); });
+       
     }
     validateSome() {
         
