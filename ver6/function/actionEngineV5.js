@@ -1,5 +1,5 @@
 
-//An eg  usage of BuildActionRequest || ProcessStringRequest || ConductCallBack
+//An eg  usage of BuildActionRequest || ProcessStringRequest || executeSyncnActionStep
 //var buildParams;
 //This is a sample obj to be used to build a String Process Req.
 var buildActionRequest = {
@@ -206,7 +206,7 @@ class ActionEngineV5 {
                 var andThen = buildReq.buildParams.output.callBackReq.andThen;
                 var paraArg = buildReq.buildParams.output.callBackReq.args
                 var args = this[paraArg];
-                var callbackResponse = this.conductCallback(classToCall, methodtoCall, args,andThen);
+                var callbackResponse = this.executeSyncnActionStep(classToCall, methodtoCall, args,andThen);
                 return callbackResponse;
             } else {
                 console.log('builtReq', builtReq);
@@ -231,7 +231,7 @@ class ActionEngineV5 {
          
     }
     //SetTimeOut(Now) optional attribute to be added to this method, which allows to conduct this callback Immidietly in the que.
-    conductCallback(callbackClass, callback, args, andThen, andthenArgs) {
+    executeSyncnActionStep(callbackClass, callback, args, andThen, andthenArgs) {
        // console.log("conducting", callbackClass, callback, args, andThen,andthenArgs);
      //   var classToCall = window[callbackClass];
       //  console.log("here", window[callbackClass],classToCall) //This needs to be looked inTo
@@ -263,14 +263,13 @@ class ActionEngineV5 {
                     var andThen = actionStep.stepParams.output.callBackReq.andThen;
                     var andThenArgs = actionStep.stepParams.output.callBackReq.andThenArgs;
                     andThenArgs.push(data);
-                    var response = this.conductCallback(callbackClass, callback, [args],andThen,andThenArgs)
+                    var response = this.executeSyncnActionStep(callbackClass, callback, [args],andThen,andThenArgs)
                 //    console.log("Data",  response);
                     this.handleResponse(data);
                 }
                 
             })
-            .catch(err => console.error(err))
-       
+            .catch(err => console.error(err))    
     }
     // response.text() – read the response and return as text,
     //response.json() – parse the response as JSON,
@@ -286,7 +285,8 @@ class ActionEngineV5 {
         var outputJson = mutate.arr2Object(responseJSON, responseJSON[0], {});
         console.log("Output :- Array To Object");
         console.log(outputJson);
-        document.getElementById('output').value = JSON.stringify(outputJson);
+        var output = new Entity(outputJson, document.createElement('div'));
+        document.getElementById('output').appendChild(output.entity);
 
           // 
           //  var responseUnbuild = httpServiceV2.unbuildEndodedUri(response);
@@ -303,7 +303,8 @@ class ActionEngineV5 {
         console.log(actionFlowReq.flowRequest)
         for (var key in actionFlowReq.flowRequest) {
             var i=0; i=i+1;
-            console.log("actionSteps",i, key, actionFlowReq)
+            console.log("actionSteps", i, key, actionFlowReq)
+            
         }
     }
 
