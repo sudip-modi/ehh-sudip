@@ -171,7 +171,7 @@ var actionFlowModelReq = {
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#2',
-            actionStepReq: 'obj2Req',
+            actionStepReq: obj2Req,
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
@@ -335,14 +335,14 @@ class ActionEngineV5 {
         var bufferResponse = [];
 
         console.log(actionFlowReq.flowRequest)
+
         for (var key in actionFlowReq.flowRequest) {
             var i = 0; i = i + 1; var step = {};
             step['runningIndex'] = i;
             step['actionStepName'] = actionFlowReq.flowRequest[key].actionStepName;
             step['thisStepReqMethod'] = actionFlowReq.flowRequest[key].actionStepReq;
             step['thisStepReq'] = actionFlowReq.flowRequest[key];
-            
-            console.log("345",typeof actionFlowReq.flowRequest[key].actionStepReq.arguments, actionFlowReq.flowRequest[key].actionStepReq.arguments)
+            console.log(">>>>", step['thisStepReq'].actionStepReq )
             // if (actionFlowReq.flowRequest[key].actionStepArgs.includes('fromPrevious')) {
                
             //     console.log(actionFlowReq.flowRequest[key].actionStepArgs)
