@@ -1,5 +1,29 @@
 
 //this Object is istended to work as a req for any kind of process related with any kind of entity.
+
+
+// iterateAllTheKey's in the Object, InvokeApproprieteMethodOrCallBack.
+var entityModel = {
+    nameTagName: {
+        value: null,
+        operate:[isString],
+    },
+    // description : "",
+    'id': {
+        value: null,
+        operate: ['ifNotPresentGenerate'],
+    },
+    entityType: {
+        value: null,
+        operate: [isoptional],
+    },
+    "resource": '#IDorfileName',
+     "attributes/properties": '',
+    content: '',
+    'contentMimeType': '',//[HTML,JSON,TEXT,JAVASCRIPT],
+     resourceBinding:''
+}
+
 var reqOutputModel = {
     entityName: 'entityName',
     entityId: 'entityId',
@@ -11,28 +35,26 @@ var reqOutputModel = {
     }
 }
 var processReqModelV2 = {
-    processName: 'ObjeMutate',
+    processName: 'ObjMutate',//Common title
     processClass: 'processV3',
     processMethod: 'create',
     methodArgument: ['input',],
     processParams: {
         recurse: true,
         output: {
-            outputType: 'response',// [isOneof ( response, callback//operator) ]
-            outputDummy: ''
+            outputType: 'set',// [isOneof ( response, callback//operator) ]
+            outputDummy: 'reqOutputModel'
         }
 
     },
     andThen: ''
 }
 class processV3 {
-    static processReq(input, output, key, value) {
+    static processReq(input, output,) {
         //   console.log(input, output)
         if (typeof input === 'object') {
             var buffer = process.iterateObj(input, output, key);
-        } else if (operate.is(input) === 'Array') {
-            var buffer = process.iterateObj(input, output, key);
-        } else if (operate.is(input) === 'String') {
+        }  else if (operate.is(input) === 'String') {
             console.log('String >>>', key, value);
             //Entity.set(input,this.output,key,value);           
         }
@@ -54,5 +76,31 @@ class processV3 {
         }
         // console.log("iterator Array response", response);
         return response;
+    }
+}
+
+
+class ActionEntityV6 {
+    constructor(req) {
+        this._entity = processV3.processReq(req);
+    }
+    create(req) {
+        if ("condition") {
+            
+        }
+        
+    }
+    get(req) {
+        
+    }
+    set(req) {
+
+    }
+    append(req) {
+        
+    }
+   
+    delete(req) {
+        
     }
 }
