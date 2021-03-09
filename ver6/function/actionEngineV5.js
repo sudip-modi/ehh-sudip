@@ -109,7 +109,7 @@ var getSignUpFormReq = {
 
 }
 
-var actionFlowModel = {
+var actionFlowModelReq = {
     flowRequest: [
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
@@ -252,10 +252,10 @@ class ActionEngineV5 {
     //                 response.arrayBuffer()
     handleResponse(response) {
 
-        console.log(response, operate.is(response));
+        console.log(response.length, operate.is(response));
         var responseJSON = JSON.parse(response);
         console.log("responseJson",responseJSON);
-        var outputJson = mutate.arr2Object(response, response[0], {});
+        var outputJson = mutate.arr2Object(responseJSON, responseJSON[0], {});
         console.log("Output :- Array To Object");
         console.log(outputJson);
         document.getElementById('output').value = outputJson;
@@ -277,8 +277,6 @@ class ActionEngineV5 {
             var i=0; i++;
             console.log("actionSteps",i, key, actionFlowReq)
         }
-            
-        
     }
 
     validateAll(a, b, callbacks) {
@@ -302,3 +300,4 @@ class ActionEngineV5 {
 
 
 var actionEngineV5Instance = new ActionEngineV5();
+var response = actionEngineV5Instance.runSyncActionFlow(actionFlowModelReq);
