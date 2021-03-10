@@ -39,11 +39,21 @@ var entityModel = {
     // description : "",
     'id': {
         value: 'input.id',
-        operate: ['ifNotPresentGenerate'],
+        'operator': [
+            {
+                'method': 'isInsideArray',
+                'arguments': HTMLElementList
+            }
+        ]
     },
     'entityType': {
-        value: 'input.type',
-        operate: [isoptional],
+        value: 'operate.is(input)',
+        'operator': [
+            {
+                'method': 'isOptional',
+                'arguments': 'value',
+            }
+        ]
     },
     resource: {
         value: 'input.url',
@@ -140,4 +150,6 @@ class ActionEntityV6 {
 
 function processReq(req) {
     
+
+
 }
