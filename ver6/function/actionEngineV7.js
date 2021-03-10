@@ -3,13 +3,13 @@ var savetoStorageReq = {
     reqName: 'savetoStorage',//CommanName
     objectModel: StorageHelperV1,
     method: 'saveToStorage',
-    arguments: ['fromPrevious.name', 'fromPrevious.InnerHTML'],
+    arguments: ['fromPrevious.id', 'fromPrevious.innerHTML'],
     andThen: ['console.log("job Done well Done")', 'updateDomObject']
 }
 var setAttributesReq ={
     objectModel: 'previousResponse',
     method: 'setAttributes',
-    arguments: ['fromPrevious.name','fromPrevious.InnerHTML']
+    arguments: ['fromPrevious.id','fromPrevious.innerHTML']
     
 }
 var updateDomObject = {
@@ -156,23 +156,27 @@ class ActionEngineV9{
                 andThen: currentReq.andThen
             }
             if (previousArgs.length > 0) {
-                console.log(i,"found previous", previousArgs);
+             //   console.log(i,"found previous", previousArgs);
 
                 for (var p = 0; p < previousArgs.length; p++) {
 
-                    console.log(">>>>>>>>>>>>>", this._FlowQue[0].flowRequest[i - 1].actionStepReq)
-                    console.log(inputReq.arguments[p])
+                   // console.log(">>>>>>>>>>>>>", this._FlowQue[0].flowRequest[i - 1].actionStepReq.response)
+                    var currentProp = inputReq.arguments[p].split(".");
+                   // console.log(currentProp[1])
+                   // console.log(this._FlowQue[0].flowRequest[i - 1].actionStepReq.response[currentProp[1]])
+                   // console.log(inputReq.arguments[p])
+                    inputReq.arguments[p] = this._FlowQue[0].flowRequest[i - 1].actionStepReq.response[currentProp[1]]
 //                    this._FlowQue[0].flowRequest[i].actionStepReq[response]
                 }
             }
             
-            console.log(i,inputReq.arguments)
+           // console.log(i,inputReq.arguments)
           // console.log(inputReq)
            currentReq.response = this.executeSyncStep(inputReq);
          //   this._FlowQue[0].flowRequest[i].actionStepReq[response] = this.executeSyncStep(inputReq);
           //  console.log("response",this._FlowQue[0].flowRequest[i].actionStepReq.response);
             if (this._FlowQue[0].flowRequest[i].actionStepReq[response]) flowReq.flowRequest[i].actionStepReq['previousState'] = flowReq.flowRequest[i].actionStepReq['state'], flowReq.flowRequest[i].actionStepReq['state'] = 'done';
-          console.log(i,flowReq.flowRequest[i],currentReq)
+         // console.log(i,flowReq.flowRequest[i],currentReq)
           //  console.log(this._FlowQue)
 
         }
