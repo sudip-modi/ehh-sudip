@@ -3,13 +3,13 @@ var savetoStorageReq = {
     reqName: 'savetoStorage',//CommanName
     objectModel: StorageHelperV1,
     method: 'saveToStorage',
-    arguments: ['fromPrevious.id', 'fromPrevious.innerHTML'],
-    andThen: ['console.log("job Done well Done")', 'updateDomObject']
+    arguments: ['fromPrevious.id.1', 'fromPrevious.innerHTML.1'],
+  //  andThen: ['console.log("job Done well Done")', 'updateDomObject']
 }
 var setAttributesReq ={
     objectModel: 'previousResponse',
     method: 'setAttributes',
-    arguments: ['fromPrevious.id','fromPrevious.innerHTML']
+    arguments: ['fromPrevious.id.1','fromPrevious.innerHTML.1']
     
 }
 var updateDomObject = {
@@ -18,7 +18,7 @@ var updateDomObject = {
     objectModel: document,
     method: 'getElementById',
     arguments: ['output'],
-    andThen: ['setAttributes'],
+    andThen: ['setAttributesReq'],
 
 }
 var reqObjectVer2 = {
@@ -27,7 +27,7 @@ var reqObjectVer2 = {
     method: 'getElementById',
     arguments: ['editor'],
     response:{},
-    andThen: ['savetoStorageReq']
+  //  andThen: ['savetoStorageReq']
 }
 var actionFlowModelReq = {
     flowRequest: [
@@ -35,12 +35,13 @@ var actionFlowModelReq = {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#1',
             actionStepReq: 'reqObjectVer2',
-         //   response: {},
+               response: {},
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#2',
             actionStepReq: 'savetoStorageReq',
+
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
@@ -76,8 +77,7 @@ class ActionEngineV9{
     constructor(objectModelsNMethods) {
         console.log("I aka @ctionEngineV9, am here")
         //this._response = new Map();
-        this._req = [];
-        this._FlowQue = [];
+      this._FlowQue = [];
     }
     //This function maintains a register of executing steps
     queSteps(req) {
@@ -141,10 +141,8 @@ class ActionEngineV9{
             
             var previousArgs = dataHelpers.find(window[flowReq.flowRequest[i].actionStepReq].arguments, 'fromPrevious', 'values');
 
-            
             //check classes and methods || validation with the model here.
-           
-                         
+                                   
             
             var currentReq = window[flowReq.flowRequest[i].actionStepReq];
             flowReq.flowRequest[i].actionStepReq = window[flowReq.flowRequest[i].actionStepReq];;
@@ -155,6 +153,7 @@ class ActionEngineV9{
                 arguments: currentReq.arguments,
                 andThen: currentReq.andThen
             }
+
             if (previousArgs.length > 0) {
              //   console.log(i,"found previous", previousArgs);
 
@@ -162,26 +161,26 @@ class ActionEngineV9{
 
                    // console.log(">>>>>>>>>>>>>", this._FlowQue[0].flowRequest[i - 1].actionStepReq.response)
                     var currentProp = inputReq.arguments[p].split(".");
-                   // console.log(currentProp[1])
+                    console.log(currentProp[2],this._FlowQue[0].flowRequest[currentProp[2]-1].response[currentProp[1]])
                    // console.log(this._FlowQue[0].flowRequest[i - 1].actionStepReq.response[currentProp[1]])
-                   // console.log(inputReq.arguments[p])
-                    inputReq.arguments[p] = this._FlowQue[0].flowRequest[i - 1].actionStepReq.response[currentProp[1]]
+                    
+                    inputReq.arguments[p] = this._FlowQue[0].flowRequest[currentProp[2] - 1].response[currentProp[1]]
 //                    this._FlowQue[0].flowRequest[i].actionStepReq[response]
                 }
             }
             
            // console.log(i,inputReq.arguments)
           // console.log(inputReq)
-           currentReq.response = this.executeSyncStep(inputReq);
-         //   this._FlowQue[0].flowRequest[i].actionStepReq[response] = this.executeSyncStep(inputReq);
+           //currentReq.response = this.executeSyncStep(inputReq);
+            this._FlowQue[0].flowRequest[i]['response'] = this.executeSyncStep(inputReq);
           //  console.log("response",this._FlowQue[0].flowRequest[i].actionStepReq.response);
-            if (this._FlowQue[0].flowRequest[i].actionStepReq[response]) flowReq.flowRequest[i].actionStepReq['previousState'] = flowReq.flowRequest[i].actionStepReq['state'], flowReq.flowRequest[i].actionStepReq['state'] = 'done';
-         // console.log(i,flowReq.flowRequest[i],currentReq)
-          //  console.log(this._FlowQue)
+            if (this._FlowQue[0].flowRequest[i].actionStepReq[response]) flowReq.flowRequest[i].actionStepReq['previousState'] = flowReq.flowRequest[i].actionStepReq['state'], flowReq.flowRequest[i].actionStepReq['state'] = 'ek';
+         // console.log(i,flowReq.flowRequest[i])
+           console.log(this._FlowQue)
 
         }
 
-
+        flowReq['state'] = "ek";
       
     }
     executeAsyncActionStep(actionStep) {
@@ -262,6 +261,6 @@ class ActionEntityV6  {
 }
 
 var actionEngine = new ActionEngineV9();
-//console.log(actionEngine)
+console.log(actionEngine)
 var response = actionEngine.executeSyncFlow(actionFlowModelReq);
 console.log("response out",response)
