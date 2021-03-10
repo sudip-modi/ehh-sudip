@@ -28,6 +28,7 @@ class EditorV7 {
             return "";
         }
         else {
+            console.log(this.text);
             return this.text.substring(this.caretIndex);
         }
     }
@@ -140,7 +141,7 @@ class EditorV7 {
             return true;
         }
     }
-     static moveUp() {
+    static moveUp() {
         if (this.currentLine() == 0) {
             return false;
         }

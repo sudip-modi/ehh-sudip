@@ -3,10 +3,38 @@
 
 
 // iterateAllTheKey's in the Object, InvokeApproprieteMethodOrCallBack.
+var HTMLElementEntityModel = {
+    "name": {
+        "value": {
+            'operator': [
+                {
+                    'method': 'isInsideArray',
+                    'arguments': HTMLElementList
+                }
+            ]
+        }
+    },
+    "id": {
+        "value": {
+            'operator': [
+                {
+                    'method': 'isInt',
+
+                }
+            ]
+        }
+    }
+}
 var entityModel = {
-    'nameTagName': {
+    'name': {
         value: 'input.nameTagName',
-        operate:[isString],
+        'process': [
+            {
+                'objectModel':operate,
+                'method': 'isInsideArray',
+                'arguments': HTMLElementList
+            }
+        ]
     },
     // description : "",
     'id': {
@@ -84,7 +112,6 @@ class processV3 {
         return response;
     }
 }
-
 
 class ActionEntityV6 {
     constructor(req) {
