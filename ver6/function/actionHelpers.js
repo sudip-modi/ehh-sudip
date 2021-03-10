@@ -7,7 +7,23 @@
 // } catch (err) {
 //   console.error(err);
 // }
-console.log(JSON.stringify({ alpha: 'A', beta: 'B' }, null, '\t'));
+
+function* createIndex() {
+    let number = 1;
+    while (true)
+        yield number++;
+}
+
+function uid() {
+    let timmy = Date.now().toString(36).toLocaleUpperCase();
+    let randy = parseInt(Math.random() * Number.MAX_SAFE_INTEGER);
+    randy = randy.toString(36).slice(0, 12).padStart(12, '0').toLocaleUpperCase();
+    return ''.concat(timmy, '-', randy);
+}
+
+
+console.log("Generate Unique Id's Like these>>>>>",uid(),'call me at actionHelper.uid');
+//console.log(JSON.stringify({ alpha: 'A', beta: 'B' }, null, '\t'));
 // Result:
 // '{
 //     "alpha": A,

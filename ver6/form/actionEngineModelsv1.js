@@ -84,3 +84,27 @@ var actionFlowRequestFetch = [
         "request": actionRequest1
     }
 ]
+var objectModelsNmethods = {
+    'objectModels': 'ActionEngine',
+    'objectModelsInterface': ActionEngineV9,
+    
+    methods: [
+        {
+            method: 'executeSyncReq',
+            arguments: {
+                value: null,
+                methods: [
+                    {
+                        objectModel:'operate',
+                        method: 'isObject',
+                        arguments: 'value'
+            }        
+                ]
+            }
+        },
+        
+        
+        
+    ]
+    
+}

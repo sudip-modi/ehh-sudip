@@ -16,7 +16,7 @@
 *:focus{
     box-shadow: 0 0 10px #d6d6d6;
     border-radius: 5px;
- outline:red;
+ outline:none;
 }
 #cursor-placeholder {
     visibility: hidden;
@@ -24,7 +24,7 @@
     width:0;    
 }
 #blinking-cursor {
-  font-weight: 100;
+  font-weight: 1200;
   z-index: 1;
   position: absolute;  
   color: #cdcdcd;
