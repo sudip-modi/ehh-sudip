@@ -107,7 +107,45 @@ class process {
     }
 }
 
+class StorageHelperV1 {
+    constructor(entity) {
+        //  this.entity = getEntityFromStorage()
+        StorageHelper.saveToStorage(entity.name, entity);    //Can we store Objects  
+        this.entity = this.getStorage();
+        //  console.log("Storage >>>>>",this.getStorage);
+    }
+    static saveToStorage() {
+       // console.log("I was called", JSON.stringify(arguments[0][1]) )
+        // data=JSON.stringify(data)
+        //  console.log(actionStorageInstance);
+        localStorage.setItem(arguments[0][0], JSON.stringify(arguments[0][1]));
+    }
 
+    static getFromStorage(key) {
+        let data = localStorage.getItem(key)
+        return JSON.parse(data);
+    }
+    getStorage() {
+        return window.localStorage;
+    }
+
+
+    static clearStorage() {
+        localStorage.clear()
+    }
+    getMemoryUse(name, callback) {
+        chrome.storage.local.getBytesInUse(name, callback);
+    };
+    static export(fileName, json) {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(json, null, 2)], {
+            type: "application/json"
+        }));
+        a.setAttribute("download", `${fileName}.json`);
+        document.body.appendChild(a);
+        a.click();
+    }
+}
 
 class operate {
 
@@ -212,9 +250,10 @@ class operate {
 
 class dataHelpers {
 
-    static find(entity, keyTofind) {
-        //console.log("finding", keyTofind, "in", entity);
-        var result = Object.keys(entity).filter(function (key, index, self) {
+    static find(entity, keyTofind,lookat) {
+      // console.log("finding", keyTofind, "in", entity,lookat);
+        var result = Object[lookat](entity).filter(function (key, index, self) {
+         //   console.log(key, index, self);
             return !key.indexOf(keyTofind);
         });
         return result;

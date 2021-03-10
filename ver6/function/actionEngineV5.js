@@ -385,13 +385,13 @@ class ActionEngineV5 {
 
         // }
     }
-
+        //Returns True only if all are trues, else breaks
     validateAll(a, b, callbacks) {
         return callbacks.every(function (callback) { return operate[callback](a, b); });
        
     }
     validateSome() {
-        
+        return callbacks.some(function (callback) { return operate[callback](a, b); });
     }
    
 }

@@ -123,30 +123,6 @@ class processV3 {
     }
 }
 
-class ActionEntityV6 {
-    constructor(req) {
-        this._entity = processV3.processReq(req);
-    }
-    create(req) {
-        if ("condition") {
-            
-        }
-        
-    }
-    get(req) {
-        
-    }
-    set(req) {
-
-    }
-    append(req) {
-        
-    }
-   
-    delete(req) {
-        
-    }
-}
 
 function processReq(req) {
     
