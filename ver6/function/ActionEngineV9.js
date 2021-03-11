@@ -5,16 +5,12 @@ var savetoStorageReq = {
     method: 'saveToStorage',
     arguments: [
         {
-            reqName: 'resolveInClass',
-            objectModel: window,
-            method: 'activeFlow[0].response[0]',
-            attribute:'id'
+            "$ref": 'activeFlow[0].response[0]',
+           attribute:'id'
             
         },
         {
-            reqName: 'resolveInClass',
-            objectModel: window,
-            method: 'activeFlow[0].response[0]',
+            "$ref": 'activeFlow[0].response[0]',
             attribute: 'innerHTML'
 
         },],
