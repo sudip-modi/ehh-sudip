@@ -99,6 +99,56 @@ class ActionEngineV9 {
         }
         
     }
+    runSyncFlow(req) {
+        if (operate.is(req.flowRequest) != 'Array') return console.log("why do you keep making mistakes");
+        //  console.log(flowReq);
+        this._flowsInAction.push(req);
+        var activeFlow = this._flowsInAction[this._flowsInAction.length-1].flowRequest;
+        console.log(activeFlow,req.flowRequest)
+        
+      //  console.log(this._flowsInAction); req['state'] = "shunya";
+        for (var activeReq = 0; activeReq < activeFlow.length; activeReq++) {
+          //  console.log("req", req.state, req.flowRequest[activeReq].actionStepReq)
+            var actionStep = window[activeFlow[activeReq].actionStepReq];
+            console.log(">>>>>", actionStep)
+
+            if (typeof actionStep.arguments[0]==='object') {
+            
+                
+              
+                //console.log("here", actionStep.arguments)
+                //console.log(actionStep.arguments.length)
+
+                for (var i = 0; i < actionStep.arguments.length; i++) {
+
+                    console.log(actionStep.arguments[i],activeFlow);
+                  //  console.log(this._flowsInAction[0].flowRequest[i])
+                 //   var tem = window[actionStep.arguments[i].method]
+                  //  console.log(tem);
+
+                }
+                
+                
+            } else {
+                var response = this.runSyncStep(actionStep);
+            }
+            
+            
+           
+           //Building reponse
+            if (!operate.isUndefined(response)) {
+                //    console.log(response,req.response,req)
+                activeFlow[activeReq].response.push(response);
+               // return response;
+            } else {
+                //  console.log(response, req.response, req)
+                activeFlow.response.push("Success");
+               // return "Success";
+            }
+          //  console.log("response", activeFlow, actionStep);
+        }
+        
+    }
     runAsyncStep(req) {
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
@@ -143,53 +193,7 @@ class ActionEngineV9 {
         //     })
         //     .catch(err => console.error(err))
     }
-    runSyncFlow(req) {
-        if (operate.is(req.flowRequest) != 'Array') return console.log("why do you keep making mistakes");
-        //  console.log(flowReq);
-        this._flowsInAction.push(req);
-        var activeFlow = this._flowsInAction[this._flowsInAction.length-1].flowRequest;
-        console.log(activeFlow,req.flowRequest)
-        
-      //  console.log(this._flowsInAction); req['state'] = "shunya";
-        for (var activeReq = 0; activeReq < activeFlow.length; activeReq++) {
-          //  console.log("req", req.state, req.flowRequest[activeReq].actionStepReq)
-            var actionStep = window[activeFlow[activeReq].actionStepReq];
-            console.log(">>>>>", actionStep)
-
-            if (typeof actionStep.arguments[0]==='object') {
-            
-                
-                var tempo = activeFlow;
-                console.log("here", actionStep.arguments)
-                //console.log(actionStep.arguments.length)
-
-                for (var i = 0; i < actionStep.arguments.length; i++) {
-                    console.log(actionStep.arguments[i]);
-                    console.log(this._flowsInAction[0].flowRequest[i])
-                    var tem = window[actionStep.arguments[i].method]
-                    console.log(tem);
-
-                }
-                
-                
-            }
-            
-            var response = this.runSyncStep(actionStep);
-           
-           //Building reponse
-            if (!operate.isUndefined(response)) {
-                //    console.log(response,req.response,req)
-                activeFlow[activeReq].response.push(response);
-               // return response;
-            } else {
-                //  console.log(response, req.response, req)
-                activeFlow.response.push("Success");
-               // return "Success";
-            }
-          //  console.log("response", activeFlow, actionStep);
-        }
-        
-    }
+    
 
 }
  
