@@ -3,15 +3,14 @@ var savetoStorageReq = {
     reqName: 'savetoStorage',//CommanName
     objectModel: StorageHelperV1,
     method: 'saveToStorage',
-    arguments: [
-        {
+    arguments: [        {
             "$ref": 'activeFlow[0].response[0]',
-           attribute:'id'
+           'attribute':'id'
             
         },
         {
             "$ref": 'activeFlow[0].response[0]',
-            attribute: 'innerHTML'
+            'attribute': 'innerHTML'
 
         },],
          
@@ -106,7 +105,7 @@ class ActionEngineV9 {
         for (var activeReq = 0; activeReq < activeFlow.length; activeReq++) {
           //  console.log("req", req.state, req.flowRequest[activeReq].actionStepReq)
             var actionStep = window[activeFlow[activeReq].actionStepReq];
-            console.log(">>>>>", actionStep)
+            
 
             if (typeof actionStep.arguments[0]==='object') {
             
@@ -117,7 +116,14 @@ class ActionEngineV9 {
 
                 for (var i = 0; i < actionStep.arguments.length; i++) {
 
-                    console.log(actionStep.arguments[i],activeFlow);
+                    console.log(actionStep.arguments[i], activeFlow);
+                    var currentArg = actionStep.arguments[i]["$ref"]
+                    console.log(currentArg.split("."));
+                    var currentArgSet = currentArg.split(".");
+                    console.log(currentArgSet);
+                    for (var argsIndex = 0; argsIndex < currentArgSet.length; argsIndex++) {
+                        console.log(currentArgSet[argsIndex])
+                    }
                   //  console.log(this._flowsInAction[0].flowRequest[i])
                  //   var tem = window[actionStep.arguments[i].method]
                   //  console.log(tem);
