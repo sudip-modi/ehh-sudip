@@ -1,27 +1,18 @@
-
+/**
+ * Todo : Need to simplfy $Ref
+ */
 var savetoStorageReq = {
     reqName: 'savetoStorage',//CommanName
     objectModel: StorageHelperV1,
     method: 'saveToStorage',
-    arguments: [        {
-            "$ref": 'activeFlow[0].response[0]',
-           'attribute':'id'
-            
-        },
-        {
-            "$ref": 'activeFlow[0].response[0]',
-            'attribute': 'innerHTML'
-
-        },],
-         
-    
+    arguments: [ { "$ref": [['flowRequest'],[0],['response'],[0],['id']] },{ "$ref": [['flowRequest'], [0], ['response'], [0], ['innerHTML']],},],
     response: [],
     //  andThen: ['console.log("job Done well Done")', 'updateDomObject']
 }
 var setAttributesReq = {
     objectModel: 'previousResponse',
     method: 'setAttributes',
-    arguments: ['fromPrevious.id.1', 'fromPrevious.innerHTML.1']
+    arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0], ['id']] }, { "$ref": [['flowRequest'], [0], ['response'], [0], ['innerHTML']], },],
 
 }
 var updateDomObject = {
@@ -98,8 +89,10 @@ class ActionEngineV9 {
         if (operate.is(req.flowRequest) != 'Array') return console.log("why do you keep making mistakes");
         //  console.log(flowReq);
         this._flowsInAction.push(req);
-        var activeFlow = this._flowsInAction[this._flowsInAction.length-1].flowRequest;
-        console.log(activeFlow,req.flowRequest)
+        var activeFlowIndex = this._flowsInAction.length - 1;
+        var activeFlow = this._flowsInAction[activeFlowIndex].flowRequest;
+        
+        //console.log(activeFlow,req.flowRequest)
         
       //  console.log(this._flowsInAction); req['state'] = "shunya";
         for (var activeReq = 0; activeReq < activeFlow.length; activeReq++) {
@@ -107,30 +100,14 @@ class ActionEngineV9 {
             var actionStep = window[activeFlow[activeReq].actionStepReq];
             
 
-            if (typeof actionStep.arguments[0]==='object') {
-            
-                
-              
-                //console.log("here", actionStep.arguments)
-                //console.log(actionStep.arguments.length)
-
+            if (typeof actionStep.arguments[0]==='object') {              
                 for (var i = 0; i < actionStep.arguments.length; i++) {
-
-                    console.log(actionStep.arguments[i], activeFlow);
-                    var currentArg = actionStep.arguments[i]["$ref"]
-                    console.log(currentArg.split("."));
-                    var currentArgSet = currentArg.split(".");
-                    console.log(currentArgSet);
-                    for (var argsIndex = 0; argsIndex < currentArgSet.length; argsIndex++) {
-                        console.log(currentArgSet[argsIndex])
-                    }
-                  //  console.log(this._flowsInAction[0].flowRequest[i])
-                 //   var tem = window[actionStep.arguments[i].method]
-                  //  console.log(tem);
-
+                    var argss = actionStep.arguments[i]['$ref'];
+                   var parsedArgss = this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]][argss[4]];
+                   // console.log(parsedArgss);
+                    actionStep.arguments[i] = parsedArgss;
                 }
-                
-                
+                var response = this.runSyncStep(actionStep);
             } else {
                 var response = this.runSyncStep(actionStep);
             }
