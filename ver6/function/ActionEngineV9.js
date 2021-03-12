@@ -34,6 +34,7 @@ var getObjectVer2 = {
    // andThen: ['savetoStorageReq']
 }
 
+
 var actionFlowModelReq = {
     flowRequest: [
         {
@@ -89,7 +90,8 @@ var entity2 = {
 var copyObj2 = {
     objectModel: ActionEntityV9,
     method: 'copyObj2',
-    arguments:[()]
+    arguments: [('navigationSection'), 'entity2']
+    
 }
 
 var html2JsonactionFlowModelReq = {
