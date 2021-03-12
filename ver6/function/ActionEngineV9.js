@@ -87,19 +87,13 @@ var entity2 = {
     },
     content: [],
 }
-var copyObj2 = {
-    objectModel: ActionEntityV9,
-    method: 'copyObj2',
-    arguments: [('navigationSection'), 'entity2']
-    
-}
 
 var html2JsonactionFlowModelReq = {
     flowRequest: [
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#1',
-            actionStepReq: 'getObjectVer2',
+            actionStepReq: 'copy2',
             actionRoute: 'runSyncStep',
             response: [],
         },
@@ -152,11 +146,13 @@ class ActionEngineV9 {
                    // console.log(response)
                 }               
             } else {
-                
+                console.log(">>>>>>>>>>>>>>", req.objectModel, req.method)
+             //   var response2 = window[req.objectModel][req.method]("abc");
                 var response = req.objectModel[req.method](req.arguments);
+                console.log("response",response2)
             }
             
-
+//handle output
             if (!operate.isUndefined(response)) {
               //  console.log(response,"now")
                 req.response.push(response);
@@ -181,12 +177,14 @@ class ActionEngineV9 {
         var activeFlowIndex = this._flowsInAction.length - 1;
         var activeFlow = this._flowsInAction[activeFlowIndex].flowRequest;
         
-        //console.log(activeFlow,req.flowRequest)
+        
         
       //  console.log(this._flowsInAction); req['state'] = "shunya";
         for (var activeReq = 0; activeReq < activeFlow.length; activeReq++) {
-          //  console.log("req", req.state, req.flowRequest[activeReq].actionStepReq)
+            console.log("req", req.state, req.flowRequest[activeReq].actionStepReq)
+            
             var actionStep = window[activeFlow[activeReq].actionStepReq];
+            console.log(activeFlow[activeReq].actionStepReq)
             if (typeof actionStep.arguments[0]==='object') {              
                 for (var i = 0; i < actionStep.arguments.length; i++) {
                     var argss = actionStep.arguments[i]['$ref'];
@@ -283,12 +281,15 @@ class processV5 {
     }
 }
 
-class actionEntityV9 {
+class ActionEntityV9 {
     constructor() {
-        
+
+    }
+    static copy2() {
+        console.log(arguments);
     }
     set() {
-        
+
     }
 }
 

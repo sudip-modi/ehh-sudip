@@ -104,6 +104,13 @@ var objectModelsNmethods = {
         },   
     ]   
 }
+
+var copy2 = {
+    objectModel: 'ActionEntityV9',
+    method: 'copy2',
+    arguments: ['navigationSection', 'entity2']
+
+}
 var actionStepGetRequest = {
     class: 'httpServiceV2',
     method: 'serverNodeReqSwitcher',
