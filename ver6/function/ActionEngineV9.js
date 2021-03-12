@@ -75,6 +75,23 @@ var entity= {
     },
     content:[],
 }
+var entity2 = {
+    name: "",
+    type: "",
+    nodeType: '',
+    attributes: {
+        style: "",
+        class: '',
+        innerText: '',
+    },
+    content: [],
+}
+var copyObj2 = {
+    objectModel: ActionEntityV9,
+    method: 'copyObj2',
+    arguments:[()]
+}
+
 var html2JsonactionFlowModelReq = {
     flowRequest: [
         {
