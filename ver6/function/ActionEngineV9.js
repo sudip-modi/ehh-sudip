@@ -33,6 +33,7 @@ var getObjectVer2 = {
     response: [],
    // andThen: ['savetoStorageReq']
 }
+
 var actionFlowModelReq = {
     flowRequest: [
         {
@@ -60,6 +61,7 @@ var actionFlowModelReq = {
 
     ],
 }
+
 console.log(testingServerServiceUrl)
 
 var entity= {
@@ -261,6 +263,16 @@ class processV5 {
         }
     }
 }
+
+class actionEntityV9 {
+    constructor() {
+        
+    }
+    set() {
+        
+    }
+}
+
  
 
 
