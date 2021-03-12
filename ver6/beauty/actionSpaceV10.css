@@ -79,3 +79,16 @@
     color: #cdcdcd;
   }
 }
+#output{
+background-color: rgb(240, 240, 240);
+}
+#output::before{
+  content: attr(id);
+  position: relative;
+  top: -1em;
+  margin-bottom: -1em;
+  visibility: hidden;
+}
+#output:hover::before{
+  visibility: visible;
+}

@@ -86,7 +86,7 @@ var actionFlowRequestFetch = [
 ]
 var objectModelsNmethods = {
     'objectModels': 'ActionEngine',
-    'objectModelsInterface': ActionEngineV9,
+    'objectModelsInterface': 'ActionEngineV9',
     
     methods: [
         {
@@ -101,10 +101,107 @@ var objectModelsNmethods = {
             }        
                 ]
             }
+        },   
+    ]   
+}
+var actionStepGetRequest = {
+    class: 'httpServiceV2',
+    method: 'serverNodeReqSwitcher',
+    arguments: ['testingServerServiceUrl', httpGetReqObject],
+    'stepParams': { // defining the parameters of recusiosn and output
+        'Every1': false,// this is to check if Need to apply same method on all the argument individually.
+        outPutCondition: null,//an operator can be added,if True, if False
+        output: {
+            outputType: 'callback',// [isOneof ( response, callback//operator) ]
+            callBackReq: {
+                callbackClass: document,
+                callback: 'getElementById',
+                args: "output",
+                andThen: 'innerHTML',
+                andThenArgs: ['innerHTML'],
+                //      test: buildActionRequest.buildParams.recurse
+            }
+        }
+
+
+    }
+}
+var savetoStorageReq = {
+    reqName: 'savetoStorage',//CommanName
+    objectModel: StorageHelperV1,
+    method: 'saveToStorage',
+    arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0], ['id']] }, { "$ref": [['flowRequest'], [0], ['response'], [0], ['innerHTML']], },],
+    response: [],
+    //  andThen: ['console.log("job Done well Done")', 'updateDomObject']
+}
+var setAttributesReq = {
+    method: 'setAttribute',
+    arguments: ["innerHTML", { "$ref": [['flowRequest'], [0], ['response'], [0], ['innerHTML']], },],
+
+
+}
+var updateDomObject = {
+    reqName: 'updateDomObject',//CommanName
+
+    objectModel: document,
+    method: 'getElementById',
+    arguments: ['output'],
+    response: [],
+    andThen: ['setAttributesReq'],
+
+}
+var reqObjectVer2 = {
+    reqName: 'getElement',//CommanName
+    objectModel: document,
+    method: 'getElementById',
+    arguments: ['editor'],
+    response: [],
+    //  andThen: ['savetoStorageReq']
+}
+var actionFlowModelReq = {
+    flowRequest: [
+        {
+            actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
+            actionStepIndex: 'index#1',
+            actionStepReq: 'reqObjectVer2',
+            actionRoute: 'runSyncStep',
+            response: [],
         },
-        
-        
-        
-    ]
-    
+        {
+            actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
+            actionStepIndex: 'index#2',
+            actionStepReq: 'savetoStorageReq',
+            actionRoute: 'runSyncStep',
+            response: [],
+        },
+        {
+            actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
+            actionStepIndex: 'index#3',
+            actionStepReq: 'updateDomObject',
+            actionRoute: 'runSyncStep',
+            response: []
+
+        },
+
+    ],
+}
+
+var requestBody = {
+    resourceID: '1LIFMxfGptICuOEoPZAd-IrKLy1dhN3s9Fem4SDweSJk',
+    entityName: 'signUpFromSchemaModel',
+
+}
+var httpGetReqObject = {
+    method: 'GET',
+    mode: 'no-cors',
+    body: requestBody,
+}
+var httpPostReqObject = {
+    method: 'POST', // or 'PUT'
+    mode: 'no-cors',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    // cache: 'no-cache',
+    //  body: requestBody,
 }
