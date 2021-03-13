@@ -1,5 +1,6 @@
 /**
  * Todo : Need to simplfy $Ref
+ * https://restfulapi.net/json-jsonpath/
  */
 var savetoStorageReq = {
     reqName: 'savetoStorage',//CommanName
@@ -33,7 +34,6 @@ var getObjectVer2 = {
     response: [],
    // andThen: ['savetoStorageReq']
 }
-
 
 var actionFlowModelReq = {
     flowRequest: [
@@ -76,31 +76,32 @@ var entity= {
     },
     content:[],
 }
+var entity3 = "tagName";
 var entity2 = {
-    name: "",
-    type: "",
+    tagName: "",
     nodeType: '',
-    attributes: {
+    content: '',
+   attributes: {
+        type: "",
         style: "",
         class: '',
         innerText: '',
     },
-    content: [],
+    children: [],
 }
-
 var html2JsonactionFlowModelReq = {
     flowRequest: [
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#1',
-            actionStepReq: 'copy2',
+            actionStepReq: 'getObjectVer2',
             actionRoute: 'runSyncStep',
             response: [],
         },
         {
             actionStepName: 'Generic', //Name Identifier is used for maintaining the templates of the Model.
             actionStepIndex: 'index#2',
-            actionStepReq: 'savetoStorageReq',
+            actionStepReq: 'copy2Req',
             actionRoute: 'runSyncStep',
             response: [],
         },
@@ -108,12 +109,121 @@ var html2JsonactionFlowModelReq = {
 
     ],
 }
+
+class ActionEntityV9 {
+    constructor() {
+
+    }
+    static copy2(req) {
+        var args = {
+            input: req[0],
+            output: req[1],
+            callback:'setEntityReq',
+            maxDepth: 5,
+        }
+
+        if (!operate.isObject(req[1])) {
+            
+            response = req[0][req[1]];
+            console.log(response);
+            // processV5.iterateObj(args);
+        } else if (operate.isObject(req[1])) {
+          
+            processV5.iterateObj(args);
+            console.log(args);
+        }
+        
+    }
+    static setEntity([input, output, key]) {
+
+        //console.log(input, output, output?.constructor.name);
+        var outputType = operate.is(output);
+        output[key] = input[key];
+     //  console.log("lkj",output)
+
+        //return output;
+    }
+}
+
+class processV5 {
+    static iterateObj(args) {
+        var response;
+        for (var key in args.output) {
+
+            if (!operate.isUndefined(args.input[key])) { // if there is no value in input
+                
+
+                if (typeof args.output[key] != 'object') {
+  //                  console.log(key, args.input[key], ">>>>")
+
+                    
+                   // args.output[key] = args.input[key];
+                    response = args.input[key];
+//console.log(">>>>>>>>>>>>>>>>",response)
+
+
+                } else if (operate.isObject(args.output[key])) {
+
+                    console.log(key, args.input[key], operate.is(args.input[key]));
+                    
+                }
+
+
+            }
+
+
+                // console.log(key, args.data[key], operate.is(args.data[key]),typeof args.data[key]);
+                // if (typeof args.data[key] != 'object') {
+                 
+                //     console.log(key, args.data[key], operate.is(args.data[key]));
+                //     args.input[key] = args.data[key];
+                // }
+                // if (operate.isObject(args.data[key])) {
+                    
+                //   console.log(key, args.data[key])
+                // }
+
+            if (args.callback) {
+                if (window[args.callback]) {
+                    args.callback = window[args.callback];
+                    args.callback.arguments[0] = args.input;
+                    args.callback.arguments[1] = args.output;
+                    args.callback.arguments[2] = key;
+
+                }
+                //console.log(args.callback.arguments);
+                var response = args.callback.objectModel[args.callback.method](args.callback.arguments)
+                //console.log("here",response,args.output);
+                }
+            
+        }
+
+    }
+}
+var setEntityReq = {
+    objectModel: ActionEntityV9,
+    method: 'setEntity',
+    arguments:['input','output','key']
+}
+
+
+var copy2Req = {
+    objectModel: ActionEntityV9,
+    method: 'copy2',
+    arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0]] }, entity2, ],
+   response: []
+
+}
+
 class ActionEngineV9 {
     constructor() {
-        console.log("I aka @ctionEngineV9, am here")
+       // console.log("I aka @ctionEngineV9, am here")
 
         this._flowsInAction = [];
+        this._req = [];
     }
+   
+   
     runSyncStep(req, activeFlowIndex) {
         req['state'] = "ek";
         if (operate.isObject(req) != true) {
@@ -146,10 +256,11 @@ class ActionEngineV9 {
                    // console.log(response)
                 }               
             } else {
-                console.log(">>>>>>>>>>>>>>", req.objectModel, req.method)
-             //   var response2 = window[req.objectModel][req.method]("abc");
+              //  console.log(">>>>>>>>>>>>>>", req.objectModel, req.method)
+              //  req.objectModel = window[req.objectModel];
+//                console.log(req.objectModel)
                 var response = req.objectModel[req.method](req.arguments);
-                console.log("response",response2)
+               // console.log("response",response)
             }
             
 //handle output
@@ -158,7 +269,7 @@ class ActionEngineV9 {
                 req.response.push(response);
                 return response;
             } else {
-              //  console.log(response, req.response, req)
+             //  console.log(response, req.response, req)
                 req.response.push("Success");
                 return "Success";
             }
@@ -177,20 +288,27 @@ class ActionEngineV9 {
         var activeFlowIndex = this._flowsInAction.length - 1;
         var activeFlow = this._flowsInAction[activeFlowIndex].flowRequest;
         
-        
-        
       //  console.log(this._flowsInAction); req['state'] = "shunya";
         for (var activeReq = 0; activeReq < activeFlow.length; activeReq++) {
-            console.log("req", req.state, req.flowRequest[activeReq].actionStepReq)
+          // console.log("Starting Next req", req.state, req.flowRequest[activeReq].actionStepReq)
             
             var actionStep = window[activeFlow[activeReq].actionStepReq];
-            console.log(activeFlow[activeReq].actionStepReq)
+            
+           // console.log(activeFlow[activeReq].actionStepReq)
             if (typeof actionStep.arguments[0]==='object') {              
                 for (var i = 0; i < actionStep.arguments.length; i++) {
-                    var argss = actionStep.arguments[i]['$ref'];
-                   var parsedArgss = this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]][argss[4]];
-                   // console.log(parsedArgss);
-                    actionStep.arguments[i] = parsedArgss;
+
+                    if (actionStep.arguments[i]['$ref']) {
+                        var argss = actionStep.arguments[i]['$ref'];
+                        console.log(argss, actionStep.arguments)
+                        var tempo = ['flowRequest']
+                        console.log(tempo[0]);
+                        //var parsedArgss = this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]][argss[4]];
+                       // var parsedArgss = this._flowsInAction[activeFlowIndex][tempo[0]];
+                        var parsedArgss = this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]];
+                       console.log(parsedArgss);
+                        actionStep.arguments[i] = parsedArgss;
+                    }
                 }
               
                 var response = this[activeFlow[activeReq].actionRoute](actionStep, activeFlowIndex);
@@ -201,7 +319,7 @@ class ActionEngineV9 {
             }
             
             
-            console.log(response);
+        //   console.log(response);
            //Building reponse
             if (!operate.isUndefined(response)) {
                 //    console.log(response,req.response,req)
@@ -212,10 +330,10 @@ class ActionEngineV9 {
                 activeFlow.response.push("Success");
                // return "Success";
             }
-          //  console.log("response", activeFlow, actionStep);
+         //  console.log("response", activeFlow, actionStep,response);
         }
         req['state'] = "ek";
-console.log(this._flowsInAction)
+//console.log(this._flowsInAction)
         return response;
     }
     runAsyncStep(req) {
@@ -271,34 +389,20 @@ console.log(this._flowsInAction)
            
 
     }
-}
-class processV5 {
-    iterateObj(args) {
-        for (var key in args.input) {
-            if (args.callback)
-                var response = runSyncStep(req);
-        }
+    onInterval(method,[delay],req) {
+        var intervalID = scope.setInterval(method, delay, req1, re2);
     }
+    
 }
 
-class ActionEntityV9 {
-    constructor() {
 
-    }
-    static copy2() {
-        console.log(arguments);
-    }
-    set() {
-
-    }
-}
-
- 
 
 
 var actionEngineV9Instance = new ActionEngineV9();
-console.log(actionEngineV9Instance)
+//console.log(actionEngineV9Instance)
 
 //var output = actionEngineV9Instance.runSyncFlow(actionFlowModelReq)
 var output = actionEngineV9Instance.runSyncFlow(html2JsonactionFlowModelReq)
-console.log(output);
+
+
+

@@ -108,9 +108,10 @@ var objectModelsNmethods = {
 var copy2 = {
     objectModel: 'ActionEntityV9',
     method: 'copy2',
-    arguments: ['navigationSection', 'entity2']
-
+    arguments: ['navigationSection', 'entity2'],
+    response:[],
 }
+
 var actionStepGetRequest = {
     class: 'httpServiceV2',
     method: 'serverNodeReqSwitcher',
@@ -133,6 +134,7 @@ var actionStepGetRequest = {
 
     }
 }
+
 var savetoStorageReq = {
     reqName: 'savetoStorage',//CommanName
     objectModel: StorageHelperV1,
@@ -149,13 +151,11 @@ var setAttributesReq = {
 }
 var updateDomObject = {
     reqName: 'updateDomObject',//CommanName
-
     objectModel: document,
     method: 'getElementById',
     arguments: ['output'],
     response: [],
     andThen: ['setAttributesReq'],
-
 }
 var reqObjectVer2 = {
     reqName: 'getElement',//CommanName
@@ -198,11 +198,13 @@ var requestBody = {
     entityName: 'signUpFromSchemaModel',
 
 }
+
 var httpGetReqObject = {
     method: 'GET',
     mode: 'no-cors',
     body: requestBody,
 }
+
 var httpPostReqObject = {
     method: 'POST', // or 'PUT'
     mode: 'no-cors',
