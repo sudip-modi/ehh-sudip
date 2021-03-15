@@ -1,3 +1,17 @@
+
+var resourceStates = ['inDom', 'inEntityModel', 'inLocalStorage', '']
+var eventStates = ['mouseOver', 'mouseDown', 'inFocus', 'active']
+var actionEditorStates = []
+
+
+var InitStateReq = {
+    objectModel: document,
+    method: 'querySelectorAll(' * ')',
+    andThen: {
+        method: forEach,
+        arguments:[]
+    }
+}
 class actionState {
     static initState(e) {
         var nodes = [];
