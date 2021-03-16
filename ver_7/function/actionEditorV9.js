@@ -37,7 +37,7 @@ class ActionEditorV9 {
             + this.textAfterCaret();
     }
     type(c,e) { //is a boolean
-       console.log(c,e.target)
+       console.log(c,e.target.innerText)
         this.text = this.textBeforeCaret() + c + this.textAfterCaret();
         var currentSelection = window.getSelection();
         var focusText = currentSelection.anchorNode.data;
