@@ -68,6 +68,7 @@ var entityModel = {
      resourceBinding:''
 }
 
+
 var reqOutputModel = {
     entityName: 'entityName',
     entityId: 'entityId',

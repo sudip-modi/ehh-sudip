@@ -211,8 +211,7 @@ var copy2Req = {
     objectModel: ActionEntityV9,
     method: 'copy2',
     arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0]] }, entity2, ],
-   response: []
-
+   response: [],
 }
 
 class ActionEngineV9 {
