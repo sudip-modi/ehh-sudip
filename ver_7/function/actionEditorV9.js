@@ -1,36 +1,33 @@
 class ActionEditorV9 {
     constructor(element) {
-        
+        this._currentSelection = window.getSelection();
+      //  this._focusText = this._currentSelection.anchorNode.data;
+       this._currentCaret = this._currentSelection.anchorOffset;
         
     }
-    getCaretIndex(element) {
-        let position = 0;
-        const isSupported = typeof window.getSelection !== "undefined";
-        if (isSupported) {
-            const selection = window.getSelection();
-            if (selection.rangeCount !== 0) {
-                const range = window.getSelection().getRangeAt(0);
-                const preCaretRange = range.cloneRange();
-                preCaretRange.selectNodeContents(element);
-                preCaretRange.setEnd(range.endContainer, range.endOffset);
-                position = preCaretRange.toString().length;
-            }
-        }
-        console.log("carretPostion",position)
-        return position;
-    }
+
     textBeforeCaret() {
-        if (this.caretIndex == 0) {
+        var currentSelection = window.getSelection();
+        var focusText = currentSelection.anchorNode.data;
+        var currentCaret = currentSelection.anchorOffset;
+        if (currentCaret == 0) {
             return "";
         } else {
-            return this.text.substring(0, this.caretIndex);
+          
+            return focusText.substring(0, currentCaret);
         }
     }
     textAfterCaret() {
-        if (this.caretIndex == this.text.length) {
+        var currentSelection = window.getSelection();
+        var focusText = currentSelection.anchorNode.data;
+        var currentCaret = currentSelection.anchorOffset;
+
+        if (currentCaret == focusText.length) {
             return "";
         } else {
-            return this.text.substring(this.caretIndex);
+           return focusText.substring(currentCaret);
+
+            
         }
     }
     generateHtml() {
@@ -39,9 +36,15 @@ class ActionEditorV9 {
             + "<span id='cursor-placeholder'>|</span>"
             + this.textAfterCaret();
     }
-    type(c) { //is a boolean
+    type(c,e) { //is a boolean
+       console.log(c,e.target)
         this.text = this.textBeforeCaret() + c + this.textAfterCaret();
-        this.caretIndex = this.caretIndex + 1;
+        var currentSelection = window.getSelection();
+        var focusText = currentSelection.anchorNode.data;
+        console.log("old text", focusText,currentSelection)
+        focusText = this.text;
+        console.log("new text", focusText)
+        this._currentCaret = this._currentCaret + 1;
     }
     deleteChar() { //is a boolean
         if (this.textBeforeCaret().length > 0) {
@@ -70,6 +73,15 @@ class ActionEditorV9 {
     }
 
 }
+class ActionEntityV9 {
+    constructor() {
+        
+    }
+    insert() {
+        
+    }
+
+}
 
 
 var editorElement = document.getElementById('editor');
@@ -81,14 +93,19 @@ function init(element) {
    
         document.addEventListener('keypress',
             function (e) {
-                var currentSelection = window.getSelection();
-                var focusText = currentSelection.anchorNode.data;
-                  var focusTextEntity = e.target.textContent; //Pure text
-                var focusEntityInnerText = e.target.innerText; // Rendered Text
+                console.log(editor.textBeforeCaret())
+                console.log(editor.textAfterCaret())
+                e.preventDefault();
+                editor.type(e.key,e);
+              
                 // console.log("focusEntityInnerText", currentSelection);
-                var currentCaret = currentSelection.anchorOffset;
-                console.log(currentCaret)
-                
+              
+                //console.log(currentCaret,focusText.length,e.target.innerText.length)
+               
+
+               
+                //var textBeforeCaret = focusText.substring(0, currentCaret);
+                //console.log(textBeforeCaret,caretIndex);
             
     //    if (e.which == 8 && editor.deleteChar()) {
     //         editor.updateHtml(e.target);
@@ -99,9 +116,10 @@ function init(element) {
     //     if (e.which == 39 && editor.moveRight()) {
     //         editor.updateHtml(e.target);
     //     };
-                console.log("keypress",e.key)
-                var c = String.fromCharCode(e.which);
-                console.log(e.target);
+                
+                
+             
+             //   console.log(e.target);
                 // editor.type(c, e.target);
                 // editor.updateHtml(e.target);
 
