@@ -5,12 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #viewport {
+    -webkit-perspective: 700px;
+}
+#camera {
+    -webkit-transform-style: preserve-3d;
+}
+    </style>
 </head>
 <body>
     
+<div id="viewport">
+    <div id="camera">
+        <div id="assembly">
+            <!-- Geometry elements inside here -->
+        </div>
+    </div>
+</div>
 
 
-
-    
+    <script>
+        function transform(cameraElem, assemblyElem, camera) {
+                var orient = camera.getOrientation();
+                var pos = camera.getPosition();
+                cameraElem.style.WebkitTransform = "rotateX(" + orient[0] + "deg) " +
+                    "rotateY(" + orient[1] + "deg) " +
+                    "rotateZ(" + orient[2] + "deg)";
+                assemblyElem.style.WebkitTransform = "translate3d(" + (-pos[0]) + "px, " +
+                    (-pos[1]) + "px, " +
+                    (-pos[2]) + "px)";
+            }
+    </script>
 </body>
 </html>
