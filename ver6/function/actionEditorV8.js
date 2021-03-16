@@ -3,6 +3,8 @@ class EditorV8 {
     constructor() {
         this.caretIndex = 0;
         this.text = "";
+        this.element = "";
+        
         console.log(this.text)
     }
      textBeforeCaret() {
