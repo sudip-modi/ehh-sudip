@@ -71,7 +71,8 @@ function init(element) {
                 var focusEntityInnerText = e.target.innerText; // Rendered Text
                 // console.log("focusEntityInnerText", currentSelection);
                 var currentCaret = currentSelection.anchorOffset;
-    console.log(currentCaret)
+                console.log(currentCaret)
+                
             
     //    if (e.which == 8 && editor.deleteChar()) {
     //         editor.updateHtml(e.target);
