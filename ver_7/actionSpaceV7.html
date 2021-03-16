@@ -6,10 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>actionSpaceV7</title>
 </head>
-<body>
-    <div id= "actionSpace">
-      
-    </div>
+<body><h1>actionSpace</h1>
+    <div id="BodyWorkspace">
+        <!-- HERE WILL BE THE BODY CONTENT -->
+        <div id='actionSpace' class="row">
+            <div id="editor" contenteditable="true" class="column">
+                <div id="content">
+                    kuch toh log kahengey, unka kaam hey kehna..
+                    <span id="cursor-placeholder">|</span>
+                </div>
+            </div>
+            <span id="blinking-cursor" style="top: 70.4375px; left: 137.5px;">|</span>
+            <div id='output' class="column"></div>
+        </div>
     
+    </div>
+    <div class="workspaceFooter">
+        <p>https://www.0dot1.live</p>
+    </div>
+    <script type="text/javascript" src="function/actionEditorV8.js"></script>
 </body>
 </html>
