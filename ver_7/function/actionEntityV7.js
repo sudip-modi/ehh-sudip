@@ -184,7 +184,6 @@ class Entity {
 }
 
 
-
 class processV5 {
 
     static iterateObj(args) {
@@ -241,6 +240,7 @@ class processV5 {
 
     }
 }
+
 var setEntityReq = {
     objectModel: ActionEntityV9,
     method: 'setEntity',
