@@ -77,10 +77,7 @@ var activeListnersGroup = [
     }
 ]
     
-    
-    'window': [
-
-    ],
+   
     
     
 }

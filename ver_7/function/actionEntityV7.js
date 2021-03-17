@@ -153,5 +153,105 @@ class Entity {
         }
         return output;
     }
+    static setEntity([input, output, key]) {
+
+        //console.log(input, output, output?.constructor.name);
+        var outputType = operate.is(output);
+        output[key] = input[key];
+        //  console.log("lkj",output)
+
+        //return output;
+    }
+    static copy2(req) {
+        var args = {
+            input: req[0],
+            output: req[1],
+            callback: 'setEntityReq',
+            maxDepth: 5,
+        }
+
+        if (!operate.isObject(req[1])) {
+
+            response = req[0][req[1]];
+            console.log(response);
+            // processV5.iterateObj(args);
+        } else if (operate.isObject(req[1])) {
+
+            processV5.iterateObj(args);
+            console.log(args);
+        }
+    }
+}
+
+
+
+class processV5 {
+
+    static iterateObj(args) {
+        var response;
+        for (var key in args.output) {
+
+            if (!operate.isUndefined(args.input[key])) { // if there is no value in input
+
+
+                if (typeof args.output[key] != 'object') { //If the 
+                    //                  console.log(key, args.input[key], ">>>>")
+
+
+                    // args.output[key] = args.input[key];
+                    response = args.input[key];
+                    //console.log(">>>>>>>>>>>>>>>>",response)
+
+
+                } else if (operate.isObject(args.output[key])) {
+
+                    console.log(key, args.input[key], operate.is(args.input[key]));
+
+                }
+
+
+            }
+
+
+            // console.log(key, args.data[key], operate.is(args.data[key]),typeof args.data[key]);
+            // if (typeof args.data[key] != 'object') {
+
+            //     console.log(key, args.data[key], operate.is(args.data[key]));
+            //     args.input[key] = args.data[key];
+            // }
+            // if (operate.isObject(args.data[key])) {
+
+            //   console.log(key, args.data[key])
+            // }
+
+            if (args.callback) {
+                if (window[args.callback]) {
+                    args.callback = window[args.callback];
+                    args.callback.arguments[0] = args.input;
+                    args.callback.arguments[1] = args.output;
+                    args.callback.arguments[2] = key;
+
+                }
+                //console.log(args.callback.arguments);
+                var response = args.callback.objectModel[args.callback.method](args.callback.arguments)
+                //console.log("here",response,args.output);
+            }
+
+        }
+
+    }
+}
+var setEntityReq = {
+    objectModel: ActionEntityV9,
+    method: 'setEntity',
+    arguments: ['input', 'output', 'key']
+}
+
+
+var copy2Req = {
+    objectModel: ActionEntityV9,
+    method: 'copy2',
+    arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0]] }, entity2,],
+    response: [],
 }
 
