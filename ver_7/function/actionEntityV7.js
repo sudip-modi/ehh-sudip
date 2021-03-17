@@ -6,7 +6,7 @@ var HTMLElementEntityModel = {
             'operator': [
                 {
                     'method': 'isInsideArray',
-                    'arguments': HTMLElementList
+                    'arguments': 'HTMLElementList'
                 }
             ]
         }
@@ -22,14 +22,14 @@ var HTMLElementEntityModel = {
         }
     }
 }
-var entityModel = {
+var entityModelV2 = {
     'name': {
         value: 'input.nameTagName',
         'process': [
             {
-                'objectModel': operate,
+                'objectModel': 'operate',
                 'method': 'isInsideArray',
-                'arguments': HTMLElementList
+                'arguments': 'HTMLElementList'
             }
         ]
     },
@@ -39,7 +39,7 @@ var entityModel = {
         'operator': [
             {
                 'method': 'isInsideArray',
-                'arguments': HTMLElementList
+                'arguments': 'HTMLElementList'
             }
         ]
     },
@@ -54,11 +54,11 @@ var entityModel = {
     },
     resource: {
         value: 'input.url',
-        operate: [isUrl],
+        operate: ['isUrl'],
     },
     attributes: {
         value: null,
-        operate: [find(input.attributes, ['class', 'style', 'src'])],
+        operate: [find('input.attributes', ['class', 'style', 'src'])],
     },
     content: '',
     'contentMimeType': '',//[HTML,JSON,TEXT,JAVASCRIPT],
@@ -66,7 +66,7 @@ var entityModel = {
 }
 
 var reqObjectVer2 = {
-    
+
     reqName: 'getElement',//CommanName
     objectModel: document,
     method: 'getElementById',
@@ -74,10 +74,45 @@ var reqObjectVer2 = {
     response: [],
     //  andThen: ['savetoStorageReq']
 }
+var entityModel4Html = {
+    tagName: "input.tagName",
+    attributes: ['class', 'style', 'src'],
+    children: ['All'],
+    maxDepth: 5,
+    maxChildren:120,
+}
+
+var getObjectVer2 = {
+    reqName: 'getElement',//CommanName
+    objectModel: document,
+    method: 'getElementById',
+    arguments: ['navigationSection'],
+    response: [],
+    andThen: ['copy2']
+}
+
+// This request Object to be used to copy properties from one object to another.
+
+var copy2 = {
+    reqName: 'copy2',
+    objectModel: 'Entity',
+    method: 'copy2',
+    arguments: [{'previous':'response'}, entityModel4Html],
+    andThen: ['setEntityReq']
+}
+var setEntityReq = {
+    objectModel: 'ActionEntityV9',
+    method: 'setEntity',
+    arguments: ['input', 'output', 'key']
+}
+
+
+
 /**
  * This is kind of a model class, it interacts with controller and external services using helper classes
  * Every Registered Models is validatated from a model inside Json / ModelName.js file //we need to think this through
  */
+
 class Entity {
     constructor(input, output) {
         this.entity = process.processReq(input, output);
@@ -172,23 +207,7 @@ class Entity {
         //return output;
     }
     static copy2(req) {
-        var args = {
-            input: req[0],
-            output: req[1],
-            callback: 'setEntityReq',
-            maxDepth: 5,
-        }
-
-        if (!operate.isObject(req[1])) {
-
-            response = req[0][req[1]];
-            console.log(response);
-            // processV5.iterateObj(args);
-        } else if (operate.isObject(req[1])) {
-
-            processV5.iterateObj(args);
-            console.log(args);
-        }
+      
     }
 }
 
@@ -250,17 +269,86 @@ class processV5 {
     }
 }
 
-var setEntityReq = {
-    objectModel: ActionEntityV9,
-    method: 'setEntity',
-    arguments: ['input', 'output', 'key']
-}
+
+class ActionEngineV9 {
+    constructor() {
+        // console.log("I aka @ctionEngineV9, am here")
+
+        this._flowsInAction = [];
+        this._req = [];
+    }
+//This method executes a Predefined reqObject
+    // It validator has to be added.
+    // it allows user to add a callback req.
+    //differant callbacks are treated differantly.
+
+     runSyncStep(req, activeFlowIndex) {
+        if (!req) { console.log("dont send empty req   Please"); return "error : yo";}
+        req['state'] = "ek";
+        if (operate.isObject(req) != true) {
+            return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
+        } else {
+            if (req.andThen) {
+                //If then is found then Check if the AndThen is an Object or String,
+                //if string, check for live object. ?? Possible conflict with other Objects.
+                //if andThen argument has previousKey. 
+                //store current response in andThen Arguments
+                // console.log("andThenFound", req.andThen);
+                //test if their is an live obejct in the current Scope, if yes, use that.
+                if (window[req.andThen]) {
+                    
+                    req.andThen = window[req.andThen];
+                    console.log("and then", req.andThen.arguments)
+                    var previous = dataHelpers.find(req.andThen.arguments,"previous",'values')
+                    console.log("here",previous)
+                    for (var i = 0; i < req.andThen.arguments.length; i++) {
+
+                        // if (typeof req.andThen.arguments[i] === 'object') {
+                        //     //  console.log( req.andThen.arguments[i]);
+                        //     var argss = req.andThen.arguments[i]['$ref'];
+                        //     console.log("here", argss, activeFlowIndex, this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]])
+                        //     var parsedArgss = this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]][argss[4]];
+                        //     console.log("here", parsedArgss)
+                        //     req.andThen.arguments[i] = parsedArgss;
+
+                        // }
+
+                    }
+                    //  console.log("here yo", req.andThen.method, req.andThen.arguments)
+                    var response = req.objectModel[req.method](req.arguments);
+                    response[req.andThen.arguments[0]] = req.andThen.arguments[1];
+
+                    // console.log(response)
+                }
+            } else {
+                //  console.log(">>>>>>>>>>>>>>", req.objectModel, req.method)
+                //  req.objectModel = window[req.objectModel];
+                //                console.log(req.objectModel)
+                var response = req.objectModel[req.method](req.arguments);
+                // console.log("response",response)
+            }
+
+            //handle output
+            if (!operate.isUndefined(response)) {
+                //  console.log(response,"now")
+                req.response.push(response);
+                return response;
+            } else {
+                //  console.log(response, req.response, req)
+                req.response.push("Success");
+                return "Success";
+            }
 
 
-var copy2Req = {
-    objectModel: ActionEntityV9,
-    method: 'copy2',
-    arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0]] }, entity2,],
-    response: [],
+        }
+
+    }
+  
 }
+var actionEngineV9Instance = new ActionEngineV9();
+console.log(actionEngineV9Instance);
+
+var response = actionEngineV9Instance.runSyncStep(getObjectVer2);
+console.log(response);
+
 

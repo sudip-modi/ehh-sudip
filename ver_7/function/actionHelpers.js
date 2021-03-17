@@ -156,6 +156,14 @@ class StorageHelperV1 {
 }
 
 class operate {
+    //This method takes a string input, and makes a search in an object, irrelevent weder object or Array.
+    //It takes options paramerte like
+    // Recurse: Boolean, true makes an isInside Search Recursive.
+    //LookAt:Key/Values. Where should it look at .
+    //
+    static isInside(entity2SearchIn, string2Search, options) {
+        
+    }
 
     // operate to check if the input is not null or undefined to be added
     static isEmpty(argA) { return Object.keys(argA).length === 0 ? true : false }
@@ -177,6 +185,18 @@ class operate {
     static isInsideArray(argA, argB) {
        // console.log("IsInside", argA, argB);
         return argB.indexOf(argA) > -1 ? true : false;
+    }
+    //Find iside an object, array or Object, returns if find keys
+    static find(entity, keyTofind, lookat) {
+        console.log("yo")
+        console.log("finding", keyTofind, "in", entity, lookat);
+
+        var result = Object[lookat](entity).filter(function (key, index, self) {
+
+            console.log(key, index, self);
+            return !key.indexOf(keyTofind);
+        });
+        return result;
     }
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
@@ -256,19 +276,6 @@ class operate {
 }
 
 
-class dataHelpers {
-
-    static find(entity, keyTofind,lookat) {
-      // console.log("finding", keyTofind, "in", entity,lookat);
-        var result = Object[lookat](entity).filter(function (key, index, self) {
-         //   console.log(key, index, self);
-            return !key.indexOf(keyTofind);
-        });
-        return result;
-    }
-
-
-}
 
 
 function isIn(argA, entity, options) {
