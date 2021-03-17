@@ -159,10 +159,10 @@ class operate {
     //This method takes a string input, and makes a search in an object, irrelevent weder object or Array.
     //It takes options paramerte like
     // Recurse: Boolean, true makes an isInside Search Recursive.
-    //LookAt:Key/Values. Where should it look at .
-    //
+    //LookAt:Key/Values/All. Where should it look at .Key only looks at keys, values only looks at values. All looks at all
+    //Strict. looks for Exact Match/ 
     static isInside(entity2SearchIn, string2Search, options) {
-        
+        console.log(Object.values(entity2SearchIn),string2Search)
     }
 
     // operate to check if the input is not null or undefined to be added

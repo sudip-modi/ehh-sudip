@@ -299,19 +299,13 @@ class ActionEngineV9 {
                     
                     req.andThen = window[req.andThen];
                     console.log("and then", req.andThen.arguments)
-                    var previous = dataHelpers.find(req.andThen.arguments,"previous",'values')
-                    console.log("here",previous)
+                    //var previous = operate.isInside(req.andThen.arguments,"previous",'values')// Need to write a method that searches for a string inside any kind of object
+                    console.log("here", req.andThen.arguments[0].previous)
                     for (var i = 0; i < req.andThen.arguments.length; i++) {
 
-                        // if (typeof req.andThen.arguments[i] === 'object') {
-                        //     //  console.log( req.andThen.arguments[i]);
-                        //     var argss = req.andThen.arguments[i]['$ref'];
-                        //     console.log("here", argss, activeFlowIndex, this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]])
-                        //     var parsedArgss = this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]][argss[4]];
-                        //     console.log("here", parsedArgss)
-                        //     req.andThen.arguments[i] = parsedArgss;
-
-                        // }
+                        if (typeof req.andThen.arguments[i] === 'object') {
+                            //  console.log( req.andThen.arguments[i]);
+                        }
 
                     }
                     //  console.log("here yo", req.andThen.method, req.andThen.arguments)
