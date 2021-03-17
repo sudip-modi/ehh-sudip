@@ -5,6 +5,24 @@ class ActionEditorV9 {
        this._currentCaret = this._currentSelection.anchorOffset;
         
     }
+    getCaretCharacterOffsetWithin(element) {
+        var caretOffset = 0;
+        if (typeof window.getSelection != "undefined") {
+            var range = window.getSelection().getRangeAt(0);
+            var preCaretRange = range.cloneRange();
+            preCaretRange.selectNodeContents(element);
+            preCaretRange.setEnd(range.endContainer, range.endOffset);
+            caretOffset = preCaretRange.toString().length;
+        }
+        // else if (typeof document.selection != "undefined" && document.selection.type != "Control") {
+        //     var textRange = document.selection.createRange();
+        //     var preCaretTextRange = document.body.createTextRange();
+        //     preCaretTextRange.moveToElementText(element);
+        //     preCaretTextRange.setEndPoint("EndToEnd", textRange);
+        //     caretOffset = preCaretTextRange.text.length;
+        // }
+        return caretOffset;
+    }
 
     textBeforeCaret() {
         var currentSelection = window.getSelection();
@@ -87,41 +105,21 @@ class ActionEntityV9 {
 var editorElement = document.getElementById('editor');
 function init(element) {
     var editor = new ActionEditorV9(element);
-    console.log("here", editor);
+ //   console.log("here", editor);
     // updateHtml(editor);
  
    
         document.addEventListener('keypress',
             function (e) {
-                console.log(editor.textBeforeCaret())
-                console.log(editor.textAfterCaret())
-                e.preventDefault();
-                editor.type(e.key,e);
-              
-                // console.log("focusEntityInnerText", currentSelection);
-              
-                //console.log(currentCaret,focusText.length,e.target.innerText.length)
-               
 
-               
-                //var textBeforeCaret = focusText.substring(0, currentCaret);
-                //console.log(textBeforeCaret,caretIndex);
-            
-    //    if (e.which == 8 && editor.deleteChar()) {
-    //         editor.updateHtml(e.target);
-    //     };
-    //     if (e.which == 37 && editor.moveLeft()) {
-    //         editor.updateHtml(e.target);
-    //     };
-    //     if (e.which == 39 && editor.moveRight()) {
-    //         editor.updateHtml(e.target);
-    //     };
-                
-                
-             
-             //   console.log(e.target);
-                // editor.type(c, e.target);
-                // editor.updateHtml(e.target);
+              //  console.log(editor.getCaretCharacterOffsetWithin(e.target))
+                console.log(  window.getSelection())
+              //  console.log(editor.textBeforeCaret())
+              //  console.log(editor.textAfterCaret())
+                e.preventDefault();
+               // editor.type(e.key,e);
+              
+          
 
             }
         ),
