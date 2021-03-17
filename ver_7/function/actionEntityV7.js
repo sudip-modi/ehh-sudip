@@ -78,8 +78,6 @@ var entityModel4Html = {
     tagName: "input.tagName",
     attributes: ['class', 'style', 'src'],
     children: ['All'],
-    maxDepth: 5,
-    maxChildren:120,
 }
 
 var getObjectVer2 = {
@@ -91,20 +89,6 @@ var getObjectVer2 = {
     andThen: ['copy2']
 }
 
-// This request Object to be used to copy properties from one object to another.
-
-var copy2 = {
-    reqName: 'copy2',
-    objectModel: 'Entity',
-    method: 'copy2',
-    arguments: [{'previous':'response'}, entityModel4Html],
-    andThen: ['setEntityReq']
-}
-var setEntityReq = {
-    objectModel: 'ActionEntityV9',
-    method: 'setEntity',
-    arguments: ['input', 'output', 'key']
-}
 
 
 
@@ -180,92 +164,80 @@ class Entity {
         // console.log('appended',response)
         return response;
     }
-    static set(input, output, key, value, callback, callbackClass) {
-        //  console.log("setting",key, value,"in",output)
-        if (operate.is(output).includes("HTML")) { //Only HTML creation
-
-            if (operate.isIn(key, htmlAttributesList)) {
-                //console.log("setting",key, value,"in",output)
-                output.setAttribute(key, value)
+    static set([input, output, key]) {
+        console.log("setting", input[key],"in",output)
+        if (operate.is(output).includes("HTML") && operate.isIn(key, htmlAttributesList)) { //Only HTML creation
+            //console.log("setting",key, value,"in",output)
+            output.setAttribute(key, value)
                 //console.log(output);
             } else {
                 //var buffer = output;
                 output[key] = input[key];
                 //buffer=output;
-            }
+            
 
         }
+        console.log("output from set",output)
         return output;
     }
-    static setEntity([input, output, key]) {
-
-        //console.log(input, output, output?.constructor.name);
-        var outputType = operate.is(output);
-        output[key] = input[key];
-        //  console.log("lkj",output)
-
-        //return output;
-    }
+ 
     static copy2(req) {
-      
+        console.log(req);
+        var args = {
+            input: req[0],
+            output: req[1],
+            callback: 'setEntityReq',
+        }
+
+        if (!operate.isObject(req[1])) {
+
+            response = req[0][req[1]];
+            console.log(response);
+            // processV5.iterateObj(args);
+        } else if (operate.isObject(req[1])) {
+
+             processV5.iterateObj(args);
+          // console.log(args);
+        }
+        return "success";
     }
+    
 }
 
+// This request Object to be used to copy properties from one object to another.
+
+var copy2 = {
+    reqName: 'copy2',
+    objectModel: Entity,
+    method: 'copy2',
+    arguments: [{ 'previous': 'response' }, entityModel4Html],
+    response: [],
+    maxDepth: 5,
+    maxChildren: 120,
+   // andThen: ['setEntityReq']
+}
 
 class processV5 {
 
     static iterateObj(args) {
         var response;
+        console.log("iterating",args)
+        var depth = 0; var index = 0; var response;
         for (var key in args.output) {
 
-            if (!operate.isUndefined(args.input[key])) { // if there is no value in input
-
-
-                if (typeof args.output[key] != 'object') { //If the 
-                    //                  console.log(key, args.input[key], ">>>>")
-
-
-                    // args.output[key] = args.input[key];
-                    response = args.input[key];
-                    //console.log(">>>>>>>>>>>>>>>>",response)
-
-
-                } else if (operate.isObject(args.output[key])) {
-
-                    console.log(key, args.input[key], operate.is(args.input[key]));
-
-                }
-
-
-            }
-
-
-            // console.log(key, args.data[key], operate.is(args.data[key]),typeof args.data[key]);
-            // if (typeof args.data[key] != 'object') {
-
-            //     console.log(key, args.data[key], operate.is(args.data[key]));
-            //     args.input[key] = args.data[key];
-            // }
-            // if (operate.isObject(args.data[key])) {
-
-            //   console.log(key, args.data[key])
-            // }
-
-            if (args.callback) {
-                if (window[args.callback]) {
-                    args.callback = window[args.callback];
-                    args.callback.arguments[0] = args.input;
-                    args.callback.arguments[1] = args.output;
-                    args.callback.arguments[2] = key;
-
-                }
-                //console.log(args.callback.arguments);
-                var response = args.callback.objectModel[args.callback.method](args.callback.arguments)
-                //console.log("here",response,args.output);
+            if (typeof args.output[key] == 'string') {
+                
+                var req = window[args.callback];
+                req.arguments = [args.input, args.output, key];
+                response = actionEngineV9Instance.runSyncStep(req);
+                //                console.log(response);
+            } else if (typeof args.output[key] == 'object') {
+                console.log(args.output[key], operate.is(args.output[key]))
             }
 
         }
-
+  //      console.log(args.output)
+        return args.output;    
     }
 }
 
@@ -298,38 +270,42 @@ class ActionEngineV9 {
                 if (window[req.andThen]) {
                     
                     req.andThen = window[req.andThen];
-                    console.log("and then", req.andThen.arguments)
+                  //  console.log("and then", req.andThen.arguments)
                     //var previous = operate.isInside(req.andThen.arguments,"previous",'values')// Need to write a method that searches for a string inside any kind of object
-                    console.log("here", req.andThen.arguments[0].previous)
+                  //  console.log("here", req.andThen.arguments[0].previous)
                     for (var i = 0; i < req.andThen.arguments.length; i++) {
 
                         if (typeof req.andThen.arguments[i] === 'object') {
-                            //  console.log( req.andThen.arguments[i]);
+                        //   console.log( req.andThen.arguments[i]);
                         }
 
                     }
                     //  console.log("here yo", req.andThen.method, req.andThen.arguments)
-                    var response = req.objectModel[req.method](req.arguments);
-                    response[req.andThen.arguments[0]] = req.andThen.arguments[1];
-
-                    // console.log(response)
+                    var buffer = req.objectModel[req.method](req.arguments);
+                   // console.log(buffer)
+                    req.andThen.arguments[0] = buffer;
+                   // console.log(req.andThen)
+                    var response = this.runSyncStep(req.andThen);
+                  
                 }
             } else {
-                //  console.log(">>>>>>>>>>>>>>", req.objectModel, req.method)
-                //  req.objectModel = window[req.objectModel];
-                //                console.log(req.objectModel)
+                console.log(">>>>>>>>>>>>>>", req, req.method)
+            //      req.objectModel = window[req.objectModel];
+                      //  console.log(req.objectModel)
                 var response = req.objectModel[req.method](req.arguments);
-                // console.log("response",response)
+               // console.log("response",response)
             }
+
+
 
             //handle output
             if (!operate.isUndefined(response)) {
                 //  console.log(response,"now")
-                req.response.push(response);
+              //  req.response.push(response);
                 return response;
             } else {
-                //  console.log(response, req.response, req)
-                req.response.push("Success");
+               // console.log(response, req.response, req)
+               // req.response.push("Success");
                 return "Success";
             }
 
@@ -339,6 +315,13 @@ class ActionEngineV9 {
     }
   
 }
+
+var setEntityReq = {
+    objectModel: Entity,
+    method: 'set',
+    arguments: [{ 'previous': 'response' }, 'output', 'key']
+}
+
 var actionEngineV9Instance = new ActionEngineV9();
 console.log(actionEngineV9Instance);
 
