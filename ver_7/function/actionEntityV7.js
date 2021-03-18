@@ -136,8 +136,8 @@ class Entity {
         if (!response) console.log("no response", output);
         return response;
     }
-    static append(input, output, key, value, callback, callbackClass) {
-        // console.log('appending', input,output)
+    static append([input, output, key, value]) {
+     //   console.log('appending', input,output)
 
         if (operate.is(output).includes("HTML")) { //Only HTML creation
             var response = output.appendChild(input);
@@ -173,18 +173,16 @@ class Entity {
             if (value) {
                 var buffer2 = value.split('.');
                 var buffer = input[buffer2[0]][buffer2[1]];
-             
             }
 
-            
-            console.log("buffer", buffer, typeof buffer);
+        //    console.log("buffer", buffer, typeof buffer);
             if (typeof buffer === 'object') {
-                console.log(input,output,key,entityModel4Html)
+             //   console.log(input,output,key,entityModel4Html)
                 var args2 = {};
                 args2['input'] = input[key]
                 args2['output'] = output[key]
-                args2['callback'] = this.append;
-                console.log(args2);
+                args2['callback'] = 'appendReq';
+               // console.log(args2);
 
                 var buffer = processV5.iterateObj(args2)
 
@@ -198,16 +196,11 @@ class Entity {
     }
  
     static copy2(req) {
-        var response = new Object(req[1]);
-        console.log(response)
+        var response;
+     //   console.log(response)
       //  console.log(req);
-        var args = {
-            input: req[0],
-            requestKeys: req[1],
-            output:response,
-            callback: 'setEntityReq',
-        }
-
+        req['callback'] = 'setEntityReq';
+        
         if (!operate.isObject(req[1])) {
 
             response = req[0][req[1]];
@@ -215,10 +208,10 @@ class Entity {
             // processV5.iterateObj(args);
         } else if (operate.isObject(req[1])) {
 
-             processV5.iterateObj(args);
+             var response = processV5.iterate(req);
           // console.log(args);
         }
-        return "success";
+        return response;
     }
     
 }
@@ -240,11 +233,13 @@ class processV5 {
 
     static iterateObj(args) {
         var response;
-       console.log("iterating",args)
+        
+        console.log("iterating", args.requestKeys)
+        
         var depth = 0; var index = 0; var response;
-        for (var key in args.output) {
+        for (var key in args.requestKeys) {
 
-            if (typeof args.output[key] == 'string') { // Testing if the Value in the requested output is string or not, if string
+            if (typeof args.requestKeys[key] == 'string') { // Testing if the Value in the requested output is string or not, if string
                 
                 //console.log("here", key, args.output[key])
                 var req = window[args.callback];
@@ -257,22 +252,43 @@ class processV5 {
                 //console.log("req",req)
                 response = actionEngineV9Instance.runSyncStep(req);
                 
-               console.log("response", response);
+            //   console.log("response", response);
                 
             } else if (typeof args.output[key] == 'object') { // need to check if recurse is true
-                console.log(args.output[key], operate.is(args.output[key]));
+              //  console.log(args.output[key], operate.is(args.output[key]));
                 var args2 = {};
                 args2['input'] = args.input[key]
                 args2['output'] = args.output[key]
                 args2['callback'] = args.callback;
-                console.log(args2);
+              //  console.log(args2);
                 var buffer = processV5.iterateObj(args2)
                 
             }
 
         }
-        console.log(args.output)
+    // console.log(args.output,entityModel4Html)
         return args.output;    
+    }
+    /**
+     * 
+     * @param {*} args  args[0] == input
+     * args[1] == requestModel on which it will iterate
+     * args[2] ==  output
+     */
+    static iterate(args) {
+        if (!args.response) { var response={}};
+        console.log(args[0],args[1])
+        for (var key in args[1]) {
+            
+            if (operate.isString(args[0][key]) == true) {
+                console.log(key, args[0][key], response);
+                response[key] = args[0][key];
+            }
+
+
+
+        }
+        return response;
     }
 }
 
@@ -280,11 +296,10 @@ class processV5 {
 class ActionEngineV9 {
     constructor() {
         // console.log("I aka @ctionEngineV9, am here")
-
         this._flowsInAction = [];
         this._req = [];
     }
-//This method executes a Predefined reqObject
+    //This method executes a Predefined reqObject
     // It validator has to be added.
     // it allows user to add a callback req.
     //differant callbacks are treated differantly.
@@ -354,6 +369,11 @@ class ActionEngineV9 {
 var setEntityReq = {
     objectModel: Entity,
     method: 'set',
+    arguments: [{ 'previous': 'response' }, 'output', 'key']
+}
+var appendReq = {
+    objectModel: Entity,
+    method: 'append',
     arguments: [{ 'previous': 'response' }, 'output', 'key']
 }
 
