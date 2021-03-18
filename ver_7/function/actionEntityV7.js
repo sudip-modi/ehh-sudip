@@ -64,7 +64,6 @@ var entityModelV2 = {
     'contentMimeType': '',//[HTML,JSON,TEXT,JAVASCRIPT],
     resourceBinding: ''
 }
-
 var reqObjectVer2 = {
 
     reqName: 'getElement',//CommanName
@@ -74,10 +73,11 @@ var reqObjectVer2 = {
     response: [],
     //  andThen: ['savetoStorageReq']
 }
+
 var entityModel4Html = {
-    tagName: "input.tagName",
-    attributes: ['class', 'style', 'src'],
-    children: ['All'],
+    tagName: "tagName",
+    attributes: { 'class':"class.value", 'style':"style.value", 'src':""},
+    children: ['all'],
 }
 
 var getObjectVer2 = {
@@ -88,8 +88,6 @@ var getObjectVer2 = {
     response: [],
     andThen: ['copy2']
 }
-
-
 
 
 /**
@@ -164,35 +162,56 @@ class Entity {
         // console.log('appended',response)
         return response;
     }
-    static set([input, output, key]) {
-        console.log("setting", input[key],"in",output)
+    static set([input, output, key,value]) {
+      //  console.log("setting", key,input[key],"in",output)
         if (operate.is(output).includes("HTML") && operate.isIn(key, htmlAttributesList)) { //Only HTML creation
             //console.log("setting",key, value,"in",output)
             output.setAttribute(key, value)
                 //console.log(output);
             } else {
-                //var buffer = output;
-                output[key] = input[key];
-                //buffer=output;
-            
+            var buffer = input[key];           
+            if (value) {
+                var buffer2 = value.split('.');
+                var buffer = input[buffer2[0]][buffer2[1]];
+             
+            }
 
+            
+            console.log("buffer", buffer, typeof buffer);
+            if (typeof buffer === 'object') {
+                console.log(input,output,key,entityModel4Html)
+                var args2 = {};
+                args2['input'] = input[key]
+                args2['output'] = output[key]
+                args2['callback'] = this.append;
+                console.log(args2);
+
+                var buffer = processV5.iterateObj(args2)
+
+            } else {
+                output[key] = buffer;
+            }
+            
         }
-        console.log("output from set",output)
+      //  console.log("output from set",output)
         return output;
     }
  
     static copy2(req) {
-        console.log(req);
+        var response = new Object(req[1]);
+        console.log(response)
+      //  console.log(req);
         var args = {
             input: req[0],
-            output: req[1],
+            requestKeys: req[1],
+            output:response,
             callback: 'setEntityReq',
         }
 
         if (!operate.isObject(req[1])) {
 
             response = req[0][req[1]];
-            console.log(response);
+         //   console.log(response);
             // processV5.iterateObj(args);
         } else if (operate.isObject(req[1])) {
 
@@ -221,22 +240,38 @@ class processV5 {
 
     static iterateObj(args) {
         var response;
-        console.log("iterating",args)
+       console.log("iterating",args)
         var depth = 0; var index = 0; var response;
         for (var key in args.output) {
 
-            if (typeof args.output[key] == 'string') {
+            if (typeof args.output[key] == 'string') { // Testing if the Value in the requested output is string or not, if string
                 
+                //console.log("here", key, args.output[key])
                 var req = window[args.callback];
+
                 req.arguments = [args.input, args.output, key];
+                if (args.output[key].includes('value')) { //check where its a registerd optional parameter. This allows us to navigate further in an object if the input is an object
+                   // console.log("value found", args.output[key]);
+                    req.arguments.push(args.output[key]);
+                }
+                //console.log("req",req)
                 response = actionEngineV9Instance.runSyncStep(req);
-                //                console.log(response);
-            } else if (typeof args.output[key] == 'object') {
-                console.log(args.output[key], operate.is(args.output[key]))
+                
+               console.log("response", response);
+                
+            } else if (typeof args.output[key] == 'object') { // need to check if recurse is true
+                console.log(args.output[key], operate.is(args.output[key]));
+                var args2 = {};
+                args2['input'] = args.input[key]
+                args2['output'] = args.output[key]
+                args2['callback'] = args.callback;
+                console.log(args2);
+                var buffer = processV5.iterateObj(args2)
+                
             }
 
         }
-  //      console.log(args.output)
+        console.log(args.output)
         return args.output;    
     }
 }
@@ -289,7 +324,7 @@ class ActionEngineV9 {
                   
                 }
             } else {
-                console.log(">>>>>>>>>>>>>>", req, req.method)
+             //   console.log(">>>>>>>>>>>>>>", req, req.method)
             //      req.objectModel = window[req.objectModel];
                       //  console.log(req.objectModel)
                 var response = req.objectModel[req.method](req.arguments);
