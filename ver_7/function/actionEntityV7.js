@@ -171,34 +171,29 @@ class Entity {
             } else {
             var buffer = input[key];           
             if (value) {
+                console.log("value")
                 var buffer2 = value.split('.');
                 var buffer = input[buffer2[0]][buffer2[1]];
             }
-
-        //    console.log("buffer", buffer, typeof buffer);
+            console.log("buffer", buffer, typeof buffer);
             if (typeof buffer === 'object') {
-             //   console.log(input,output,key,entityModel4Html)
-                var args2 = {};
-                args2['input'] = input[key]
-                args2['output'] = output[key]
-                args2['callback'] = 'appendReq';
-               // console.log(args2);
-
-                var buffer = processV5.iterateObj(args2)
-
-            } else {
+                output = {};
+                output[key] = {};
+                //     console.log(output,buffer)
                 output[key] = buffer;
+                
             }
-            
         }
-      //  console.log("output from set",output)
+           
+        
+       console.log("output from set",output)
         return output;
     }
  
     static copy2(req) {
         var response;
      //   console.log(response)
-      //  console.log(req);
+      // console.log(req);
         req['callback'] = 'setEntityReq';
         
         if (!operate.isObject(req[1])) {
@@ -222,16 +217,25 @@ var copy2 = {
     reqName: 'copy2',
     objectModel: Entity,
     method: 'copy2',
-    arguments: [{ 'previous': 'response' }, entityModel4Html],
-    response: [],
-    maxDepth: 5,
-    maxChildren: 120,
-   // andThen: ['setEntityReq']
+    arguments: [
+        { 'previous': 'response' },
+        entityModel4Html,
+        {
+            params: {
+           
+                maxDepth: 5,
+                maxChildren: 120,
+                response : {},// option to choose what kind of response do we want. isOneOf([",{},[],an HTML element,"andSelf means return the output"])
+           
+            }
+        }
+    ],
+     // andThen: ['setEntityReq']
 }
 
 class processV5 {
 
-    static iterateObj(args) {
+    static iterateObj2(args) {
         var response;
         
         console.log("iterating", args.requestKeys)
@@ -273,25 +277,161 @@ class processV5 {
      * 
      * @param {*} args  args[0] == input
      * args[1] == requestModel on which it will iterate
-     * args[2] ==  output
+     * args[2] ==  Params
+     * args2.maxDepth == max depth allowed
+     * args2.recurse == true;
+     * args2.maxChildren == max maxChildren allowed
      */
-    static iterate(args) {
-        if (!args.response) { var response={}};
-        console.log(args[0],args[1])
-        for (var key in args[1]) {
+    static iterate(args, depth, index) {
+        if (!depth) { var depth = 0 };if (!index) { var index = 0 };         
+        console.log("iterating>>",args,depth)
+  //      console.log(args[0], args[1], args[2].params.response)
+        if (args[2].params.response) { var buffer = args[2].params.response };
+        if (!args[2].params.response) { var response = {} };
+        
+        for (var key in args[1]) { // Look for keys in req
+            buffer[key]
             
-            if (operate.isString(args[0][key]) == true) {
-                console.log(key, args[0][key], response);
-                response[key] = args[0][key];
+            
+          //  console.log(args[0][key]);
+            if (operate.isString(args[1][key]) == true) { // if the value of the key in input is a string set it in Response
+            //    console.log(args);
+             
+                var req = window[args.callback];
+                req.arguments = [args[0], buffer, key];               
+                //buffer[key] = args[0][key];
+              //  console.log(depth)
+                
+               
+                if (operate.isString(args[0][key]) == true) {
+                    buffer = actionEngineV9Instance.runSyncStep(req); index = index + 1;
+                    console.log("here",buffer);
+                }
+                
+                
+             //  console.log("buffer >>>", buffer, key)
+                
+            } else if (typeof args[1][key] === 'object') {
+
+             //   console.log("Object", buffer, args[0][key], key)
+                
+                var bufferResponse;
+                var bufferReq = args;
+                bufferReq[0] = args[0][key];
+                bufferReq[1] = args[1][key];
+                bufferReq[2].params.response = key;
+                console.log("bufferReq", bufferReq, args,key)
+                
+                bufferResponse = processV5.iterate(bufferReq, depth);
+                 console.log("buffer response", bufferResponse)
+              
+
             }
 
-
+        }
+        console.log(buffer)
+        return buffer;
+    }
+    static iterateObj(input, output) {
+        for (var key in input) {
+            var value = input[key];
+            //  console.log("found",key,input[key])
+            if (operate.is(value) === 'Object') {
+                // console.log("Object",output);
+                var buffer = Entity.create(input, output, value.name);
+                process.iterateObj(input[key], buffer, key, value)
+                Entity.append(buffer, output);
+            } else if (operate.is(value) === 'Array') {
+                //  console.log("foundArray", key)
+                var buffer = Entity.create(input, output, key);
+                process.iterateArr(input[key], buffer, key, value)
+                Entity.append(buffer, output);
+                // console.log('Array',key, value, buffer);
+            } else if (operate.is(value) === 'String' || operate.is(value) === 'Boolean') {
+                //  console.log('String',key, value,output);
+                Entity.set(input, output, key, value);
+                //Entity.set(input,this.entity,key,value);           
+            }
 
         }
-        return response;
+        // console.log('Iterate Objoutput',output)
+        return output;
     }
 }
 
+class process3 {
+    static processReq(input, output, key, value) {
+        console.log("process req", input, output, operate.is(input), typeof input)
+        if (typeof input === 'object') {
+            console.log("process req", input, output)
+            var buffer = process.iterateObj(input, output, key);
+        } else if (operate.is(input) === 'Array') {
+            var buffer = process.iterateObj(input, output, key);
+        } else if (operate.is(input) === 'String') {
+            console.log('String >>>', key, value);
+            //Entity.set(input,this.output,key,value);           
+        }
+        return buffer;
+    }
+    static iterateObj(input, output) {
+        for (var key in input) {
+            var value = input[key];
+            //  console.log("found",key,input[key])
+            if (operate.is(value) === 'Object') {
+                // console.log("Object",output);
+                var buffer = Entity.create(input, output, value.name);
+                process.iterateObj(input[key], buffer, key, value)
+                Entity.append(buffer, output);
+            } else if (operate.is(value) === 'Array') {
+                //  console.log("foundArray", key)
+                var buffer = Entity.create(input, output, key);
+                process.iterateArr(input[key], buffer, key, value)
+                Entity.append(buffer, output);
+                // console.log('Array',key, value, buffer);
+            } else if (operate.is(value) === 'String' || operate.is(value) === 'Boolean') {
+                //  console.log('String',key, value,output);
+                Entity.set(input, output, key, value);
+                //Entity.set(input,this.entity,key,value);           
+            }
+
+        }
+        // console.log('Iterate Objoutput',output)
+        return output;
+    }
+    static iterateArr(input, output, key, value, callback, callbackClass) {
+        //  console.log("Iterating Array", input, output, key, value);
+
+        for (var i = 0; i < input.length; i++) {
+            //console.log("Object found in array", input[i]);
+
+            if (operate.is(input[i]) === 'Object') { //console.log("Object in array",response)
+
+                var response = Entity.create(input[i], output, input[i].name);
+                process.iterateObj(input[i], response, input[i].name,)
+                Entity.append(response, output);
+
+            } else if (operate.is(input[i]) === 'Array') { // console.log("found Array", key, input[key])
+
+            } else if (operate.is(input[i]) == 'String') { //  console.log("found property, Set Attributes in output", key, input[key])
+
+                // Entity.set(input,output,key,input[key])
+            } else {
+
+                //  console.log("stray found")
+            }
+            //console.log(callbackClass,callback)
+            //   console.log(key, input[key])
+            //var response = operate.isNotEmpty(callback) ? conductor.conduct(input, output, key, input[key], callback, callbackClass) : null;
+            if (operate.isNotEmpty(callback)) {
+
+                //  var response = conductor.conduct(input, output, key, input[key], callback, callbackClass);
+
+            }
+        }
+        // console.log("iterator Array response", response);
+        return response;
+    }
+}
 
 class ActionEngineV9 {
     constructor() {
@@ -320,7 +460,7 @@ class ActionEngineV9 {
                 if (window[req.andThen]) {
                     
                     req.andThen = window[req.andThen];
-                  //  console.log("and then", req.andThen.arguments)
+                  //   console.log("and then", req.andThen.arguments)
                     //var previous = operate.isInside(req.andThen.arguments,"previous",'values')// Need to write a method that searches for a string inside any kind of object
                   //  console.log("here", req.andThen.arguments[0].previous)
                     for (var i = 0; i < req.andThen.arguments.length; i++) {
@@ -332,14 +472,14 @@ class ActionEngineV9 {
                     }
                     //  console.log("here yo", req.andThen.method, req.andThen.arguments)
                     var buffer = req.objectModel[req.method](req.arguments);
-                   // console.log(buffer)
+                  //  console.log(buffer)
                     req.andThen.arguments[0] = buffer;
-                   // console.log(req.andThen)
+                  //  console.log(req.andThen)
                     var response = this.runSyncStep(req.andThen);
                   
                 }
             } else {
-             //   console.log(">>>>>>>>>>>>>>", req, req.method)
+          //    console.log(">>>>>>>>>>>>>>", req, req.method)
             //      req.objectModel = window[req.objectModel];
                       //  console.log(req.objectModel)
                 var response = req.objectModel[req.method](req.arguments);
