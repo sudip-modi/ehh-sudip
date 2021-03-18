@@ -179,9 +179,11 @@ class Entity {
             if (typeof buffer === 'object') {
                 output = {};
                 output[key] = {};
-                //     console.log(output,buffer)
+                console.log(output,buffer)
                 output[key] = buffer;
                 
+            } else {
+                output[key] = buffer;
             }
         }
            
@@ -282,7 +284,7 @@ class processV5 {
      * args2.recurse == true;
      * args2.maxChildren == max maxChildren allowed
      */
-    static iterate(args, depth, index) {
+    static iterate2(args, depth, index) {
         if (!depth) { var depth = 0 };if (!index) { var index = 0 };         
         console.log("iterating>>",args,depth)
   //      console.log(args[0], args[1], args[2].params.response)
@@ -332,30 +334,31 @@ class processV5 {
         console.log(buffer)
         return buffer;
     }
-    static iterateObj(input, output) {
-        for (var key in input) {
-            var value = input[key];
+    static iterate(args) {
+        
+        for (var key in args[1]) {
+            var value = args[0][key];
             //  console.log("found",key,input[key])
             if (operate.is(value) === 'Object') {
                 // console.log("Object",output);
-                var buffer = Entity.create(input, output, value.name);
-                process.iterateObj(input[key], buffer, key, value)
-                Entity.append(buffer, output);
+                var buffer = Entity.create(args[0], args[2].params.response, value.name);
+                process.iterateObj(args[0][key], buffer, key, value)
+                Entity.append(buffer, args[2].params.response);
             } else if (operate.is(value) === 'Array') {
                 //  console.log("foundArray", key)
                 var buffer = Entity.create(input, output, key);
-                process.iterateArr(input[key], buffer, key, value)
-                Entity.append(buffer, output);
+                process.iterateArr(args[0][key], buffer, key, value)
+                Entity.append(buffer, args[2].params.response);
                 // console.log('Array',key, value, buffer);
             } else if (operate.is(value) === 'String' || operate.is(value) === 'Boolean') {
-                //  console.log('String',key, value,output);
-                Entity.set(input, output, key, value);
+                console.log('String', args[0], args[2].params.response, key);
+                Entity.set([args[0], args[2].params.response, key]);
                 //Entity.set(input,this.entity,key,value);           
             }
 
         }
-        // console.log('Iterate Objoutput',output)
-        return output;
+        console.log('Iterate Objoutput', buffer, args[2].params.response)
+        return args[2].params.response;
     }
 }
 
