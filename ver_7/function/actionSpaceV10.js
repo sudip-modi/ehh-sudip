@@ -16,7 +16,7 @@ var ActionSpaceV10Instance = new ActionSpaceV10();
 
 var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer')
 //console.log(HorizonticalMenuTemplateSchema,actionSpaceElementInstanceIndom)
-// var newMenu = new Entity(headerModelSchemaV1, actionSpaceElementInstanceIndom);
+ var newMenu = new Entity(headerModelSchemaV1, actionSpaceElementInstanceIndom);
 // //console.log(newMenu.input);
 // //console.log(newMenu.output);
 // //var newIconBar = new Entity(iconBar,actionSpaceElementInstanceIndom)

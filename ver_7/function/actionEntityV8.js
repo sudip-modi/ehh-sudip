@@ -135,7 +135,8 @@ class processV6 {
         return response;
     }
 }
-class EntityV8 {
+
+class Entity {
     constructor(input, output) {
         console.log("entity", input, output)
         this.input = input;
@@ -243,3 +244,5 @@ class EntityV8 {
         return response;
     } 
 }
+
+console.log("I am loaded > entity",)
