@@ -180,7 +180,7 @@ class Entity {
                 output = {};
                 output[key] = {};
               //  console.log("here>>>>>",output,buffer)
-                output[key] = buffer.value;
+                output[key] = buffer.value;// optional check to be applied
                 
             } else {
                 output[key] = buffer;
@@ -358,47 +358,60 @@ class processV5 {
         return args[2].params.response;
     }
     static iterate(args) {
-      //  console.log("iterating", args)
+        console.log("iterating", args)
         for (var key in args[1]) {
-           var buffer;
+            console.log("--------------key----------",key)
+            var buffer;
+            args[2].params.response[key] = args[1][key];
         //   console.log(key, args[1][key],typeof args[1][key] ,args[0][key], typeof args[0][key]);
-   
-            if (operate.is(args[1][key]) === 'String' || operate.is(args[1][key]) === 'Boolean') {
+            if (typeof args[1][key] == 'object' && operate.isArray(args[1][key])) {
 
-                //   console.log(args[0][key], args[1][key])
-
-                var req = window[args[2].params.callback];
-                //                console.log(req, args[2].params.callback)
-                buffer = args[2].params.response;
-                req.arguments = [args[0], buffer, key];
-
-                buffer = actionEngineV9Instance.runSyncStep(req);
-                console.log("[]",key,args[0][key],buffer);
-                //if (operate.isString(args[0][key]) == true) {}
-                args[2].params.response[key] = buffer[key];
-               console.log('String',args[2].params.response, key);
-            } else if (typeof args[1][key] == 'object') {
-               // console.log("object Found", args[1][key], typeof args[1][key], args[0][key], typeof args[0][key])
+                 console.log("Array Found", args[1][key], typeof args[1][key], args[0][key], typeof args[0][key])
+                if (args[1][key][0] == "all") {
+                    console.log("AllFound", args[1]);
+                    
+                }
                 var req = [];
+                
                 req.push(args[0][key]);
                 req.push(args[1][key]);
                 req.push(JSON.parse(JSON.stringify(args[2])));
-               //req = [value, buffer, args[2]];
-                req[2].params.response[key] = buffer[key];
-             //  console.log(">>> req >", req,buffer,args);
-
+                req[2].params.response = buffer[key];
+                //console.log("buffer here ------------", key, buffer, req[2].params.response)
+                
                 var temp = processV5.iterate(req);
-                   console.log("temp",temp)
+                
+                console.log("temp", temp)
 
-                //                
-                // var buffer = Entity.create(args[0], args[2].params.response, value.name);
-              // args[2].params.response[key] = processV5.iterate(req)
 
-            
-            }
+            } else if (typeof args[1][key] == 'object' && operate.is(args[1][key]) === 'Object') {
+                                
+                    // console.log("object Found", args[1][key], typeof args[1][key], args[0][key], typeof args[0][key])
+                    var req = [];
+                    req.push(args[0][key]);
+                    req.push(args[1][key]);
+                    req.push(JSON.parse(JSON.stringify(args[2])));
+                    req[2].params.response = buffer[key];
+//                console.log("buffer here ------------", key, buffer,req[2].params.response)
+                    var temp = processV5.iterate(req);
+                //console.log("temp",temp)
+               
+                
+            } else if (operate.is(args[1][key]) === 'String' || operate.is(args[1][key]) === 'Boolean') {
+                if (typeof args[0][key] != 'undefined') {
+                    
+                    var req = window[args[2].params.callback];
+                    buffer = args[2].params.response;
+                    req.arguments = [args[0], buffer, key];
+                    buffer = actionEngineV9Instance.runSyncStep(req);
+                    //  console.log("[ buffer recived ]", key, buffer);
+                    //if (operate.isString(args[0][key]) == true) {}
+                    args[2].params.response[key] = buffer[key];
+  //              console.log('String',args[2].params.response, key);
+                } 
 
-            
-
+              //  console.log(args[2].params.response)               
+            }  
         }
 
         console.log("[ iteratorReturn ]",args[2].params.response)
