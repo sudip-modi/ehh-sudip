@@ -243,6 +243,3 @@ class EntityV8 {
         return response;
     } 
 }
-
-var newEntity = new EntityV8();
-

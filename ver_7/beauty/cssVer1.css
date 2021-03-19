@@ -1,0 +1,119 @@
+*:focus{
+  border:none;
+  outline:none;
+}
+
+[class='material-icons']{
+   font-size: 18px;
+}
+
+body {
+     list-style: none;
+   height: 100%;
+   font-family: 'Poppins';
+   background-color: #f1f5f9;
+   color: black;
+}
+
+a{
+    padding: 21px;
+    margin: 21px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+}
+*{
+     border-radius: 5px;
+}
+button{
+       margin: 0,auto;
+   align-self: center;
+  padding: 13px;
+  margin: 1px;
+  border-style: none;
+  background: none;
+  cursor: pointer;
+
+}
+a:hover,button:hover {
+  background-color:rgb(179, 227, 255);
+ 
+  /* Add transition for hover effects */
+}
+
+li{
+display: inline-block;
+}
+
+#brand{
+    align-self: center;
+    margin: 21px;
+    padding: 21px;
+    font-size: large;
+    font-weight: bold;
+    font-family: 'Bai Jamjuree', sans-serif;
+}
+
+#actionSearch{
+    margin: 21px;
+    padding-left: 21px;
+    align-self: center;
+    font-family: 'Poppins';
+    height: 34px;
+    width: 34vw;
+    border-style: none;
+    font-size: 13pt;   
+    
+}
+#topmenu{
+    display: inline-block;
+  color: black;  
+  align-items: center;
+}
+
+
+#actionSpace{
+        margin: 0 auto;
+        margin-left: 8vw;
+        padding: 2vw;
+        padding-left: 8vw;
+     
+ }
+#loadedRouteTitle{
+    display: block;
+    padding-left: 3vw;
+    font-size: 34px;
+    font-weight: bold;
+}
+section{
+     height: 54vh;       
+ }
+ #editor{
+     padding-left: 3vw;
+     padding-top: 1vw;
+     height: 100%;  
+ }
+
+iconbar{
+    visibility: hidden;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: fit-content;
+    
+}
+
+#richTextBar{
+    visibility: hidden;
+    display: block;
+    position: relative;
+    left: -2rem;
+   
+}
+#hotKeyAutoSuggestList{
+    padding: 13px;
+    display: block;
+    width: 21vw;
+   background-color: teal;
+}
+
