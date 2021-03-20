@@ -8,16 +8,19 @@ var actionStoryTemplate = {
     contentEditable: true
 }
 var leftSidebarModelSchemaV1 = {
-    name: 'section',
-    id: "navigationSection",
-    class: "tempo", 
+    LeftSideNavBar: {
+        name: 'section',
+        id: "navigationSection",
+        class: "tempo",
+    }
+    
 
 
 }
   
 var headerModelSchemaV1 = {
     header: {
-        'name': 'ul',
+        'name': 'section',
         'desc': 'This is a horizontical bar, more functionality of this bar to be added',
         'id': 'header',
         'class':'flex align_center',
