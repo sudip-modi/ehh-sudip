@@ -6,7 +6,19 @@
           box-sizing: border-box;
   font-family: 'Poppins' , sans-serif;
 }
-
+*{ 
+  list-style-type: none;
+    padding: 0;
+    margin: 0%;
+    box-sizing: border-box;
+    color:var(--gray-dark);
+  
+    
+/*
+	user-select: none;
+	-webkit-user-select: none;
+*/
+}
 a {
   text-decoration: none;
 }

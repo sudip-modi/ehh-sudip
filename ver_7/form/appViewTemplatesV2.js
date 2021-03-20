@@ -15,16 +15,229 @@ var leftSidebarModelSchemaV1 = {
         inside_navigationSection: {
             name: 'div',
             id: "inside_navigationSection",
-            'textContent': 'create',
+         
             sideBar_header: {
                 name: 'div',
-                id: "navigationSection",
+                class: "side_bar_header",
+                brand: {
+                    name: 'div',
+                    class: "brand_logo",
+                    textContent:'Sunil Kumar',
+                },
+                sideBarControlMenu: {
+                    name: 'div',
+                    class: "HeaderControl flex align_center justify_center",
+                    button1: {
+                        name: 'div',
+                        class: "mode_toggle_btn mr-15",
+                        id:"MainHeaderHamburger1",
+                        },
+                    button2: {
+                        name: 'i',
+                        'class': "material-icons",
+                        'textContent': 'add_box',
+                    },
+                },
                 
             },
-            sideBar_Collection: {
-                
+            sideBar_CollectionList: {
+                name: 'div',
+                class:'collection_list',
+                collectionItem: {
+                    name: 'div',
+                    class: "collection",
+                    items: [
+                        {
+                            name: 'div',
+                            class: 'item',
+                            item1: {
+                                name: 'i',
+                                'class': "material-icons icon mr - 10",
+                                'textContent': 'cloud',
+                            },
+                            item2: {
+                                name: 'div',
+                                'class': "collection_name",
+                                'textContent': 'cloud',
+                            }
+
+                        },
+                        {
+                            name: 'div',
+                            class: 'item',
+                            item1: {
+                                name: 'i',
+                                'class': "material-icons icon mr - 10",
+                                'textContent': 'album',
+                            },
+                            item2: {
+                                name: 'div',
+                                'class': "collection_name",
+                                'textContent': 'album',
+                            }
+
+                        }
+
+                        
+                    ]
+                }
             },
-            sideBar_Collection_withDropDown: {},
+            hr: {
+                name: 'div',
+                class:'hr',
+            },
+
+            sideBar_Collection_withDropDown: {
+                name: 'div',
+                class: 'collection_list_with_drop_down',
+                collectionTitle: {
+                    name: 'div',
+                    class: "miniHeading",
+                    textContent:"List",
+                },
+                collectionItem: {
+                    name: 'div',
+                    class: "collection drop_down",
+                    innerHTML:`
+                      <li><span class="parent collection">my Stories</span>
+                      <ul class="nested">
+                      <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                        <li><span class="parent">my Nested Stories</span>
+                            <ul class="nested">
+                                <li>story 1</li>
+                                <li>story 2</li>
+                                <li>story 3</li>
+                                <li>story 4</li>
+                            </ul>
+                        </li>
+                        errands
+                    </li>
+
+                    <li><span class="parent">recent Stories</span>
+                        <ul class="nested">
+                            <li>leaf</li>
+                            <li>leaf</li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <span class="hozintalLine"></span>
+            <li><span class="parent">Recent Files</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>
+            <span class="hozintalLine"></span>
+            <li><span class="parent">Starred</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>
+            <li><span class="parent">Tags</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>
+            <li><span class="parent">Trash</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>`
+                }
+            },
             sideBar_footer: {
                 name: 'div',
                 id: "SidebarFooter",
@@ -39,6 +252,7 @@ var leftSidebarModelSchemaV1 = {
                             'class': "material-icons",
                             'textContent': 'library_add',
                         },
+
                     ]
                     
                    
@@ -70,10 +284,6 @@ var leftSidebarModelSchemaV1 = {
 
         }
     },
-    
-    
-
-
 }
   
 var headerModelSchemaV1 = {
