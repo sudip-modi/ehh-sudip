@@ -1,6 +1,7 @@
 *:focus{
   border:none;
   outline:none;
+   border-radius: 5px;
 }
 
 [class='material-icons']{
@@ -22,9 +23,7 @@ a{
     text-decoration: none;
     border-radius: 5px;
 }
-*{
-     border-radius: 5px;
-}
+
 button{
        margin: 0,auto;
    align-self: center;

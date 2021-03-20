@@ -7,20 +7,28 @@ var actionStoryTemplate = {
     'before': 'name',
     contentEditable: true
 }
+var leftSidebarModelSchemaV1 = {
+    name: 'section',
+    id: "navigationSection",
+    class: "tempo", 
 
 
+}
+  
 var headerModelSchemaV1 = {
     header: {
         'name': 'ul',
         'desc': 'This is a horizontical bar, more functionality of this bar to be added',
         'id': 'header',
+        'class':'flex align_center',
         //  'innerText':"header",
         'brand': {
-            'name': 'span',
+            'name': 'img',
             'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+            'src': 'images/[ ehh ] logo Ver O.8 300X144 px.png',
+            'style':"width:54px",
             'id': 'brand',
-            'textContent': "[ everything happens here ]",
-            'class': 'brand'
+                        'class': 'brand'
         },
         'input': {
             'name': 'input',
@@ -33,7 +41,7 @@ var headerModelSchemaV1 = {
         'menu': {
             "name": "menu",
             'id': "topmenu",
-            'class': 'row',
+            'class': 'flex align_justify',
             "span": [
                 {
                     'name': 'a',
@@ -60,7 +68,6 @@ var headerModelSchemaV1 = {
                     'name': 'button',
                     'class': "material-icons",
                     'textContent': 'more_vert',
-
                 }
             ]
 
