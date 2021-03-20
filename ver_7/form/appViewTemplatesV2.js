@@ -21,7 +21,9 @@ var leftSidebarModelSchemaV1 = {
                 id: "navigationSection",
                 
             },
-            sideBar_Collection: {},
+            sideBar_Collection: {
+                
+            },
             sideBar_Collection_withDropDown: {},
             sideBar_footer: {
                 name: 'div',
@@ -45,20 +47,19 @@ var leftSidebarModelSchemaV1 = {
                     name: 'div',
                     class: 'footerIcon flex align_center',
                     id: 'footerIcon',
-                    'textContent': 'add Collections',
-                    items: [
+                  items: [
                         {
                             name: 'i',
                             'class': "material-icons",
-                            'textContent': 'library_add',
+                            'textContent': 'favorite',
                         }, {
                             name: 'i',
                             'class': "material-icons",
-                            'textContent': 'library_add',
+                          'textContent': 'download_for_offline',
                         }, {
                             name: 'i',
                             'class': "material-icons",
-                            'textContent': 'library_add',
+                          'textContent': 'settings',
                         },
                     ]
 
