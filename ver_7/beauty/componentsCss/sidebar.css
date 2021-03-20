@@ -20,3 +20,27 @@
   -webkit-transition: width 200ms;
   transition: width 200ms;
 }
+
+#navigationSection.hide {
+  min-width: 0;
+  width: 0 !important;
+}
+
+ #navigationSection #SidebarFooter {
+  background-color: transparent;
+  width: 100%;
+  padding: 20px 10px;
+}
+
+@media (max-width:1220px){
+  #navigationSection {
+    min-width: 0 !important;
+    width: 0 !important;
+  }
+    
+  #navigationSection.active {
+    min-width: 300px !important;
+    width: 300px !important;
+  }
+}
+

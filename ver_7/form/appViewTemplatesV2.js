@@ -12,7 +12,64 @@ var leftSidebarModelSchemaV1 = {
         name: 'section',
         id: "navigationSection",
         class: "tempo",
-    }
+        inside_navigationSection: {
+            name: 'div',
+            id: "inside_navigationSection",
+            'textContent': 'create',
+            sideBar_header: {
+                name: 'div',
+                id: "navigationSection",
+                
+            },
+            sideBar_Collection: {},
+            sideBar_Collection_withDropDown: {},
+            sideBar_footer: {
+                name: 'div',
+                id: "SidebarFooter",
+                newCollectionBtn: {
+                    name: 'div',
+                    class: 'newCollectionBtn flex align_center',
+                    id: '',
+                    'textContent': 'add Collections',
+                    items: [
+                         {
+                            name: 'i',
+                            'class': "material-icons",
+                            'textContent': 'library_add',
+                        },
+                    ]
+                    
+                   
+                },
+                footerIcons: {
+                    name: 'div',
+                    class: 'footerIcon flex align_center',
+                    id: 'footerIcon',
+                    'textContent': 'add Collections',
+                    items: [
+                        {
+                            name: 'i',
+                            'class': "material-icons",
+                            'textContent': 'library_add',
+                        }, {
+                            name: 'i',
+                            'class': "material-icons",
+                            'textContent': 'library_add',
+                        }, {
+                            name: 'i',
+                            'class': "material-icons",
+                            'textContent': 'library_add',
+                        },
+                    ]
+
+
+                },
+                
+            },
+
+        }
+    },
+    
     
 
 
@@ -28,10 +85,10 @@ var headerModelSchemaV1 = {
         'brand': {
             'name': 'img',
             'desc': 'This is a horizontical bar, more functionality of this bar to be added',
-            'src': 'images/[ ehh ] logo Ver O.8 300X144 px.png',
+            'src': 'images/icons_221x.png',
             'style':"width:54px",
             'id': 'brand',
-                        'class': 'brand'
+            'class': 'brand'
         },
         'input': {
             'name': 'input',
