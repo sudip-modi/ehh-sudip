@@ -1,0 +1,163 @@
+#actionSpaceContainer{
+height: 100vh;
+}
+#header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 54px;
+  padding: 5px 20px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+#actionSearch{
+   
+    padding-left: 21px;
+    font-family: 'Poppins';
+    height: 34px;
+    width: 34vw;
+    
+    font-size: 13pt;   
+}
+#bodySection {
+    height: 100%;-webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+#navigationSection {
+    margin-left: 20px;
+  resize: horizontal;
+  position: relative;
+  overflow: hidden;
+  min-width: 300px;
+  width: 300px !important;
+  max-width: 400px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+    flex-direction: column;
+ 
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  -webkit-transition: width 200ms;
+  transition: width 200ms;
+}
+
+#actionWorkspaceSection { 
+  -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  overflow-y: auto;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+ -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#navigationSection.hide {
+  min-width: 0;
+  width: 0 !important;
+}
+
+ #navigationSection #SidebarFooter {
+  background-color: transparent;
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.side_bar_header {
+ 
+  padding: 20px 5px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+   justify-content: space-between;
+  
+}
+
+.brand_logo {
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+}
+
+.collection_list {
+  font-weight: 400;
+  margin-top: 3px;
+  overflow-x: hidden;
+}
+
+.collection_list_with_drop_down {
+  height: 100%;
+}
+
+.collection_list {
+  font-weight: 400;
+  margin-top: 3px;
+  overflow-x: hidden;
+}
+.collection {
+  margin-bottom: 5px;
+}
+
+.item {
+  -webkit-transition: background-color 200ms;
+  transition: background-color 200ms;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 4px 10px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+   align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 2px;
+}
+
+ .item:hover {
+  background-color: #00000038;
+}
+
+#BodyWorkspace {
+  padding: 15px;
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: auto;
+}
+
+#output{
+    width: 50%;
+background-color: cyan;
+}
+#output::before{
+  content: attr(id);
+  position: relative;
+  top: -3em;
+  margin-bottom: -2em;
+  visibility: hidden;
+}
+#output:hover::before{
+    cursor: pointer;
+  visibility: visible;
+}

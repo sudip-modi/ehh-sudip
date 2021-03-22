@@ -4,7 +4,6 @@
   padding: 0;
    border:none;
   outline:none;
-  border-radius: 5px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-family: 'Poppins' , sans-serif;
@@ -25,14 +24,17 @@
     border-radius: 5px;
     outline:none;
 }
+[class='material-icons']{
+   font-size: 21px;
+}
+
 body {
      list-style: none;
       height: 100%;
-   font-family: 'Poppins';
-   background-color: #0080ff;
-   color: black;
+     font-family: 'Poppins';
+     
+     color: black;
 }
-
 a {
   text-decoration: none;
    padding: 1px 10px;
@@ -40,7 +42,7 @@ a {
 }
 
 button {
- padding: 14px;
+ padding: 13px;
   cursor: pointer;
   -webkit-transition: background-color 100ms;
   transition: background-color 100ms;
@@ -125,13 +127,15 @@ button:hover {
   display: none;
 }
 .row{
+  
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+ 
   width: 100%;
-  
 }
 .column {
+  
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
