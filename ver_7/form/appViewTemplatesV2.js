@@ -295,7 +295,7 @@ var actionWorkSpaceModelSchemaV1 = {
             class: "flex",
             workspaceHeader: {
                 name: 'div',
-                class: "workspaceHeader flex align_center",
+                class: "workspaceHeader flex align_center row",
                 MainHeaderHamburger: {
                     name: 'div',
                     class: "mode_toggle_btn mr-15",
@@ -329,77 +329,63 @@ var actionWorkSpaceModelSchemaV1 = {
                             textContent: 'Edit'
                         }
                     },
-                    controlIcon: {
-                        name: 'div',
-                        class: "controlsIcon flex align_center",
-                        share: {
-                            name: "div",
-                            class: "share icon",
-                            icon: {
-                                name: 'i',
-                                'class': "material-icons",
-                                'textContent': 'share',
-                            },
-                        },
-                        heart: {
-                            name: "div",
-                            class: "heart icon",
-                            icon: {
-                                name: 'i',
-                                'class': "material-icons",
-                                'textContent': 'favorite',
-                            },
-                           
-                        },
-                        delete: {
-                            name: "div", class: "delete icon",
-                            icon: {
-                                name: 'i', 'class': "material-icons", 'textContent': 'delete',
-                            },
-
-                        },
-
-
-
-                    }
+                  
                 },
+                controlIcon: {
+                    name: 'div',
+                    class: "controlsIcon flex align_center",
+                    share: {
+                        name: "div",
+                        class: "share icon",
+                        icon: {
+                            name: 'i',
+                            'class': "material-icons",
+                            'textContent': 'share',
+                        },
+                    },
+                    heart: {
+                        name: "div",
+                        class: "heart icon",
+                        icon: {
+                            name: 'i',
+                            'class': "material-icons",
+                            'textContent': 'favorite',
+                        },
+
+                    },
+                    delete: {
+                        name: "div", class: "delete icon",
+                        icon: {
+                            name: 'i', 'class': "material-icons", 'textContent': 'delete',
+                        },
+
+                    },
+
+
+
+                }
             },
             WorkspaceBody: {
-                name: 'div',id:"BodyWorkspace",
-            },
-            actionSpace: {
-                name: 'div', id: 'actionSpace', class: "row",
-                editor: {
-                    name: 'div',
-                    id: 'editor',
-                    contentEditable: 'true',
-                    class:'column',
-                    content: {
+                name: 'div', id: "BodyWorkspace",
+                actionSpace: {
+                    name: 'div', id: 'actionSpace', class: "row",
+                    editor: {
                         name: 'div',
-                        id: 'content',
-                        textContent:'kuch toh log kahengey, unka kaam hey kehna..',
+                        id: 'editor',
+                        contentEditable: 'true',
+                        class: 'column',
+                        content: {
+                            name: 'div',
+                            id: 'content',
+                            textContent: 'kuch toh log kahengey, unka kaam hey kehna..',
+                        }
+
+                    },
+                    output: {
+                        name: 'div', class: "coloumn", id: 'output',
                     }
-                             
                 },
-                output: {
-                    name: 'div', class: "coloumn", id: 'output',
-                }
-
-             },
-                
-                
-                //  
-                //                 <div id="lines"><span>1</span><br></div>
-                //                 <div id="content">
-                //         kuch toh log kahengey, unka kaam hey kehna..
-                //                     <span id="cursor-placeholder">|</span>
-                //                 </div>
-                //             </div>
-                //             <span id="blinking-cursor" style="top: 70.4375px; left: 137.5px;">|</span>
-                //             <div id='output' class="column"></div>
-                //         </div>
-
-                //     </div>
+            },
                 //     <div class="workspaceFooter">
                 //         <p>https://www.0dot1.live</p>
                 //     </div>
