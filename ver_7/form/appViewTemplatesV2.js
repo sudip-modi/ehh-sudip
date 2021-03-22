@@ -348,6 +348,7 @@ var headerModelSchemaV1 = {
 
     }
 }
+
 var iconBar = {
     'name': "iconBar",
     // 'style':"visibility:hidden",
