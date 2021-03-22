@@ -1,0 +1,29 @@
+
+.row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+#output{
+    width: 50%;
+background-color: rgb(240, 240, 240);
+}
+#output::before{
+  content: attr(id);
+  position: relative;
+  top: -1em;
+  margin-bottom: -1em;
+  visibility: hidden;
+}
+#output:hover::before{
+  visibility: visible;
+}

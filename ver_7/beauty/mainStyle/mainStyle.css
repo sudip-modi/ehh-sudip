@@ -484,8 +484,8 @@ main .MainBody #bodySection #body_side_bar .SideBarBody::-webkit-scrollbar-thumb
   height: 54px;
   padding: 5px 20px;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background-color: white;
 }
 

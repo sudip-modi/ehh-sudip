@@ -229,7 +229,7 @@ main .MainBody #bodySection #body_side_bar {
   width: 400px;
   overflow: hidden;
   height: 100%;
-  background-color: whitesmoke;
+  background-color: rgb(235, 0, 0);
   resize: horizontal;
   position: relative;
   -webkit-transition: width 200ms;

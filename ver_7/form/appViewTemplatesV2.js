@@ -8,13 +8,405 @@ var actionStoryTemplate = {
     contentEditable: true
 }
 var actionWorkSpaceModelSchemaV1 = {
-    actionWorkSpace: {
-        name: 'div',
-        id: "BodyWorkspaceSection",
-        class: "flex",
-        
+    actionSpaceBodySection: {
+        name: 'section',
+        id: 'bodySection',
+        LeftSideNavBar: {
+            name: 'section',
+            id: "navigationSection",
+            class: "tempo",
+            inside_navigationSection: {
+                name: 'div',
+                id: "inside_navigationSection",
+
+                sideBar_header: {
+                    name: 'div',
+                    class: "side_bar_header",
+                    brand: {
+                        name: 'div',
+                        class: "brand_logo",
+                        textContent: 'Sunil Kumar',
+                    },
+                    sideBarControlMenu: {
+                        name: 'div',
+                        class: "HeaderControl flex align_center justify_center",
+                        button1: {
+                            name: 'div',
+                            class: "mode_toggle_btn mr-15",
+                            id: "MainHeaderHamburger1",
+                        },
+                        button2: {
+                            name: 'i',
+                            'class': "material-icons",
+                            'textContent': 'add_box',
+                        },
+                    },
+
+                },
+                sideBar_CollectionList: {
+                    name: 'div',
+                    class: 'collection_list',
+                    collectionItem: {
+                        name: 'div',
+                        class: "collection",
+                        items: [
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item1: {
+                                    name: 'i',
+                                    'class': "material-icons icon mr - 10",
+                                    'textContent': 'cloud',
+                                },
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'cloud',
+                                }
+
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item1: {
+                                    name: 'i',
+                                    'class': "material-icons icon mr - 10",
+                                    'textContent': 'album',
+                                },
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'album',
+                                }
+
+                            }
+
+
+                        ]
+                    }
+                },
+                hr: {
+                    name: 'div',
+                    class: 'hr',
+                },
+
+                sideBar_Collection_withDropDown: {
+                    name: 'div',
+                    class: 'collection_list_with_drop_down',
+                    collectionTitle: {
+                        name: 'div',
+                        class: "miniHeading",
+                        textContent: "List",
+                    },
+                    collectionItem: {
+                        name: 'div',
+                        class: "collection drop_down",
+                        innerHTML: `
+                      <li><span class="parent collection">my Stories</span>
+                      <ul class="nested">
+                      <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                        <li><span class="parent">my Nested Stories</span>
+                            <ul class="nested">
+                                <li>story 1</li>
+                                <li>story 2</li>
+                                <li>story 3</li>
+                                <li>story 4</li>
+                            </ul>
+                        </li>
+                        errands
+                    </li>
+
+                    <li><span class="parent">recent Stories</span>
+                        <ul class="nested">
+                            <li>leaf</li>
+                            <li>leaf</li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <span class="hozintalLine"></span>
+            <li><span class="parent">Recent Files</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>
+            <span class="hozintalLine"></span>
+            <li><span class="parent">Starred</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>
+            <li><span class="parent">Tags</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>
+            <li><span class="parent">Trash</span>
+                <ul class="nested">
+                    <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                    <li><span class="parent">my Nested Stories</span>
+                        <ul class="nested">
+                            <li>story 1</li>
+                            <li>story 2</li>
+                            <li>story 3</li>
+                            <li>story 4</li>
+                        </ul>
+                    </li>
+                    errands
+            </li>
+
+            <li><span class="parent">recent Stories</span>
+                <ul class="nested">
+                    <li>leaf</li>
+                    <li>leaf</li>
+
+                </ul>
+            </li>
+            </ul>
+            </li>`
+                    }
+                },
+                sideBar_footer: {
+                    name: 'div',
+                    id: "SidebarFooter",
+                    newCollectionBtn: {
+                        name: 'div',
+                        class: 'newCollectionBtn flex align_center',
+                        id: '',
+                        'textContent': 'add Collections',
+                        items: [
+                            {
+                                name: 'i',
+                                'class': "material-icons",
+                                'textContent': 'library_add',
+                            },
+
+                        ]
+
+
+                    },
+                    footerIcons: {
+                        name: 'div',
+                        class: 'footerIcon flex align_center',
+                        id: 'footerIcon',
+                        items: [
+                            {
+                                name: 'i',
+                                'class': "material-icons",
+                                'textContent': 'favorite',
+                            }, {
+                                name: 'i',
+                                'class': "material-icons",
+                                'textContent': 'download_for_offline',
+                            }, {
+                                name: 'i',
+                                'class': "material-icons",
+                                'textContent': 'settings',
+                            },
+                        ]
+
+
+                    },
+
+                },
+
+            }
+        },
+        actionWorkSpace: {
+            name: 'section',
+            id: "actionWorkspaceSection",
+            class: "flex",
+            workspaceHeader: {
+                name: 'div',
+                class: "workspaceHeader flex align_center",
+                MainHeaderHamburger: {
+                    name: 'div',
+                    class: "mode_toggle_btn mr-15",
+                    style: "background-color: #333;",
+                    id: "MainHeaderHamburger2"
+                },
+                pageNavigate: {
+                    name: 'div',
+                    class: "flex align_center",
+                    back: {
+                        name: 'i',
+                        'class': "material-icons",
+                        'textContent': 'navigate_before',
+                    },
+                    next: {
+                        name: 'i',
+                        'class': "material-icons",
+                        'textContent': 'navigate_next',
+                    },
+                },
+                workSpaceTitle: {
+                    name: 'div',
+                    class: "title_edit flex align_center",
+                    title: {
+                        name: 'div',
+                        class: 'title',
+                        textContent: 'WorkSpaceTitle',
+                        editBtn: {
+                            name: 'button',
+                            class: 'editBtn',
+                            textContent: 'Edit'
+                        }
+                    },
+                    controlIcon: {
+                        name: 'div',
+                        class: "controlsIcon flex align_center",
+                        share: {
+                            name: "div",
+                            class: "share icon",
+                            icon: {
+                                name: 'i',
+                                'class': "material-icons",
+                                'textContent': 'share',
+                            },
+                        },
+                        heart: {
+                            name: "div",
+                            class: "heart icon",
+                            icon: {
+                                name: 'i',
+                                'class': "material-icons",
+                                'textContent': 'favorite',
+                            },
+                           
+                        },
+                        delete: {
+                            name: "div", class: "delete icon",
+                            icon: {
+                                name: 'i', 'class': "material-icons", 'textContent': 'delete',
+                            },
+
+                        },
+
+
+
+                    }
+                },
+            },
+            WorkspaceBody: {
+                name: 'div',id:"BodyWorkspace",
+            },
+            actionSpace: {
+                name: 'div', id: 'actionSpace', class: "row",
+                editor: {
+                    name: 'div',
+                    id: 'editor',
+                    contentEditable: 'true',
+                    class:'column',
+                    content: {
+                        name: 'div',
+                        id: 'content',
+                        textContent:'kuch toh log kahengey, unka kaam hey kehna..',
+                    }
+                             
+                },
+                output: {
+                    name: 'div', class: "coloumn", id: 'output',
+                }
+
+             },
+                
+                
+                //  
+                //                 <div id="lines"><span>1</span><br></div>
+                //                 <div id="content">
+                //         kuch toh log kahengey, unka kaam hey kehna..
+                //                     <span id="cursor-placeholder">|</span>
+                //                 </div>
+                //             </div>
+                //             <span id="blinking-cursor" style="top: 70.4375px; left: 137.5px;">|</span>
+                //             <div id='output' class="column"></div>
+                //         </div>
+
+                //     </div>
+                //     <div class="workspaceFooter">
+                //         <p>https://www.0dot1.live</p>
+                //     </div>
+
+        }
     }
+   
 }
+
 var leftSidebarModelSchemaV1 = {
     LeftSideNavBar: {
         name: 'section',
