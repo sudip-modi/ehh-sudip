@@ -56,7 +56,7 @@ button:hover {
   margin-right: 20px;
   cursor: pointer;
 }
- i:hover {
+.icon:hover {
   color: #333;
 }
 

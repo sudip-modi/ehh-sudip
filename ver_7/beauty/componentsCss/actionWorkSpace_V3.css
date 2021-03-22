@@ -27,8 +27,7 @@ height: 100vh;
     flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
-}
+    display: flex;}
 
 #navigationSection {
     margin-left: 20px;
@@ -138,11 +137,12 @@ height: 100vh;
 }
 
 #BodyWorkspace {
-  padding: 15px;
+   
+  padding: 21px;
   width: 100%;
   -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   overflow-y: auto;
 }
 

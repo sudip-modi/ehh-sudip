@@ -420,19 +420,59 @@ var actionSpaceContainerModelSchemaVer_2 = {
             WorkspaceBody: {
                 name: 'div', id: "BodyWorkspace", class:'row',
                 actionSpace: {
-                name: 'div', id: 'actionSpace', class: "flex row",
+                    name: 'div',
+                    id: 'actionSpace',
+                    class: "row",
                 editor: {
+                     name: 'div',
+                     id: 'editor',
+                    class: 'column',
+                    iconBar: {
                         name: 'div',
-                        id: 'editor',
-                        contentEditable: 'true',
-                        class: 'column',
+                        id:'iconBar',
+                        class: 'row',
+                        icon: {
+                            name: 'i',
+                            class: 'material-icons icon',
+                            textContent: 'add',
+                            
+                        },
+                        toolsIcons: [
+                            { 
+                                name: 'div',
+                                class: 'icon row',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'title',
+                                },
+                            },
+                            {
+                                name: 'div',
+                                class: 'icon row',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons icon", 'textContent': 'image',
+                                },
+                            }, {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons icon", 'textContent': 'format_list_bulleted',
+                                },
+                            }, {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons icon", 'textContent': 'title',
+                                },
+                            },
+                        ],
+                    },
                         content: {
                             name: 'div',
                             id: 'content',
                             textContent: 'kuch toh log kahengey, unka kaam hey kehna..',
                         }
                     },
-                    output: {
+                output: {
                         name: 'div', class:"column", id: 'output',textContent:'output',
                     },
                 },
@@ -448,4 +488,46 @@ var actionSpaceContainerModelSchemaVer_2 = {
         }
     }
 
+}
+
+var iconBar = {
+    iconBar: {
+        'name': "div",
+        // 'style':"visibility:hidden",
+        'id': 'iconBar',
+        'class': "flex row icon",
+        icon: {
+            name: 'i',
+            class: 'material-icons icon',
+            textContent:'add',
+        },
+
+        "iconBarTools": [
+            {
+                'name': 'i', 'class': "material-icons icon", 'textContent': 'title',
+            },
+            {
+                'name': 'i', 'class': "material-icons", 'textContent': 'image'
+            },
+            {
+                'name': 'i', 'class': "material-icons", 'textContent': 'format_list_bulleted'
+            },
+            {
+                'name': 'i', 'class': "material-icons", 'textContent': 'attachment',
+            },
+            {
+                'name': 'i', 'class': "material-icons", 'textContent': 'code',
+            },
+            {
+                'name': 'i', 'class': "material-icons", 'textContent': 'format_quote',
+            },
+            {
+                'name': 'i', 'class': "material-icons", 'textContent': 'horizontal_rule',
+            },
+            {
+                'name': 'i', 'class': "material-icons", 'textContent': 'grid_on',
+            }
+        ]
+
+    },
 }
