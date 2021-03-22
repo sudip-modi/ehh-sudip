@@ -11,10 +11,12 @@ var actionWorkSpaceModelSchemaV1 = {
     actionSpaceBodySection: {
         name: 'section',
         id: 'bodySection',
+        class: 'row',
+      //  'LeftSideNavBar': leftSidebarModelSchemaV1,
         LeftSideNavBar: {
             name: 'section',
             id: "navigationSection",
-            class: "tempo",
+            class: "coloumn",
             inside_navigationSection: {
                 name: 'div',
                 id: "inside_navigationSection",
@@ -691,7 +693,7 @@ var headerModelSchemaV1 = {
         'name': 'section',
         'desc': 'This is a horizontical bar, more functionality of this bar to be added',
         'id': 'header',
-        'class':'flex align_center',
+        'class':'flex align_center row',
         //  'innerText':"header",
         'brand': {
             'name': 'img',

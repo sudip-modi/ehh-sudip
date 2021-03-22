@@ -1,17 +1,7 @@
-body{
-height: 100%;
-background-color: rgb(190, 190, 190);
-}
-#actionSpaceContainer{
 
-height: 100%;
-
-
-}
  #bodySection {
   height: 100%;
 
-  
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -38,7 +28,7 @@ height: 100%;
 
 #headerSect {
   padding: 10px;
-  background-color: #0080ff;
+  
   width: 100%;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
@@ -55,7 +45,7 @@ height: 100%;
   color: #4d4d4d;
 }
 
- #body_side_bar .headerSect .searchBar {
+.searchBar {
   background-color: rgba(192, 192, 192, 0.521);
   padding: 7px;
   border-radius: 4px;
@@ -70,34 +60,33 @@ height: 100%;
   margin: 0 15px;
 }
 
- #body_side_bar .headerSect .searchBar i {
+ .searchBar i {
   font-weight: 400;
   margin-right: 12px;
 }
 
- #body_side_bar .headerSect .searchBar input {
+ .searchBar input {
   background-color: transparent;
   outline: none;
   border: 0;
-  height: 100%;
   width: 100%;
 }
 
-main .MainBody #bodySection #body_side_bar .headerSect i {
+.headerSect i {
   margin-right: 6px;
   cursor: pointer;
 }
 
-main .MainBody #bodySection #body_side_bar .headerSect img.icon {
+.headerSect img.icon {
   max-width: 30px;
   width: 100%;
   cursor: pointer;
 }
 
-main .MainBody #bodySection #body_side_bar .SideBarBody {
+.SideBarBody {
   overflow-y: auto;
   width: 100%;
-  height: 100%;
+  
   padding: 10px;
 }
 
@@ -135,24 +124,25 @@ main .MainBody #bodySection #body_side_bar .SideBarBody::-webkit-scrollbar-thumb
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  background-color: white;
+  
 }
 
-#actionWorkspaceSection .workspaceHeader .icon {
-  margin-right: 20px;
-  cursor: pointer;
-}
 
-#actionWorkspaceSection .workspaceHeader .icon i {
-  font-size: 20px;
-  color: silver;
+#output{
+    width: 50%;
+background-color: rgb(240, 240, 240);
 }
-
-#actionWorkspaceSection .workspaceHeader .icon i:hover {
-  color: #333;
+#output::before{
+  content: attr(id);
+  position: relative;
+  top: -3em;
+  margin-bottom: -2em;
+  visibility: hidden;
 }
-
-#actionWorkspaceSection .workspaceHeader .title_edit {
+#output:hover::before{
+  visibility: visible;
+}
+ .workspaceHeader .title_edit {
   margin: 0 20px;
   -webkit-box-flex: 1;
       -ms-flex: 1;

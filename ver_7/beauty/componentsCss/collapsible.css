@@ -1,7 +1,6 @@
 ul,#myUL{
     list-style-type: none;
 }
-
 #myUL {
             margin: 0;
             padding: 0;
@@ -37,7 +36,6 @@ ul,#myUL{
 .nested {
     display: none;
 }
-
-        .active {
+.active {
             display: block;
-        }
+       }
