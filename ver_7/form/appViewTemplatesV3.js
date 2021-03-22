@@ -423,15 +423,15 @@ var actionSpaceContainerModelSchemaVer_2 = {
                     name: 'div',
                     id: 'actionSpace',
                     class: "row",
-                    iconBar: {
+                        iconBar: {
                         name: 'div',
-                        id: 'iconBar',
+                        id:'iconBar',
                         class: 'row',
                         icon: {
                             name: 'i',
                             class: 'material-icons icon',
                             textContent: 'add',
-
+                            
                         },
                         toolBar: {
                             id: 'toolBar',
@@ -499,13 +499,13 @@ var actionSpaceContainerModelSchemaVer_2 = {
                                 },
                             },
                         },
-
+                   
                     },
                 editor: {
                      name: 'div',
                      id: 'editor',
                     class: 'column',
-               
+                    contenteditable:'true',
                         content: {
                             name: 'div',
                             id: 'content',
