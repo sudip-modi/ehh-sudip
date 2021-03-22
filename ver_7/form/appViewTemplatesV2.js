@@ -7,6 +7,14 @@ var actionStoryTemplate = {
     'before': 'name',
     contentEditable: true
 }
+var actionWorkSpaceModelSchemaV1 = {
+    actionWorkSpace: {
+        name: 'div',
+        id: "BodyWorkspaceSection",
+        class: "flex",
+        
+    }
+}
 var leftSidebarModelSchemaV1 = {
     LeftSideNavBar: {
         name: 'section',
