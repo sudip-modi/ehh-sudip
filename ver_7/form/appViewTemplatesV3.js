@@ -437,34 +437,73 @@ var actionSpaceContainerModelSchemaVer_2 = {
                             textContent: 'add',
                             
                         },
-                        toolsIcons: [
-                            { 
+                        toolBar: {
+                            id: 'toolBar',
+                            name: 'div',
+                            class: 'flex',
+                            icon1: {
                                 name: 'div',
-                                class: 'icon row',
+                                class: 'icon',
                                 icon: {
                                     'name': 'i', 'class': "material-icons", 'textContent': 'title',
                                 },
                             },
-                            {
-                                name: 'div',
-                                class: 'icon row',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons icon", 'textContent': 'image',
-                                },
-                            }, {
+                            icon2: {
                                 name: 'div',
                                 class: 'icon',
                                 icon: {
-                                    'name': 'i', 'class': "material-icons icon", 'textContent': 'format_list_bulleted',
-                                },
-                            }, {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons icon", 'textContent': 'title',
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'image',
                                 },
                             },
-                        ],
+                            icon3: {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'format_list_bulleted',
+                                },
+                            },
+
+                            icon4: {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'attachment',
+                                },
+                            },
+
+                            icon5: {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'format_quote',
+                                },
+                            },
+
+                            icon6: {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'code',
+                                },
+                            },
+
+                            icon7: {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'horizontal_rule',
+                                },
+                            },
+
+                            icon8: {
+                                name: 'div',
+                                class: 'icon',
+                                icon: {
+                                    'name': 'i', 'class': "material-icons", 'textContent': 'grid_on',
+                                },
+                            },
+                        },
+                   
                     },
                         content: {
                             name: 'div',
