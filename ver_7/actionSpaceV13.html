@@ -24,20 +24,5 @@
     <script type="text/javascript" src="function/actionEntityV8.js"></script>
     <script type="text/javascript" src="function/actionSpaceV10.js"></script>
 </body>
-<script>
-    var toggler = document.getElementsByClassName("parent");
-    var i;
-    for (i = 0; i < toggler.length; i++) {
-        toggler[i].addEventListener("click", function () {
-            this.parentElement.querySelector(".nested").classList.toggle("active");
-            this.classList.toggle("parent-down");
-        });
-    }
-    var hamMenu1 = document.getElementById('MainHeaderHamburger1')
-        hamMenu1.onclick = function () {
-            document.getElementById('navigationSection').classList.toggle('hide')
-            document.getElementById('navigationSection').classList.toggle('active')
-        }
-</script>
 
 </html>
