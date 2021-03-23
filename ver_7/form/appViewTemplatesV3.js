@@ -116,6 +116,7 @@ var actionSpaceContainerModelSchemaVer_2 = {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'new file',
+                                    'data-command':'[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 }
 
                             },
