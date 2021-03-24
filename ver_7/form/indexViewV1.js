@@ -1,7 +1,7 @@
 var basicLayoutV3 = {
     class: 'flex column',
     header: {
-        'name': 'section',
+        'name': 'div',
         'desc': 'This is a horizontical bar, more functionality of this bar to be added',
         'id': 'header',
         'class': 'row',
