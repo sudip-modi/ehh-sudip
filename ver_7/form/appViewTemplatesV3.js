@@ -110,12 +110,13 @@ var actionSpaceContainerModelSchemaVer_2 = {
                                 item1: {
                                     name: 'i',
                                     'class': "material-icons icon mr - 10",
-                                    'textContent': 'cloud',
+                                    'textContent': 'add',
                                 },
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
-                                    'textContent': 'cloud',
+                                    'textContent': 'new file',
+                                    'data-command':'[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 }
 
                             },
@@ -125,15 +126,31 @@ var actionSpaceContainerModelSchemaVer_2 = {
                                 item1: {
                                     name: 'i',
                                     'class': "material-icons icon mr - 10",
-                                    'textContent': 'album',
+                                    'textContent': 'folder_open',
                                 },
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
-                                    'textContent': 'album',
+                                    'textContent': 'open folder',
+                                    'onclick':"processFS.OpenDirectory(event);"
                                 }
 
-                            }
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item1: {
+                                    name: 'i',
+                                    'class': "material-icons icon mr - 10",
+                                    'textContent': 'save',
+                                },
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'save',
+                                }
+
+                            },
 
 
                         ]
@@ -412,6 +429,67 @@ var actionSpaceContainerModelSchemaVer_2 = {
                         },
 
                     },
+                    insertTitle: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'title',
+                        },
+                    },
+                    icon2: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'image',
+                        },
+                    },
+                    icon3: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'format_list_bulleted',
+                        },
+                    },
+
+                    icon4: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'attachment',
+                        },
+                    },
+
+                    icon5: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'format_quote',
+                        },
+                    },
+
+                    icon6: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'code',
+                        },
+                    },
+
+                    icon7: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'horizontal_rule',
+                        },
+                    },
+
+                    icon8: {
+                        name: 'div',
+                        class: 'icon',
+                        icon: {
+                            'name': 'i', 'class': "material-icons", 'textContent': 'grid_on',
+                        },
+                    },
 
 
 
@@ -423,85 +501,7 @@ var actionSpaceContainerModelSchemaVer_2 = {
                     name: 'div',
                     id: 'actionSpace',
                     class: "row",
-                        iconBar: {
-                        name: 'div',
-                        id:'iconBar',
-                        class: 'row',
-                        icon: {
-                            name: 'i',
-                            class: 'material-icons icon',
-                            textContent: 'add',
-                            
-                        },
-                        toolBar: {
-                            id: 'toolBar',
-                            name: 'div',
-                            class: 'flex',
-                            icon1: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'title',
-                                },
-                            },
-                            icon2: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'image',
-                                },
-                            },
-                            icon3: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'format_list_bulleted',
-                                },
-                            },
-
-                            icon4: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'attachment',
-                                },
-                            },
-
-                            icon5: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'format_quote',
-                                },
-                            },
-
-                            icon6: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'code',
-                                },
-                            },
-
-                            icon7: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'horizontal_rule',
-                                },
-                            },
-
-                            icon8: {
-                                name: 'div',
-                                class: 'icon',
-                                icon: {
-                                    'name': 'i', 'class': "material-icons", 'textContent': 'grid_on',
-                                },
-                            },
-                        },
-                   
-                    },
-                editor: {
+                    editor: {
                      name: 'div',
                      id: 'editor',
                     class: 'column',
@@ -528,4 +528,55 @@ var actionSpaceContainerModelSchemaVer_2 = {
         }
     }
 
+}
+
+
+var sidebarJSON = {
+    // 'sidebar':{
+    'name': 'div',
+    'class': 'row',
+    'menu': {
+        'name': 'div',
+        'class': 'sidebar col-md-4',
+        'frontEnd': {
+            'name': 'ul',
+            'id': 'frontEnd',
+            'workspace': {
+                'name': 'li',
+                'span': {
+                    'name': 'span',
+                    'class': 'caret',
+                    'innerText': 'Workspace'
+                },
+                'list': {
+                    'name': 'ul',
+                    'class': 'nested',
+                    'id': 'workspace',
+                }
+            }
+        }
+    }
+    //  }
+};
+var directoryJSON = {
+    'li': {
+        'name': 'li',
+        'span': {
+            'name': 'span',
+            'class': 'caret',
+            'innerText': '', //inner Text will be included
+        },
+        'list': {
+            'name': 'ul',
+            'class': 'nested',
+            'id': '' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
+        }
+    }
+}
+var fileJSON = {
+    'name': 'li',
+    'id': '', //id - Unique ID with which file handle of this file retrieved from indexDB
+    'class': 'file',//used for opening file
+    'innerText': ''
+    //innerText - name of the file
 }
