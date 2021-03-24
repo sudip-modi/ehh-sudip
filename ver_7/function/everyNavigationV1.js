@@ -1,5 +1,22 @@
 class EveryNavigation{
     constructor() {
+        window.addEventListener("hashchange", this.onRouteChange);
+        this.view = document.querySelector('#actionSpaceContainer');
+        
+    }
+    onRouteChange(e) {
+        const hashLocation = window.location.hash.substring(1);
+        console.log(hashLocation);
+        this.loadContent(hashLocation);
+
+    }
+    loadContent(uri) {
+        const URIJSON = [uri];
+        this.updateView(URIJSON);
+        
+    }
+    updateView(content, parent) {
+        
         
     }
     init() {
@@ -65,5 +82,5 @@ var actionSpaceNavigator = new EveryNavigation();
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
     
-    actionSpaceNavigator.init();
+   // actionSpaceNavigator.init();
 });
