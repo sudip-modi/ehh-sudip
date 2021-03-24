@@ -18,8 +18,12 @@
     --info: #1f9bcf;
     --warning: #e5a54b;
     --danger: #d9534f;
-    --light: #eff2f6;
+    --light: #f1f5f9;
     --dark: #293042;
     font-family: 'poppins';
     font-size: 13pt;
+}
+body{
+    background-color: var(--light);
+    height: 100%;
 }
