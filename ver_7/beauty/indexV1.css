@@ -1,0 +1,32 @@
+#actionSpaceContainer{
+height: inherit;
+    background-color: var(--danger);
+}
+#header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 54px;
+  padding: 5px 20px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  align-content: center;
+  background-color: var(--light);
+}
+
+#brand{
+    height: 34px;
+    align-self: center;
+    cursor: pointer;
+}
+#actionSearch{
+    padding-left: 21px;
+    width: 25vw;
+    height: 30px;
+      align-self: center;
+  
+    
+}
+    

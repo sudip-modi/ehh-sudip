@@ -9,6 +9,8 @@ class EveryNavigation{
         console.log(hashLocation);
         this.loadContent(hashLocation);
 
+
+       
     }
     loadContent(uri) {
         const URIJSON = [uri];
@@ -16,7 +18,7 @@ class EveryNavigation{
         
     }
     updateView(content, parent) {
-        
+      
         
     }
     init() {
