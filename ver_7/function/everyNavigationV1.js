@@ -13,7 +13,7 @@ class EveryNavigation{
         //this.updateLayout('earth');
     }
     addListeners() {
-        document.querySelector('nav').addEventListener('click', this.nav);
+      //  document.querySelector('nav').addEventListener('click', this.nav);
 
         window.addEventListener('popstate', this.checkState);
         //when the user clicks back or forward
@@ -55,7 +55,7 @@ class EveryNavigation{
     }
     updateLayout(place) {
         //accept a className and update the interface based on that
-        let main = document.querySelector('main');
+        let main = document.querySelector('body');
         main.className = place;
     }
 
