@@ -1,6 +1,7 @@
 :root{
     --blue: #3f80ea;
     --indigo: #6610f2;
+    --darkblue:#000031;
     --purple: #6f42c1;
     --pink: #e83e8c;
     --red: #d9534f;
@@ -26,4 +27,14 @@
 body{
     background-color: var(--blue);
     height: 100%;
+}
+a {
+  text-decoration: none;
+   padding: 13px;
+   cursor: pointer;
+   align-self: center;
+}
+a:hover {
+
+   cursor: pointer;
 }

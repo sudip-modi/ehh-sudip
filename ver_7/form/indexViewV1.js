@@ -21,9 +21,9 @@ var basicLayoutV3 = {
           'autocomplete': "off"
         },
         'menu': {
-            "name": "menu",
+            "name": "div",
             'id': "topmenu",
-            'class': 'flex align_justify',
+         
             "span": [
                 {
                     'name': 'a',
@@ -47,7 +47,7 @@ var basicLayoutV3 = {
 
                 },
                 {
-                    'name': 'button',
+                    'name': 'a',
                     'class': "material-icons",
                     'textContent': 'more_vert',
                 }
