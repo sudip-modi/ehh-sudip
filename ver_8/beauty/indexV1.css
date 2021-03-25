@@ -1,6 +1,6 @@
 #actionSpaceContainer{
 height: inherit;
-    background-color: var(--danger);
+background-color: var(--danger);
 }
 #header {
   position: -webkit-sticky;
@@ -27,4 +27,37 @@ height: inherit;
     height: 30px;
      align-self: center;
 }
+.menu{
+align-items: center;
+}
+#actionSpaceBody{
+    height: inherit;   
     
+}
+#navigationSection {
+    background-color: blueviolet;
+    margin-left: 20px;
+    resize: horizontal;
+    overflow: hidden;
+    min-width: 300px;
+    width: 300px !important;
+    max-width: 300px;  
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    -webkit-transition: width 200ms;
+    transition: width 200ms;
+}
+
+#navigationSection.hide {
+  min-width: 0;
+  width: 0 !important;
+}
+
+#side_bar_header{
+  padding: 20px 5px 10px;  
+}
+    
+
