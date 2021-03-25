@@ -72,16 +72,12 @@ var leftSideNavBar= {
                     },
             sideBarControlMenu: {
                 name: 'div',
-                    class: "HeaderControl flex align_center justify_center",
-                        button1: {
-                    name: 'div',
-                        class: "mode_toggle_btn mr-15",
-                            id: "MainHeaderHamburger1",
+                class: "HeaderControl align_center justify_center",
+                button1: {
+                    name: 'button',class: "mode_toggle_btn mr-15", id: "MainHeaderHamburger1",
                         },
                 button2: {
-                    name: 'i',
-                        'class': "material-icons",
-                            'textContent': 'add_box',
+                    name: 'i','class': "material-icons",'textContent': 'add_box',
                         },
             },
 
@@ -120,7 +116,7 @@ var leftSideNavBar= {
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
-                                    'textContent': 'open folder',
+                                    'textContent': 'add folder',
                                     'onclick': "processFS.OpenDirectory(event);"
                                 }
 
@@ -347,17 +343,213 @@ var leftSideNavBar= {
 
     }
 }
+var workspaceHeader= {
+    name: 'div',
+    class: "workspaceHeader flex align_center row",
+    MainHeaderHamburger: {
+        name: 'div',
+        class: "mode_toggle_btn mr-15",
+        style: "background-color: #333;",
+        id: "MainHeaderHamburger2"
+    },
+    pageNavigate: {
+        name: 'div',
+        class: "flex align_center",
+        back: {
+            name: 'i',
+            'class': "material-icons",
+            'textContent': 'navigate_before',
+        },
+        next: {
+            name: 'i',
+            'class': "material-icons",
+            'textContent': 'navigate_next',
+        },
+    },
+    workSpaceTitle: {
+        name: 'div',
+        class: "title_edit flex align_center",
+        title: {
+            name: 'div',
+            class: 'title',
+            textContent: 'WorkSpaceTitle',
+            editBtn: {
+                name: 'button',
+                class: 'editBtn',
+                textContent: 'Edit'
+            }
+        },
+
+    },
+    controlIcon: {
+        name: 'div',
+        class:'row',
+        share: {
+            name: "div",
+            class: "share icon",
+            icon: {
+                name: 'i',
+                'class': "material-icons",
+                'textContent': 'share',
+            },
+        },
+        heart: {
+            name: "div",
+            class: "heart icon",
+            icon: {
+                name: 'i',
+                'class': "material-icons",
+                'textContent': 'favorite',
+            },
+
+        },
+        delete: {
+            name: "div", class: "delete icon",
+            icon: {
+                name: 'i', 'class': "material-icons", 'textContent': 'delete',
+            },
+
+        },
+        insertTitle: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'title',
+            },
+        },
+        icon2: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'image',
+            },
+        },
+        icon3: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'format_list_bulleted',
+            },
+        },
+
+        icon4: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'attachment',
+            },
+        },
+
+        icon5: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'format_quote',
+            },
+        },
+
+        icon6: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'code',
+            },
+        },
+
+        icon7: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'horizontal_rule',
+            },
+        },
+
+        icon8: {
+            name: 'div',
+            class: 'icon',
+            icon: {
+                'name': 'i', 'class': "material-icons", 'textContent': 'grid_on',
+            },
+        },
+
+
+
+    }
+}
+var actionWorkSpace = {
+    name: 'section',
+    id: "actionWorkspaceSection",
+    class: "column",
+    'workspaceHeader': workspaceHeader,
+  
+   
+}
+
 var actionSpaceBody = {
     name: 'div',
     class: 'container row',
     id: 'actionSpaceBody',
     sidebarSection: leftSideNavBar,
-    
-    
+    workSpaceSection: actionWorkSpace,
 }
-var basicLayoutUserV3 = {
+var footer= {
+    name: 'div',
+    class: 'workspaceFooter',
+    p: {
+        name: 'p',
+        textContent: 'https://www.0dot1.live',
+    }
+}
+var vistorBody= {
+    name: 'div',
+    class: 'container row',
+    textContent:`a new lightweight, modern and fully customizable work-space.
+works in chrome and firefox browsers or  without them, be it on apple, mac, ubuntu, android or iOs.
+As long as you have the secret-key[ kind of a password ], you own your own secure ecosystem for a seamless, integrated experience across devices & services.
+For creators, collaborators, buyers, retailers, educators & influencers, the hardest working animal on this planet,
+us :)
+It's @ctionSpaces are full of action, drama, integration, automation, pinch of comedy and a dash of Ai.
+							`,
+}
+var basicWebLayoutVisitorV1 = {
+    id: 'actionSpaceLayoutContainer',
+    class: 'container column',
+    section: header,
+    section2: actionSpaceBody,
+    section3: footer,
+}
+var actionLayoutUserV3 = {
+    
     id:'actionSpaceLayoutContainer',
     class: 'container column',
     section: header,
     section2: actionSpaceBody,
+    section3: footer,
+}
+var peopleLayoutUserV3 = {
+    id: 'actionSpaceLayoutContainer',
+    class: 'container column',
+    section: header,
+    section2: actionSpaceBody,
+    section3: footer,
+}
+var settingBody = {
+    name: 'div',
+    textContent:'setting'
+}
+var settingLayoutUserV3 = {
+    id: 'actionSpaceLayoutContainer',
+    class: 'container column',
+    section: header,
+    section2: actionSpaceBody,
+    section3: footer,
+}
+
+
+var actionSpaceView = {
+    'vistor': basicWebLayoutVisitorV1,
+    'action': actionLayoutUserV3,
+    'people': peopleLayoutUserV3,
+    'setting': settingLayoutUserV3,
+    
 }

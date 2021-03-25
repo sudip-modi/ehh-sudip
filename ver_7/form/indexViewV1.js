@@ -53,6 +53,174 @@ var header={
     },
     'menu':'actionSpaceHeaderMenu' 
 }
+var actionWorkSpace= {
+    name: 'section',
+        id: "actionWorkspaceSection",
+            class: "column",
+                workspaceHeader: {
+        name: 'div',
+            class: "workspaceHeader flex align_center row",
+                MainHeaderHamburger: {
+            name: 'div',
+                class: "mode_toggle_btn mr-15",
+                    style: "background-color: #333;",
+                        id: "MainHeaderHamburger2"
+        },
+        pageNavigate: {
+            name: 'div',
+                class: "flex align_center",
+                    back: {
+                name: 'i',
+                    'class': "material-icons",
+                        'textContent': 'navigate_before',
+                    },
+            next: {
+                name: 'i',
+                    'class': "material-icons",
+                        'textContent': 'navigate_next',
+                    },
+        },
+        workSpaceTitle: {
+            name: 'div',
+                class: "title_edit flex align_center",
+                    title: {
+                name: 'div',
+                    class: 'title',
+                        textContent: 'WorkSpaceTitle',
+                            editBtn: {
+                    name: 'button',
+                        class: 'editBtn',
+                            textContent: 'Edit'
+                }
+            },
+
+        },
+        controlIcon: {
+            name: 'div',
+                class: "controlsIcon flex align_center",
+                    share: {
+                name: "div",
+                    class: "share icon",
+                        icon: {
+                    name: 'i',
+                        'class': "material-icons",
+                            'textContent': 'share',
+                        },
+            },
+            heart: {
+                name: "div",
+                    class: "heart icon",
+                        icon: {
+                    name: 'i',
+                        'class': "material-icons",
+                            'textContent': 'favorite',
+                        },
+
+            },
+            delete: {
+                name: "div", class: "delete icon",
+                    icon: {
+                    name: 'i', 'class': "material-icons", 'textContent': 'delete',
+                        },
+
+            },
+            insertTitle: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'title',
+                        },
+            },
+            icon2: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'image',
+                        },
+            },
+            icon3: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'format_list_bulleted',
+                        },
+            },
+
+            icon4: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'attachment',
+                        },
+            },
+
+            icon5: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'format_quote',
+                        },
+            },
+
+            icon6: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'code',
+                        },
+            },
+
+            icon7: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'horizontal_rule',
+                        },
+            },
+
+            icon8: {
+                name: 'div',
+                    class: 'icon',
+                        icon: {
+                    'name': 'i', 'class': "material-icons", 'textContent': 'grid_on',
+                        },
+            },
+
+
+
+        }
+    },
+    WorkspaceBody: {
+        name: 'div', id: "BodyWorkspace", class: 'row',
+            actionSpace: {
+            name: 'div',
+                id: 'actionSpace',
+                    class: "row",
+                        editor: {
+                name: 'div',
+                    id: 'editor',
+                        class: 'column',
+                            contenteditable: 'true',
+                                content: {
+                    name: 'div',
+                        id: 'content',
+                            textContent: 'kuch toh log kahengey, unka kaam hey kehna..',
+                        }
+            },
+            output: {
+                name: 'div', class: "column", id: 'output', textContent: 'output',
+                    },
+        },
+    },
+    footer: {
+        name: 'div',
+            class: 'workspaceFooter',
+                p: {
+            name: 'p',
+                textContent: 'https://www.0dot1.live',
+                }
+    }
+}
 
 var basicLayoutV3 = {
     class: 'container column',
