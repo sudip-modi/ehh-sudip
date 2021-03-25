@@ -1,4 +1,5 @@
 #actionSpaceContainer{
+  display: flex;
 height: inherit;
 background-color: var(--danger);
 }
@@ -13,13 +14,19 @@ background-color: var(--danger);
   -ms-flex-pack: justify;
   justify-content: space-between;
   align-content: center;
-  background-color: var(--light);
+ 
 }
 
 #brand{
     height: 34px;
     align-self: center;
     cursor: pointer;
+}
+.brandTitle{
+   align-self: center;
+}
+#logo{
+   height: 34px;
 }
 #actionSearch{
     padding-left: 21px;
@@ -32,10 +39,11 @@ align-items: center;
 }
 #actionSpaceBody{
     height: inherit;   
+   
     
 }
 #navigationSection {
-    background-color: blueviolet;
+
     margin-left: 20px;
     resize: horizontal;
     overflow: hidden;
@@ -59,21 +67,18 @@ align-items: center;
 #side_bar_header{
   padding: 20px 5px 10px;  
 }
-    
-
 .collection_list {
   font-weight: 400;
   margin-top: 3px;
   overflow-x: hidden;
 }
-
 .collection_list_with_drop_down {
   height: 100%;
 }
 
 .collection {
   margin-bottom: 5px;
-  background-color: brown;
+ 
 }
 
 .item {

@@ -1,14 +1,18 @@
 var brand = {
     name: 'div',
-    'id': 'brand',
-    'class': 'brand',
-    brand: {
+    content: {
         name: 'a',
         'href': '#ehh',
-        content: {
+        class:'container align_center',
+        logo: {
             'name': 'img',
-            'id': 'brand',
+            'id': 'logo',
             'src': 'images/ehh3dlowres.png',
+        },
+        text: {
+            name: 'span',
+            class:'brandTitle',
+            innerHTML:`everything happens here`
         }
     },   
 }
@@ -54,12 +58,12 @@ var actionSpaceHeaderVistorMenu = {
         {
             'name': 'a',
             'href': '#action',
-            'textContent': 'action',
+            'textContent': 'product',
         },
         {
             'name': 'a',
             'href': '#people',
-            'textContent': 'People'
+            'textContent': 'possiblities'
         },
         {
             'name': 'a',
@@ -68,15 +72,18 @@ var actionSpaceHeaderVistorMenu = {
         },
         {
             'name': 'a',
-            'href': '#about',
-            'textContent': 'about',
+            
+            'textContent': 'signup',
+            'data-command': `[{"command":"signup"}]`,
 
         },
         {
-            'name': 'button',
-            'class': "material-icons",
-            'textContent': 'more_vert',
-        }
+            'name': 'a',
+            'href': '#login',
+            'data-command': `[{"command":"signin"}]`,
+            'textContent': 'login',
+
+        },
     ]
 
 }
@@ -553,6 +560,7 @@ var footer= {
 }
 var vistorBody= {
     name: 'div',
+    id:'actionSpaceBody',
     class: 'container row',
     textContent: ehhIntro,
 }
