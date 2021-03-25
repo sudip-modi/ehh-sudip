@@ -42,6 +42,23 @@ class operate {
         });
         return result;
     }
+
+
+    static findMatchingInArrayOfObject(entity,keyTofind,value2Match, lookat) {
+      
+     //   console.log("matching Values for keyword", keyTofind, "in", entity, lookat);
+
+        var result = Object[lookat](entity).filter(function (key, index, self) {
+
+         //   console.log(key, index, value2Match, self);
+            if (key[keyTofind] === value2Match) {
+               // console.log("found", key[keyTofind], key)
+                return key;
+            }
+            
+        });
+        return result;
+    }
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
     //for array's one sided value existence check, return true if each element of a is present in b

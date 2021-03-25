@@ -1,9 +1,16 @@
-var brand= {
-    'name': 'img',
-    'desc': 'This is a horizontical bar, more functionality of this bar to be added',
-    'src': 'images/ehh3dlowres.png',
+var brand = {
+    name: 'div',
     'id': 'brand',
-    'class': 'brand'
+    'class': 'brand',
+    brand: {
+        name: 'a',
+        'href': '#ehh',
+        content: {
+            'name': 'img',
+            'id': 'brand',
+            'src': 'images/ehh3dlowres.png',
+        }
+    },   
 }
 var actionSpaceHeaderUserMenu = {
     "name": "div",
@@ -39,7 +46,51 @@ var actionSpaceHeaderUserMenu = {
     ]
 
 }
-var header={
+var actionSpaceHeaderVistorMenu = {
+    "name": "div",
+    class: 'container menu',
+    id: 'actionSpaceHeaderUserMenu',
+    "span": [
+        {
+            'name': 'a',
+            'href': '#action',
+            'textContent': 'action',
+        },
+        {
+            'name': 'a',
+            'href': '#people',
+            'textContent': 'People'
+        },
+        {
+            'name': 'a',
+            'href': '#setting',
+            'textContent': 'setting'
+        },
+        {
+            'name': 'a',
+            'href': '#about',
+            'textContent': 'about',
+
+        },
+        {
+            'name': 'button',
+            'class': "material-icons",
+            'textContent': 'more_vert',
+        }
+    ]
+
+}
+
+var headerVistor = {
+    'name': 'div',
+    'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+    'id': 'header',
+    'class': 'row',
+    //  'innerText':"header",
+    'brand': brand,
+    'menu': actionSpaceHeaderVistorMenu,
+}
+var headerUser={
     'name': 'div',
     'desc': 'This is a horizontical bar, more functionality of this bar to be added',
     'id': 'header',
@@ -112,6 +163,7 @@ var leftSideNavBar= {
                                     name: 'i',
                                     'class': "material-icons icon mr - 10",
                                     'textContent': 'folder_open',
+                                    'data-command': `[{"command":"FSOpenDirectory"}]`,
                                 },
                                 item2: {
                                     name: 'div',
@@ -502,18 +554,12 @@ var footer= {
 var vistorBody= {
     name: 'div',
     class: 'container row',
-    textContent:`a new lightweight, modern and fully customizable work-space.
-works in chrome and firefox browsers or  without them, be it on apple, mac, ubuntu, android or iOs.
-As long as you have the secret-key[ kind of a password ], you own your own secure ecosystem for a seamless, integrated experience across devices & services.
-For creators, collaborators, buyers, retailers, educators & influencers, the hardest working animal on this planet,
-us :)
-It's @ctionSpaces are full of action, drama, integration, automation, pinch of comedy and a dash of Ai.
-							`,
+    textContent: ehhIntro,
 }
 var basicWebLayoutVisitorV1 = {
     id: 'actionSpaceLayoutContainer',
     class: 'container column',
-    section: header,
+    section: headerVistor,
     section2: vistorBody,
     section3: footer,
 }
@@ -521,14 +567,14 @@ var actionLayoutUserV3 = {
     
     id:'actionSpaceLayoutContainer',
     class: 'container column',
-    section: header,
+    section: headerUser,
     section2: actionSpaceBody,
     section3: footer,
 }
 var peopleLayoutUserV3 = {
     id: 'actionSpaceLayoutContainer',
     class: 'container column',
-    section: header,
+    section: headerUser,
     section2: actionSpaceBody,
     section3: footer,
 }
@@ -539,15 +585,40 @@ var settingBody = {
 var settingLayoutUserV3 = {
     id: 'actionSpaceLayoutContainer',
     class: 'container column',
-    section: header,
+    section: headerUser,
     section2: actionSpaceBody,
     section3: footer,
 }
-var actionSpaceView = {
-    'vistor': basicWebLayoutVisitorV1,
-    'action': actionLayoutUserV3,
-    'people': peopleLayoutUserV3,
-    'setting': settingLayoutUserV3,
-    
-}
-console.log(actionSpaceView)
+
+
+var actionSpaceViewModel = [
+    {
+        keyword: 'ehh',
+        name: 'homePage',
+        id: 'ehhhomePage',
+        actorRole: 'all',
+        model: basicWebLayoutVisitorV1,  
+    },
+    {
+        keyword: 'action',
+        name: 'actionWorkSpace',
+        id: 'actionWorkSpace',
+        actorRole: 'user',
+        model: actionLayoutUserV3,
+    },
+    {
+        keyword: 'people',
+        name: 'peopleSpace',
+        id: 'peopleSpace',
+        actorRole: 'user',
+        model: peopleLayoutUserV3,
+    },
+    {
+        keyword: 'setting',
+        name: 'settingSpace',
+        id: 'settingSpace',
+        actorRole: 'user',
+        model: settingLayoutUserV3,
+    },
+]
+console.log(actionSpaceViewModel)

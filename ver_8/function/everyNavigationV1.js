@@ -4,6 +4,14 @@ class EveryNavigation{
         this.view = document.querySelector('#actionSpaceContainer');
         
     }
+    check(event) {
+        event.preventDefault();
+        var buttons = new Entity(indexJSON, document.getElementsByTagName('body')[0]);
+        if (localStorage.getItem('LoginEhh' + localStorage.getItem('emailID')) === 'true' || localStorage.getItem('LoginEhhGoogle' + localStorage.getItem('emailID')) === 'true') {
+            console.log("Logged In");
+            window.location.href = './html/indexActionSpace_V5Treeview.html';
+        }
+    }
     onRouteChange(e) {
         const hashLocation = window.location.hash.substring(1);
         console.log(hashLocation);
@@ -13,8 +21,9 @@ class EveryNavigation{
        
     }
     loadContent(uri) {
-        const URIJSON = [uri];
-        this.updateView(URIJSON);
+        var viewModels=
+      //  const URIJSON = [uri];
+        //this.updateView(URIJSON);
         
     }
     updateView(content, parent) {
@@ -86,3 +95,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
    // actionSpaceNavigator.init();
 });
+
+ 

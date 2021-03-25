@@ -44,9 +44,9 @@ function obj_to_array(arg) {
 
 class process {
     static processReq(input, output, key, value) {
-        console.log("process req", input, output, operate.is(input),typeof input)
+       // console.log("process req", input, output, operate.is(input),typeof input)
         if (typeof input === 'object') {
-            console.log("process req", input, output)
+          //  console.log("process req", input, output)
             var buffer = process.iterateObj(input, output, key);
         } else if (operate.is(input) === 'Array') {
             var buffer = process.iterateObj(input, output, key);

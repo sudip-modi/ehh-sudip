@@ -68,7 +68,7 @@ var copy2 = {
 
 class Entity {
     constructor(input, output) {
-        console.log("entity", input, output)
+    //    console.log("entity", input, output)
         this.input = input;
         this.output = output;
         this.entity = process.processReq(input, output);
@@ -78,7 +78,7 @@ class Entity {
         if (operate.is(output).includes("HTML")) { //Only HTML creation
             // var response = Object.create(output.constructor.prototype)
             if (operate.isInt(parseInt(key))) {
-                console.log("check me")
+               // console.log("check me")
                 var response = document.createElement('option');
             }
             else {
