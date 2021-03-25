@@ -1,0 +1,221 @@
+
+ #bodySection {
+  height: 100%;
+
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+ display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#body_side_bar {
+  width: 400px;
+  overflow: hidden;
+  height: 100%;
+  
+  resize: horizontal;
+  position: relative;
+  -webkit-transition: width 200ms;
+  transition: width 200ms;
+}
+
+
+#body_side_bar.hide {
+  width: 0px !important;
+}
+
+#headerSect {
+  padding: 10px;
+  
+  width: 100%;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+#headerSect .hamburger_menu {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+#headerSect .hamburger_menu i {
+  font-size: 20px;
+  color: #4d4d4d;
+}
+
+.searchBar {
+  background-color: rgba(192, 192, 192, 0.521);
+  padding: 7px;
+  border-radius: 4px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #797979;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 15px;
+}
+
+ .searchBar i {
+  font-weight: 400;
+  margin-right: 12px;
+}
+
+ .searchBar input {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  width: 100%;
+}
+
+.headerSect i {
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.headerSect img.icon {
+  max-width: 30px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.SideBarBody {
+  overflow-y: auto;
+  width: 100%;
+  
+  padding: 10px;
+}
+
+main .MainBody #bodySection #body_side_bar .SideBarBody::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+}
+
+main .MainBody #bodySection #body_side_bar .SideBarBody::-webkit-scrollbar-thumb {
+  background-color: #cfcfcf;
+  width: 8px;
+  border-radius: 4px;
+}
+
+#actionWorkspaceSection {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: auto;
+  
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#actionWorkspaceSection .workspaceHeader {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 54px;
+  padding: 5px 20px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  
+}
+
+
+#output{
+    width: 50%;
+background-color: rgb(240, 240, 240);
+}
+#output::before{
+  content: attr(id);
+  position: relative;
+  top: -3em;
+  margin-bottom: -2em;
+  visibility: hidden;
+}
+#output:hover::before{
+  visibility: visible;
+}
+ .workspaceHeader .title_edit {
+  margin: 0 20px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#actionWorkspaceSection .workspaceHeader .title_edit .title {
+  color: #555555;
+}
+
+#actionWorkspaceSection .workspaceHeader .title_edit .editBtn a {
+  padding: 2px 13px;
+  border-radius: 20px;
+  background-color: #254f75;
+  font-size: 14px;
+  color: white;
+}
+
+#actionWorkspaceSection #BodyWorkspace {
+  padding: 15px;
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: auto;
+}
+
+#actionWorkspaceSection #BodyWorkspace::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+}
+
+#actionWorkspaceSection #BodyWorkspace::-webkit-scrollbar-thumb {
+  background-color: #cfcfcf;
+  width: 8px;
+  border-radius: 4px;
+}
+
+#actionWorkspaceSection .workspaceFooter {
+  padding: 10px;
+  background-color: white;
+  color: silver;
+}
+
+
+.row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+#output{
+    width: 50%;
+background-color: rgb(240, 240, 240);
+}
+#output::before{
+  content: attr(id);
+  position: relative;
+  top: -1em;
+  margin-bottom: -1em;
+  visibility: hidden;
+}
+#output:hover::before{
+  visibility: visible;
+}
