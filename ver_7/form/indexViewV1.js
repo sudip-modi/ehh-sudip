@@ -1,7 +1,7 @@
 var brand= {
     'name': 'img',
     'desc': 'This is a horizontical bar, more functionality of this bar to be added',
-    'src': 'images/icons_221x.png',
+    'src': 'images/ehh3dlowres.png',
     'id': 'brand',
     'class': 'brand'
 }
@@ -55,6 +55,6 @@ var header={
 }
 
 var basicLayoutV3 = {
-    class: 'flex column',
+    class: 'container column',
     section: header,
 }
