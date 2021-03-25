@@ -484,7 +484,6 @@ var actionWorkSpace = {
   
    
 }
-
 var actionSpaceBody = {
     name: 'div',
     class: 'container row',
@@ -515,7 +514,7 @@ var basicWebLayoutVisitorV1 = {
     id: 'actionSpaceLayoutContainer',
     class: 'container column',
     section: header,
-    section2: actionSpaceBody,
+    section2: vistorBody,
     section3: footer,
 }
 var actionLayoutUserV3 = {
@@ -544,8 +543,6 @@ var settingLayoutUserV3 = {
     section2: actionSpaceBody,
     section3: footer,
 }
-
-
 var actionSpaceView = {
     'vistor': basicWebLayoutVisitorV1,
     'action': actionLayoutUserV3,
@@ -553,3 +550,4 @@ var actionSpaceView = {
     'setting': settingLayoutUserV3,
     
 }
+console.log(actionSpaceView)

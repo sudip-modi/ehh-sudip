@@ -1,3 +1,4 @@
 var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer')
 //console.log(HorizonticalMenuTemplateSchema,actionSpaceElementInstanceIndom)
-var newMenu = new Entity(actionLayoutUserV3, actionSpaceElementInstanceIndom);
+//console.log(actionSpaceView.vistor);
+var newMenu = new Entity(actionSpaceView.vistor, actionSpaceElementInstanceIndom);
