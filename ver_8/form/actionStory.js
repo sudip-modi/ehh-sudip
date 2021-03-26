@@ -1,5 +1,5 @@
 var ehhIntro = `
- <container class = 'container row'>
+ <div class = 'content'>
                         <h1>[ everything happens here ]</h1>
                         <p>
                             a new <b>lightweight</b>, modern and fully customizable <b>work-space/work-shop</b>.<br>
@@ -17,5 +17,5 @@ var ehhIntro = `
                             <button data-element="selfInvite" href="#selfInvite">self-invite</button>
                             <button id= "btn" data-element="knowMore" href="/drawElement.html" target="_self">know More</button>
                         </actionBar>
-                    </container>
+                    </div>
 `

@@ -1,6 +1,6 @@
 #actionSpaceContainer{
   display: flex;
-height: inherit;
+height: 100%;
 background-color: var(--danger);
 }
 #header {
@@ -82,8 +82,7 @@ align-items: center;
 }
 .headerContent{
   display: flex;
-
- position: relative;
+   position: relative;
  align-self: center;
   height: 60vh;
   width: 100vw;
@@ -97,11 +96,6 @@ h1{
  
 }
 
-
-p{
- font-size: 13pt;
- 
-}
 .item {
   -webkit-transition: background-color 200ms;
   transition: background-color 200ms;

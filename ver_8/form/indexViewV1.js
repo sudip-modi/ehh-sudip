@@ -71,6 +71,12 @@ var actionSpaceHeaderVistorMenu = {
             'textContent': 'setting'
         },
         {
+            'name': 'span',
+            class:'verticleBar',               
+            
+
+        },
+        {
             'name': 'a',
             
             'textContent': 'signup',
@@ -79,7 +85,6 @@ var actionSpaceHeaderVistorMenu = {
         },
         {
             'name': 'a',
-            'href': '#login',
             'data-command': `[{"command":"signin"}]`,
             'textContent': 'login',
 
