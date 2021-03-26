@@ -86,10 +86,13 @@ class ActionController extends ActionEvent {
            // console.log(hashLocation);
             var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
            // console.log(routeModel[0].model, this.view._actionView)
-            
-            this.view.replaceChild(routeModel[0].model, this.view._actionView);
+            console.log(routeModel)
+            if (routeModel.length !=0) {
+                this.view.replaceChild(routeModel[0].model, this.view._actionView);
+            } else {
+                console.log('no route found');
+            }  
         }
-
     }
     updateView() {
         

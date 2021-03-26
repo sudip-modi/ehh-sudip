@@ -13,8 +13,7 @@ var setAttributesReq ={
     
 }
 var updateDomObject = {
-    reqName: 'updateDomObject',//CommanName
-    
+    reqName: 'updateDomObject',//CommanName 
     objectModel: document,
     method: 'getElementById',
     arguments: ['output'],
