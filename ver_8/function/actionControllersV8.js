@@ -69,11 +69,22 @@ class ActionController extends ActionEvent {
 
     }
     onRouteChange(e) {
-        const hashLocation = window.location.hash.substring(1);
+        var routeKeyword;
+        if (document.location.hash) {
+            console.log("it's a hash Change", document.location.hash.substring(1));
+            routeKeyword = document.location.hash.substring(1);
+        } else if (document.location.search) {
+            console.log("it's a search Change", document.location.search.substring(1));
+            routeKeyword = document.location.search.substring(1);
+        } else {
+            console.log("no idea");
+        }
+
+      //  const hashLocation = window.location.hash.substring(1);
       
-        if (hashLocation) {
+        if (routeKeyword) {
            // console.log(hashLocation);
-            var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel,'keyword', hashLocation, 'values');
+            var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
            // console.log(routeModel[0].model, this.view._actionView)
             
             this.view.replaceChild(routeModel[0].model, this.view._actionView);

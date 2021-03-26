@@ -561,8 +561,15 @@ var footer= {
 var vistorBody= {
     name: 'div',
     id:'actionSpaceBody',
-    class: 'container row',
-    textContent: ehhIntro,
+    sectionHeaderBanner: {
+        name: 'div', 
+        content: {
+            name: 'div',
+            class: 'headerContent',
+            innerHTML: ehhIntro,
+        }
+    }
+    
 }
 var basicWebLayoutVisitorV1 = {
     id: 'actionSpaceLayoutContainer',

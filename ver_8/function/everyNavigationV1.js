@@ -52,6 +52,7 @@ class EveryNavigation{
         //called when page loads AND after a popstate event
         console.log(location);
         console.log(history);
+       
         if (!location.hash) {
             //default first load
             history.replaceState(

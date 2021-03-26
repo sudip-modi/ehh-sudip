@@ -80,7 +80,28 @@ align-items: center;
   margin-bottom: 5px;
  
 }
+.headerContent{
+  display: flex;
 
+ position: relative;
+ align-self: center;
+  height: 60vh;
+  width: 100vw;
+}
+
+h1{
+  font-family: 'Bai Jamjuree', sans-serif;
+  color: #1e2326;
+  font-size: 5vh;
+  font-weight: 200;
+ 
+}
+
+
+p{
+ font-size: 13pt;
+ 
+}
 .item {
   -webkit-transition: background-color 200ms;
   transition: background-color 200ms;
@@ -98,7 +119,6 @@ align-items: center;
   border-radius: 5px;
   margin-left: 2px;
 }
-
  .item:hover {
   background-color: #00000038;
 }
