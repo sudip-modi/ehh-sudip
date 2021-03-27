@@ -100,7 +100,7 @@ var signUpModelJson = {
                 'name': 'p',
                 'textContent': 'Please fill in this form to create an account.',
             },
-            'hr': { 'name': 'hr' },
+            'hr': { 'name': 'hr', class:'hr' },
             'labelEmail': {
                 'name': 'label',
                 'for': 'email',
@@ -175,103 +175,71 @@ var signUpModelJson = {
                 },
             }
         }
+    }
+}
+var signupModelV3 = {
+    form: {
+        name: 'div',
+        innerHTML: `<form action="/my-handling-form-page" method="post">
+ <ul>
+  <li>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="user_name">
+  </li>
+  <li>
+    <label for="mail">E-mail:</label>
+    <input type="email" id="mail" name="user_email">
+  </li>
+  <li>
+    <label for="msg">Message:</label>
+    <textarea id="msg" name="user_message"></textarea>
+  </li>
+ </ul>
+</form>`
     }
 }
 var signupModelV2 = {
-  
-    formContainer: {
-        'name': 'form',
-        method: 'post',
-        id:'form',
-        'container': {
-            'name': 'div',
-            'class': 'container column',
-            'h1': {
-                'name': 'h1',
-                'textContent': 'Sign Up',
-            },
-            'p1': {
-                'name': 'p',
-                'textContent': 'Please fill in this form to create an account.',
-            },
-            'hr': { 'name': 'hr' },
-            'labelEmail': {
-                'name': 'label',
-                'for': 'email',
-                'innerHTML': '<b>Email</b>',
-            },
-            'inputEmail': {
-                'name': 'input',
-                'type': 'email',
-                'id': 'email',
-                'required': 'true',
-                'placeholder': 'Enter Email',
-            },
-            'labelUsername': {
-                'name': 'label',
-                'for': 'username',
-                'innerHTML': '<b>Username</b>',
-            },
-            'inputUsername': {
-                'name': 'input',
-                'type': 'text',
-                'id': 'username',
-                'required': 'true',
-                'placeholder': 'Enter Username',
-            },
-            'labelPsw': {
-                'name': 'label',
-                'for': 'psw',
-                'innerHTML': '<b>Password</b>',
-            },
-            'inputPasw': {
-                'name': 'input',
-                'type': 'password',
-                'id': 'psw',
-                'required': 'true',
-                'minlength': '5',
-                'placeholder': 'Enter Password',
-            },
-            'label': {
-                'name': 'label',
-                'checkbox': {
-                    'name': 'input',
-                    'type': 'checkbox',
-                    'checked': 'checked',
-                    'style': 'margin-bottom:15px',
-                    'textContent': 'Remember me'
-                }
-            },
-            'p2': {
-                'name': 'p',
-                'textContent': 'Already have an account ?',
-                'a': {
-                    'name': 'a',
-                    'href': './signin.html',
-                    'style': 'color:dodgerblue',
-                    'textContent': 'Sign In'
-                }
-            },
-            'clearfix': {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+        formContainer: {
+            'name': 'form',
+            method: 'post',
+            id: 'regForm',
+            'container': {
                 'name': 'div',
-                'class': 'clearfix',
-                'submit': {
-                    'name': 'input',
-                    'type': 'submit',
-                    'class': 'signupbtn',
-                    'value': 'Sign Up'
+                'class': 'container column align_center',
+                'h1': {
+                    'name': 'h1',
+                  
+                    'textContent': 'Sign Up',
                 },
-                'reset': {
-                    'name': 'input',
-                    'type': 'reset',
-                    'class': 'cancelbtn',
-                    'value': 'Cancel'
+                item0: {
+                    name: 'li',
+                    class: 'full-width',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        logo: {
+                            'name': 'img',
+                            'id': 'logo',
+                            'src': 'images/btn_google_dark_normal_ios.svg',
+                        },
+                       'innerHTML': 'continue with google',
+                    },
                 },
+                'hr': { 'name': 'hr', class: 'hr' },
+             
+               
             }
-        }
-    }
+        },
+        
+  }
+   
+    
   
 }
+
 var loginModelJSON = {
     'form': {
         'name': 'form',

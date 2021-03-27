@@ -31,6 +31,32 @@ body{
 }
 
 
+h1{
+  color: #1e2326;
+  font-size: 5vh;
+  font-weight:700;
+}
+
+.full-width{
+  width: 100%; 
+}
+
+section{
+  background-color: cadetblue;
+}
+
+button {
+  text-decoration: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 16px;
+     
+}
 a {
   text-decoration: none;
    padding: 13px;

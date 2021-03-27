@@ -93,6 +93,8 @@
 }
 
 .hr {
+  margin-top: 13px;
+  margin-bottom: 13px;
   width: 90%;
   background-color: #00000048;
   height: 1px;

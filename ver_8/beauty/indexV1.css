@@ -93,14 +93,9 @@ align-items: center;
   width: 100vw;
 }
 
-h1{
-  font-family: 'Bai Jamjuree', sans-serif;
-  color: #1e2326;
-  font-size: 5vh;
-  font-weight: 200;
- 
+.full-width{
+  width: 100%;
 }
-
 .item {
   -webkit-transition: background-color 200ms;
   transition: background-color 200ms;
