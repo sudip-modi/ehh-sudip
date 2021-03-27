@@ -335,7 +335,7 @@ var leftSideNavBar= {
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
-                                    'textContent': 'new file',
+                                    'textContent': 'new actionStory',
                                     'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 }
 
@@ -352,7 +352,7 @@ var leftSideNavBar= {
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
-                                    'textContent': 'add folder',
+                                    'textContent': 'add collection',
                                     'onclick': "processFS.OpenDirectory(event);"
                                 }
 

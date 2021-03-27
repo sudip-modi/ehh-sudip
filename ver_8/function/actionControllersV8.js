@@ -198,11 +198,7 @@ class ActionController extends ActionEvent {
             var commandJSOn = JSON.parse(dataCommandT);
             //           console.log( "Command "+ JSON.stringify(commandJSOn));
             switch (commandJSOn[0].command) {
-                //home page
-                case 'signup':
-                    window.location.href = './html/signup.html'; break;
-                case 'signin':
-                    window.location.href = './html/signin.html'; break;
+
                 case 'google':
                     Authorization.oAuth(event, 'json'); break;
                 //sheet
@@ -256,6 +252,15 @@ class ActionController extends ActionEvent {
             // console.log("clickedOn", entity.target.id, entity.target.classList.contains('editable')) // TO check if it's content
             event.target.setAttribute('contentEditable', 'true');
             //entity.target.setAttribute('State', "contentEditable");
+        }
+        if(event.target.classList.contains('parent')){
+            console.log("yo")
+            event.target.parentElement.querySelector(".nested").classList.toggle("active");
+            event.target.classList.toggle("parent-down");
+        }
+        if(event.target.id == 'MainHeaderHamburger1'){
+            document.getElementById('navigationSection').classList.toggle('hide')
+            document.getElementById('navigationSection').classList.toggle('active')  
         }
 
     }
