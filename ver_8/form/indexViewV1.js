@@ -209,26 +209,84 @@ var signupModelV2 = {
             'container': {
                 'name': 'div',
                 'class': 'container column align_center',
-                'h1': {
-                    'name': 'h1',
-                  
-                    'textContent': 'Sign Up',
+                'formHeading': {
+                    'name': 'h1','textContent': 'Sign Up',
                 },
                 item0: {
                     name: 'li',
-                    class: 'full-width',
+                    class: 'full-width item',
                     'button': {
                         'name': 'button',
                         class: 'full-width',
-                        logo: {
-                            'name': 'img',
-                            'id': 'logo',
-                            'src': 'images/btn_google_dark_normal_ios.svg',
+                        icon: {
+                            name: 'i', 'class': "material-icons", 'textContent': 'add_box',
+                            },
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'continue with google',
                         },
-                       'innerHTML': 'continue with google',
+                       
                     },
                 },
-                'hr': { 'name': 'hr', class: 'hr' },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelUsername': {
+                        'name': 'label',
+                        class:'alignSelf-left',
+                        'for': 'username',
+                        'textContent': 'Username',
+                    },
+                    'inputUsername': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'username',
+                        'required': 'true',
+                        'placeholder': 'Enter Username',
+                    }
+
+                },
+                items2: {
+                    'label': {
+                        'name': 'label',
+                        'checkbox': {
+                            'name': 'input',
+                            'type': 'checkbox',
+                            'checked': 'checked',
+                            'style': 'margin-bottom:15px',
+                            'textContent': 'Remember me'
+                        }
+                    },
+                    'p2': {
+                        'name': 'p',
+                        'textContent': 'Already have an account ?',
+                        'a': {
+                            'name': 'a',
+                            'href': './signin.html',
+                            'style': 'color:dodgerblue',
+                            'textContent': 'Sign In'
+                        }
+                    },
+                    'clearfix': {
+                        'name': 'div',
+                        'class': 'clearfix',
+                        'submit': {
+                            'name': 'input',
+                            'type': 'submit',
+                            'class': 'signupbtn',
+                            'value': 'Sign Up'
+                        },
+                        'reset': {
+                            'name': 'input',
+                            'type': 'reset',
+                            'class': 'cancelbtn',
+                            'value': 'Cancel'
+                        },
+                    }
+                }
              
                
             }

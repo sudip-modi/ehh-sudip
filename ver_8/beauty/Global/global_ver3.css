@@ -28,7 +28,10 @@
   flex-basis: 100%;
   flex: 1;
 }
-
+.alignSelf-left{
+align-self: flex-start;  
+  
+}
 .align_center {
   -webkit-box-align: center;
   -ms-flex-align: center;

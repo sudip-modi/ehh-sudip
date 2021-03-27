@@ -43,6 +43,7 @@ h1{
 
 section{
   background-color: cadetblue;
+  color: var(--light);
 }
 
 button {
@@ -53,7 +54,7 @@ button {
   align-items: center;
   justify-content: center;
   height: 36px;
-  border-radius: 5px;
+  border-radius: 3px;
   font-size: 16px;
      
 }

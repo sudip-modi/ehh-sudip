@@ -73,6 +73,7 @@ class ActionController extends ActionEvent {
 
     }
     handleEvent(event) {
+      
       //  console.log(event.type)
         switch (event.type) {
             case 'load':
@@ -84,6 +85,7 @@ class ActionController extends ActionEvent {
                 //  console.log("click", event.type, event.target)
                 break;
             case 'click':
+               
                 this.onClick(event);
                 //  console.log("click", event.type, event.target)
                 break;
@@ -189,6 +191,7 @@ class ActionController extends ActionEvent {
          * check if the target entity has any click or data - command set, if yes, then process it.
          */
         console.log("Clicked" + event.target.id);
+     //   event.preventDefault();
         if (event.target.hasAttribute("data-command")) {
             var dataCommandT = event.target.getAttribute('data-command');
             console.log(dataCommandT);
