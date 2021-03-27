@@ -42,8 +42,7 @@ h1{
 }
 
 section{
-  background-color: cadetblue;
-  color: var(--light);
+  display: flex;
 }
 
 button {

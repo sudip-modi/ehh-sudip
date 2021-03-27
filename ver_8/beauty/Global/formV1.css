@@ -1,8 +1,4 @@
- #regForm {
-        margin: 100px auto;
-        width: 320px;
-        min-width: 300px;
-    }
+
 input {
     display: flex;
     align-items: center;

@@ -1,7 +1,7 @@
 #actionSpaceContainer{
   display: flex;
 height: 100%;
-background-color: var(--danger);
+
 }
 #header {
   position: -webkit-sticky;
@@ -16,11 +16,13 @@ background-color: var(--danger);
   align-content: center;
  
 }
-#form{
-  background-color: blueviolet;
-  align-self: center;
-  height: 100%;
-}
+ #regForm {
+     display: flex;
+     align-self: center;  
+      margin: 100px auto;
+      width: 320px;
+      min-width: 300px;
+    }
 
 #brand{
     height: 34px;
@@ -152,11 +154,4 @@ align-items: center;
             display: block;
        }
 
-       /* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 3% auto 3% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
+ 

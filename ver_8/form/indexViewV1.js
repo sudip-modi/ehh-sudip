@@ -177,28 +177,9 @@ var signUpModelJson = {
         }
     }
 }
-var signupModelV3 = {
-    form: {
-        name: 'div',
-        innerHTML: `<form action="/my-handling-form-page" method="post">
- <ul>
-  <li>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="user_name">
-  </li>
-  <li>
-    <label for="mail">E-mail:</label>
-    <input type="email" id="mail" name="user_email">
-  </li>
-  <li>
-    <label for="msg">Message:</label>
-    <textarea id="msg" name="user_message"></textarea>
-  </li>
- </ul>
-</form>`
-    }
-}
-var signupModelV2 = {
+
+
+var signupModelV2b = {
     formSection: {
         name: 'section',
         class: 'container row',
@@ -260,6 +241,16 @@ var signupModelV2 = {
                             'textContent': 'Remember me'
                         }
                     },
+                    'clearfix': {
+                        'name': 'div',
+                        'class': 'clearfix',
+                        'submit': {
+                            'name': 'input',
+                            'type': 'submit',
+                            'class': 'signupbtn',
+                            'value': 'Sign Up'
+                        },
+
                     'p2': {
                         'name': 'p',
                         'textContent': 'Already have an account ?',
@@ -270,21 +261,7 @@ var signupModelV2 = {
                             'textContent': 'Sign In'
                         }
                     },
-                    'clearfix': {
-                        'name': 'div',
-                        'class': 'clearfix',
-                        'submit': {
-                            'name': 'input',
-                            'type': 'submit',
-                            'class': 'signupbtn',
-                            'value': 'Sign Up'
-                        },
-                        'reset': {
-                            'name': 'input',
-                            'type': 'reset',
-                            'class': 'cancelbtn',
-                            'value': 'Cancel'
-                        },
+                   
                     }
                 }
              
@@ -298,6 +275,78 @@ var signupModelV2 = {
   
 }
 
+var signupModelV2 = {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+     
+        form: {
+            id: 'regForm',
+            name: 'form',
+            'class': 'container column align_center',
+            content: {
+                'name': 'div',
+                class:'column align_center',
+                'formHeading': {
+                    'name': 'h1',
+                    'textContent': 'Sign Up',
+                },
+                item0: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        icon: {
+                            name: 'i', 'class': "material-icons", 'textContent': 'add_box',
+                        },
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'continue with google',
+                        },
+
+                    },
+                },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelUsername': {
+                        'name': 'label',
+                        class: 'alignSelf-left',
+                        'for': 'username',
+                        'textContent': 'Username',
+                    },
+                    'inputUsername': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'username',
+                        'required': 'true',
+                        'placeholder': 'Enter Username',
+                    }
+
+                },
+                item3: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'continue with email',
+                        },
+
+                    },
+                },
+
+            }
+
+        }
+    }
+}
 var loginModelJSON = {
     'form': {
         'name': 'form',
