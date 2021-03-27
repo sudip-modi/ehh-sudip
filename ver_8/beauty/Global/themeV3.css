@@ -44,8 +44,12 @@ h1{
 section{
   display: flex;
 }
-
-button {
+button>*{
+color: var(--light);
+}
+button  {
+  background-color: var(--green);
+  
   text-decoration: none;
   padding: 12px 16px;
   cursor: pointer;

@@ -85,195 +85,6 @@ var actionSpaceHeaderVistorMenu = {
     ]
 
 }
-var signUpModelJson = {
-    'form': {
-        'name': 'form',
-       
-        'container': {
-            'name': 'div',
-            'class': 'container',
-            'h1': {
-                'name': 'h1',
-                'textContent': 'Sign Up',
-            },
-            'p1': {
-                'name': 'p',
-                'textContent': 'Please fill in this form to create an account.',
-            },
-            'hr': { 'name': 'hr', class:'hr' },
-            'labelEmail': {
-                'name': 'label',
-                'for': 'email',
-                'innerHTML': '<b>Email</b>',
-            },
-            'inputEmail': {
-                'name': 'input',
-                'type': 'email',
-                'id': 'email',
-                'required': 'true',
-                'placeholder': 'Enter Email',
-            },
-            'labelUsername': {
-                'name': 'label',
-                'for': 'username',
-                'innerHTML': '<b>Username</b>',
-            },
-            'inputUsername': {
-                'name': 'input',
-                'type': 'text',
-                'id': 'username',
-                'required': 'true',
-                'placeholder': 'Enter Username',
-            },
-            'labelPsw': {
-                'name': 'label',
-                'for': 'psw',
-                'innerHTML': '<b>Password</b>',
-            },
-            'inputPasw': {
-                'name': 'input',
-                'type': 'password',
-                'id': 'psw',
-                'required': 'true',
-                'minlength': '5',
-                'placeholder': 'Enter Password',
-            },
-            'label': {
-                'name': 'label',
-                'checkbox': {
-                    'name': 'input',
-                    'type': 'checkbox',
-                    'checked': 'checked',
-                    'style': 'margin-bottom:15px',
-                    'textContent': 'Remember me'
-                }
-            },
-            'p2': {
-                'name': 'p',
-                'textContent': 'Already have an account ?',
-                'a': {
-                    'name': 'a',
-                    'href': './signin.html',
-                    'style': 'color:dodgerblue',
-                    'textContent': 'Sign In'
-                }
-            },
-            'clearfix': {
-                'name': 'div',
-                'class': 'clearfix',
-                'submit': {
-                    'name': 'input',
-                    'type': 'submit',
-                    'class': 'signupbtn',
-                    'value': 'Sign Up'
-                },
-                'reset': {
-                    'name': 'input',
-                    'type': 'reset',
-                    'class': 'cancelbtn',
-                    'value': 'Cancel'
-                },
-            }
-        }
-    }
-}
-
-
-var signupModelV2b = {
-    formSection: {
-        name: 'section',
-        class: 'container row',
-        formContainer: {
-            'name': 'form',
-            method: 'post',
-            id: 'regForm',
-            'container': {
-                'name': 'div',
-                'class': 'container column align_center',
-                'formHeading': {
-                    'name': 'h1','textContent': 'Sign Up',
-                },
-                item0: {
-                    name: 'li',
-                    class: 'full-width item',
-                    'button': {
-                        'name': 'button',
-                        class: 'full-width',
-                        icon: {
-                            name: 'i', 'class': "material-icons", 'textContent': 'add_box',
-                            },
-                        textLable: {
-                            name: 'lable',
-                            'textContent': 'continue with google',
-                        },
-                       
-                    },
-                },
-                'hr': {
-                    'name': 'hr', class: 'hr'
-                },
-                item1: {
-                    name: 'li',
-                    class: 'full-width item column',
-                    'labelUsername': {
-                        'name': 'label',
-                        class:'alignSelf-left',
-                        'for': 'username',
-                        'textContent': 'Username',
-                    },
-                    'inputUsername': {
-                        'name': 'input',
-                        'type': 'text',
-                        'id': 'username',
-                        'required': 'true',
-                        'placeholder': 'Enter Username',
-                    }
-
-                },
-                items2: {
-                    'label': {
-                        'name': 'label',
-                        'checkbox': {
-                            'name': 'input',
-                            'type': 'checkbox',
-                            'checked': 'checked',
-                            'style': 'margin-bottom:15px',
-                            'textContent': 'Remember me'
-                        }
-                    },
-                    'clearfix': {
-                        'name': 'div',
-                        'class': 'clearfix',
-                        'submit': {
-                            'name': 'input',
-                            'type': 'submit',
-                            'class': 'signupbtn',
-                            'value': 'Sign Up'
-                        },
-
-                    'p2': {
-                        'name': 'p',
-                        'textContent': 'Already have an account ?',
-                        'a': {
-                            'name': 'a',
-                            'href': './signin.html',
-                            'style': 'color:dodgerblue',
-                            'textContent': 'Sign In'
-                        }
-                    },
-                   
-                    }
-                }
-             
-               
-            }
-        },
-        
-  }
-   
-    
-  
-}
 
 var signupModelV2 = {
     formSection: {
@@ -283,7 +94,7 @@ var signupModelV2 = {
         form: {
             id: 'regForm',
             name: 'form',
-            'class': 'container column align_center',
+            'class': 'align_center',
             content: {
                 'name': 'div',
                 class:'column align_center',
@@ -315,7 +126,7 @@ var signupModelV2 = {
                     class: 'full-width item column',
                     'labelUsername': {
                         'name': 'label',
-                        class: 'alignSelf-left',
+                        class: 'alignSelf-left small',
                         'for': 'username',
                         'textContent': 'Username',
                     },
@@ -326,9 +137,8 @@ var signupModelV2 = {
                         'required': 'true',
                         'placeholder': 'Enter Username',
                     }
-
                 },
-                item3: {
+                item2: {
                     name: 'li',
                     class: 'full-width item',
                     'button': {
@@ -341,57 +151,119 @@ var signupModelV2 = {
 
                     },
                 },
+                item3: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'textMessage': {
+                        'name': 'div',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            class:'small',
+                            'textContent': 'By signing up, you agree to the Terms of Service and Privacy Policy.',
+                        },
+
+                    },
+                },
 
             }
 
         }
     }
 }
-var loginModelJSON = {
-    'form': {
-        'name': 'form',
-        'class': 'modal-content',
-        'onsubmit': "login(event);",
-        'container': {
-            'name': 'div',
-            'class': 'container',
-            'h1': {
-                'name': 'h1',
-                'textContent': 'Sign In',
-            },
-            'inputEmail': {
-                'name': 'input',
-                'type': 'text',
-                'id': 'email',
-                'required': 'true',
-                'placeholder': 'Enter Email',
-            },
-            'inputPassword': {
-                'name': 'input',
-                'type': 'password',
-                'id': 'password',
-                'required': 'true',
-                'minlength': '5',
-                'placeholder': 'Enter Password',
-            },
-            'submit': {
-                'name': 'input',
-                'type': 'submit',
-                'class': 'signin',
-                'value': 'Sign In'
-            },
-            'p2': {
-                'name': 'p',
-                'textContent': 'Already have an account ?',
-                'a': {
-                    'name': 'a',
-                    'href': './signup.html',
-                    'style': 'color:dodgerblue',
-                    'textContent': 'Sign Up'
-                }
-            },
+var loginModelV2 = {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+
+        form: {
+            id: 'regForm',
+            name: 'form',
+            'class': 'align_center',
+            content: {
+                'name': 'div',
+                class: 'column align_center',
+                'formHeading': {
+                    'name': 'h1',
+                    'textContent': 'log in',
+                },
+                item0: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        icon: {
+                            name: 'i', 'class': "material-icons", 'textContent': 'add_box',
+                        },
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'continue with google',
+                        },
+
+                    },
+                },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelUsername': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'username',
+                        'textContent': 'Username',
+                    },
+                    'inputUsername': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'username',
+                        'required': 'true',
+                        'placeholder': 'Enter Username',
+                    }
+                },
+                item2: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'continue with email',
+                        },
+
+                    },
+                },
+                item3: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'textMessage': {
+                        'name': 'div',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            class: 'small',
+                            'textContent': 'By signing up, you agree to the Terms of Service and Privacy Policy.',
+                        },
+
+                    },
+                },
+
+            }
+
         }
     }
+}
+var headerSignup = {
+    'name': 'div',
+    'desc': 'This is a horizontical bar, more functionality of this bar to be added',
+    'id': 'header',
+    'class': 'row',
+    //  'textContent':"header",
+    'brand': brand,
+  //  'menu': actionSpaceHeaderVistorMenu,
 }
 var headerVistor = {
     'name': 'div',
@@ -876,6 +748,20 @@ var vistorBody= {
     }
     
 }
+var basicLoginLayoutVisitorV1 = {
+    id: 'actionSpaceLayoutContainer',
+    class: 'container column',
+    section: headerSignup,
+    section2: loginModelV2,
+    section3: footer,
+}
+var basicsignUpLayoutVisitorV1 = {
+    id: 'actionSpaceLayoutContainer',
+    class: 'container column',
+    section: headerSignup,
+    section2: signupModelV2,
+    section3: footer,
+}
 var basicWebLayoutVisitorV1 = {
     id: 'actionSpaceLayoutContainer',
     class: 'container column',
@@ -944,14 +830,15 @@ var actionSpaceViewModel = [
         name: 'loginSpace',
         id: 'loginSpace',
         actorRole: 'user',
-        model: loginModelJSON,
+        //model: basicWebLayoutVisitorV1,
+        model: basicLoginLayoutVisitorV1,
     },
     {
         keyword: 'signup',
         name: 'signupSpace',
         id: 'signupSpace',
         actorRole: 'visitor',
-        model: signupModelV2,
+        model: basicsignUpLayoutVisitorV1,
     },
 
 ]
