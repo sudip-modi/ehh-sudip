@@ -388,13 +388,13 @@ var leftSideNavBar= {
                     collectionTitle: {
                 name: 'div',
                     class: "miniHeading",
-                        textContent: "Collections/Folder",
+                        textContent: "actionStories & Collections",
                     },
             collectionItem: {
                 name: 'div',
                     class: "collection",
                         innerHTML: `
-                      <li><span class="parent collection">my Stories</span>
+                      <li><span class="parent collection">my collection</span>
                       <ul class="nested">
                       <li>story 1</li>
                     <li>story 2</li>
