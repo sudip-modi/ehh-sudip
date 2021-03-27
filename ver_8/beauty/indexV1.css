@@ -17,9 +17,10 @@ height: 100%;
  
 }
  #regForm {
-        margin: 200px auto;
-
-      border-style: solid;
+      margin: 200px auto;
+      padding:54px;
+     background-color: wheat;
+      border-radius:  13px;
     }
 
 #brand{

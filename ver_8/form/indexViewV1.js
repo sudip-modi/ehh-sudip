@@ -736,10 +736,12 @@ var footer= {
     }
 }
 var vistorBody= {
-    name: 'div',
+    name: 'section',
+    class:'container row',
     id:'actionSpaceBody',
     sectionHeaderBanner: {
-        name: 'div', 
+        name: 'div',
+        'class': 'align_center',
         content: {
             name: 'div',
             class: 'headerContent',
