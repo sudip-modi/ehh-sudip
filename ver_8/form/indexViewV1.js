@@ -2,7 +2,7 @@ var brand = {
     name: 'div',
     content: {
         name: 'a',
-        'href': '#ehh',
+        'href': '#welcome',
         class:'container align_center',
         logo: {
             'name': 'img',
@@ -36,13 +36,7 @@ var actionSpaceHeaderUserMenu = {
             'href': '#setting',
             'textContent': 'setting'
         },
-        {
-            'name': 'a',
-            'href': '#about',
-            'textContent': 'about',
-
-        },
-        {
+    {
             'name': 'button',
             'class': "material-icons",
             'textContent': 'more_vert',
@@ -76,14 +70,15 @@ var actionSpaceHeaderVistorMenu = {
         },
         {
             'name': 'a',
-            
+            'href': '#signup',
             'textContent': 'signup',
-            'data-command': `[{"command":"signup"}]`,
+           // 'data-command': `[{"command":"signup"}]`,
 
         },
         {
             'name': 'a',
-            'data-command': `[{"command":"signin"}]`,
+            'href': '#login',
+            //'data-command': `[{"command":"signin"}]`,
             'textContent': 'login',
 
         },
@@ -93,17 +88,17 @@ var actionSpaceHeaderVistorMenu = {
 var signUpModelJson = {
     'form': {
         'name': 'form',
-        'class': 'modal-content',
+       
         'container': {
             'name': 'div',
             'class': 'container',
             'h1': {
                 'name': 'h1',
-                'innerText': 'Sign Up',
+                'textContent': 'Sign Up',
             },
             'p1': {
                 'name': 'p',
-                'innerText': 'Please fill in this form to create an account.',
+                'textContent': 'Please fill in this form to create an account.',
             },
             'hr': { 'name': 'hr' },
             'labelEmail': {
@@ -150,17 +145,17 @@ var signUpModelJson = {
                     'type': 'checkbox',
                     'checked': 'checked',
                     'style': 'margin-bottom:15px',
-                    'innerText': 'Remember me'
+                    'textContent': 'Remember me'
                 }
             },
             'p2': {
                 'name': 'p',
-                'innerText': 'Already have an account ?',
+                'textContent': 'Already have an account ?',
                 'a': {
                     'name': 'a',
                     'href': './signin.html',
                     'style': 'color:dodgerblue',
-                    'innerText': 'Sign In'
+                    'textContent': 'Sign In'
                 }
             },
             'clearfix': {
@@ -182,6 +177,101 @@ var signUpModelJson = {
         }
     }
 }
+var signupModelV2 = {
+  
+    formContainer: {
+        'name': 'form',
+        method: 'post',
+        id:'form',
+        'container': {
+            'name': 'div',
+            'class': 'container column',
+            'h1': {
+                'name': 'h1',
+                'textContent': 'Sign Up',
+            },
+            'p1': {
+                'name': 'p',
+                'textContent': 'Please fill in this form to create an account.',
+            },
+            'hr': { 'name': 'hr' },
+            'labelEmail': {
+                'name': 'label',
+                'for': 'email',
+                'innerHTML': '<b>Email</b>',
+            },
+            'inputEmail': {
+                'name': 'input',
+                'type': 'email',
+                'id': 'email',
+                'required': 'true',
+                'placeholder': 'Enter Email',
+            },
+            'labelUsername': {
+                'name': 'label',
+                'for': 'username',
+                'innerHTML': '<b>Username</b>',
+            },
+            'inputUsername': {
+                'name': 'input',
+                'type': 'text',
+                'id': 'username',
+                'required': 'true',
+                'placeholder': 'Enter Username',
+            },
+            'labelPsw': {
+                'name': 'label',
+                'for': 'psw',
+                'innerHTML': '<b>Password</b>',
+            },
+            'inputPasw': {
+                'name': 'input',
+                'type': 'password',
+                'id': 'psw',
+                'required': 'true',
+                'minlength': '5',
+                'placeholder': 'Enter Password',
+            },
+            'label': {
+                'name': 'label',
+                'checkbox': {
+                    'name': 'input',
+                    'type': 'checkbox',
+                    'checked': 'checked',
+                    'style': 'margin-bottom:15px',
+                    'textContent': 'Remember me'
+                }
+            },
+            'p2': {
+                'name': 'p',
+                'textContent': 'Already have an account ?',
+                'a': {
+                    'name': 'a',
+                    'href': './signin.html',
+                    'style': 'color:dodgerblue',
+                    'textContent': 'Sign In'
+                }
+            },
+            'clearfix': {
+                'name': 'div',
+                'class': 'clearfix',
+                'submit': {
+                    'name': 'input',
+                    'type': 'submit',
+                    'class': 'signupbtn',
+                    'value': 'Sign Up'
+                },
+                'reset': {
+                    'name': 'input',
+                    'type': 'reset',
+                    'class': 'cancelbtn',
+                    'value': 'Cancel'
+                },
+            }
+        }
+    }
+  
+}
 var loginModelJSON = {
     'form': {
         'name': 'form',
@@ -192,7 +282,7 @@ var loginModelJSON = {
             'class': 'container',
             'h1': {
                 'name': 'h1',
-                'innerText': 'Sign In',
+                'textContent': 'Sign In',
             },
             'inputEmail': {
                 'name': 'input',
@@ -217,12 +307,12 @@ var loginModelJSON = {
             },
             'p2': {
                 'name': 'p',
-                'innerText': 'Already have an account ?',
+                'textContent': 'Already have an account ?',
                 'a': {
                     'name': 'a',
                     'href': './signup.html',
                     'style': 'color:dodgerblue',
-                    'innerText': 'Sign Up'
+                    'textContent': 'Sign Up'
                 }
             },
         }
@@ -233,7 +323,7 @@ var headerVistor = {
     'desc': 'This is a horizontical bar, more functionality of this bar to be added',
     'id': 'header',
     'class': 'row',
-    //  'innerText':"header",
+    //  'textContent':"header",
     'brand': brand,
     'menu': actionSpaceHeaderVistorMenu,
 }
@@ -242,7 +332,7 @@ var headerUser={
     'desc': 'This is a horizontical bar, more functionality of this bar to be added',
     'id': 'header',
     'class': 'row',
-    //  'innerText':"header",
+    //  'textContent':"header",
     'brand': brand,
     'searchBar': {
         'name': 'input',
@@ -747,7 +837,7 @@ var settingLayoutUserV3 = {
 
 var actionSpaceViewModel = [
     {
-        keyword: 'ehh',
+        keyword: 'welcome',
         name: 'homePage',
         id: 'ehhhomePage',
         actorRole: 'all',
@@ -774,5 +864,20 @@ var actionSpaceViewModel = [
         actorRole: 'user',
         model: settingLayoutUserV3,
     },
+    {
+        keyword: 'login',
+        name: 'loginSpace',
+        id: 'loginSpace',
+        actorRole: 'user',
+        model: loginModelJSON,
+    },
+    {
+        keyword: 'signup',
+        name: 'signupSpace',
+        id: 'signupSpace',
+        actorRole: 'visitor',
+        model: signupModelV2,
+    },
+
 ]
 console.log(actionSpaceViewModel)

@@ -32,12 +32,12 @@ class operate {
     }
     //Find iside an object, array or Object, returns if find keys
     static find(entity, keyTofind, lookat) {
-        console.log("yo")
-        console.log("finding", keyTofind, "in", entity, lookat);
+       // console.log("yo")
+      //  console.log("finding", keyTofind, "in", entity, lookat);
 
         var result = Object[lookat](entity).filter(function (key, index, self) {
 
-            console.log(key, index, self);
+           // console.log(key, index, self);
             return !key.indexOf(keyTofind);
         });
         return result;

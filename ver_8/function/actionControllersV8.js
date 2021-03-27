@@ -7,9 +7,9 @@ class ActionEvent {
         //  this.on('click', e => this.handleEvent(e));
         //  this.createListeners(entity);
         //  console.log(elements4Event)
+       
         this.on('selection', e => this.onSelection(e));
         this.on('change', e => this.onSelection(e));
-
         this.on('keypress', e => this.onKeyPress(e));
         this.on('keyup', e => this.onKeyUp(e));
         this.on('handleEvent', e => this.handleEvent(e));
@@ -20,10 +20,10 @@ class ActionEvent {
 
     createListeners(entity) {
         // console.log(entity)
-        let events = dataHelpers.find(window, 'on')
+        let events = operate.find(window, 'on','keys')
         //  console.log(events)
         events.forEach((evt) => {
-            //     console.log(evt.substring(2))
+            //  console.log(evt.substring(2))
             this.on(evt.substring(2), e => this.handleEvent(e));
             //window[evt] = this.handleEvent
         })
@@ -55,8 +55,12 @@ class ActionController extends ActionEvent {
         this.model = model
         this.view = view
         this.actionEvent = actionEvent
+        this.createListeners(document);
+        this.activeListerners = this.createListeners(window);
+        //console.log(this.activeListerners);
         //   window.addEventListener('change', e => this.emit('change', e));
         //window.addEventListener('event', e => this.emit('click', e))
+        window.addEventListener('load', e => this.emit('handleEvent', e));
         window.addEventListener('hashchange', e => this.emit('handleEvent', e));
         window.addEventListener('popstate', e => this.emit('handleEvent', e));
         window.addEventListener('mouseover', e => this.emit('handleEvent', e));
@@ -68,49 +72,13 @@ class ActionController extends ActionEvent {
         window.addEventListener('keyup', e => this.emit('handleEvent', e));
 
     }
-    onRouteChange(e) {
-        var routeKeyword;
-        if (document.location.hash) {
-            console.log("it's a hash Change", document.location.hash.substring(1));
-            routeKeyword = document.location.hash.substring(1);
-        } else if (document.location.search) {
-            console.log("it's a search Change", document.location.search.substring(1));
-            routeKeyword = document.location.search.substring(1);
-        } else {
-            console.log("no idea");
-        }
-
-      //  const hashLocation = window.location.hash.substring(1);
-      
-        if (routeKeyword) {
-           // console.log(hashLocation);
-            var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
-           // console.log(routeModel[0].model, this.view._actionView)
-            console.log(routeModel)
-            if (routeModel.length !=0) {
-                this.view.replaceChild(routeModel[0].model, this.view._actionView);
-            } else {
-                console.log('no route found');
-            }  
-        }
-    }
-    updateView() {
-        
-    }
-    formSubmit(event) {
-        if (!isValid)
-            event.preventDefault();
-        console.log('Target ID :- ' + e.getAttribute('id'));
-        switch (event.getAttribute('id')) {
-            case 'get':
-                Sync.get(e); console.log(event.target); break;
-            case 'set':
-                Sync.send(e); console.log(event.target); break;
-        }
-    }
     handleEvent(event) {
       //  console.log(event.type)
         switch (event.type) {
+            case 'load':
+                this.onRouteChange(event);
+                //  console.log("click", event.type, event.target)
+                break;
             case 'hashchange':
                 this.onRouteChange(event);
                 //  console.log("click", event.type, event.target)
@@ -151,6 +119,45 @@ class ActionController extends ActionEvent {
         //filter the registerd events paired with Target
 
     }
+    onRouteChange(e) {
+        var routeKeyword;
+        if (document.location.hash) {
+            console.log("it's a hash Change", document.location.hash.substring(1));
+            routeKeyword = document.location.hash.substring(1);
+        } else if (document.location.search) {
+            console.log("it's a search Change", document.location.search.substring(1));
+            routeKeyword = document.location.search.substring(1);
+        } else {
+            console.log("no idea");
+        }
+
+      //  const hashLocation = window.location.hash.substring(1);
+      
+        if (routeKeyword) {
+           // console.log(hashLocation);
+            var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
+           // console.log(routeModel[0].model, this.view._actionView)
+            console.log(routeModel)
+            if (routeModel.length !=0) {
+                this.view.replaceChild(routeModel[0].model, this.view._actionView);
+            } else {
+                console.log('no route found');
+            }  
+        }
+    }
+  
+    formSubmit(event) {
+        if (!isValid)
+            event.preventDefault();
+        console.log('Target ID :- ' + e.getAttribute('id'));
+        switch (event.getAttribute('id')) {
+            case 'get':
+                Sync.get(e); console.log(event.target); break;
+            case 'set':
+                Sync.send(e); console.log(event.target); break;
+        }
+    }
+   
     onKeyPress(entity) {
         console.log("key pressed")
         console.log(entity.key + ":::: key pressed");
@@ -181,7 +188,7 @@ class ActionController extends ActionEvent {
         /**
          * check if the target entity has any click or data - command set, if yes, then process it.
          */
-        console.log("Clicked" + event.target);
+        console.log("Clicked" + event.target.id);
         if (event.target.hasAttribute("data-command")) {
             var dataCommandT = event.target.getAttribute('data-command');
             console.log(dataCommandT);

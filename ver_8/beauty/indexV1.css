@@ -16,6 +16,11 @@ background-color: var(--danger);
   align-content: center;
  
 }
+#form{
+  background-color: blueviolet;
+  align-self: center;
+  height: 100%;
+}
 
 #brand{
     height: 34px;
