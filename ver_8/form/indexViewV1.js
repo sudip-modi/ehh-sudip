@@ -392,7 +392,7 @@ var leftSideNavBar= {
                     },
             collectionItem: {
                 name: 'div',
-                    class: "collection drop_down",
+                    class: "collection",
                         innerHTML: `
                       <li><span class="parent collection">my Stories</span>
                       <ul class="nested">
