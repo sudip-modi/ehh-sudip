@@ -7,9 +7,8 @@
   -webkit-user-select: none;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  font-family: 'Poppins' , sans-serif;
+  font-family: 'Poppins';
   list-style-type: none;
-  color:var(--gray-dark);
 }
 
 .container{
@@ -41,6 +40,20 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  display: inline;
 }
 
 
