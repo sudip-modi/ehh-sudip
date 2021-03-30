@@ -1,8 +1,7 @@
-#actionSpaceContainer{
-  
-height: inherit;
+#actionSpaceLayoutContainer{
+flex-grow: 1;
 background-color: khaki;
- align-self: stretch;
+ 
 }
 
 input {
@@ -68,10 +67,11 @@ input {
 align-items: center;
 }
 #actionSpaceBody{
-    height: inherit;      
+  flex-grow: 1;
+    
 }
 #navigationSection {
-height: 100%;
+  flex-grow: 1;
     margin-left: 20px;
     resize: horizontal;
     overflow: hidden;
