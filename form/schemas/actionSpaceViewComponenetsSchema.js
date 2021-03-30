@@ -527,6 +527,81 @@ var workspaceHeader= {
     tools: {
         name: 'div',
         class:'row',
+        selectTextClass:{
+            name:'select',
+            class:'select',
+            id:'richTextFormattingSelection',
+            options:{
+                name:'option',
+                selected:'',
+                textContent:'normal',
+            },
+            option1:{
+                name:'option',
+                value:'h1',
+                textContent:'Title 1',
+            },
+            option2:{
+                name:'option',
+                value:'h2',
+                textContent:'Title 2',
+            },
+            option3:{
+                name:'option',
+                value:'h3',
+                textContent:'Title 3',
+            },
+        },
+        selectTextFont:{
+            name:'select',
+            class:'select',
+            id:'richTextFontSelection',
+            options:{
+                name:'option',
+                selected:'',
+                textContent:'normal',
+            },
+            option1:{
+                name:'option',
+                
+                textContent:'Arial',
+            },
+            option2:{
+                name:'option',
+                value:'h2',
+                textContent:'Poppins',
+            },
+            option3:{
+                name:'option',
+                value:'h3',
+                textContent:'Title 3',
+            },
+        },
+        selectFontSize:{
+            name:'select',
+            class:'select',
+            id:'richTextFontSizeSelection',
+            options:{
+                name:'option',
+                selected:'',
+                textContent:'normal',
+            },
+            option1:{
+                name:'option',
+                value:'1',
+                textContent:'Very Small',
+            },
+            option2:{
+                name:'option',
+                value:'2',
+                textContent:'A bit small',
+            },
+            option3:{
+                name:'option',
+                value:'h3',
+                textContent:'Title 3',
+            },
+        },
         share: {
             name: "div",
             class: "share icon",
@@ -574,7 +649,6 @@ var workspaceHeader= {
                 'name': 'i', 'class': "material-icons", 'textContent': 'format_list_bulleted',
             },
         },
-
         icon4: {
             name: 'div',
             class: 'icon',
@@ -582,7 +656,6 @@ var workspaceHeader= {
                 'name': 'i', 'class': "material-icons", 'textContent': 'attachment',
             },
         },
-
         icon5: {
             name: 'div',
             class: 'icon',
@@ -590,7 +663,6 @@ var workspaceHeader= {
                 'name': 'i', 'class': "material-icons", 'textContent': 'format_quote',
             },
         },
-
         icon6: {
             name: 'div',
             class: 'icon',
@@ -598,7 +670,6 @@ var workspaceHeader= {
                 'name': 'i', 'class': "material-icons", 'textContent': 'code',
             },
         },
-
         icon7: {
             name: 'div',
             class: 'icon',
@@ -685,9 +756,11 @@ var workSpaceBody = {
                     block: {
                         name: 'div',
                         class: 'blocks',
+                        id:'blocks',
                         li: {
                             name: 'span',
                             class: 'inlineContent ',
+                            id:'inlineContent',
                             innerHTML: sampleIntroStory
                         }
                     }
@@ -733,85 +806,4 @@ var footer= {
         name: 'p',
         textContent: 'https://www.0dot1.live',
     }
-}
-var richTextToolBar={
-    name:'span',
-    class:'container row',
-    selectTextClass:{
-        name:'select',
-        class:'select',
-        id:'richTextFormattingSelection',
-        options:{
-            name:'option',
-            selected:'',
-            textContent:'normal',
-        },
-        option1:{
-            name:'option',
-            value:'h1',
-            textContent:'Title 1',
-        },
-        option2:{
-            name:'option',
-            value:'h2',
-            textContent:'Title 2',
-        },
-        option3:{
-            name:'option',
-            value:'h3',
-            textContent:'Title 3',
-        },
-    },
-    selectTextFont:{
-        name:'select',
-        class:'select',
-        id:'richTextFontSelection',
-        options:{
-            name:'option',
-            selected:'',
-            textContent:'normal',
-        },
-        option1:{
-            name:'option',
-            
-            textContent:'Arial',
-        },
-        option2:{
-            name:'option',
-            value:'h2',
-            textContent:'Poppins',
-        },
-        option3:{
-            name:'option',
-            value:'h3',
-            textContent:'Title 3',
-        },
-    },
-    selectFontSize:{
-        name:'select',
-        class:'select',
-        id:'richTextFontSizeSelection',
-        options:{
-            name:'option',
-            selected:'',
-            textContent:'normal',
-        },
-        option1:{
-            name:'option',
-            value:'1',
-            textContent:'Very Small',
-        },
-        option2:{
-            name:'option',
-            value:'2',
-            textContent:'A bit small',
-        },
-        option3:{
-            name:'option',
-            value:'h3',
-            textContent:'Title 3',
-        },
-    },
-
-
 }

@@ -2,25 +2,24 @@
   background-color: blueviolet;
 }
 
+.mouseover::before{
+  font-family: 'Material Icons';
+  content: "add";
+  
+  color: #1e2326;
+  position: absolute;
+  z-index: 1;
+  display: inline-block;
+
+}
 [state="mouseover"]::before{
-    font-size: 1.5vh;
-    content: attr(id);
+   font-family: 'Material Icons';
+    content: "add";
+    
     color: #1e2326;
     position: absolute;
-    top:10Px;
-    left:10Px;
     z-index: 1;
-  ;
+    display: inline-block;
+    
   }
   
-  [state="click"]::before{
-    font-size: 1.5vh;
-    content: attr(ehhId);
-    display:block;
-    color: #1e2326;
-    z-index: 1;
-    position: fixed;
-    top:10Px;
-    left:10Px;
-    background: white;
-  }

@@ -299,11 +299,12 @@ class ActionController extends ActionEvent {
     onMouseOver(event) {
         //console.log('onMouseOver',event.target.id,event.type)
         if (event.target.id) {
-            console.log('onMouseOver',event.target.classList,event.type)
-            event.target.setAttribute('State', event.type);
+           // console.log('onMouseOver',event.target.classList,event.type)
+           // event.target.setAttribute('State', event.type);
+           // event.target.classList.add('event.type');
         }
         if (event.target.classList.contains('inlineContent')) {
-           
+            //event.target.classList.add(event.type);
             event.target.setAttribute('State', event.type);
             console.log('onMouseOver',event.target.classList,event.type)
         }
