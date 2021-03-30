@@ -48,7 +48,115 @@ class ActionEngine {
       }
       return processResult;
     }
-  
+    runSyncStep(req, activeFlowIndex) {
+        req['state'] = "ek";
+        if (operate.isObject(req) != true) {
+            return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
+        } else {
+            if (req.andThen) {
+               // console.log("andThenFound", req.andThen);
+                //test if their is an live obejct in the current Scope, if yes, use that.
+                if (window[req.andThen]) {
+                   
+                    req.andThen = window[req.andThen];
+
+                    for (var i = 0; i < req.andThen.arguments.length; i++) {
+                        
+                        if (typeof req.andThen.arguments[i] === 'object') {
+                          //  console.log( req.andThen.arguments[i]);
+                            var argss = req.andThen.arguments[i]['$ref'];
+                            console.log("here", argss, activeFlowIndex, this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]])
+                            var parsedArgss = this._flowsInAction[activeFlowIndex][argss[0]][argss[1]][argss[2]][argss[3]][argss[4]];
+                          console.log("here", parsedArgss)
+                            req.andThen.arguments[i] = parsedArgss;
+                          
+                        }
+                    
+                    }
+                  //  console.log("here yo", req.andThen.method, req.andThen.arguments)
+                    var response = req.objectModel[req.method](req.arguments);
+                    response[req.andThen.arguments[0]] = req.andThen.arguments[1];
+                   
+                   // console.log(response)
+                }               
+            } else {
+              //  console.log(">>>>>>>>>>>>>>", req.objectModel, req.method)
+              //  req.objectModel = window[req.objectModel];
+//                console.log(req.objectModel)
+                var response = req.objectModel[req.method](req.arguments);
+               // console.log("response",response)
+            }
+            
+//handle output
+            if (!operate.isUndefined(response)) {
+              //  console.log(response,"now")
+                req.response.push(response);
+                return response;
+            } else {
+             //  console.log(response, req.response, req)
+                req.response.push("Success");
+                return "Success";
+            }
+            
+            
+        }
+        
+    }
+    buildActionRequest(buildReq) {
+        console.log("BUildReq",buildReq)
+       if (operate.isObject(buildReq) != true) {
+           return console.error("Need a JSON, Please refer to the documentation", "Does this >", buildReq, "look like JSON to you. It's damn", operate.is(buildReq));
+       } else {
+           console.log("building", buildReq);
+           var response = [];
+           for (var key in buildReq.buildArguments) { //iterating Each key of req
+               if (typeof buildReq.buildArguments[key] === "object") {
+                   console.log("udi",Object.values(buildReq.buildArguments[key]));
+                   response.push(Object.values(buildReq.buildArguments[key]).join(" ").replace(/\s/g, ""))
+               } else {
+                   response.push(buildReq.buildArguments[key]);
+               }
+           }
+
+           /**
+           * cleanUpStage
+           */
+           //  console.log(response);
+           this.cleanReq = "return " + response.join(".");
+           var builtReq = "return " + response.join(".");
+           //  console.log(buildReq.buildParams.output.outputType);
+           if (buildReq.buildParams.output.outputType === 'callback') {
+               var classToCall = buildReq.buildParams.output.callBackReq.callbackClass;
+               var methodtoCall = buildReq.buildParams.output.callBackReq.callback;
+               var andThen = buildReq.buildParams.output.callBackReq.andThen;
+               var paraArg = buildReq.buildParams.output.callBackReq.args
+               var args = this[paraArg];
+               console.log(args)
+               var callbackResponse = this.executeSyncnActionStep(classToCall, methodtoCall, args, andThen);
+               
+               return callbackResponse;
+           } else {
+               console.log('builtReq', builtReq);
+               return builtReq;
+           }
+           
+       }
+
+   }
+   processStringRequest(request) {
+       console.log("request",request)
+       if (operate.isString(request) != true) {
+           return console.error("not my job")//To be routed through BuildActionReq
+       } else {
+           //var exeCommand = this.buildActionRequest(reqObject);
+           console.log("executing command", request)
+           //  var codeToExecute = "return document.getElementById('action').innerHTML";
+           var response = new Function(request)();
+           console.log("Processed String request", response);
+           return response;
+       }
+        
+   }
     /**
      * This method is used for parallel requests
      * @param {FlowRequest} reqObj - request object containing array of objects
