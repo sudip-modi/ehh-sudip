@@ -581,7 +581,8 @@ var leftSideNavBar= {
 }
 var workspaceHeader= {
     name: 'div',
-    class: "workspaceHeader flex align_center row",
+    class: "align_center row",
+    id:'workspaceHeader',
     MainHeaderHamburger: {
         name: 'div',
         class: "mode_toggle_btn mr-15",
@@ -609,15 +610,14 @@ var workspaceHeader= {
             name: 'div',
             class: 'title',
             textContent: 'WorkSpaceTitle',
-            editBtn: {
-                name: 'button',
-                class: 'editBtn',
-                textContent: 'Edit'
-            }
         },
 
     },
-    controlIcon: {
+     'vl':{
+        'name': 'span',
+        class: 'verticleBar',                           
+        },
+    tools: {
         name: 'div',
         class:'row',
         share: {
