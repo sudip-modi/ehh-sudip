@@ -1,19 +1,19 @@
+[state="mouseover"]{
+  background-color: blueviolet;
+}
 
-[currentstate="mousemove"]::before{
-  
+[state="mouseover"]::before{
     font-size: 1.5vh;
-    content: attr(ehhId);
+    content: attr(id);
     color: #1e2326;
-    position: fixed;
+    position: absolute;
     top:10Px;
     left:10Px;
-    display:none;
-    background: white;
     z-index: 1;
   ;
   }
   
-  [currentstate="click"]::before{
+  [state="click"]::before{
     font-size: 1.5vh;
     content: attr(ehhId);
     display:block;

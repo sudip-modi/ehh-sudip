@@ -9,13 +9,15 @@ class ActionEvent {
         //  console.log(elements4Event)
        
         this.on('selection', e => this.onSelection(e));
+      //  this.on('mouseenter', e => this.onMouseEnter(e));
+     //   this.on('mouseleave', e => this.onMouseLeave(e));
         this.on('change', e => this.onSelection(e));
         this.on('keypress', e => this.onKeyPress(e));
         this.on('keyup', e => this.onKeyUp(e));
         this.on('handleEvent', e => this.handleEvent(e));
         this.on('insertText', e => this.insertText(e));
         this.on('delButtonClicked', e => this.del(e));
-
+        
     }
 
     createListeners(entity) {
@@ -57,16 +59,17 @@ class ActionController extends ActionEvent {
         this.actionEvent = actionEvent
         this.createListeners(document);
         this.activeListerners = this.createListeners(window);
-        //console.log(this.activeListerners);
+        console.log("Listeners",this.activeListerners);
         //   window.addEventListener('change', e => this.emit('change', e));
         //window.addEventListener('event', e => this.emit('click', e))
+        document.addEventListener('mouseenter', e => this.emit('handleEvent', e));
+        document.addEventListener('mouseleave', e => this.emit('handleEvent', e));
+        document.addEventListener('mouseout', e => this.emit('handleEvent', e));
         window.addEventListener('load', e => this.emit('handleEvent', e));
         window.addEventListener('hashchange', e => this.emit('handleEvent', e));
         window.addEventListener('popstate', e => this.emit('handleEvent', e));
         window.addEventListener('mouseover', e => this.emit('handleEvent', e));
-        window.addEventListener('mouseover', e => this.emit('handleEvent', e));
         window.addEventListener('storage', e => this.emit('handleEvent', e));
-        window.addEventListener('mouseover', e => this.emit('handleEvent', e));
         window.addEventListener('click', e => this.emit('handleEvent', e));
         window.addEventListener('keypress', e => this.emit('handleEvent', e));
         window.addEventListener('keyup', e => this.emit('handleEvent', e));
@@ -105,6 +108,18 @@ class ActionController extends ActionEvent {
                 break;
             case 'mouseover':
                 this.onMouseOver(event);
+                //console.log("mouseover", event.type, event.target)
+                break;
+            case 'mouseenter':
+                this.onMouseEnter(event);
+                //console.log("mouseover", event.type, event.target)
+                break;
+            case 'mouseleave':
+                this.onMouseLeave(event);
+                //console.log("mouseover", event.type, event.target)
+                break;
+            case 'mouseout':
+                this.onMouseLeave(event);
                 //console.log("mouseover", event.type, event.target)
                 break;
             case 'storage':
@@ -264,16 +279,39 @@ class ActionController extends ActionEvent {
         }
 
     }
-    onMouseOver(event) {
+    onMouseEnter(event){
+       // console.log('onMouseEnter',event.target,event.type)
         if (event.target.id) {
-            event.target.setAttribute('State', "mouseover");
+            event.target.setAttribute('State', event.type);
+           // console.log('onMouseEnter',event.target,event.type)
 
+        }
+    }
+    onMouseLeave(event){
+      //  console.log('onMouseLeave',event.target,event.type)
+        if (event.target) {
+            event.target.setAttribute('State', event.type);
+            console.log('onMouseLeave',event.target.id,event.type)
+
+        }
+    }
+    
+    onMouseOver(event) {
+        //console.log('onMouseOver',event.target.id,event.type)
+        if (event.target.id) {
+            console.log('onMouseOver',event.target.classList,event.type)
+            event.target.setAttribute('State', event.type);
+        }
+        if (event.target.classList.contains('inlineContent')) {
+           
+            event.target.setAttribute('State', event.type);
+            console.log('onMouseOver',event.target.classList,event.type)
         }
         if (event.target.classList.contains('editable')) {
 
             event.target.previousElementSibling.style = 'visibility:visible'
 
-            console.log(event.target.previousElementSibling.innerHTML)
+          //  console.log(event.target.previousElementSibling.innerHTML)
             //event.target.previousElementSibling('visibility',true)
 
             //console.log("yo")

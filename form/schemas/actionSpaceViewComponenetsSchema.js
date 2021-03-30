@@ -713,7 +713,7 @@ var actionWorkSpace = {
     name: 'section',
     id: "actionWorkspaceSection",
     class: "column",
-  //  'workspaceHeader': workspaceHeader,
+    'workspaceHeader': workspaceHeader,
     'workSpaceBody': workSpaceBody,
    
   
@@ -733,4 +733,85 @@ var footer= {
         name: 'p',
         textContent: 'https://www.0dot1.live',
     }
+}
+var richTextToolBar={
+    name:'span',
+    class:'container row',
+    selectTextClass:{
+        name:'select',
+        class:'select',
+        id:'richTextFormattingSelection',
+        options:{
+            name:'option',
+            selected:'',
+            textContent:'normal',
+        },
+        option1:{
+            name:'option',
+            value:'h1',
+            textContent:'Title 1',
+        },
+        option2:{
+            name:'option',
+            value:'h2',
+            textContent:'Title 2',
+        },
+        option3:{
+            name:'option',
+            value:'h3',
+            textContent:'Title 3',
+        },
+    },
+    selectTextFont:{
+        name:'select',
+        class:'select',
+        id:'richTextFontSelection',
+        options:{
+            name:'option',
+            selected:'',
+            textContent:'normal',
+        },
+        option1:{
+            name:'option',
+            
+            textContent:'Arial',
+        },
+        option2:{
+            name:'option',
+            value:'h2',
+            textContent:'Poppins',
+        },
+        option3:{
+            name:'option',
+            value:'h3',
+            textContent:'Title 3',
+        },
+    },
+    selectFontSize:{
+        name:'select',
+        class:'select',
+        id:'richTextFontSizeSelection',
+        options:{
+            name:'option',
+            selected:'',
+            textContent:'normal',
+        },
+        option1:{
+            name:'option',
+            value:'1',
+            textContent:'Very Small',
+        },
+        option2:{
+            name:'option',
+            value:'2',
+            textContent:'A bit small',
+        },
+        option3:{
+            name:'option',
+            value:'h3',
+            textContent:'Title 3',
+        },
+    },
+
+
 }
