@@ -1,0 +1,26 @@
+
+[currentstate="mousemove"]::before{
+  
+    font-size: 1.5vh;
+    content: attr(ehhId);
+    color: #1e2326;
+    position: fixed;
+    top:10Px;
+    left:10Px;
+    display:none;
+    background: white;
+    z-index: 1;
+  ;
+  }
+  
+  [currentstate="click"]::before{
+    font-size: 1.5vh;
+    content: attr(ehhId);
+    display:block;
+    color: #1e2326;
+    z-index: 1;
+    position: fixed;
+    top:10Px;
+    left:10Px;
+    background: white;
+  }

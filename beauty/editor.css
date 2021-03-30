@@ -1,0 +1,43 @@
+.code{
+    background-color: bisque;
+}
+::selection { background: rgba(95,191,249,.4); }
+
+
+
+
+.code div {
+  counter-increment: listing;
+}
+
+.code div::before {
+  content: counter(listing) ". ";
+  display: inline-block;
+  width: 8em;         /* now works */
+  padding-left: auto; /* now works */
+  background-color: blue;
+  margin-left: auto;  /* now works */
+  text-align: right;  /* now works */
+}
+
+
+/* Pretty printing styles. Used with prettify.js. */
+
+
+/* SPAN elements with the classes below are added by prettyprint. */
+.pln { color: #000 }  /* plain text */
+
+@media screen {
+  .str { color: #080 }  /* string content */
+  .kwd { color: #008 }  /* a keyword */
+  .com { color: #800 }  /* a comment */
+  .typ { color: #606 }  /* a type name */
+  .lit { color: #066 }  /* a literal value */
+  /* punctuation, lisp open bracket, lisp close bracket */
+  .pun, .opn, .clo { color: #660 }
+  .tag { color: #008 }  /* a markup tag name */
+  .atn { color: #606 }  /* a markup attribute name */
+  .atv { color: #080 }  /* a markup attribute value */
+  .dec, .var { color: #606 }  /* a declaration; a variable name */
+  .fun { color: red }  /* a function name */
+}

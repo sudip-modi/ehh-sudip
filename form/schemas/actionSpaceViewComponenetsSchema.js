@@ -675,7 +675,7 @@ var workSpaceBody = {
             // },
             content: {
                 name: 'div',
-                class: 'container column',
+                class: 'container column code',
                 id: 'content',
                 contentEditable: 'true',
                 activeActionStory: {
