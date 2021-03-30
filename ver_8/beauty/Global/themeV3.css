@@ -46,9 +46,8 @@ h1{
 section{
   display: flex;
 }
-button>*{
-color: var(--light);
-}
+
+
 button  {
  
   text-decoration: none;

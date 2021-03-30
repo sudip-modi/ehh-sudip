@@ -57,6 +57,16 @@ input {
 #logo{
    height: 34px;
 }
+#output::before{
+  content: attr(id);
+  position: relative;
+  top: -1em;
+  margin-bottom: -1em;
+  visibility: hidden;
+}
+#output:hover::before{
+  visibility: visible;
+}
 #actionSearch{
     padding-left: 21px;
     width: 25vw;

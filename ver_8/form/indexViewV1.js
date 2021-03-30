@@ -716,6 +716,71 @@ var workSpaceBody = {
     name: 'div',
     id: 'workSpaceBody',
     class: 'container',
+    userView: {
+        name: 'div',
+        class: 'container col',
+        id:'userView',
+        editor: {
+            name: 'div',
+            class: 'container column',
+            id:'editor',
+            tabs: {
+                name: 'div',
+                class: 'container',
+                id: 'storyTabs',
+                items: {
+                    file1: {
+                        name: 'button',
+                        textContent: 'file1',
+                        close: {
+                            name: 'i',
+                            class: "material-icons",
+                            id: 'close',
+                            textContent: 'close',
+                        },
+
+                    },
+                    file2: {
+                        name: 'button',
+                        textContent: 'file2',
+                        close: {
+                            name: 'i',
+                            class: "material-icons",
+                            id: 'close',
+                            textContent: 'close',
+                        },
+
+                    },
+                    file3: {
+                        name: 'button',
+                        textContent: 'file3',
+                        close: {
+                            name: 'i',
+                            class: "material-icons",
+                            id: 'close',
+                            textContent: 'close',
+                        },
+
+                    },
+                }
+
+
+            },
+            content: {
+                name: 'div',
+                class: 'container',
+            }
+        },
+        output: {
+            name: 'div',
+            class: 'container',
+            id:'output',
+            textContent:'output',
+            
+        }
+    },
+    
+    
     
     
 }
@@ -723,8 +788,9 @@ var actionWorkSpace = {
     name: 'section',
     id: "actionWorkspaceSection",
     class: "column",
-    'workspaceHeader': workspaceHeader,
+  //  'workspaceHeader': workspaceHeader,
     'workSpaceBody': workSpaceBody,
+   
   
    
 }

@@ -1,6 +1,21 @@
 #workSpaceBody{
-    background-color: aqua;
+  
     height: 100%;
     width: 100%;
     border-style: solid;
+}
+
+
+#userView{
+ width: inherit;
+  background-color: blue;
+}
+#editor{
+  background-color: rgb(146, 132, 4);
+  width: 50%;
+}
+
+#output{
+    background-color:lawngreen;
+    width: 50%;
 }
