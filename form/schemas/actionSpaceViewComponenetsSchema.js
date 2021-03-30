@@ -680,14 +680,14 @@ var workSpaceBody = {
                 contentEditable: 'true',
                 activeActionStory: {
                     name: 'div',
-                    class: 'container column code',
+                    class: 'container column',
                     id: 'activeActionStory',
                     block: {
                         name: 'div',
                         class: 'blocks',
                         li: {
                             name: 'span',
-                            class: 'inlineContent code',
+                            class: 'inlineContent ',
                             innerHTML: sampleIntroStory
                         }
                     }

@@ -28,6 +28,7 @@ class indexDB{
      * @param customStore Method to get a custom store. Use with caution (see the docs).
      */
     static get(key, customStore = indexDB.defaultGetStore()) {
+        
         return customStore('readonly', (store) => indexDB.promisifyRequest(store.get(key)));
     }
     /**

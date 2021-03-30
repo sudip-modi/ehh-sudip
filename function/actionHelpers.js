@@ -8,6 +8,25 @@
 //   console.error(err);
 // }
 
+// This method walks through any kind of an object, while applying a callback function at the end.
+
+function walk(Input,options){
+    if(input instanceof Array){
+        for( var keyIndex=0;keyIndex<input.length;keyIndex++){
+
+        }
+
+    } else if( typeof input === 'object'){
+        for (var key in input){
+            if (input.hasOwnProperty(key)){
+
+            }
+               //f(m,loc,expr,val,path);
+         }
+
+    }
+}
+
 function* createIndex() {
     let number = 1;
     while (true)
