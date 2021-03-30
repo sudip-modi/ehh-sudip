@@ -1,21 +1,39 @@
 #workSpaceBody{
-  
     height: 100%;
     width: 100%;
-    border-style: solid;
+ 
 }
-
 
 #userView{
  width: inherit;
-  background-color: blue;
+  
 }
 #editor{
-  background-color: rgb(146, 132, 4);
-  width: 50%;
+   width: 50%;
+   padding-left:5em;
+   padding-top: 1em;
+   padding-right: 3em;
+ 
+ 
+}
+#content{
+     display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 15px;
+    line-height: 26px;
+    padding: 4px 10px;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px ;
+    cursor: text;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    background-color:white;
 }
 
 #output{
-    background-color:lawngreen;
+    display: none;
+ 
     width: 50%;
 }

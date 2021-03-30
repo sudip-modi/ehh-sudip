@@ -768,7 +768,8 @@ var workSpaceBody = {
             },
             content: {
                 name: 'div',
-                class: 'container',
+                class: 'container column',
+                id:'content',
             }
         },
         output: {

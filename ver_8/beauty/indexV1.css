@@ -1,7 +1,5 @@
 #actionSpaceLayoutContainer{
 flex-grow: 1;
-background-color: khaki;
- 
 }
 
 input {
@@ -42,7 +40,7 @@ input {
  #regForm {
       margin: 200px auto;
       padding:54px;
-     background-color: wheat;
+   
       border-radius:  13px;
     }
 
