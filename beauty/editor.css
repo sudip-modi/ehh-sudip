@@ -1,21 +1,18 @@
 .code{
-    background-color: bisque;
+   
 }
 ::selection { background: rgba(95,191,249,.4); }
-
-
-
 
 .code div {
   counter-increment: listing;
 }
-
 .code div::before {
   content: counter(listing) ". ";
   display: inline-block;
-  width: 8em;         /* now works */
+  width: 2em;         /* now works */
   padding-left: auto; /* now works */
-  background-color: blue;
+  background-color:var(--white);
+  color: var(--dark);
   margin-left: auto;  /* now works */
   text-align: right;  /* now works */
 }
