@@ -1,9 +1,12 @@
 class ActionEngine {
     constructor() {
       this._flowResultState = {};
+      this._request=[];// has to be synced with Local Storage or indexDb 
+      this.request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
     }
   
     processReq(reqObj, resultObj = null) {
+
       if (Validators.isNestedRequest(reqObj)) {
         return this.processReqNestedObject(reqObj);
       }
@@ -157,6 +160,42 @@ class ActionEngine {
        }
         
    }
+     //SetTimeOut(Now) optional attribute to be added to this method, which allows to conduct this callback Immidietly in the que.
+     executeSyncActionStep(actionStep, andThen) {
+        console.log(actionStep)
+        var response;
+        if (actionStep.command) {
+            console.log(actionStep, "found command", actionStep.command, actionStep.arguments[0], actionStep.arguments[1]);
+            window[actionStep.command];
+            console.log(actionStep.command)
+
+        } else {
+            //var response = callbackClass[callback](args[0]);
+      
+            if (operate.isString(actionStep.arguments)) {
+                var response = actionStep.class[actionStep.method](actionStep.arguments)//need to get this argument thing working
+            } else  {
+                console.log("Object found", actionStep)
+                var response = actionStep.class[actionStep.method](actionStep.arguments[0], actionStep.arguments[1])//need to get this argument thing working
+                  console.log(response)
+
+            }
+
+            
+        }
+        
+      console.log("executeSyncActionStep response",response);
+         return response;
+    }
+    static promisifyRequest(request) {
+        return new Promise((resolve, reject) => {
+            // @ts-ignore - file size hacks
+            request.oncomplete = request.onsuccess = () => resolve(request.result);
+            // @ts-ignore - file size hacks
+            request.onabort = request.onerror = () => reject(request.error);
+        });
+    }
+    
     /**
      * This method is used for parallel requests
      * @param {FlowRequest} reqObj - request object containing array of objects

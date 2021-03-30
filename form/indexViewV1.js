@@ -934,6 +934,5 @@ var actionSpaceViewModel = [
         actorRole: 'visitor',
         model: basicsignUpLayoutVisitorV1,
     },
-
 ]
 console.log(actionSpaceViewModel)
