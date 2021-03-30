@@ -1,7 +1,22 @@
 #actionSpaceContainer{
-  display: flex;
+  
 height: 100%;
 
+}
+
+input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 15px;
+    line-height: 26px;
+    padding: 4px 10px;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px inset;
+    cursor: text;
+    margin-top: 4px;
+    margin-bottom: 8px;
 }
 #header {
   position: -webkit-sticky;
@@ -45,11 +60,12 @@ align-items: center;
 }
 #actionSpaceBody{
     height: inherit;   
+    background-color: lawngreen;
    
     
 }
 #navigationSection {
-
+height: 100%;
     margin-left: 20px;
     resize: horizontal;
     overflow: hidden;

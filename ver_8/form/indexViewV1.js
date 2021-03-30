@@ -712,11 +712,19 @@ var workspaceHeader= {
 
     }
 }
+var workSpaceBody = {
+    name: 'div',
+    id: 'workSpaceBody',
+    class: 'container',
+    
+    
+}
 var actionWorkSpace = {
     name: 'section',
     id: "actionWorkspaceSection",
     class: "column",
-  //  'workspaceHeader': workspaceHeader,
+    'workspaceHeader': workspaceHeader,
+    'workSpaceBody': workSpaceBody,
   
    
 }
