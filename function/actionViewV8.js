@@ -33,7 +33,7 @@ class ActionView {
  * @author islishude
  * @license MIT
  */
- class Caret {
+ class Caret extends ActionView {
     /**
      * get/set caret position
      * @param {HTMLColletion} target
