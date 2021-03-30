@@ -24,8 +24,7 @@
     padding-top:5em;
     position: relative;
     border-radius: 3px;
-
-box-shadow:
+    box-shadow:
   0 2.8px 2.2px rgba(0, 0, 0, 0.02),
   0 6.7px 5.3px rgba(0, 0, 0, 0.028),
   0 12.5px 10px rgba(0, 0, 0, 0.035),
@@ -38,6 +37,7 @@ box-shadow:
 }
 #activeActionStory{
     padding-left: 3em;
+    
 }
 #output{
     display: none;

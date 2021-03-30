@@ -163,6 +163,7 @@ class ActionController extends ActionEvent {
     onKeyPress(entity) {
         console.log("key pressed")
         console.log(entity.key + ":::: key pressed");
+        entity.preventDefault(entity);
         var currentSelection = window.getSelection();
         //        console.log("Current selection :-" + currentSelection.toString()); 
         var focusText = currentSelection.anchorNode.data;
@@ -173,14 +174,13 @@ class ActionController extends ActionEvent {
         //       console.log("focusEntityInnerText :-" + focusEntityInnerText);
         // console.log("focusEntityInnerText", currentSelection);
         var currentCaret = currentSelection.anchorOffset;
-        if (entity.key) {
-            return;
-        }
+       
         // if(entity.key == 'Enter'){return;}
         /// Directly entering the key In the view
-        entity.preventDefault(entity);
+       
         var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + entity.key + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
         currentSelection.anchorNode.data = response;
+        console.log(response);
         Caret.moveCaret(window, currentCaret + 1);
     }
     onKeyUp(entity) {
