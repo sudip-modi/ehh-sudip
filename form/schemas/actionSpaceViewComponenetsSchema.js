@@ -759,7 +759,7 @@ var workSpaceBody = {
                         id:'blocks',
                         li: {
                             name: 'span',
-                            class: 'inlineContent ',
+                            class: 'inlineContent',
                             id:'inlineContent',
                             innerHTML: sampleIntroStory
                         }

@@ -12,8 +12,8 @@ class ActionEvent {
       //  this.on('mouseenter', e => this.onMouseEnter(e));
      //   this.on('mouseleave', e => this.onMouseLeave(e));
         this.on('change', e => this.onSelection(e));
-        this.on('keypress', e => this.onKeyPress(e));
-        this.on('keyup', e => this.onKeyUp(e));
+       // this.on('keypress', e => this.onKeyPress(e));
+        //this.on('keyup', e => this.onKeyUp(e));
         this.on('handleEvent', e => this.handleEvent(e));
         this.on('insertText', e => this.insertText(e));
         this.on('delButtonClicked', e => this.del(e));
@@ -57,9 +57,9 @@ class ActionController extends ActionEvent {
         this.model = model
         this.view = view
         this.actionEvent = actionEvent
-        this.createListeners(document);
-        this.activeListerners = this.createListeners(window);
-        console.log("Listeners",this.activeListerners);
+      //  this.createListeners(document);
+        //this.activeListerners = this.createListeners(window);
+        //console.log("Listeners",this.activeListerners);
         //   window.addEventListener('change', e => this.emit('change', e));
         //window.addEventListener('event', e => this.emit('click', e))
         document.addEventListener('mouseenter', e => this.emit('handleEvent', e));
@@ -176,11 +176,11 @@ class ActionController extends ActionEvent {
     }
    
     onKeyPress(entity) {
-        console.log("key pressed")
+        console.log("key pressed",entity.target,)
         console.log(entity.key + ":::: key pressed");
         entity.preventDefault(entity);
         var currentSelection = window.getSelection();
-        //        console.log("Current selection :-" + currentSelection.toString()); 
+                console.log("Current selection :-" + currentSelection.toString()); 
         var focusText = currentSelection.anchorNode.data;
         //        console.log("Focus text :-" + focusText);
         var focusTextEntity = entity.target.textContent; //Pure text
@@ -290,8 +290,9 @@ class ActionController extends ActionEvent {
     onMouseLeave(event){
       //  console.log('onMouseLeave',event.target,event.type)
         if (event.target) {
-            event.target.setAttribute('State', event.type);
             console.log('onMouseLeave',event.target.id,event.type)
+            event.target.setAttribute('State', event.type);
+            //console.log('onMouseLeave',event.target.id,event.type)
 
         }
     }
@@ -310,7 +311,7 @@ class ActionController extends ActionEvent {
         }
         if (event.target.classList.contains('editable')) {
 
-            event.target.previousElementSibling.style = 'visibility:visible'
+           // event.target.previousElementSibling.style = 'visibility:visible'
 
           //  console.log(event.target.previousElementSibling.innerHTML)
             //event.target.previousElementSibling('visibility',true)

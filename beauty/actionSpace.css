@@ -1,8 +1,6 @@
-[state="mouseover"]{
-  background-color: blueviolet;
-}
 
-.mouseover::before{
+/**
+[state="mouseover"]::before{
   font-family: 'Material Icons';
   content: "add";
   
@@ -15,7 +13,6 @@
 [state="mouseover"]::before{
    font-family: 'Material Icons';
     content: "add";
-    
     color: #1e2326;
     position: absolute;
     z-index: 1;
