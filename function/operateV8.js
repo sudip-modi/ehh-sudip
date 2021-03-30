@@ -82,6 +82,15 @@ class operate {
         argA.sort(); argB.sort(); if (argA.length !== argB.length) return false;
         for (let i = 0; i < argA.length; i++) { if (argA[i] !== argB[i]) return false; } return true;
     }
+       // checks for null and undefined
+       static isIterable(obj) {
+     
+        if (obj == null) {
+            return false;
+        }
+        return typeof obj[Symbol.iterator] === 'function';
+    }
+
     // Returns if a value is an array
     static isArray(value) { return value && Array.isArray(value) && typeof value === 'object' && value.constructor === Array; }
     // Returns if a value is a static
