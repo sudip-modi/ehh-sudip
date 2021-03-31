@@ -289,7 +289,7 @@ class ActionController extends ActionEvent {
     }
     onMouseLeave(event){
       //  console.log('onMouseLeave',event.target,event.type)
-        if (event.target) {
+        if (event.target.id) {
             console.log('onMouseLeave',event.target.id,event.type)
             event.target.setAttribute('State', event.type);
             //console.log('onMouseLeave',event.target.id,event.type)
