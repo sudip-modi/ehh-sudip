@@ -13,6 +13,15 @@ const pickerOpts = {
     excludeAcceptAllOption: true,
     multiple: false
 };
+
+var openFileReqModel = {
+    objectModel: processFS,
+    method: 'Open',
+    arguments: 'event',
+    andThen: 'set2IndexDb',
+    callback: '',// call back to recive update in storage.
+}
+
 class processFS{
     static newfileObjectURL() {
         var file = new File(["foo"], "foo.txt", {
@@ -107,60 +116,42 @@ class processFS{
     }
     static async OpenDirectory(event){
         event.preventDefault();
-        const dirHandle = await window.showDirectoryPicker();
-
-        //ActionView.preLoader();
-        var dirID = processFS.uid();
-        await indexDB.set(dirID, dirHandle);
-        var input = JSON.parse(JSON.stringify(directoryJSON));
-        input['li']['span']['innerText'] = dirHandle.name;input['li']['list']['id'] = dirID;
-        var json = await processFS.jsonForDirectory(input['li']['list'] ,dirID);
-        console.log(input);
-        var data = new Entity(input, document.getElementById('workspace'));
-        ActionView.show();
-        var carets = document.querySelectorAll('.caret');
-        carets.forEach(caret =>{
-            caret.onclick = async function(event) {
-                event.preventDefault();
-                console.log(event.target.innerHTML);
-                this.classList.toggle('caret-down')
-                parent = this.parentElement;
-                parent.querySelector('.nested').classList.toggle('active')
-            }
-        })
-        var files = document.querySelectorAll('.file');
-        files.forEach(file =>{
-            file.addEventListener('click',async function(event){
-                event.preventDefault();
-                console.log(event.target.getAttribute("id"));
-                var handleDirFile = await indexDB.get(event.target.getAttribute('id'));
-                processFS.Open(event,handleDirFile);
-            });
-        })
+        try {
+            const dirHandle = await window.showDirectoryPicker();
+            var dirID = uid();
+            indexDB.set(dirID, dirHandle);
+            var input = JSON.parse(JSON.stringify(directoryJSON));
+            input['li']['span']['innerText'] = dirHandle.name; input['li']['list']['id'] = dirID;
+            var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
+            console.log(input);
+            console.log(document.getElementById('workspace').innerHTML);
+            var data = new Entity(input, document.getElementById('workspace'));
+            console.log(document.getElementById('workspace').innerHTML);
+            //  await indexDB.set('workspace',document.getElementById('workspace').innerHTML);
+        } catch (err) {
+            console.log(err);
+        }
     }
-    static async jsonForDirectory(obj,parentID){
-        var parentHandle =await indexDB.get(parentID);
-        console.log(parentHandle);
-        for await(var entry of parentHandle.values()){
-            var id = processFS.uid();
-            if(entry.kind == 'directory'){
+    static async jsonForDirectory(obj, parentHandle) {
+        for await (var entry of parentHandle.values()) {
+            var id = uid();
+            if (entry.kind == 'directory') {
                 var directory = JSON.parse(JSON.stringify(directoryJSON));
-                directory['li']['span']['innerText'] = entry.name;directory['li']['list']['id'] = id;
+                directory['li']['span']['innerText'] = entry.name; directory['li']['list']['id'] = id;
                 var directoryHandle = await parentHandle.getDirectoryHandle(entry.name);
-                await indexDB.set(id,directoryHandle);
-                console.log(directory);
+                await indexDB.set(id, directoryHandle);
                 obj[entry.name] = directory;
                 console.log(obj[entry.name]['li']['list']);
-                await processFS.jsonForDirectory(obj[entry.name]['li']['list'], id);
-            }else if(entry.kind == 'file' && entry.name.includes('.')){
+                await processFS.jsonForDirectory(obj[entry.name]['li']['list'], directoryHandle);
+            } else if (entry.kind == 'file' && entry.name.includes('.')) {
                 var fileData = JSON.parse(JSON.stringify(fileJSON));
-                fileData['id'] = id;fileData['innerText'] = entry.name;
+                fileData['id'] = id; fileData['innerText'] = entry.name;
                 var getfileHandle = await parentHandle.getFileHandle(entry.name);
-                await indexDB.set(id,getfileHandle);
+                await indexDB.set(id, getfileHandle);
                 obj[entry.name] = fileData;
-                console.log(obj);
             }
         }
+        console.log(obj);
         return obj;
     }
     static verifyPermissions() {
