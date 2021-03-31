@@ -14,13 +14,6 @@ const pickerOpts = {
     multiple: false
 };
 
-var openFileReqModel = {
-    objectModel: processFS,
-    method: 'Open',
-    arguments: 'event',
-    andThen: 'set2IndexDb',
-    callback: '',// call back to recive update in storage.
-}
 
 class processFS{
     static newfileObjectURL() {

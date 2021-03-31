@@ -2,22 +2,41 @@ class ActionEngine {
     constructor() {
       this._flowResultState = {};
       this._request=[];// has to be synced with Local Storage or indexDb 
-      this.request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
+      this._request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
     }
   
-    processReq(reqObj, resultObj = null) {
+  static processReq(req) {
+    req[varReqUniqueId] = uid();
+    console.log(req);
+    this._request.push(req);
 
-      if (Validators.isNestedRequest(reqObj)) {
-        return this.processReqNestedObject(reqObj);
+    if (operate.isObject(req) != true) {
+      return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
+    } else {
+      //    console.log("got request",req)
+      if (req.andThen) {
+        //   console.log(req.andThen,operate.isString(req.andThen), operate.is(req.andThen))
+        if (operate.is(req.andThen) != 'String') {
+
+          //   console.log("yo dude, single and then allowed here, for long chaining use my sibling"), console.error("being generous now, sending you to the right service worker")
+          //var bufferResponse = req.objectModel[req.method](req.arguments);
+          //  var output = this.handleResponse()
+          //   console.log(req)
+          return response = req.objectModel[req.method](req.arguments);
+        }
+        //  console.log('andThenFound', req.andThen);
+        return response = req.objectModel[req.method](req.arguments)[req.andThen];
+      } else {
+        //  console.log(req)
+        return response = req.objectModel[req.method](req.arguments);
       }
-      if (Validators.isFlowRequest(reqObj)) {
-        return this.processReqArray(reqObj);
-      }
-      if (Validators.isSingleRequest(reqObj)) {
-        return this.processSingleReq(reqObj, resultObj);
-      }
-      throw new Error("Request type not supported")
+      //console.log(req, req.arguments);
+
     }
+
+
+     
+   }
   
     /**
      * processes single request
@@ -267,10 +286,10 @@ class ActionEngine {
   }
   
   var engine = new ActionEngine();
-  var DOMJson = engine.processReq(singleReq);
-  console.log(DOMJson)
+ // var DOMJson = engine.processReq(singleReq);
+ // console.log(DOMJson)
   
-  engine.processReq(actionFlowModelReq)
+ // engine.processReq(actionFlowModelReq)
   
-  engine.processReq(setInnerHTML)
+ // engine.processReq(setInnerHTML)
   
