@@ -7,24 +7,34 @@ class ActionEngine {
 
     intiate(key) {
         console.log(key)
-        
         if (window[key]) {
-        
             key = window[key];
-            console.log(key);
+          //  console.log(key);
             return key;
         }
 
 
     }
+    walk(Input,options){
+        if( typeof input === 'object'){
+            for (var key in input){
+                if (input.hasOwnProperty(key)){
+                        if(operate.isString(input[key])){
+
+    }
+                }
+                   //f(m,loc,expr,val,path);
+             }
+    
+        }
+    }
 
     processReq(req) {
         
-
         console.log('req', req);
-        req = this.intiate(req);
+        req = this.walk(req);
         console.log(req)
-        req['reqUniqueId'] = uid();
+      //  req['reqUniqueId'] = uid();
        // console.log(req);
         this._request.push(req);
            // console.log(this._request)
