@@ -10,15 +10,15 @@ class DOMConversion {
         var props = Object.keys(value);
         output[key] = {}
         for (var i = 0; i < props.length; i++) {
-          if(object[key][props[i]] && object[key][props[i]].nodeValue){
+          if (object[key][props[i]] && object[key][props[i]].nodeValue) {
             output[key][props[i]] = object[key][props[i]] && object[key][props[i]].nodeValue;
-          }else if(object[key][props[i]] && !object[key][props[i]].nodeValue){
+          } else if (object[key][props[i]] && !object[key][props[i]].nodeValue) {
             output[key][props[i]] = object[key][props[i]];
           }
         }
       } else if (Operate.isArray(value)) {
         output[key] = Array.from(object[key], function (childItem) {
-          if(childItem instanceof HTMLElement){
+          if (childItem instanceof HTMLElement) {
             return this.toJSON(childItem, model);
           }
         }.bind(this))
@@ -31,7 +31,7 @@ class DOMConversion {
 
   }
 
-  static displayDOMJSON(domJSON){
+  static displayDOMJSON(domJSON) {
     console.log(domJSON);
   }
-
+}

@@ -14,6 +14,16 @@ const pickerOpts = {
     multiple: false
 };
 class processFS{
+    static newfileObjectURL() {
+        var file = new File(["foo"], "foo.txt", {
+            type: "text/plain",
+        });
+        var file = new File([fileData[name].data], name, { type: fileData[name].type, lastModified: Date.now() });
+        //  See http://docs.webplatform.org/wiki/apis/file/URL/createObjectURL
+        var url = URL.createObjectURL(file, { oneTimeOnly: true });
+        return url;
+
+    }
     static async NewFile(event){
         event.preventDefault();
         if(!fileHandle || document.getElementById('textBox').innerText.length < 1){
@@ -62,8 +72,9 @@ class processFS{
         }else{
             fileHandle = handle;
         }
-        console.log(fileHandle);
-        var file = await fileHandle.getFile();var contents;
+       // console.log(fileHandle);
+        var contents;
+        var file = await fileHandle.getFile();
         if(file['name'].includes('.json') || file['name'].includes('.txt')|| file['name'].includes('.html')|| file['name'].includes('.js')||file['name'].includes('.xml')){
             contents = await file.text();
             ActionView.updateTitle(file['name']);
@@ -151,6 +162,44 @@ class processFS{
             }
         }
         return obj;
+    }
+    static verifyPermissions() {
+        // Check for the various File API support.
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            console.log("Great success! All the File APIs are supported.");
+            return true; // 
+        } else {
+            alert('The File APIs are not fully supported in this browser.');
+            return false; // 
+        }
+    }
+    static async verifyPermission(fileHandle, readWrite) {
+        const options = {};
+        if (readWrite) {
+            options.mode = 'readwrite';
+        }
+        // Check if permission was already granted. If so, return true.
+        if ((await fileHandle.queryPermission(options)) === 'granted') {
+            return true;
+        }
+        // Request permission. If the user grants permission, return true.
+        if ((await fileHandle.requestPermission(options)) === 'granted') {
+            return true;
+        }
+        // The user didn't grant permission, so return false.
+        return false;
+    }
+
+    static updateProgress(evt) {
+        // evt is an ProgressEvent.
+        if (evt.lengthComputable) {
+            var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+            // Increase the progress bar length.
+            if (percentLoaded < 100) {
+                progress.style.width = percentLoaded + '%';
+                progress.textContent = percentLoaded + '%';
+            }
+        }
     }
     static uid() {
         let timmy = Date.now().toString(36).toLocaleUpperCase();
