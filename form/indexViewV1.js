@@ -1,6 +1,4 @@
 
-
-
 var actionSpaceViewModel = [
     {
         keyword: 'welcome',

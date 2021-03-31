@@ -97,7 +97,8 @@ class processFS{
     static async OpenDirectory(event){
         event.preventDefault();
         const dirHandle = await window.showDirectoryPicker();
-        ActionView.preLoader();
+
+        //ActionView.preLoader();
         var dirID = processFS.uid();
         await indexDB.set(dirID, dirHandle);
         var input = JSON.parse(JSON.stringify(directoryJSON));

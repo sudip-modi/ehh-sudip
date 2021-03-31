@@ -30,12 +30,9 @@ class indexDB{
      */
     static get(key, customStore = indexDB.defaultGetStore()) {
         var response = customStore('readonly', (store) => indexDB.promisifyRequest(store.get(key)))
-        response.then(
-            result => console.log("yo",result), // shows "done!" after 1 second
-            error => alert(error) // doesn't run
-        );
+    
         
-       console.log("get indexdb",response)
+   //    console.log("get indexdb",response)
         return response;
     }
     /**
