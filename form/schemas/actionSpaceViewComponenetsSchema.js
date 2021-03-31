@@ -254,13 +254,12 @@ var leftSideNavBar= {
                                     name: 'i',
                                     'class': "material-icons icon mr - 10",
                                     'textContent': 'folder_open',
-                                    'data-command': `[{"command":"FSOpenDirectory"}]`,
                                 },
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'add collection',
-                                    'onclick': "processFS.OpenDirectory(event);"
+                                    'onclick': "engine.processReq(openFileReqModel);"
                                 }
 
                             },
