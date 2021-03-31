@@ -290,7 +290,7 @@ class ActionController extends ActionEvent {
     onMouseLeave(event){
       //  console.log('onMouseLeave',event.target,event.type)
         if (event.target.id) {
-            console.log('onMouseLeave',event.target.id,event.type)
+          //  console.log('onMouseLeave',event.target.id,event.type)
             event.target.setAttribute('State', event.type);
             //console.log('onMouseLeave',event.target.id,event.type)
 
@@ -307,7 +307,7 @@ class ActionController extends ActionEvent {
         if (event.target.classList.contains('inlineContent')) {
             //event.target.classList.add(event.type);
             event.target.setAttribute('State', event.type);
-            console.log('onMouseOver',event.target.classList,event.type)
+          //  console.log('onMouseOver',event.target.classList,event.type)
         }
         if (event.target.classList.contains('editable')) {
 
