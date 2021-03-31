@@ -4,6 +4,7 @@ class indexDB{
         return new Promise((resolve, reject) => {
             // @ts-ignore - file size hacks
             request.oncomplete = request.onsuccess = () => resolve(request.result);
+         
             // @ts-ignore - file size hacks
             request.onabort = request.onerror = () => reject(request.error);
         });
@@ -28,8 +29,13 @@ class indexDB{
      * @param customStore Method to get a custom store. Use with caution (see the docs).
      */
     static get(key, customStore = indexDB.defaultGetStore()) {
-        var response =  customStore('readonly', (store) => indexDB.promisifyRequest(store.get(key)))
-        //console.log("get indexdb",response.then(value) => console.log(value))
+        var response = customStore('readonly', (store) => indexDB.promisifyRequest(store.get(key)))
+        response.then(
+            result => console.log("yo",result), // shows "done!" after 1 second
+            error => alert(error) // doesn't run
+        );
+        
+       console.log("get indexdb",response)
         return response;
     }
     /**
