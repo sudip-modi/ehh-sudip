@@ -73,14 +73,13 @@ class ActionEngine {
         if (typeof req === 'object'){
             for (var key in req) {
               //  req['currentDepth'] = req['currentDepth'] + 1; // add a break || continue condition to exit if more than max Depth
-              
                 if (req.hasOwnProperty(key)) {
 
                     var buffer = this.get(req[key], window);
                     if (operate.isUseless(buffer) === false) {
                        // console.log("iam Here raw", key, req[key]);
                         req[key] = buffer;
-                        //console.log("iam Here Intiated", key, req[key]);
+                        console.log("iam Here Intiated", key, req[key]);
                     }
                     
                     if (operate.isString(req[key])) {
@@ -100,60 +99,57 @@ class ActionEngine {
         return req;
     }
 
-    processReq(req) {
-       
-       // console.log("recieved req", req, typeof req, operate.isString(req), this.get(req, window), window['domGetReq'])
-        if (operate.isString(req) === true) { req = this.get(req, window); }
-                 console.log('req', req);
-                 req = this.eachKey(req);
-                    console.log("process",req)
-      //  req['reqUniqueId'] = uid();
-       // console.log(req);
-        this._request.push(req);
-           // console.log(this._request)
+    executeSynReq(req, result) {
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
-        } else {
-            
-            var objectModel = this.get(req.objectModel,window);
-           // var method = req.objectModel[req.method];
-           var method = req.method;
-            var argument = req.argument;
-            if (req['andThen'].length > 0) {
-                var response =objectModel[method](argument);
-               
-              //  var response = document.getElementById('actionSpaceBody');
-                console.log("here", tempoResponse);
-            
-            
-            } else {
-
-//                var response = req.objectModel[req.method](req.arguments);
-            }
-          //  console.log("executing Request",req)
-          
-
-
-         //   console.log('req', req); 
-          
         }
-        if (req.callBack) {
-            var callBack = window[req.callBack];
-            if (callBack) {
-             //   this.processReq(callBack, response);
-            }
-        }
-
-
-
-    }
-    reqProcessor(req) {
-        console.log(req['andThen'])
-        var andthen = req['andThen'][0];
-       // console.log(andthen)
         var objectModel = this.get(req.objectModel, window);
-        var response = objectModel[req.method](req.argument)[req['andThen']?.[0], req['andThen']?.[1]];
-       console.log("response ",response);
+        if (result) {
+            var argument = result;
+        } else {
+            var argument = req.argument;
+        }
+        
+        
+        console.log(argument)
+        if (req['andThen']) {
+            var andThenLength = req['andThen'].length;
+            if (andThenLength > 0) {
+                console.log(andThenLength);
+                switch (andThenLength) {
+                    case 1:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    case 2:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    case 3:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    case 4:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2],req['andThen']?.[3]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    default:
+                    // console.log("I don't know such values",event.type);
+                }
+            }
+        } else {
+            var response = objectModel[req.method](argument);
+            console.log("response ", response);
+        }
+        if (req['callBack']) {
+            var callBack = window[req['callBack']];
+            var response = this.reqProcessor(callBack,response);
+        }
+        
         return response;
     }
     static promisifyRequest(request) {

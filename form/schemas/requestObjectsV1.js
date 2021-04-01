@@ -162,16 +162,16 @@ var set2IndexDb = {
 var openFolderReqModel = {
     objectModel: 'processFSInstance',
     method: 'OpenDirectoryV2',
-    arguments: ['event'],
-    andThen: '',
+    argument: ['event'],
+  //  andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
 }
 
 var openFileReqModel = {
     objectModel: 'processFSInstance',
     method: 'Open',
-    arguments: ['event'],
-    andThen: '',
+    argument: ['event'],
+   // andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
 }
 
@@ -181,7 +181,7 @@ var updateDomObject = {
 
     objectModel: document,
     method: 'getElementById',
-    arguments: ['output'],
+    argument: ['output'],
     response: [],
     andThen: ['setAttributesReq'],
 
