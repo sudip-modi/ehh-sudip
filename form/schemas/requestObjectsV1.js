@@ -1,4 +1,6 @@
- 
+var newActionStory = {
+     
+ }
 
 /**
  * List of request required
@@ -144,6 +146,17 @@ var getKey = {
     andThen: ['attributes','style'],
     response: {},
 }
+var eachKeyReqModel = {
+    name: 'eachKey',
+    objectModel: 'ActionEngine',
+    method: 'eachKey',
+    argument: ['input'],
+    params: {
+        response: {},// If present the response is stored here. If an object returned as an object, if an array return as an array.
+        maxDepth: 5,
+        maxItem: 10,
+    }
+}
 
 /**
 * @type RequestObj
@@ -166,7 +179,6 @@ var openFolderReqModel = {
   //  andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
 }
-
 var openFileReqModel = {
     objectModel: 'processFSInstance',
     method: 'Open',
@@ -174,7 +186,6 @@ var openFileReqModel = {
    // andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
 }
-
 
 var updateDomObject = {
     reqName: 'updateDomObject',//CommanName
@@ -251,16 +262,6 @@ var entityModelV2 = {
     'contentMimeType': '',//[HTML,JSON,TEXT,JAVASCRIPT],
     resourceBinding: ''
 }
-/**
- * @type {HTMLJSONEntityModel4Html}
- */
-var entityModel4Html = {
-    tagName: "tagName",
-    attributes: { class: "class", style: "style", src: "src", alt: "alt" },
-    children: ["all"],
-};
-
-
 
 var copy2 = {
     reqName: 'copy2',

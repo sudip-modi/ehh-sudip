@@ -9,6 +9,16 @@ var directoryDataModelSchema = {
         attributes:['readonly:boolean','Hidden:boolean']
     }   
 }
+
+/**
+ * @type {HTMLJSONEntityModel4Html}
+ */
+var entityModel4Html = {
+    tagName: "tagName",
+    attributes: { class: "class", style: "style", src: "src", alt: "alt" },
+    children: ["all"],
+};
+
 var fileModel = {
     directoryname: {
         directoryName: 'name',

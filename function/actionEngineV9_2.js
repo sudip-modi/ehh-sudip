@@ -1,14 +1,4 @@
-var eachKeyReqModel = {
-    name: 'eachKey',
-    objectModel: 'ActionEngine',
-    method: 'eachKey',
-    argument: ['input'],
-    params: {
-        response: {},// If present the response is stored here. If an object returned as an object, if an array return as an array.
-        maxDepth: 5,
-        maxItem:10,   
-    }   
-}
+
 
 class ActionEngine {
     constructor() {
@@ -28,11 +18,13 @@ class ActionEngine {
 
     }
     executeSynReq(req, result) {
+        //testing if the req is an object
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
-        var objectModel = this.get(req.objectModel, window);
-        if (result) {
+
+        var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
+        if (result) {//Used for either callback cases, where 
             var argument = result;
         } else {
             var argument = req.argument;

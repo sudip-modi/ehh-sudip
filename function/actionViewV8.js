@@ -5,6 +5,10 @@ class ActionView {
         this._actionView = new Entity(viewModel, parent);
         //  console.log(" new View ", this._actionView.entity);
     }
+    static setAttribute(input, key, value) {
+        input.key = value;
+        return input;
+    }
     appendChild(input,target){
         target.appendChild('input');
         return input;

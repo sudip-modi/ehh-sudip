@@ -97,8 +97,9 @@ class processFS{
     async OpenDirectoryV2(event) {
         event.preventDefault();
         try {
-            const dirHandle = await window.showDirectoryPicker();
-            return dirHandle;
+            const response = await window.showDirectoryPicker();
+            console.log("returning", response);
+            return response;
  
         } catch (err) {
             console.log(err);
