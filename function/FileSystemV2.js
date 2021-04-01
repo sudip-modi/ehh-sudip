@@ -54,7 +54,7 @@ class processFS{
             await processFS.Open(event);
         }
     }
-    static async Open(event,handle){
+     async Open(event,handle){
         event.preventDefault();
         if(!handle){
             [fileHandle] = await window.showOpenFilePicker(pickerOpts);

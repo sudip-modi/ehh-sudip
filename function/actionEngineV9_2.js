@@ -18,14 +18,14 @@ class ActionEngine {
 
     }
     executeSynReq(req, result) {
-        console.log("execute req", req)
+      //  console.log("execute req", req)
         //testing if the req is an object
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
-
+      //  console.log("objectModel", req.objectModel, window['ActionView']);
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
-        console.log("objectModel", objectModel);
+       // console.log("objectModel", objectModel);
         if (result) {//Used for either callback cases, where 
             var argument = result;
         } else {
@@ -70,17 +70,17 @@ class ActionEngine {
                 }
             }
         } else {
-            console.log(objectModel,req.method,argument)
+         console.log(objectModel,req.method,argument)
             var response = objectModel[req.method](argument);
-            console.log("response ", response);
+       //     console.log("response ", response);
         }
         req[response] = response;
         if (req['callBack']) {
-            console.log("callback found")
+       //     console.log("callback found")
             var callBack = window[req['callBack']];
             var response = this.reqProcessor(callBack, req[response]);
         }
-        console.log(response)
+      //  console.log(response)
         return response;
     }
     //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&

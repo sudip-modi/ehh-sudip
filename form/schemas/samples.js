@@ -4,7 +4,19 @@ var sampleActionStory= {
     class: 'richText container column',
     id: 'activeActionStory',
     fav: 'false',
-    created: '',  
+    created: '',
+    blockCollection: {
+        name: 'blocks',
+        id: 'block+Index',
+        inlineContent: {
+            name: 'span',
+            class: 'inlineContent',
+            id: 'inlineContent',
+            textContent:'Yo',
+
+            
+        }
+    }
 }
 
 // const sampleNote0 = {

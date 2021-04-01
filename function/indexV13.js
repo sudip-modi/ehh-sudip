@@ -1,18 +1,25 @@
-indexDB.set('actionSpaceModel',actionSpaceViewModel);
+var response2;
+indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
-    viewModel.then((viewModelFromIndexDb) => {
+    response2 = viewModel.then((viewModelFromIndexDb) => {
       //  console.log("here", viewModelFromIndexDb);
     // expected output: "Success!"
-    var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer');
-    var actionSpaceViewInstance = new ActionView(viewModelFromIndexDb[0].model, actionSpaceElementInstanceIndom);
-    //console.log(actionSpaceInstace._actionView.entity)
-        var actionEventInstance = new ActionEvent(actionSpaceViewInstance, window);
-        var actionSpaceController = new ActionController(actionSpaceViewInstance, viewModelFromIndexDb[0].model, actionEventInstance);
-        test()
+        var response = viewModelFromIndexDb;
+        console.log(response);
+        
+        
+    //    test(response)
+        return response;
     });
 
 
-function test() {
+function test(response) {
+    //console.log(response);
+    var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer');
+    var actionSpaceViewInstance = new ActionView(response[0].model, actionSpaceElementInstanceIndom);
+    //console.log(actionSpaceInstace._actionView.entity)
+    var actionEventInstance = new ActionEvent(actionSpaceViewInstance, window);
+    var actionSpaceController = new ActionController(actionSpaceViewInstance, response[0].model, actionEventInstance);
   //  var DOMJson = engine.executeSynReq(getKey);
     // console.log(DOMJson)
    // var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceBody');
@@ -24,4 +31,11 @@ function test() {
 //console.log(actionSpaceViewModel[0].model);
 
 }
+//console.log(ActionView)
 //window.onload = test;
+
+var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer');
+var actionSpaceViewInstance = new ActionView(actionSpaceViewModel[0].model, actionSpaceElementInstanceIndom);
+//console.log(actionSpaceInstace._actionView.entity)
+ var actionEventInstance = new ActionEvent(actionSpaceViewInstance, window);
+ var actionSpaceController = new ActionController(actionSpaceViewInstance, actionSpaceViewModel[0].model, actionEventInstance);

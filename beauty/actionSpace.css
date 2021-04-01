@@ -1,3 +1,20 @@
+#autoSuggest{
+  background-color: var(--light);
+  width: 434px;
+  height: 121px;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top:1em;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  position: absolute;
+ z-index: 9999;
+ display: none;
+}
+:focus {
+    outline: 3px solid red;   
+}
+
 
 /**
 [state="mouseover"]::before{

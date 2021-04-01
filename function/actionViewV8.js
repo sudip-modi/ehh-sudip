@@ -13,11 +13,12 @@ class ActionView {
         target.appendChild('input');
         return input;
     }
-    replaceChild(input, target) {
-        console.log("replaceChild",input,target)
+    replaceChild([input, target]) {
+    //  console.log("replaceChild",input,target)
         var newChild = new Entity(input, document.createElement('div'));
 //        console.log("here", newChild.entity, "target", target.entity.innerHTML);
-        target.entity.innerHTML = newChild.entity.innerHTML;   
+        target.innerHTML = newChild.entity.innerHTML;
+        return target;
      }
 
     /**
@@ -87,7 +88,30 @@ class ActionView {
         }
     }
     return { x, y };
-}
+     }
+     getCaretCharacterOffsetWithin(element) {
+         var caretOffset = 0;
+         var doc = element.ownerDocument || element.document;
+         var win = doc.defaultView || doc.parentWindow;
+         var sel;
+         if (typeof win.getSelection != "undefined") {
+             sel = win.getSelection();
+             if (sel.rangeCount > 0) {
+                 var range = win.getSelection().getRangeAt(0);
+                 var preCaretRange = range.cloneRange();
+                 preCaretRange.selectNodeContents(element);
+                 preCaretRange.setEnd(range.endContainer, range.endOffset);
+                 caretOffset = preCaretRange.toString().length;
+             }
+         } else if ((sel = doc.selection) && sel.type != "Control") {
+             var textRange = sel.createRange();
+             var preCaretTextRange = doc.body.createTextRange();
+             preCaretTextRange.moveToElementText(element);
+             preCaretTextRange.setEndPoint("EndToEnd", textRange);
+             caretOffset = preCaretTextRange.text.length;
+         }
+         return caretOffset;
+     }
 }
 
     

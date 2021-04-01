@@ -255,6 +255,24 @@ var leftSideNavBar= {
                                 item1: {
                                     name: 'i',
                                     'class': "material-icons icon mr - 10",
+                                    'textContent': 'upload_file',
+                                },
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'open file',
+                                    'onclick': "engine.executeSynReq(openFileReqModel,event);"
+
+                                    //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
+                                }
+
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item1: {
+                                    name: 'i',
+                                    'class': "material-icons icon mr - 10",
                                     'textContent': 'folder_open',
                                 },
                                 item2: {
@@ -281,7 +299,6 @@ var leftSideNavBar= {
                                 }
 
                             },
-
 
                         ]
             }
@@ -703,7 +720,36 @@ var workSpaceBody = {
         editor: {
             name: 'div',
             class: 'container column',
-            id:'editor',
+            id: 'editor',
+            card: {
+                name: 'div',
+                class: 'card container column',
+                id: 'autoSuggest',
+                //    style: 'visibility:hidden',
+                CardHeader: {
+                    name: 'div',
+                    class: 'medium',
+                    textContent: 'Auto Suggest curated for you'
+                },
+                itemCollection: {
+                    name: 'datalist',
+                    class: 'container column',
+                    items: {
+                        name: 'div',
+                        class: 'item',
+                        textContent: 'I am an item',
+                    },
+                    items2: {
+                        name: 'div',
+                        class: 'item',
+                        textContent: 'I am second Item',
+                    },
+                    
+
+                }
+
+
+            },
             // tabs: {
             //     name: 'div',
             //     class: 'container',
@@ -751,6 +797,7 @@ var workSpaceBody = {
                 class: 'container column',
                 id: 'content',
                 contentEditable: 'true',
+            
                 activeActionStory: {
                     name: 'div',
                     class: 'container column',
@@ -808,4 +855,28 @@ var footer= {
         name: 'p',
         textContent: 'https://www.0dot1.live',
     }
+}
+var card = {
+    name: 'div',
+    class: 'card container',
+    style:'visibility:hidden',
+    CardHeader: {
+        name: 'div',
+        class: 'h2',
+        textContent: 'Auto Suggest curated for you'
+    },
+    itemCollection: {
+        name: 'span',
+        class: 'container coloumn',
+              
+        items: {
+            name: 'div',
+            class: 'item',
+            textContent:'I am an item',
+            
+        }
+
+    }
+    
+    
 }

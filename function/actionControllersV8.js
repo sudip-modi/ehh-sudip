@@ -178,7 +178,7 @@ class ActionController extends ActionEvent {
            // console.log(routeModel[0].model, this.view._actionView)
             //console.log(routeModel)
             if (routeModel.length !=0) {
-                this.view.replaceChild(routeModel[0].model, this.view._actionView);
+                this.view.replaceChild([routeModel[0].model, this.view._actionView.entity]);
             } else {
                 console.log('no route found');
             }  
@@ -196,27 +196,40 @@ class ActionController extends ActionEvent {
         }
     }
     onKeyPress(entity) {
-        console.log("key pressed",entity.target,)
-        console.log(entity.key + ":::: key pressed");
+        //console.log("key pressed",entity.target,)
+       // console.log(entity.key + ":::: key pressed");
         entity.preventDefault(entity);
-        var currentSelection = window.getSelection();
-                console.log("Current selection :-" + currentSelection.toString()); 
-        var focusText = currentSelection.anchorNode.data;
-        //        console.log("Focus text :-" + focusText);
-        var focusTextEntity = entity.target.textContent; //Pure text
-        //        console.log("FocusTextEntity :-" + focusTextEntity);
-        var focusEntityInnerText = entity.target.innerText; // Rendered Text
-        //       console.log("focusEntityInnerText :-" + focusEntityInnerText);
-        // console.log("focusEntityInnerText", currentSelection);
-        var currentCaret = currentSelection.anchorOffset;
-       
-        // if(entity.key == 'Enter'){return;}
-        /// Directly entering the key In the view
-       
-        var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + entity.key + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
-        currentSelection.anchorNode.data = response;
-        console.log(response);
-        Caret.moveCaret(window, currentCaret + 1);
+        if (entity.key) {
+            console.log("key pressed", Caret.getCaretCoordinates());
+            var autoSuggestWindow = window['autoSuggest'];
+            
+            var caretViewCordinates = Caret.getCaretCoordinates();
+            console.log(autoSuggestWindow, caretViewCordinates['y']);
+            autoSuggestWindow.style.left = caretViewCordinates['x'] + 'px';
+            autoSuggestWindow.style.top = caretViewCordinates['y']+ 20 + 'px';
+            autoSuggestWindow.style.display = 'block';
+            //autoSuggestWindow.css({ 'top': caretViewCordinates['y'], 'left': caretViewCordinates['x'] })
+            var currentSelection = window.getSelection();
+            // console.log("Current selection :-", currentSelection.anchorNode.nodeName);
+            var focusText = currentSelection.anchorNode.data;
+            //        console.log("Focus text :-" + focusText);
+            var focusTextEntity = entity.target.textContent; //Pure text
+            //        console.log("FocusTextEntity :-" + focusTextEntity);
+            var focusEntityInnerText = entity.target.innerText; // Rendered Text
+            //       console.log("focusEntityInnerText :-" + focusEntityInnerText);
+            // console.log("focusEntityInnerText", currentSelection);
+            var currentCaret = currentSelection.anchorOffset;
+
+            // if(entity.key == 'Enter'){return;}
+            /// Directly entering the key In the view
+
+            var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + entity.key + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
+            currentSelection.anchorNode.data = response;
+            //console.log(response);
+            Caret.moveCaret(window, currentCaret + 1);
+
+        }
+        
     }
     onKeyUp(entity) {
         console.log("key was up")
