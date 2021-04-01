@@ -69,10 +69,10 @@ class ActionEngine {
      * 
      */
     eachKey(req) {
-        if (!req['currentDepth']) { req['currentDepth'] = 0;console.log("it's a fresh start")}     
+      //  if (!req['currentDepth']) { req['currentDepth'] = 0;console.log("it's a fresh start")}     
         if (typeof req === 'object'){
             for (var key in req) {
-                req['currentDepth'] = req['currentDepth'] + 1; // add a break || continue condition to exit if more than max Depth
+              //  req['currentDepth'] = req['currentDepth'] + 1; // add a break || continue condition to exit if more than max Depth
               
                 if (req.hasOwnProperty(key)) {
 
@@ -101,11 +101,12 @@ class ActionEngine {
     }
 
     processReq(req) {
-        console.log("recieved req", req)
-        if (operate.isString(req) === 'true') { this.get(req, window); }
-      //  console.log('req', req);
-       req = this.eachKey(req);
-       console.log("process",req)
+       
+       // console.log("recieved req", req, typeof req, operate.isString(req), this.get(req, window), window['domGetReq'])
+        if (operate.isString(req) === true) { req = this.get(req, window); }
+      // console.log('req', req);
+     //  req = this.eachKey(req);
+      // console.log("process",req)
       //  req['reqUniqueId'] = uid();
        // console.log(req);
         this._request.push(req);
@@ -113,8 +114,24 @@ class ActionEngine {
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         } else {
-            console.log("executing Request",req)
-           var response = req.objectModel[req.method](req.arguments);
+            
+            var objectModel = this.get(req.objectModel,window);
+           // var method = req.objectModel[req.method];
+           var method = req.method;
+            var argument = req.argument.join().trim();
+            if (req['andThen'].length > 0) {
+                console.log(req['andThen'].join().trim(), objectModel, method, argument);
+                var response = document.getElementById('actionSpaceBody')
+                console.log("here",response);
+                //var response = method.apply(objectModel, argument);
+            
+            } else {
+
+//                var response = req.objectModel[req.method](req.arguments);
+            }
+          //  console.log("executing Request",req)
+          
+
 
          //   console.log('req', req); 
           
@@ -140,6 +157,9 @@ class ActionEngine {
 }
 
 var engine = new ActionEngine();
-// console.log(engine);
-// var DOMJson = engine.processReq('domGetReq');
+//console.log(domGetReq);
+var DOMJson = engine.processReq(getInnerHtml);
 // console.log(DOMJson)
+var tempo = document.getElementById('actionSpaceBody');
+
+console.log("here", tempo);

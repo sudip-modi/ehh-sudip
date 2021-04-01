@@ -125,10 +125,18 @@ var domGetReq = {
     reqName: "getElementandCopy2",
     objectModel: 'document',
     method: "getElementById",
-    arguments: ["test"],
+    argument: ["actionSpaceLayoutContainer"],
     callBack: "convertToJSON",
 };
+//console.log(domGetReq);
 
+var getInnerHtml= {
+    objectModel: 'document',
+    method: "getElementById",
+    argument: ["actionSpaceBody"],
+    andThen: ['innerHTML'],
+    response:{},
+}
 /**
 * @type RequestObj
 */
