@@ -24,7 +24,7 @@
 */
 var domGetReq = {
     reqName: "getElementandCopy2",
-    objectModel: document,
+    objectModel: 'document',
     method: "getElementById",
     arguments: ["test"],
     callBack: "convertToJSON",
@@ -34,21 +34,21 @@ var domGetReq = {
 * @type RequestObj
 */
 var convertToJSON = {
-    objectModel: DOMConversion,
+    objectModel: 'DOMConversion',
     method: "toJSON",
     arguments: ["fromPrevious", entityModel4Html],
 };
 
-var openFileReqModel = {
-    objectModel: processFS,
-    method: 'Open',
-    arguments: 'event',
+var openFolderReqModel = {
+    objectModel: 'processFS',
+    method: 'OpenDirectory',
+    arguments: ['req'],
     andThen: 'set2IndexDb',
     callback: '',// call back to recive update in storage.
 }
 
 var openFileReqModel = {
-    objectModel: processFS,
+    objectModel: 'processFS',
     method: 'Open',
     arguments: 'event',
     andThen: 'set2IndexDb',
@@ -56,7 +56,7 @@ var openFileReqModel = {
 }
 var savetoStorageReq = {
     reqName: 'savetoStorage',//CommanName
-    objectModel: StorageHelperV1,
+    objectModel: 'StorageHelperV1',
     method: 'saveToStorage',
     arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0], ['id']] }, { "$ref": [['flowRequest'], [0], ['response'], [0], ['innerHTML']], },],
     response: [],
@@ -64,7 +64,7 @@ var savetoStorageReq = {
 }
 var setAttributesReq = {
     method: 'setAttribute',
-    arguments: ["innerHTML", { "$ref": [['flowRequest'], [0], ['response'], [0], ['innerHTML']], },],
+    arguments: ["innerHTML", { "$ref": ['flowRequest'[0],'response'[0],'innerHTML'], },],
 
 
 }

@@ -5,8 +5,8 @@ class ActionEngine {
       this._request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
     }
   
-  static processReq(req) {
-    req[varReqUniqueId] = uid();
+  processReq(req) {
+    req['varReqUniqueId'] = uid();
     console.log(req);
     this._request.push(req);
 
@@ -28,7 +28,7 @@ class ActionEngine {
         return response = req.objectModel[req.method](req.arguments)[req.andThen];
       } else {
         //  console.log(req)
-        return response = req.objectModel[req.method](req.arguments);
+      //  return response = req.objectModel[req.method](req.arguments);
       }
       //console.log(req, req.arguments);
 
@@ -285,11 +285,12 @@ class ActionEngine {
     }
   }
   
-  var engine = new ActionEngine();
- // var DOMJson = engine.processReq(singleReq);
- // console.log(DOMJson)
+var engine = new ActionEngine();
+console.log(engine);
+var DOMJson = engine.processReq(domGetReq);
+ console.log(DOMJson)
   
- // engine.processReq(actionFlowModelReq)
+ //engine.processReq(actionFlowModelReq)
   
- // engine.processReq(setInnerHTML)
+ //engine.processReq(setInnerHTML)
   
