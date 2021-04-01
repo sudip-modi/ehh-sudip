@@ -1,4 +1,40 @@
-
+var directoryDataModelSchema = {
+    directoryname: {
+        directoryName: 'name',
+        type: 'folder/collection',
+        items: [],
+        lastModified: [],
+        location: '',
+        createdon: '',
+        attributes:['readonly:boolean','Hidden:boolean']
+    }   
+}
+var fileModel = {
+    directoryname: {
+        directoryName: 'name',
+        id:'',
+        type: 'folder/collection',
+        items: [],
+        lastModified: [],
+        location: '',
+        createdon: '',
+        attributes: ['readonly:boolean', 'Hidden:boolean']
+    }
+}
+var fileData = {
+    'sample.xml': {
+        data: '<test>Hello!</test>',
+        type: 'application/xml'
+    },
+    'sample.csv': {
+        data: 'Test1,Test2\nHello1,Hello2',
+        type: 'text/csv'
+    },
+    'sample.json': {
+        data: JSON.stringify({ test: 'Hello!' }),
+        type: 'application/json'
+    }
+}
 var directoryJSON = {
     'li': {
         'name': 'li',
