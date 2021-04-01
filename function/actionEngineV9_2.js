@@ -4,13 +4,11 @@ class ActionEngine {
         this._request = [];// has to be synced with Local Storage or indexDb 
         this._request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
     }
-
-    intiate(key) {
-        console.log(key)
-        if (window[key]) {
-            key = window[key];
-          //  console.log(key);
-            return key;
+//
+    intiate(key,objectModel) {
+        //console.log(key)
+        if (objectModel[key]) {
+            return objectModel[key];   
         }
 
 
