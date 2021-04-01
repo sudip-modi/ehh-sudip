@@ -1,5 +1,9 @@
-var newActionStory = {
-     
+//It replaces the current ActionStory from Dom blank || template.
+var newActionStoryReq = {
+    name: 'newActionStory',
+    objectModel: 'actionSpaceViewInstance',
+    method: 'replaceChild',
+    argument: ['sampleActionStory', 'activeActionStory'],
  }
 
 /**
@@ -165,17 +169,20 @@ var convertToJSON = {
     objectModel: 'DOMConversion',
     method: "toJSON",
     arguments: ["fromPrevious", entityModel4Html],
-};
+}
+
 var set2IndexDb = {
     objectModel: 'indexDb',
     method: 'set',
     arguments: ['key', 'value'],
     andThen:'updateView',
 }
+
 var openFolderReqModel = {
     objectModel: 'processFSInstance',
     method: 'OpenDirectoryV2',
     argument: ['event'],
+    response: {},
   //  andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
 }

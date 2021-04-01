@@ -225,24 +225,22 @@ class ActionController extends ActionEvent {
         /**
          * check if the target entity has any click or data - command set, if yes, then process it.
          */
-        console.log("Clicked" + event.target.id);
+        console.log("Clicked" + event.target.classList);
      //   event.preventDefault();
         if (event.target.hasAttribute("data-command")) {
-            var dataCommandT = event.target.getAttribute('data-command');
-            console.log(dataCommandT);
-            var commandJSOn = JSON.parse(dataCommandT);
-            //           console.log( "Command "+ JSON.stringify(commandJSOn));
-            switch (commandJSOn[0].command) {
-
+  
+            var dataCommand = event.target.getAttribute('data-command');
+//          console.log(dataCommandT);
+            var commandJson = JSON.parse(dataCommand);
+            console.log("Command " + commandJson[0].command);
+            switch (commandJson[0].command) {
+                case "new":
+                    console.log("new")
+                    this.new1(event); break;
                 case 'google':
                     Authorization.oAuth(event, 'json'); break;
                 //sheet
-                case 'view':
-                    ActionView.showModal(commandJSOn[0].entity); break;
-                case 'get':
-                    Sync.get(event); console.log(event.target); break;
-                case 'set':
-                    Sync.send(event); console.log(event.target); break;
+                
                 //File System
                 case 'FSOpenDirectory':
                     processFS.OpenDirectory(event); break;
@@ -259,8 +257,7 @@ class ActionController extends ActionEvent {
                 // case 'caret':
                 //     this.caret(event);break;
                 // local storage
-                case 'new':
-                    this.new1(event); break;
+             
                 case 'save':
                     this.save(event); break;
                 case 'cloud':
@@ -340,13 +337,7 @@ class ActionController extends ActionEvent {
     }
     new1(event) {
         console.log("New One");
-        //   var item = document.getElementById('editor');
-        //    var newentity = document.createElement('ol');
-        //    new Entity(actionUserContent,newentity);
-        ActionView.updateTitle(actionStoryTemplate.name);
-        ActionView.updateText(actionUserContent[0]['innerHTML']);
-        //    this.view.updateText(actionUserContent[0]['innerHTML']);
-        //    item.replaceChild(newentity , item.childNodes[1]);
+       
     }
     save(event) {
         var entityName = ActionView.getTitle();

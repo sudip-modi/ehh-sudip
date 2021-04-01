@@ -243,7 +243,9 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'new actionStory',
-                                    'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
+                                    'onclick': "engine.executeSynReq(newActionStoryReq);"
+
+                                  //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 }
 
                             },
@@ -756,7 +758,7 @@ var workSpaceBody = {
                     block: {
                         name: 'div',
                         class: 'blocks',
-                        id:'blocks',
+                        id:'blocks+Index',
                         li: {
                             name: 'span',
                             class: 'inlineContent',

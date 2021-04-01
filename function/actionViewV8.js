@@ -14,6 +14,7 @@ class ActionView {
         return input;
     }
     replaceChild(input, target) {
+        console.log("replaceChild",input,target)
         var newChild = new Entity(input, document.createElement('div'));
 //        console.log("here", newChild.entity, "target", target.entity.innerHTML);
         target.entity.innerHTML = newChild.entity.innerHTML;   
