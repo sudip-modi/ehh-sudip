@@ -27,6 +27,59 @@ class ActionEngine {
 
 
     }
+    executeSynReq(req, result) {
+        if (operate.isObject(req) != true) {
+            return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
+        }
+        var objectModel = this.get(req.objectModel, window);
+        if (result) {
+            var argument = result;
+        } else {
+            var argument = req.argument;
+        }
+
+
+        console.log(argument)
+        if (req['andThen']) {
+            var andThenLength = req['andThen'].length;
+            if (andThenLength > 0) {
+                console.log(andThenLength);
+                switch (andThenLength) {
+                    case 1:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    case 2:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    case 3:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    case 4:
+                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2], req['andThen']?.[3]];
+                        console.log("response ", response);
+                        //  console.log("click", event.type, event.target)
+                        break;
+                    default:
+                    // console.log("I don't know such values",event.type);
+                }
+            }
+        } else {
+            var response = objectModel[req.method](argument);
+            console.log("response ", response);
+        }
+        if (req['callBack']) {
+            var callBack = window[req['callBack']];
+            var response = this.reqProcessor(callBack, response);
+        }
+
+        return response;
+    }
     //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&
     validateAllTrue(value, rules) {
         var self = this;
@@ -99,59 +152,7 @@ class ActionEngine {
         return req;
     }
 
-    executeSynReq(req, result) {
-        if (operate.isObject(req) != true) {
-            return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
-        }
-        var objectModel = this.get(req.objectModel, window);
-        if (result) {
-            var argument = result;
-        } else {
-            var argument = req.argument;
-        }
-        
-        
-        console.log(argument)
-        if (req['andThen']) {
-            var andThenLength = req['andThen'].length;
-            if (andThenLength > 0) {
-                console.log(andThenLength);
-                switch (andThenLength) {
-                    case 1:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
-                        break;
-                    case 2:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
-                        break;
-                    case 3:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
-                        break;
-                    case 4:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2],req['andThen']?.[3]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
-                        break;
-                    default:
-                    // console.log("I don't know such values",event.type);
-                }
-            }
-        } else {
-            var response = objectModel[req.method](argument);
-            console.log("response ", response);
-        }
-        if (req['callBack']) {
-            var callBack = window[req['callBack']];
-            var response = this.reqProcessor(callBack,response);
-        }
-        
-        return response;
-    }
+  
     static promisifyRequest(request) {
         return new Promise((resolve, reject) => {
             // @ts-ignore - file size hacks
