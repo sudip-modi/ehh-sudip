@@ -13,7 +13,7 @@ var viewModel = indexDB.get('actionSpaceModel');
 
 
 function test() {
-    var DOMJson = engine.reqProcessor(getInnerHtml);
+    var DOMJson = engine.reqProcessor(getKey);
     // console.log(DOMJson)
    // var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceBody');
 

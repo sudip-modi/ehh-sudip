@@ -129,7 +129,7 @@ var domGetReq = {
     callBack: "convertToJSON",
 };
 //console.log(domGetReq);
-
+//document.getElementByID("nestedP")["attributes"]["style"]["nodeValue"]
 var getInnerHtml= {
     objectModel: 'document',
     method: "getElementById",
@@ -137,6 +137,14 @@ var getInnerHtml= {
     andThen: ['innerHTML'],
     response:{},
 }
+var getKey = {
+    objectModel: 'document',
+    method: "getElementById",
+    argument: ["actionSpaceBody"],
+    andThen: ['attributes','style'],
+    response: {},
+}
+
 /**
 * @type RequestObj
 */

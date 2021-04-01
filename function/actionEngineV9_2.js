@@ -148,9 +148,12 @@ class ActionEngine {
 
     }
     reqProcessor(req) {
-       // console.log(req)
-        var response = this.get(req.objectModel,window)[req.method](req.argument);
-      //  console.log("response ",response);
+        console.log(req['andThen'])
+        var andthen = req['andThen'][0];
+       // console.log(andthen)
+        var objectModel = this.get(req.objectModel, window);
+        var response = objectModel[req.method](req.argument)[req['andThen']?.[0], req['andThen']?.[1]];
+       console.log("response ",response);
         return response;
     }
     static promisifyRequest(request) {
