@@ -2,6 +2,45 @@
  * This data Set Consist of all the hotKey's and Hot Range/words mapped to their defientions
  */
 
+var replaceKeyPress = {
+    'Enter': {
+        name: 'lineBreak',
+        description: 'this appends a <br> tag to the text',
+        content: `<br>`,
+    },
+    'Space': {
+        name: 'space',
+        description: 'this appends a &nbsp to the text',
+        content: ` `,
+    },
+    'Tab': {
+        name: 'tab',
+        description: 'this appends a space enough for a tab to the text',
+        content: `&nbsp&nbsp&nbsp&nbsp`,
+    },
+   "`": {
+        name: 'singleQute',
+        description: 'this appends a space enough for a tab to the text',
+        content: "` `",
+    },
+    "[": {
+        name: 'singleQute',
+        description: 'this appends a space enough for a tab to the text',
+        content: "[ ]",
+    },
+    "(": {
+        name: 'singleQute',
+        description: 'this appends a space enough for a tab to the text',
+        content: "( )",
+    },
+    "{": {
+        name: 'singleQute',
+        description: 'this appends a space enough for a tab to the text',
+        content: "{ }",
+    },
+
+
+}
 var hotKeyList = {
     "!": {
         name: 'option',
@@ -21,16 +60,7 @@ var hotKeyList = {
         </html>`],
      //   "prefix": "!", 
     },
-
-    "`": {
-        name: 'option',
-        keyIdentifier: "`",
-        innerText: "This inserts a HTML Template next to caret.",
-        content: ["'"],
-        class: 'card',
-       // "prefix": "`",
-
-    },
+  
 
     "(": {
         name: 'option',
