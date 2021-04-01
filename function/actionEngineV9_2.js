@@ -36,11 +36,12 @@ class ActionEngine {
     };
     validate (value, key) {
         if (this.validateRulesArray(value, key.validator)) {
-            key.value = value;
+           // key.value = value;
             return true;
         }
         return false;
     };
+   
     /**
      * This method, walks through all the key's of an javascript object.
      * Be it a string || object ||array || Object, 
@@ -52,19 +53,19 @@ class ActionEngine {
      * @param {*} req.params
      * 
      */
-    eachKey(req) { 
+    eachKey(req) {
+        this.intiate(req, window);
+        console.log(req)
         if (typeof req === 'object'){
             for (var key in req.input){
                 if (input.hasOwnProperty(key)){
                     if (operate.isString(req.input[key])) {
-
                      }
                     else if (operate.isObject(req.input[key])) { }
                     else if (operate.isArray(req.input[key])) { }
                 }
                    //f(m,loc,expr,val,path);
              }
-    
         }
         return req;
     }
@@ -72,8 +73,8 @@ class ActionEngine {
     processReq(req) {
         
         console.log('req', req);
-      //  req = this.eachKey(req);
-      //  console.log(req)
+       req = this.eachKey(req);
+       console.log("process",req)
       //  req['reqUniqueId'] = uid();
        // console.log(req);
         this._request.push(req);
