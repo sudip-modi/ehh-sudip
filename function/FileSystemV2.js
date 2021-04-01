@@ -1,18 +1,5 @@
 var fileHandle,defaultGetStoreFunc;;
-const pickerOpts = {
-    types: [
-      {
-        description: '.txt,.html,.js,.json,.csv,.xml,.xlsx,.jpg,.jpeg,.png,.mp4',
-        accept: {
-          'text/*':['.txt','.html','.json','.js','.xml','.csv'],
-          'image/*':['.jpg','.jpeg','.png'],
-          'video/*':['.mp4'],
-        }
-      },
-    ],
-    excludeAcceptAllOption: true,
-    multiple: false
-};
+
 
 
 class processFS{
@@ -111,16 +98,8 @@ class processFS{
         event.preventDefault();
         try {
             const dirHandle = await window.showDirectoryPicker();
-  //          var dirID = uid();
-//            indexDB.set(dirID, dirHandle);
-            var input = JSON.parse(JSON.stringify(directoryJSON));
-            input['li']['span']['innerText'] = dirHandle.name; input['li']['list']['id'] = dirID;
-            var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
-            console.log(input);
-            console.log(document.getElementById('workspace').innerHTML);
-            var data = new Entity(input, document.getElementById('workspace'));
-            console.log(document.getElementById('workspace').innerHTML);
-            //  await indexDB.set('workspace',document.getElementById('workspace').innerHTML);
+            return dirHandle;
+ 
         } catch (err) {
             console.log(err);
         }
@@ -212,4 +191,4 @@ class processFS{
     }    
 }
 var processFSInstance = new processFS();
-console.log("iam loaded, fs,processFS", processFSInstance)
+//console.log("iam loaded, fs,processFS", processFSInstance)

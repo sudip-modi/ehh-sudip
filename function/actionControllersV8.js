@@ -63,6 +63,8 @@ class ActionController extends ActionEvent {
         //   window.addEventListener('change', e => this.emit('change', e));
         //window.addEventListener('event', e => this.emit('click', e))
         document.addEventListener('mouseenter', e => this.emit('handleEvent', e));
+        document.addEventListener('readystatechange', e => this.emit('handleEvent', e));
+        document.addEventListener('DOMContentLoaded', e => this.emit('handleEvent', e));
         document.addEventListener('mouseleave', e => this.emit('handleEvent', e));
         document.addEventListener('mouseout', e => this.emit('handleEvent', e));
         window.addEventListener('load', e => this.emit('handleEvent', e));
@@ -80,6 +82,18 @@ class ActionController extends ActionEvent {
       //  console.log(event.type)
         switch (event.type) {
             case 'load':
+                  console.log(event.type)
+
+                this.onRouteChange(event);
+                //  console.log("click", event.type, event.target)
+                break;
+            case 'readystatechange':
+                console.log(event.type)
+                this.onRouteChange(event);
+                //  console.log("click", event.type, event.target)
+                break;
+            case 'DOMContentLoaded':
+                console.log(event.type)
                 this.onRouteChange(event);
                 //  console.log("click", event.type, event.target)
                 break;
@@ -137,6 +151,7 @@ class ActionController extends ActionEvent {
 
     }
     onRouteChange(e) {
+        console.log("event occoured",e.type);
         var routeKeyword;
         if (document.location.hash) {
             console.log("it's a hash Change", document.location.hash.substring(1));
@@ -154,7 +169,7 @@ class ActionController extends ActionEvent {
            // console.log(hashLocation);
             var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
            // console.log(routeModel[0].model, this.view._actionView)
-            console.log(routeModel)
+            //console.log(routeModel)
             if (routeModel.length !=0) {
                 this.view.replaceChild(routeModel[0].model, this.view._actionView);
             } else {
@@ -162,7 +177,6 @@ class ActionController extends ActionEvent {
             }  
         }
     }
-  
     formSubmit(event) {
         if (!isValid)
             event.preventDefault();
@@ -174,7 +188,6 @@ class ActionController extends ActionEvent {
                 Sync.send(e); console.log(event.target); break;
         }
     }
-   
     onKeyPress(entity) {
         console.log("key pressed",entity.target,)
         console.log(entity.key + ":::: key pressed");
@@ -296,7 +309,6 @@ class ActionController extends ActionEvent {
 
         }
     }
-    
     onMouseOver(event) {
         //console.log('onMouseOver',event.target.id,event.type)
         if (event.target.id) {

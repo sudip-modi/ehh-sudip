@@ -84,13 +84,13 @@ class ActionEngine {
                     }
                     
                     if (operate.isString(req[key])) {
-                    console.log("found string",key,req[key]) 
+                  //  console.log("found string",key,req[key]) 
                      }
                     else if (operate.isObject(req[key])) {
-                        console.log("found Object", key, req[key])
+                      //  console.log("found Object", key, req[key])
                      }
                     else if (operate.isArray(req[key])) {
-                        console.log("found Array", key, req[key])
+                      //  console.log("found Array", key, req[key])
                      }
                 }
                    //f(m,loc,expr,val,path);

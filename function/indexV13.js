@@ -1,7 +1,7 @@
 indexDB.set('actionSpaceModel',actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
     viewModel.then((viewModelFromIndexDb) => {
-        console.log("here", viewModelFromIndexDb);
+      //  console.log("here", viewModelFromIndexDb);
     // expected output: "Success!"
     var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer');
     var actionSpaceInstance = new ActionView(viewModelFromIndexDb[0].model, actionSpaceElementInstanceIndom);
