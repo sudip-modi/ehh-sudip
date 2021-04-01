@@ -27,7 +27,7 @@ class ActionEngine {
 
 
     }
-//Executes an array of conditions of a values and returns true if all are true.
+    //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&
     validateAllTrue(value, rules) {
         var self = this;
         return rules.every(function (rule) {
@@ -70,18 +70,18 @@ class ActionEngine {
      */
     eachKey(req) {
         this.intiate(req, window);
-      //  console.log("intiated",req)
+        console.log("intiated", req, typeof req === 'object')
         if (typeof req === 'object'){
-            for (var key in req.input){
-                console.log("iam Here", req.input[key]);
+            for (var key in req){
+                console.log("iam Here", req[key]);
                 if (req.input.hasOwnProperty(key)) {
-                    if (operate.isString(req.input[key])) {
+                    if (operate.isString(req[key])) {
         
-                        req.input[key] = this.intiate(req.input[key], window);
-                        console.log("iam Here Intiated", req.input[key]);
+                        req[key] = this.intiate(req[key], window);
+                        console.log("iam Here Intiated", req[key]);
                      }
-                    else if (operate.isObject(req.input[key])) { }
-                    else if (operate.isArray(req.input[key])) { }
+                    else if (operate.isObject(req[key])) { }
+                    else if (operate.isArray(req[key])) { }
                 }
                    //f(m,loc,expr,val,path);
              }
@@ -93,7 +93,7 @@ class ActionEngine {
         
         console.log('req', req);
        req = this.eachKey(req);
-       console.log("process",req)
+      // console.log("process",req)
       //  req['reqUniqueId'] = uid();
        // console.log(req);
         this._request.push(req);
@@ -103,13 +103,13 @@ class ActionEngine {
         } else {
             if (window[req]) req = window[req];
 
-            console.log('req', req); 
-            var response = req.objectModel[req.method](req.arguments);
+         //   console.log('req', req); 
+          //  var response = req.objectModel[req.method](req.arguments);
         }
         if (req.callBack) {
             var callBack = window[req.callBack];
             if (callBack) {
-                this.processReq(callBack, response);
+             //   this.processReq(callBack, response);
             }
         }
 
