@@ -11,5 +11,10 @@ var viewModel = indexDB.get('actionSpaceModel');
 
 });
 
+var DOMJson = engine.reqProcessor(getInnerHtml);
+// console.log(DOMJson)
+var tempo3 = document.getElementById("actionSpaceBody");
+
+console.log("here3", tempo3);
 //console.log(HorizonticalMenuTemplateSchema,actionSpaceElementInstanceIndom)
 //console.log(actionSpaceViewModel[0].model);

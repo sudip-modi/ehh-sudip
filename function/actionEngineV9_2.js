@@ -104,7 +104,7 @@ class ActionEngine {
        
        // console.log("recieved req", req, typeof req, operate.isString(req), this.get(req, window), window['domGetReq'])
         if (operate.isString(req) === true) { req = this.get(req, window); }
-      // console.log('req', req);
+       console.log('req', req);
      //  req = this.eachKey(req);
       // console.log("process",req)
       //  req['reqUniqueId'] = uid();
@@ -121,9 +121,10 @@ class ActionEngine {
             var argument = req.argument.join().trim();
             if (req['andThen'].length > 0) {
                 console.log(req['andThen'].join().trim(), objectModel, method, argument);
-                var response = document.getElementById('actionSpaceBody')
-                console.log("here",response);
-                //var response = method.apply(objectModel, argument);
+                var tempoResponse = objectModel[method]('actionSpaceBody');
+                var response = document.getElementById('actionSpaceBody');
+                console.log("here",response,tempoResponse);
+            
             
             } else {
 
@@ -146,6 +147,12 @@ class ActionEngine {
 
 
     }
+    reqProcessor(req) {
+        console.log(req)
+        var response = this.get(req.objectModel,window)[req.method];
+        console.log("response ",response);
+        return response;
+    }
     static promisifyRequest(request) {
         return new Promise((resolve, reject) => {
             // @ts-ignore - file size hacks
@@ -158,8 +165,3 @@ class ActionEngine {
 
 var engine = new ActionEngine();
 //console.log(domGetReq);
-var DOMJson = engine.processReq(getInnerHtml);
-// console.log(DOMJson)
-var tempo = document.getElementById('actionSpaceBody');
-
-console.log("here", tempo);
