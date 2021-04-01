@@ -287,7 +287,6 @@ var leftSideNavBar= {
             name: 'div',
                 class: 'hr',
                 },
-
         sideBar_Collection_withDropDown: {
             name: 'div',
                 class: 'collection_list_with_drop_down',
@@ -482,7 +481,6 @@ var leftSideNavBar= {
             },
 
         },
-
     }
 }
 var workspaceHeader= {
