@@ -40,6 +40,7 @@ class ActionEngine {
             return self[rule](value);
         });
     };
+
     validate (value, key,params) {
         if (this.validateAllTrue(value, key.validator)) {
             if (params['onTrue'] === 'true') {
@@ -49,7 +50,7 @@ class ActionEngine {
            // key.value = value;
             
         }
-        else (params['onFalse'] === 'false'){
+        else if (params['onFalse'] === 'false'){
             //do This
             return false;
         }
