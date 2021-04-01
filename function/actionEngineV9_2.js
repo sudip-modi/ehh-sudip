@@ -28,14 +28,20 @@ class ActionEngine {
 
     }
 //Executes an array of conditions of a values and returns true if all are true.
-    validateEveryRule(value, rules) {
+    validateAllTrue(value, rules) {
         var self = this;
         return rules.every(function (rule) {
             return self[rule](value);
         });
     };
+    validateSomeTrue(value, rules) {
+        var self = this;
+        return rules.some(function (rule) {
+            return self[rule](value);
+        });
+    };
     validate (value, key) {
-        if (this.validateRulesArray(value, key.validator)) {
+        if (this.validateAllTrue(value, key.validator)) {
            // key.value = value;
             return true;
         }
