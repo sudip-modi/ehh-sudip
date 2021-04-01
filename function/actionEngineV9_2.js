@@ -20,9 +20,11 @@ class ActionEngine {
     }
   
     intiate(key,objectModel) {
-       console.log("for Initaition",key)
+        console.log("for Initaition", key, objectModel)
         if (objectModel[key]) {
-            return objectModel[key];   
+            var response = objectModel[key];
+            console.log(response)
+            return response;
         }
 
 
@@ -69,12 +71,14 @@ class ActionEngine {
      * 
      */
     eachKey(req) {
+        if (!req['currentDepth']) { req['currentDepth'] = 0;console.log("it's a fresh start")}
         this.intiate(req, window);
         console.log("intiated", req, typeof req === 'object')
         if (typeof req === 'object'){
-            for (var key in req){
+            for (var key in req) {
+                req['currentDepth'] = req['currentDepth'] + 1; // add a break || continue condition to exit if more than max Depth
                 console.log("iam Here", req[key]);
-                if (req.input.hasOwnProperty(key)) {
+                if (req.hasOwnProperty(key)) {
                     if (operate.isString(req[key])) {
         
                         req[key] = this.intiate(req[key], window);
