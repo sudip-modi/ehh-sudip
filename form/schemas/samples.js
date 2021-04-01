@@ -5,6 +5,11 @@ var sampleActionStory= {
     id: 'activeActionStory',
     fav: 'false',
     created: '',
+    title: {
+        name: 'span',
+        class: 'container',
+        textContent:'title'
+    },
     blockCollection: {
         name: 'blocks',
         id: 'block+Index',

@@ -67,6 +67,11 @@ a {
    cursor: pointer;
    align-self: center;
 }
+a:hover,button:hover {
+  background-color:rgb(179, 227, 255);
+ 
+  /* Add transition for hover effects */
+}
 a:hover {
    cursor: pointer;
 }

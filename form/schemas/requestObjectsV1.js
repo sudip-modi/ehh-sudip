@@ -188,7 +188,7 @@ var openFolderReqModel = {
 }
 var openFileReqModel = {
     objectModel: 'processFSInstance',
-    method: 'Open',
+    method: 'OpenFileV2',
     argument: ['event'],
    // andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
