@@ -5,7 +5,7 @@ class ActionEngine {
       this._request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
     }
   
-  processReq(req) {
+    processReq(req) {
     req['varReqUniqueId'] = uid();
     console.log(req);
     this._request.push(req);
@@ -36,7 +36,7 @@ class ActionEngine {
 
 
      
-   }
+    }
   
     /**
      * processes single request

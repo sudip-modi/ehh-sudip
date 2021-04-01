@@ -40,7 +40,7 @@ var convertToJSON = {
 };
 
 var openFolderReqModel = {
-    objectModel: 'processFS',
+    objectModel: processFS,
     method: 'OpenDirectory',
     arguments: ['req'],
     andThen: 'set2IndexDb',

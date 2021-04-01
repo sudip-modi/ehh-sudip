@@ -1,3 +1,8 @@
+var eachKeyReqModel = {
+    name: 'eachKey',
+    objectModel: 'ActionEngine',
+    
+}
 class ActionEngine {
     constructor() {
         this._flowResultState = {};
@@ -13,13 +18,19 @@ class ActionEngine {
 
 
     }
-    walk(Input,options){
+    /**
+     * This method, walks through all the key's of an javascript object.
+     * Be it a string || object ||array || Object, 
+     * @param {*} Input 
+     * @param {*} options 
+     */
+    eachKey(Input,options){
         if( typeof input === 'object'){
             for (var key in input){
                 if (input.hasOwnProperty(key)){
-                        if(operate.isString(input[key])){
-
-    }
+                    if (operate.isString(input[key])) { }
+                    else if (operate.isObject(input[key])) { }
+                    else if (operate.isArray(input[key])) { }
                 }
                    //f(m,loc,expr,val,path);
              }
@@ -30,8 +41,8 @@ class ActionEngine {
     processReq(req) {
         
         console.log('req', req);
-        req = this.walk(req);
-        console.log(req)
+      //  req = this.eachKey(req);
+      //  console.log(req)
       //  req['reqUniqueId'] = uid();
        // console.log(req);
         this._request.push(req);
@@ -57,6 +68,6 @@ class ActionEngine {
 }
 
 var engine = new ActionEngine();
-console.log(engine);
-var DOMJson = engine.processReq('domGetReq');
-console.log(DOMJson)
+// console.log(engine);
+// var DOMJson = engine.processReq('domGetReq');
+// console.log(DOMJson)
