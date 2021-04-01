@@ -78,36 +78,34 @@ class ActionEngine {
 
                     var buffer = this.get(req[key], window);
                     if (operate.isUseless(buffer) === false) {
-                        console.log("iam Here raw", key, req[key]);
+                       // console.log("iam Here raw", key, req[key]);
                         req[key] = buffer;
-                        console.log("iam Here Intiated", key, req[key]);
+                        //console.log("iam Here Intiated", key, req[key]);
                     }
                     
                     if (operate.isString(req[key])) {
-                  //  console.log("found string",key,req[key]) 
+                    console.log("found string",key,req[key]) 
                      }
                     else if (operate.isObject(req[key])) {
-                        console.log("found string", key, req[key])
+                        console.log("found Object", key, req[key])
                      }
                     else if (operate.isArray(req[key])) {
-                        console.log("found string", key, req[key])
+                        console.log("found Array", key, req[key])
                      }
                 }
                    //f(m,loc,expr,val,path);
              }
         }
-        console.log(req);
+       // console.log(req);
         return req;
     }
 
     processReq(req) {
         console.log("recieved req", req)
-        if (operate.isString(req) === 'true') {
-            this.get(req, window);
-        }
+        if (operate.isString(req) === 'true') { this.get(req, window); }
       //  console.log('req', req);
        req = this.eachKey(req);
-      // console.log("process",req)
+       console.log("process",req)
       //  req['reqUniqueId'] = uid();
        // console.log(req);
         this._request.push(req);
@@ -115,10 +113,11 @@ class ActionEngine {
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         } else {
-            if (window[req]) req = window[req];
+            console.log("executing Request",req)
+           var response = req.objectModel[req.method](req.arguments);
 
          //   console.log('req', req); 
-          //  var response = req.objectModel[req.method](req.arguments);
+          
         }
         if (req.callBack) {
             var callBack = window[req.callBack];

@@ -79,7 +79,7 @@ var set2IndexDb = {
 var openFolderReqModel = {
     objectModel: 'processFSInstance',
     method: 'OpenDirectory',
-    arguments: ['req'],
+    arguments: ['event'],
     andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
 }
@@ -87,7 +87,7 @@ var openFolderReqModel = {
 var openFileReqModel = {
     objectModel: 'processFSInstance',
     method: 'Open',
-    arguments: ['req'],
+    arguments: ['event'],
     andThen: '',
     callback: 'set2IndexDb',// call back to recive update in storage.
 }
@@ -168,12 +168,16 @@ var entityModelV2 = {
     'contentMimeType': '',//[HTML,JSON,TEXT,JAVASCRIPT],
     resourceBinding: ''
 }
-
+/**
+ * @type {HTMLJSONEntityModel4Html}
+ */
 var entityModel4Html = {
     tagName: "tagName",
-    attributes: { 'class': "class.value", 'style': "style.value", 'src': "" },
-    children: ['all'],
-}
+    attributes: { class: "class", style: "style", src: "src", alt: "alt" },
+    children: ["all"],
+};
+
+
 
 var copy2 = {
     reqName: 'copy2',

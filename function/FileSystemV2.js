@@ -107,7 +107,26 @@ class processFS{
         }
 
     }
-    static async OpenDirectory(event){
+    async OpenDirectoryV2(event) {
+        event.preventDefault();
+        try {
+            const dirHandle = await window.showDirectoryPicker();
+  //          var dirID = uid();
+//            indexDB.set(dirID, dirHandle);
+            var input = JSON.parse(JSON.stringify(directoryJSON));
+            input['li']['span']['innerText'] = dirHandle.name; input['li']['list']['id'] = dirID;
+            var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
+            console.log(input);
+            console.log(document.getElementById('workspace').innerHTML);
+            var data = new Entity(input, document.getElementById('workspace'));
+            console.log(document.getElementById('workspace').innerHTML);
+            //  await indexDB.set('workspace',document.getElementById('workspace').innerHTML);
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+    async OpenDirectory(event){
         event.preventDefault();
         try {
             const dirHandle = await window.showDirectoryPicker();
