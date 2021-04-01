@@ -1,15 +1,24 @@
 var eachKeyReqModel = {
     name: 'eachKey',
     objectModel: 'ActionEngine',
+    method: 'eachKey',
+    argument: ['input'],
+    params: {
+        response: {},
+        maxDepth: 5,
+        maxItem:10,
+        
+    }
     
 }
+
 class ActionEngine {
     constructor() {
         this._flowResultState = {};
         this._request = [];// has to be synced with Local Storage or indexDb 
         this._request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
     }
-//
+  
     intiate(key,objectModel) {
         //console.log(key)
         if (objectModel[key]) {
@@ -18,19 +27,38 @@ class ActionEngine {
 
 
     }
+
+    validateRulesArray(value, rules) {
+        var self = this;
+        return rules.every(function (rule) {
+            return self[rule](value);
+        });
+    };
+    validate (value, key) {
+        if (this.validateRulesArray(value, key.validator)) {
+            key.value = value;
+            return true;
+        }
+        return false;
+    };
     /**
      * This method, walks through all the key's of an javascript object.
      * Be it a string || object ||array || Object, 
-     * @param {*} Input input argument
-     * @param {*} options
+     *
+     * 
+     * @param {*} req.Input input argument if no options it just initiates it by finding it in default ObjectModel of actionSpaceInstance. 
+     * In Development window is treated as the default object.
+     * @param {*} req.params: optional parameters for when visiting each key
+     * @param {*} req.params
+     * 
      */
-    eachKey([Input,options]){
-        if( typeof input === 'object'){
-            for (var key in input){
+    eachKey(req) { 
+        if (typeof req === 'object'){
+            for (var key in req.input){
                 if (input.hasOwnProperty(key)){
-                    if (operate.isString(input[key])) { }
-                    else if (operate.isObject(input[key])) { }
-                    else if (operate.isArray(input[key])) { }
+                    if (operate.isString(req.input[key])) { }
+                    else if (operate.isObject(req.input[key])) { }
+                    else if (operate.isArray(req.input[key])) { }
                 }
                    //f(m,loc,expr,val,path);
              }

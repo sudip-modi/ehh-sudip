@@ -19,6 +19,19 @@
 
 
 
+//
+var reqOutputModel = {
+    entityName: 'entityName',
+    entityId: 'entityId',
+    depth: '1',
+    parent: "parent",
+    entityAttributes: {
+        key: ['selected Array of Keys ', "or an condition"],
+        value: ['all of selected type of Values', "or an condiotn"]
+    }
+}
+
+
 /**
 * @type RequestObj
 */
@@ -76,6 +89,21 @@ var updateDomObject = {
     arguments: ['output'],
     response: [],
     andThen: ['setAttributesReq'],
+
+}
+var eachKeyReqModelV1 = {
+    name: 'eachKey',
+    objectModel: 'ActionEngine',
+    method: 'eachKey',
+    argument: ['input'],
+    params: {
+        response: {
+            value:''
+        },
+        maxDepth: 5,
+        maxItem: 10,
+
+    }
 
 }
 var getObjectVer2 = {
