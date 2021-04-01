@@ -27,8 +27,8 @@ class ActionEngine {
 
 
     }
-
-    validateRulesArray(value, rules) {
+//Executes an array of conditions of a values and returns true if all are true.
+    validateEveryRule(value, rules) {
         var self = this;
         return rules.every(function (rule) {
             return self[rule](value);
@@ -56,7 +56,9 @@ class ActionEngine {
         if (typeof req === 'object'){
             for (var key in req.input){
                 if (input.hasOwnProperty(key)){
-                    if (operate.isString(req.input[key])) { }
+                    if (operate.isString(req.input[key])) {
+
+                     }
                     else if (operate.isObject(req.input[key])) { }
                     else if (operate.isArray(req.input[key])) { }
                 }
@@ -64,6 +66,7 @@ class ActionEngine {
              }
     
         }
+        return req;
     }
 
     processReq(req) {
