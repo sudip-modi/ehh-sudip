@@ -104,9 +104,9 @@ class ActionEngine {
        
        // console.log("recieved req", req, typeof req, operate.isString(req), this.get(req, window), window['domGetReq'])
         if (operate.isString(req) === true) { req = this.get(req, window); }
-       console.log('req', req);
-     //  req = this.eachKey(req);
-      // console.log("process",req)
+                 console.log('req', req);
+                 req = this.eachKey(req);
+                    console.log("process",req)
       //  req['reqUniqueId'] = uid();
        // console.log(req);
         this._request.push(req);
@@ -118,12 +118,12 @@ class ActionEngine {
             var objectModel = this.get(req.objectModel,window);
            // var method = req.objectModel[req.method];
            var method = req.method;
-            var argument = req.argument.join().trim();
+            var argument = req.argument;
             if (req['andThen'].length > 0) {
-                console.log(req['andThen'].join().trim(), objectModel, method, argument);
-                var tempoResponse = objectModel[method]('actionSpaceBody');
-                var response = document.getElementById('actionSpaceBody');
-                console.log("here",response,tempoResponse);
+                var response =objectModel[method](argument);
+               
+              //  var response = document.getElementById('actionSpaceBody');
+                console.log("here", tempoResponse);
             
             
             } else {
@@ -148,9 +148,9 @@ class ActionEngine {
 
     }
     reqProcessor(req) {
-        console.log(req)
-        var response = this.get(req.objectModel,window)[req.method];
-        console.log("response ",response);
+       // console.log(req)
+        var response = this.get(req.objectModel,window)[req.method](req.argument);
+      //  console.log("response ",response);
         return response;
     }
     static promisifyRequest(request) {

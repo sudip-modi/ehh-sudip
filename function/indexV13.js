@@ -8,13 +8,20 @@ var viewModel = indexDB.get('actionSpaceModel');
     //console.log(actionSpaceInstace._actionView.entity)
     var actionEventInstance = new ActionEvent(actionSpaceInstance, window);
     var actionSpaceController = new ActionController(actionSpaceInstance, viewModelFromIndexDb[0].model, actionEventInstance);
+        test()
+    });
 
-});
 
-var DOMJson = engine.reqProcessor(getInnerHtml);
-// console.log(DOMJson)
-var tempo3 = document.getElementById("actionSpaceBody");
+function test() {
+    var DOMJson = engine.reqProcessor(getInnerHtml);
+    // console.log(DOMJson)
+   // var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceBody');
 
-console.log("here3", tempo3);
+  //  var tempo3 = document.getElementById("actionSpaceBody");
+
+   // console.log("here3", DOMJson);
 //console.log(HorizonticalMenuTemplateSchema,actionSpaceElementInstanceIndom)
 //console.log(actionSpaceViewModel[0].model);
+
+}
+//window.onload = test;
