@@ -20,10 +20,11 @@ class ActionEngine {
     }
   
     intiate(key,objectModel) {
-        console.log("for Initaition", key, objectModel)
+        console.log("for Initaition", key, objectModel, objectModel[key])
         if (objectModel[key]) {
+            console.log("for Initaition", key, objectModel, objectModel[key])
             var response = objectModel[key];
-            console.log(response)
+            console.log("Initaites found",response)
             return response;
         }
 
@@ -95,7 +96,7 @@ class ActionEngine {
 
     processReq(req) {
         
-        console.log('req', req);
+      //  console.log('req', req);
        req = this.eachKey(req);
       // console.log("process",req)
       //  req['reqUniqueId'] = uid();
