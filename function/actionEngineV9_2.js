@@ -20,7 +20,7 @@ class ActionEngine {
     }
   
     intiate(key,objectModel) {
-        //console.log(key)
+       console.log("for Initaition",key)
         if (objectModel[key]) {
             return objectModel[key];   
         }
@@ -40,12 +40,20 @@ class ActionEngine {
             return self[rule](value);
         });
     };
-    validate (value, key) {
+    validate (value, key,params) {
         if (this.validateAllTrue(value, key.validator)) {
+            if (params['onTrue'] === 'true') {
+                //doThis
+                return true;
+            } 
            // key.value = value;
-            return true;
+            
         }
-        return false;
+        else (params['onFalse'] === 'false'){
+            //do This
+            return false;
+        }
+        
     };
    
     /**
@@ -61,11 +69,15 @@ class ActionEngine {
      */
     eachKey(req) {
         this.intiate(req, window);
-        console.log(req)
+      //  console.log("intiated",req)
         if (typeof req === 'object'){
             for (var key in req.input){
-                if (input.hasOwnProperty(key)){
+                console.log("iam Here", req.input[key]);
+                if (req.input.hasOwnProperty(key)) {
                     if (operate.isString(req.input[key])) {
+        
+                        req.input[key] = this.intiate(req.input[key], window);
+                        console.log("iam Here Intiated", req.input[key]);
                      }
                     else if (operate.isObject(req.input[key])) { }
                     else if (operate.isArray(req.input[key])) { }
