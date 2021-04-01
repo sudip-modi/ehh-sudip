@@ -1,3 +1,22 @@
+ 
+
+/**
+ * List of request required
+ * get an element from dom, get Mulitple with andThen and callbacks,
+ * set a property of a element in dom or multiple with andThen and callback
+ * append an element or multiple from dom
+ * copy2  a model that copies key's and values from one object to another
+ *    copy2 a element to json
+ *    copy2 a file to json
+ *    copy2 a folder to json
+ * make a httpService call to an external service.
+ * make a seqFlow req  || get object >> store in database >> update View
+ * make a asyncSeqFlow req SignUp \\ Login \\ gAuth
+ * 
+ */
+
+
+
 /**
  * The RequestObj object.
  * @typedef {Object} RequestObj
@@ -51,36 +70,29 @@ var convertToJSON = {
     method: "toJSON",
     arguments: ["fromPrevious", entityModel4Html],
 };
-
+var set2IndexDb = {
+    objectModel: 'indexDb',
+    method: 'set',
+    arguments: ['key', 'value'],
+    andThen:'updateView',
+}
 var openFolderReqModel = {
-    objectModel: processFS,
+    objectModel: 'processFSInstance',
     method: 'OpenDirectory',
     arguments: ['req'],
-    andThen: 'set2IndexDb',
-    callback: '',// call back to recive update in storage.
+    andThen: '',
+    callback: 'set2IndexDb',// call back to recive update in storage.
 }
 
 var openFileReqModel = {
-    objectModel: 'processFS',
+    objectModel: 'processFSInstance',
     method: 'Open',
-    arguments: 'event',
-    andThen: 'set2IndexDb',
-    callback: '',// call back to recive update in storage.
+    arguments: ['req'],
+    andThen: '',
+    callback: 'set2IndexDb',// call back to recive update in storage.
 }
-var savetoStorageReq = {
-    reqName: 'savetoStorage',//CommanName
-    objectModel: 'StorageHelperV1',
-    method: 'saveToStorage',
-    arguments: [{ "$ref": [['flowRequest'], [0], ['response'], [0], ['id']] }, { "$ref": [['flowRequest'], [0], ['response'], [0], ['innerHTML']], },],
-    response: [],
-    //  andThen: ['console.log("job Done well Done")', 'updateDomObject']
-}
-var setAttributesReq = {
-    method: 'setAttribute',
-    arguments: ["innerHTML", { "$ref": ['flowRequest'[0],'response'[0],'innerHTML'], },],
 
 
-}
 var updateDomObject = {
     reqName: 'updateDomObject',//CommanName
 

@@ -98,6 +98,8 @@ class operate {
     // Returns if a value is an object
     static isObject(value) { return value && typeof value === 'object' && value.constructor === Object; }
     static isHTML(argA) { return operate.is(argA).includes("HTML") }
+    //Retuns if a values is either of null or undefined
+    static isUseless(value) { return value === null || typeof value === 'undefined'; }
     // Returns if a value is null
     static isNull(value) { return value === null; }
     // Returns if a value is undefined 
@@ -128,6 +130,7 @@ class operate {
         }
         return false;
     }
+    static isNegative(x) { return x < 0; }
     static isChild(argA, argB) { }
     static isParent(argA, argB) { }
     static isEven(argA) { return numbers.every(function (e) { return e % 2 == 0; }); }

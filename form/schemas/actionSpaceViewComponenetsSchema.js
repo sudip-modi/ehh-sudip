@@ -259,7 +259,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'add collection',
-                                    'onclick': "engine.processReq(openFileReqModel);"
+                                    'onclick': "engine.processReq(openFolderReqModel);"
                                 }
 
                             },

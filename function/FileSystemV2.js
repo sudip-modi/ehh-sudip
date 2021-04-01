@@ -192,5 +192,5 @@ class processFS{
         return ''.concat(timmy, '-', randy);
     }    
 }
-
-console.log("iam loaded, fs")
+var processFSInstance = new processFS();
+console.log("iam loaded, fs,processFS", processFSInstance)

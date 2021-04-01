@@ -4,12 +4,10 @@ var eachKeyReqModel = {
     method: 'eachKey',
     argument: ['input'],
     params: {
-        response: {},
+        response: {},// If present the response is stored here. If an object returned as an object, if an array return as an array.
         maxDepth: 5,
-        maxItem:10,
-        
-    }
-    
+        maxItem:10,   
+    }   
 }
 
 class ActionEngine {
@@ -18,13 +16,12 @@ class ActionEngine {
         this._request = [];// has to be synced with Local Storage or indexDb 
         this._request['StorageLimit'] = 20; // This denotates how many request will we save in buffer.
     }
-  
-    intiate(key,objectModel) {
-        console.log("for Initaition", key, objectModel, objectModel[key])
-        if (objectModel[key]) {
-            console.log("for Initaition", key, objectModel, objectModel[key])
-            var response = objectModel[key];
-            console.log("Initaites found",response)
+    get(key,parent) {
+       // console.log("for Initaition", key, objectModel, objectModel[key])
+        if (parent[key]) {
+           // console.log("for Initaition", key, objectModel, objectModel[key])
+            var response = parent[key];
+           // console.log("Initaites found",response)
             return response;
         }
 
@@ -72,30 +69,42 @@ class ActionEngine {
      * 
      */
     eachKey(req) {
-        if (!req['currentDepth']) { req['currentDepth'] = 0;console.log("it's a fresh start")}
-        this.intiate(req, window);
-        console.log("intiated", req, typeof req === 'object')
+        if (!req['currentDepth']) { req['currentDepth'] = 0;console.log("it's a fresh start")}     
         if (typeof req === 'object'){
             for (var key in req) {
                 req['currentDepth'] = req['currentDepth'] + 1; // add a break || continue condition to exit if more than max Depth
-                console.log("iam Here", req[key]);
+              
                 if (req.hasOwnProperty(key)) {
+
+                    var buffer = this.get(req[key], window);
+                    if (operate.isUseless(buffer) === false) {
+                        console.log("iam Here raw", key, req[key]);
+                        req[key] = buffer;
+                        console.log("iam Here Intiated", key, req[key]);
+                    }
+                    
                     if (operate.isString(req[key])) {
-        
-                        req[key] = this.intiate(req[key], window);
-                        console.log("iam Here Intiated", req[key]);
+                  //  console.log("found string",key,req[key]) 
                      }
-                    else if (operate.isObject(req[key])) { }
-                    else if (operate.isArray(req[key])) { }
+                    else if (operate.isObject(req[key])) {
+                        console.log("found string", key, req[key])
+                     }
+                    else if (operate.isArray(req[key])) {
+                        console.log("found string", key, req[key])
+                     }
                 }
                    //f(m,loc,expr,val,path);
              }
         }
+        console.log(req);
         return req;
     }
 
     processReq(req) {
-        
+        console.log("recieved req", req)
+        if (operate.isString(req) === 'true') {
+            this.get(req, window);
+        }
       //  console.log('req', req);
        req = this.eachKey(req);
       // console.log("process",req)
@@ -120,6 +129,14 @@ class ActionEngine {
 
 
 
+    }
+    static promisifyRequest(request) {
+        return new Promise((resolve, reject) => {
+            // @ts-ignore - file size hacks
+            request.oncomplete = request.onsuccess = () => resolve(request.result);
+            // @ts-ignore - file size hacks
+            request.onabort = request.onerror = () => reject(request.error);
+        });
     }
 }
 
