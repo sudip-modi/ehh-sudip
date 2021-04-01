@@ -21,10 +21,10 @@ class ActionEngine {
     /**
      * This method, walks through all the key's of an javascript object.
      * Be it a string || object ||array || Object, 
-     * @param {*} Input 
-     * @param {*} options 
+     * @param {*} Input input argument
+     * @param {*} options
      */
-    eachKey(Input,options){
+    eachKey([Input,options]){
         if( typeof input === 'object'){
             for (var key in input){
                 if (input.hasOwnProperty(key)){
