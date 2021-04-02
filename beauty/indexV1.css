@@ -83,7 +83,7 @@ align-items: center;
     padding:1em;
     resize: horizontal;
     overflow: hidden;
-    min-width: 13%;
+    min-width: 221px;
     width: 13% !important;
     max-width: 13%;  
     -webkit-box-direction: normal;
