@@ -122,10 +122,12 @@ class processFS{
             var image = new Image();
             image.title = file.name;
             image.width = '460';image.height = '380';
-            image.src = reader.result;
+               image.src = reader.result;
+               console.log(image);
            // ActionView.updateTitle(file['name']);
           //  ActionView.displayImage(image);
-          }, false);
+           }, false);
+            console.log(image);
             reader.readAsDataURL(file);
         }else if(file['name'].includes('mp4')){
             var reader = new FileReader();
