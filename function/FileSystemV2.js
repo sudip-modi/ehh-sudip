@@ -110,7 +110,7 @@ class processFS{
             response['name'] = file['name'];
             response['file'] = file;
             response['content'] = await file.text();
-           console.log(file['name'], response);
+          // console.log(file['name'], response);
             return response;
           //  ActionView.updateTitle(file['name']);
            // ActionView.updateInnerText(contents);
@@ -123,16 +123,16 @@ class processFS{
             image.title = file.name;
             image.width = '460';image.height = '380';
             image.src = reader.result;
-            ActionView.updateTitle(file['name']);
-            ActionView.displayImage(image);
+           // ActionView.updateTitle(file['name']);
+          //  ActionView.displayImage(image);
           }, false);
             reader.readAsDataURL(file);
         }else if(file['name'].includes('mp4')){
             var reader = new FileReader();
             reader.addEventListener("load", function () {
              var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>'
-             ActionView.updateTitle(file['name']);
-             ActionView.updateText(html);
+          //   ActionView.updateTitle(file['name']);
+            // ActionView.updateText(html);
            }, false);
            reader.readAsDataURL(file);
         }else{

@@ -196,7 +196,6 @@ var openFileReqModel = {
 
 var updateDomObject = {
     reqName: 'updateDomObject',//CommanName
-
     objectModel: document,
     method: 'getElementById',
     argument: ['output'],
