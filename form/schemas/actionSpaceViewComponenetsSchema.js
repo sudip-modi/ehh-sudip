@@ -203,33 +203,33 @@ var leftSideNavBar= {
     class: "column",
     inside_navigationSection: {
         name: 'div', id: "inside_navigationSection",
-        // sideBar_header: {
-        //     name: 'div',
-        //     id:'side_bar_header',
-        //     class: "justify_SpaceBetween container",
-        //     brand: {
-        //         name: 'div',
-        //         class: "brand_logo",
-        //         textContent: 'Sunil Kumar',
-        //             },
-        //     sideBarControlMenu: {
-        //         name: 'div',
-        //         class: "HeaderControl align_center justify_center",
-        //         button1: {
-        //             name: 'button',class: "mode_toggle_btn mr-15", id: "MainHeaderHamburger1",
-        //                 },
-        //         button2: {
-        //             name: 'i','class': "material-icons",'textContent': 'add_box',
-        //                 },
-        //     },
+        sideBar_header: {
+            name: 'div',
+            id:'side_bar_header',
+            class: "justify_SpaceBetween container",
+            brand: {
+                name: 'div',
+                class: "brand_logo",
+                textContent: 'Sunil Kumar',
+                    },
+            sideBarControlMenu: {
+                name: 'div',
+                class: "HeaderControl align_center justify_center",
+                button1: {
+                    name: 'button',class: "mode_toggle_btn mr-15", id: "MainHeaderHamburger1",
+                        },
+                button2: {
+                    name: 'i','class': "material-icons",'textContent': 'add_box',
+                        },
+            },
 
-        // },
+        },
         sideBar_CollectionList: {
             name: 'div',
-             //   class: 'collection_list',
+                class: 'collection_list',
                     collectionItem: {
                 name: 'div',
-                   // class: "collection",
+                    class: "collection",
                         items: [
                             {
                                 name: 'div',
@@ -243,27 +243,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'new actionStory',
-                                    'onclick': "engine.executeSynReq(newActionStoryReq);"
-
-                                  //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-                                }
-
-                            },
-                            {
-                                name: 'div',
-                                class: 'item',
-                                item1: {
-                                    name: 'i',
-                                    'class': "material-icons icon mr - 10",
-                                    'textContent': 'upload_file',
-                                },
-                                item2: {
-                                    name: 'div',
-                                    'class': "collection_name",
-                                    'textContent': 'open file',
-                                    'onclick': "engine.executeSynReq(openFileReqModel,event);"
-
-                                    //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
+                                    'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 }
 
                             },
@@ -279,8 +259,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'add collection',
-                                    //'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-                                    'onclick': "engine.executeSynReq(openFolderReqModel,event);"
+                                    'onclick': "engine.processReq(openFileReqModel);"
                                 }
 
                             },
@@ -300,6 +279,7 @@ var leftSideNavBar= {
 
                             },
 
+
                         ]
             }
         },
@@ -310,29 +290,29 @@ var leftSideNavBar= {
 
         sideBar_Collection_withDropDown: {
             name: 'div',
-                class: 'collection_list',
+                class: 'collection_list_with_drop_down',
                     collectionTitle: {
-                        name: 'div',
-                        class: "medium",
+                name: 'div',
+                    class: "miniHeading",
                         textContent: "actionStories & Collections",
                     },
             collectionItem: {
                 name: 'div',
-                class: "container column",
+                    class: "collection",
                         innerHTML: `
-                      <li class='row item justify_SpaceBetween'><span class="parent ">my collection</span>
-                      <ul class="nested container column">
-                      <li class='item row'>story 1</li>
-                    <li class='item row'>story 2</li>
-                    <li class='item row' >story 3</li>
-                    <li class='item row'>story 4</li>
-                    <li class='item row' >
-                        <li class='item row'><span class="parent">my Nested Stories</span>
+                      <li><span class="parent collection">my collection</span>
+                      <ul class="nested">
+                      <li>story 1</li>
+                    <li>story 2</li>
+                    <li>story 3</li>
+                    <li>story 4</li>
+                    <li>
+                        <li><span class="parent">my Nested Stories</span>
                             <ul class="nested">
-                                <li class='item row'>story 1</li>
-                                <li class='item row'>story 2</li>
-                                <li class='item row'>story 3</li>
-                                <li class='item row'>story 4</li>
+                                <li>story 1</li>
+                                <li>story 2</li>
+                                <li>story 3</li>
+                                <li>story 4</li>
                             </ul>
                         </li>
                         errands
@@ -462,33 +442,44 @@ var leftSideNavBar= {
         sideBar_footer: {
             name: 'div',
                 id: "SidebarFooter",
-                   
-            // footerIcons: {
-            //     name: 'div',
-            //     class: 'container IconList ',
-            //     id:'footerIcons',
-            //     itemCollection: {
-            //         name: 'ul',
-            //         class:'justify_SpaceBetween container',
-            //         favouriteIcon: {
-            //             name: 'i',
-            //             'class': "material-icons",
-            //             'textContent': 'favorite',
-            //         }, 
-            //         download:{
-            //             name: 'i',
-            //             'class': "material-icons",
-            //             'textContent': 'download_for_offline',
-            //         },
-            //         setting: {
-            //             name: 'i',
-            //             'class': "material-icons",
-            //             'textContent': 'settings',
-            //         },
-            //     }
+                    newCollectionBtn: {
+                name: 'div',
+                    class: 'newCollectionBtn flex align_center',
+                        id: '',
+                            'textContent': 'add Collections',
+                                items: [
+                                    {
+                                        name: 'i',
+                                        'class': "material-icons",
+                                        'textContent': 'library_add',
+                                    },
+
+                                ]
 
 
-            // },
+            },
+            footerIcons: {
+                name: 'div',
+                    class: 'footerIcon flex align_center',
+                        id: 'footerIcon',
+                            items: [
+                                {
+                                    name: 'i',
+                                    'class': "material-icons",
+                                    'textContent': 'favorite',
+                                }, {
+                                    name: 'i',
+                                    'class': "material-icons",
+                                    'textContent': 'download_for_offline',
+                                }, {
+                                    name: 'i',
+                                    'class': "material-icons",
+                                    'textContent': 'settings',
+                                },
+                            ]
+
+
+            },
 
         },
 
@@ -709,36 +700,7 @@ var workSpaceBody = {
         editor: {
             name: 'div',
             class: 'container column',
-            id: 'editor',
-            card: {
-                name: 'div',
-                class: 'card container column',
-                id: 'autoSuggest',
-                //    style: 'visibility:hidden',
-                CardHeader: {
-                    name: 'div',
-                    class: 'medium',
-                    textContent: 'Auto Suggest curated for you'
-                },
-                itemCollection: {
-                    name: 'datalist',
-                    class: 'container column',
-                    items: {
-                        name: 'div',
-                        class: 'item',
-                        textContent: 'I am an item',
-                    },
-                    items2: {
-                        name: 'div',
-                        class: 'item',
-                        textContent: 'I am second Item',
-                    },
-                    
-
-                }
-
-
-            },
+            id:'editor',
             // tabs: {
             //     name: 'div',
             //     class: 'container',
@@ -786,7 +748,6 @@ var workSpaceBody = {
                 class: 'container column',
                 id: 'content',
                 contentEditable: 'true',
-            
                 activeActionStory: {
                     name: 'div',
                     class: 'container column',
@@ -794,7 +755,7 @@ var workSpaceBody = {
                     block: {
                         name: 'div',
                         class: 'blocks',
-                        id:'blocks+Index',
+                        id:'blocks',
                         li: {
                             name: 'span',
                             class: 'inlineContent',
@@ -844,28 +805,4 @@ var footer= {
         name: 'p',
         textContent: 'https://www.0dot1.live',
     }
-}
-var card = {
-    name: 'div',
-    class: 'card container',
-    style:'visibility:hidden',
-    CardHeader: {
-        name: 'div',
-        class: 'h2',
-        textContent: 'Auto Suggest curated for you'
-    },
-    itemCollection: {
-        name: 'span',
-        class: 'container coloumn',
-              
-        items: {
-            name: 'div',
-            class: 'item',
-            textContent:'I am an item',
-            
-        }
-
-    }
-    
-    
 }

@@ -8,7 +8,14 @@
 //   console.error(err);
 // }
 
+// This method walks through any kind of an object, while applying a callback function at the end.
+var walkRequest ={
+    ObjectModel:'window',
+    method:'walk',
+    arguments:['input','options'],
+    andThen:'',
 
+}
 
 
 function* createIndex() {
