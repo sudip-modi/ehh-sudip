@@ -1,5 +1,4 @@
 
-
 class ActionController extends ActionEvent {
     constructor(view,model, actionEvent) {
         super()
