@@ -1,4 +1,8 @@
 var response2;
+var response2;
+if (localStorage.getItem('LoggedIn') === 'true') {
+  window.location.href = "#action";
+}
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
     response2 = viewModel.then((viewModelFromIndexDb) => {
