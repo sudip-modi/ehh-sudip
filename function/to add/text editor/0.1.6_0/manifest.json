@@ -1,0 +1,31 @@
+{
+   "background": {
+      "page": "lib/chrome/background.html"
+   },
+   "browser_action": {
+      "default_icon": {
+         "16": "data/icons/16.png",
+         "32": "data/icons/32.png",
+         "48": "data/icons/48.png",
+         "64": "data/icons/64.png"
+      },
+      "default_title": "Text Editor"
+   },
+   "description": "A free, highly customizable text and code editor extension for your browser.",
+   "homepage_url": "https://mybrowseraddon.com/text-editor.html",
+   "icons": {
+      "128": "data/icons/128.png",
+      "16": "data/icons/16.png",
+      "32": "data/icons/32.png",
+      "48": "data/icons/48.png",
+      "64": "data/icons/64.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhX7TGiyFLwr+DLfx66Jlf+E10tLDE9u/vqyunoNECov+FOkXarH9bzPKC0DQSj049+onhz72pz9ZUpynoOAVok3elf4Li2FHOKY6fIFA0dvFRcz21R4W8xiD+oUrE3BcIVFhxWnIWSoAU8AG0VoACJHgLGfz80mfjaie500WVbjkst8aeEniNx7BegBgHkhKzbM89vtGUCjUpaHDTYBIpa9fBuApDHgefpNnHSuMEBCRj6b0pJJOIzi6UC56t2LMptuauuhSCK6SEW5ssY4DHDBKeanUhlZ+EdjqpHeQOyimrSgYvZXjreCvjFFdevjw79QZ+ihzF7AnfGmTlwXKGwIDAQAB",
+   "manifest_version": 2,
+   "name": "Text Editor",
+   "offline_enabled": true,
+   "permissions": [ "storage", "downloads" ],
+   "short_name": "text-editor",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.1.6"
+}
