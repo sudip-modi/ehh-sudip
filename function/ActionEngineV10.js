@@ -1,17 +1,26 @@
 class ActionEngine {
   constructor() {
     this._flowResultState = {};
+    this._currentReq=[]; // need to be set in database A quick generator Pattenr .
+    this._response ;
   }
 
   processReq(reqObj, resultObj = null) {
     if (Validators.isNestedRequest(reqObj)) {
-      return this.processReqNestedObject(reqObj);
+      this._response =this.processReqNestedObject(reqObj);
+      console.log(this._response);
+      return this._response;
     }
     if (Validators.isFlowRequest(reqObj)) {
-      return this.processReqArray(reqObj);
+      
+      this._response = this.processReqArray(reqObj);
+      console.log(this._response);
+      return this._response;
     }
     if (Validators.isSingleRequest(reqObj)) {
-      return this.processSingleReq(reqObj, resultObj);
+      this._response = this.processSingleReq(reqObj, resultObj);
+        console.log(this._response)
+      return this._response;
     }
     throw new Error("Request type not supported")
   }
@@ -46,6 +55,7 @@ class ActionEngine {
         processResult = this.processReq(callBack, processResult);
       }
     }
+    console.log(processResult)
     return processResult;
   }
 
@@ -121,7 +131,7 @@ class ActionEngine {
 
 var engine = new ActionEngine();
 var DOMJson = engine.processReq(singleReq);
-console.log(DOMJson)
+console.log("here",DOMJson)
 
 engine.processReq(actionFlowModelReq)
 
