@@ -1,4 +1,4 @@
-
+//Clean up the eventListers. From a registerd Array. Store in LocalStorage.
 class ActionController extends ActionEvent {
     constructor(view,model, actionEvent) {
         super()

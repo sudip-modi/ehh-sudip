@@ -23,6 +23,7 @@ class ActionEngine {
    * @returns {Promise}
    */
   processSingleReq(reqObj, resultObj = null) {
+    console.log([arguments])
     var method = reqObj.objectModel[reqObj.method];
     if (reqObj.arguments) {
       for (var i = 0; i < reqObj.arguments.length; i++) {
