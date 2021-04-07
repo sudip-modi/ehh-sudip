@@ -53,7 +53,11 @@ class DOMConversion {
         // console.log(req);
         return req;
     }
-
+//this method is supposed to execute the callback in the reqModel for the keeys on the keys of the input Object.
+    //can be used with 
+    // the code logic has to go like this.
+    // each key of model sent to each
+    //
     /**
      * This method is used for converting DOM element to JSON object
      * @param {HTMLElement} object - HTML DOM Element to convert to JSON
