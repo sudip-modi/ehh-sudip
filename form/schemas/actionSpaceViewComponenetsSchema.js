@@ -21,14 +21,14 @@ var signupModelV2 = {
     formSection: {
         name: 'section',
         class: 'container row',
-     
+
         form: {
             id: 'regForm',
             name: 'form',
             'class': 'align_center',
             content: {
                 'name': 'div',
-                class:'column align_center',
+                class: 'column align_center',
                 'formHeading': {
                     'name': 'h1',
                     'textContent': 'Sign Up',
@@ -71,6 +71,36 @@ var signupModelV2 = {
                 },
                 item2: {
                     name: 'li',
+                    class: 'full-width item column',
+                    'labelPassword': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'password',
+                        'textContent': 'Password',
+                    },
+                    'inputPassword': {
+                        'name': 'input',
+                        'type': 'password',
+                        'id': 'password',
+                        'required': 'true',
+                        'placeholder': 'Enter Password',
+                    }
+                },
+                item3: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'SIGN UP',
+                        },
+                        'data-command': `[{"command":"Signup"}]`,
+                    },
+                },
+                item4: {
+                    name: 'li',
                     class: 'full-width item',
                     'button': {
                         'name': 'button',
@@ -80,9 +110,10 @@ var signupModelV2 = {
                             'textContent': 'continue with email',
                         },
 
+
                     },
                 },
-                item3: {
+                item5: {
                     name: 'li',
                     class: 'full-width item',
                     'textMessage': {
@@ -90,7 +121,7 @@ var signupModelV2 = {
                         class: 'full-width',
                         textLable: {
                             name: 'lable',
-                            class:'small',
+                            class: 'small',
                             'textContent': 'By signing up, you agree to the Terms of Service and Privacy Policy.',
                         },
 
@@ -106,7 +137,6 @@ var loginModelV2 = {
     formSection: {
         name: 'section',
         class: 'container row',
-
         form: {
             id: 'regForm',
             name: 'form',
@@ -156,6 +186,36 @@ var loginModelV2 = {
                 },
                 item2: {
                     name: 'li',
+                    class: 'full-width item column',
+                    'labelPassword': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'password',
+                        'textContent': 'Password',
+                    },
+                    'inputPassword': {
+                        'name': 'input',
+                        'type': 'password',
+                        'id': 'password',
+                        'required': 'true',
+                        'placeholder': 'Enter Password',
+                    }
+                },
+                item3: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'LOG IN',
+                        },
+                        'data-command': `[{"command":"Login"}]`,
+                    },
+                },
+                item4: {
+                    name: 'li',
                     class: 'full-width item',
                     'button': {
                         'name': 'button',
@@ -167,7 +227,7 @@ var loginModelV2 = {
 
                     },
                 },
-                item3: {
+                item5: {
                     name: 'li',
                     class: 'full-width item',
                     'textMessage': {
