@@ -108,6 +108,15 @@ class ActionEngine {
     }
     recursiveThen.call(this, reqObj);
   }
+    
+  static promisifyRequest(request) {
+    return new Promise((resolve, reject) => {
+        // @ts-ignore - file size hacks
+        request.oncomplete = request.onsuccess = () => resolve(request.result);
+        // @ts-ignore - file size hacks
+        request.onabort = request.onerror = () => reject(request.error);
+    });
+}
   validateAllTrue(value, rules) {
     var self = this;
     return rules.every(function (rule) {
