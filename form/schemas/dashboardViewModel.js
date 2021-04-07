@@ -1,11 +1,8 @@
 
 var leftSideNavBar = {
     name: 'section',
-   
-    
     section1: {
         name: 'span',
-       
         itemCollection1: {
             name: 'a',
             class: 'item row align_center justify_SpaceBetween',
@@ -41,7 +38,6 @@ var leftSideNavBar = {
                 //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
             }
         },
-       
         itemCollection3: {
             name: 'a',
             'onclick': "engine.executeSynReq(newActionStoryReq);",
@@ -80,8 +76,6 @@ var leftSideNavBar = {
                 //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
             }
         },
-    
-
         hr: {
             name: 'div',
             class: 'hr',
@@ -289,13 +283,8 @@ var leftSideNavBar = {
              
             },
         },
-
-
     },
-
 }
-
-
 var workspaceHeader = {
     "name": "div",
     class: 'container align_center row justify_SpaceBetween',
@@ -396,6 +385,7 @@ var workSpaceBody = {
     contextMenu: {
         name: 'span',
         class: 'container column contextMenu',
+        style:'display: none',
         itemCollection1: {
             name: 'a',
             class: 'item row align_center justify_SpaceBetween',

@@ -78,13 +78,13 @@ a{
 }
 
 .contextMenu{
-    display: none;
+  
     padding-top: 21px;
     padding-bottom: 13px;
     width:max-content;
     height: max-content;
     background-color: wheat;
-   
+   z-index: 999;
     
 }
 .card{
@@ -93,6 +93,7 @@ a{
     width: 21%;
     height: 221px;
    background-color: yellow;
+   z-index: -5;
    
 }
 span{
