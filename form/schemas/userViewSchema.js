@@ -5,6 +5,7 @@ var actionSpaceHeaderUserMenu = {
     "span": [
         {
             'name': 'a',
+            
             'href': '#action',
             'textContent': 'action',
         },

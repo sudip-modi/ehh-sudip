@@ -902,7 +902,11 @@ var footer= {
     class: 'workspaceFooter',
     p: {
         name: 'p',
-        textContent: 'https://www.0dot1.live',
+        innerHTML: `<footer>
+            made with 🧠 & 🧡,
+            < br > during 🌧️ at <b>shunya.ek</b>, goa, india.
+            < br >with help from google & the world - wide - web tech community.
+        </footer >`,
     }
 }
 var card = {
