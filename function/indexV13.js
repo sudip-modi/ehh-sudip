@@ -1,4 +1,4 @@
-var response2;
+
 var response2;
 
 if (localStorage.getItem('LoggedIn') === 'true') {

@@ -1,1 +1,15 @@
-.main{background-color:#fff;width:975px; margin:auto auto;}
+* {
+  margin: 0;
+  padding: 0;
+  border:none;
+  outline:none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Poppins' , sans-serif;
+  list-style-type: none;
+  color:var(--gray-dark);
+}
+#actionSpaceContainer{background-color:rgb(115, 255, 0);width: 89%; margin:auto auto;}
+
