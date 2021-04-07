@@ -41,24 +41,7 @@ var leftSideNavBar = {
                 //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
             }
         },
-        itemCollection2: {
-            name: 'a',
-            'onclick': "engine.executeSynReq(newActionStoryReq);",
-            class: 'item row justify_SpaceBetween',
-            item1: {
-                name: 'i',
-                'class': "material-icons icon mr - 10",
-                'textContent': 'insert_drive_file',
-            },
-            item2: {
-                name: 'div',
-                'class': "collection_name",
-                'textContent': 'drafts',
-
-
-                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-            }
-        },
+       
         itemCollection3: {
             name: 'a',
             'onclick': "engine.executeSynReq(newActionStoryReq);",
@@ -97,26 +80,7 @@ var leftSideNavBar = {
                 //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
             }
         },
-        itemCollection4: {
-            name: 'a',
-            'onclick': "engine.executeSynReq(openFileReqModel,event);",
-            class: 'item row justify_SpaceBetween',
-            item1: {
-                name: 'i',
-                'class': "material-icons icon mr - 10",
-                'textContent': 'folder_open',
-            },
-            item2: {
-                name: 'div',
-                'class': "collection_name",
-                'textContent': 'add collection',
-
-
-
-
-                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-            }
-        },
+    
 
         hr: {
             name: 'div',
@@ -423,13 +387,125 @@ var workSpaceBody = {
 
         },
     },
-    
     collection: {
         name: 'div',
         class: 'container row full-width',
         id: 'collectionThumnail',
         recentStories,
-    
+    },
+    contextMenu: {
+        name: 'span',
+        class: 'container column contextMenu',
+        itemCollection1: {
+            name: 'a',
+            class: 'item row align_center justify_SpaceBetween',
+            item1: {
+                name: 'i',
+                'class': "material-icons icon",
+                'textContent': 'delete',
+            },
+            item2: {
+                name: 'div',
+                'class': "collection_name",
+                'textContent': 'delete',
+                'onclick': "engine.executeSynReq(newActionStoryReq);"
+
+                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
+            }
+        },
+        hr: {
+            name: 'div',
+            class: 'hr',
+        },
+        itemCollection2: {
+            name: 'a',
+            'onclick': "engine.executeSynReq(newActionStoryReq);",
+            class: 'item row justify_SpaceBetween',
+            item1: {
+                name: 'i',
+                'class': "material-icons icon mr - 10",
+                'textContent': 'content_copy',
+            },
+            item2: {
+                name: 'div',
+                'class': "collection_name",
+                'textContent': 'dublicate',
+
+                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
+            }
+        },
+
+        itemCollection3: {
+            name: 'a',
+            'onclick': "engine.executeSynReq(newActionStoryReq);",
+            class: 'item row justify_SpaceBetween',
+            item1: {
+                name: 'i',
+                'class': "material-icons icon",
+                'textContent': 'add',
+            },
+            item2: {
+                name: 'div',
+                'class': "collection_name",
+                'textContent': 'move to collection',
+
+
+                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
+            }
+        },
+        share: {
+            name: 'a',
+            'onclick': "engine.executeSynReq(openFileReqModel,event);",
+            class: 'item row justify_SpaceBetween',
+            item1: {
+                name: 'i',
+                'class': "material-icons icon mr - 10",
+                'textContent': 'share',
+            },
+            item2: {
+                name: 'div',
+                'class': "collection_name",
+                'textContent': 'share',
+
+
+
+
+                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
+            }
+        },
+        edit: {
+            name: 'a',
+            'onclick': "engine.executeSynReq(openFileReqModel,event);",
+            class: 'item row justify_SpaceBetween',
+            item1: {
+                name: 'i',
+                'class': "material-icons icon mr - 10",
+                'textContent': 'edit',
+            },
+            item2: {
+                name: 'div',
+                'class': "collection_name",
+                'textContent': 'editor',
+
+            }
+        },
+        itemCollection6: {
+            name: 'a',
+            'onclick': "engine.executeSynReq(openFileReqModel,event);",
+            class: 'item row justify_SpaceBetween',
+            item1: {
+                name: 'i',
+                'class': "material-icons icon mr - 10",
+                'textContent': 'settings',
+            },
+            item2: {
+                name: 'div',
+                'class': "collection_name",
+                'textContent': 'setting',
+
+            }
+        },
+
     }
  
 }

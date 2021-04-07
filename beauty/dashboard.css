@@ -72,17 +72,27 @@ a{
     padding:1em;
     resize: horizontal;
     overflow: hidden;
-    min-width: 300px;
-    width: 21% !important;
-    max-width: 21%;  
+    width:max-content;
     align-items: center;
 
 }
+.contextMenu{
+    display: none;
+    padding-top: 21px;
+    padding-bottom: 13px;
+    width:max-content;
+    height: max-content;
+    background-color: wheat;
+   
+    
+}
 .card{
-    margin: 21px;
+    margin: 8px;
+    padding:5px;
     width: 21%;
     height: 221px;
-    background-color: blueviolet;
+   background-color: yellow;
+   
 }
 span{
     height: 1em;
@@ -94,9 +104,13 @@ span{
 #workSpaceBody{
     height: 100%;
     padding-top: 21px;
+    padding-right: 21px;
+   padding-left: 21px;
+}
+#recentStoriesCollectionView{
+    margin-top: 21px;
    
 }
-
 .hr {
   margin-top: 13px;
   margin-bottom: 13px;
@@ -142,9 +156,6 @@ html {
   flex-direction: row;
   flex-wrap: wrap;
  }
-
-
-
 #sideBar {
     flex-basis: 100%;
     padding:1em;
