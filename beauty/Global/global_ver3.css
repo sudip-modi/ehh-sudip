@@ -120,4 +120,15 @@ align-self: flex-start;
   margin-bottom: 1em;
 }
 
+.verticleline{
+    align-self: center;
+ border-left: 1px solid var(--gray);
+ height: 34px; 
+}
+.hozintalLine{
+      
+ border-bottom: 3px solid var(--gray);
+ width: 100%;
+ height: 34px; 
+}
 

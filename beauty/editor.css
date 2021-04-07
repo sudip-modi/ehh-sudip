@@ -1,11 +1,10 @@
-*:focus{
-  background-color: #066;
-}
+
 ::selection { background: rgba(95,191,249,.4); }
 
 .code div {
   counter-increment: listing;
 }
+
 .code div::before {
   content: counter(listing) ". ";
   display: inline-block;

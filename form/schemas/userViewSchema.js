@@ -1,3 +1,27 @@
+
+var actionTopNav = [
+    {
+    name: 'span',
+        textContent: 'create',
+    },
+    {
+        name: 'span',
+       
+        textContent: 'open',
+    },
+    {
+        name: 'span',
+       
+        textContent: 'import',
+    },
+        
+    
+    // innerHTML: `    < a href = "#" class="row" > create</a >
+    //                     <a href="#" class="row">import/open</a>
+    //                     <a href="#" class="row">replay || reports</a>
+    //                     <a href="#" class="row">export</a>`
+]
+
 var actionSpaceHeaderUserMenu = {
     "name": "div",
     class: 'container menu',
@@ -5,9 +29,14 @@ var actionSpaceHeaderUserMenu = {
     "span": [
         {
             'name': 'a',
-            
+            'class':'dropdown',
             'href': '#action',
             'textContent': 'action',
+            dropContent: {
+                name: 'span',
+                class:'dropdown-content',
+                actionTopNav
+            },
         },
         {
             'name': 'a',
@@ -27,6 +56,7 @@ var actionSpaceHeaderUserMenu = {
     ]
 
 }
+
 
 var headerUser={
     'name': 'div',

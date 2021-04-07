@@ -27,18 +27,16 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f5f9;
+  
+  background-color: #f1f1f1;
+  min-width: 160px;
   box-shadow: 0 3px 5px rgba(71, 71, 71, 0.121) ;
   z-index: 25;
- flex-direction: column;
- border-radius: 8px;
+   flex-direction: column;
+ 
 }
 
-
-
-
-
-.dropdown:hover .dropdown-content {display: flex;}
+.dropdown:hover .dropdown-content {display: block;}
 
 
 
