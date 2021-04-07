@@ -5,25 +5,6 @@ class ActionEngine {
     this._response ;
   }
 
-  processReq(reqObj, resultObj = null) {
-    if (Validators.isNestedRequest(reqObj)) {
-      this._response =this.processReqNestedObject(reqObj);
-      console.log(this._response);
-      return this._response;
-    }
-    if (Validators.isFlowRequest(reqObj)) {
-      
-      this._response = this.processReqArray(reqObj);
-      console.log(this._response);
-      return this._response;
-    }
-    if (Validators.isSingleRequest(reqObj)) {
-      this._response = this.processSingleReq(reqObj, resultObj);
-        console.log(this._response)
-      return this._response;
-    }
-    throw new Error("Request type not supported")
-  }
 
   /**
    * processes single request
@@ -127,6 +108,35 @@ class ActionEngine {
     }
     recursiveThen.call(this, reqObj);
   }
+  validateAllTrue(value, rules) {
+    var self = this;
+    return rules.every(function (rule) {
+        return self[rule](value);
+    });
+};
+validateSomeTrue(value, rules) {
+    var self = this;
+    return rules.some(function (rule) {
+        return self[rule](value);
+    });
+};
+
+validate (value, key,params) {
+    if (this.validateAllTrue(value, key.validator)) {
+        if (params['onTrue'] === 'true') {
+            //doThis
+            return true;
+        } 
+       // key.value = value;
+        
+    }
+    else if (params['onFalse'] === 'false'){
+        //do This
+        return false;
+    }
+    
+};
+
 }
 
 var engine = new ActionEngine();
