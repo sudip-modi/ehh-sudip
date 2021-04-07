@@ -523,7 +523,7 @@ var leftSideNavBar= {
                 class: "container column",
                 id: 'sideLinks',
                 li1: {
-                    name: 'li',
+                    name: 'ul',
                     class: 'row item',
                     parent: {
                         name: 'span',
@@ -532,7 +532,7 @@ var leftSideNavBar= {
                     },
                     ul: {
                         name: 'ul',
-                        class: 'nested container column',
+                        class: 'nested container column children item-collection',
                         items1: {
                             name: 'li',
                             class: 'item row',
@@ -543,6 +543,27 @@ var leftSideNavBar= {
                             class: 'item row',
                             href:'/load/file2',
                             textContent: 'story/file 2',
+                        },
+                        parent: {
+                            name: 'span',
+                            class: 'parent',
+                            textContent: 'Folder 1'
+                        },
+                        ul: {
+                            name: 'ul',
+                            class: 'nested container column children item-collection',
+                            items1: {
+                                name: 'li',
+                                class: 'item row',
+                                textContent: 'files in folder',
+                            },
+                            items2: {
+                                name: 'a',
+                                class: 'item row',
+                                href: '/load/file2',
+                                textContent: 'story/file 2',
+                            },
+
                         },
                         
                     },
