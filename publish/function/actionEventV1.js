@@ -3,7 +3,7 @@
 class ActionEvent {
     constructor(activeListners) {
         this._activeListners =[ activeListners];
-        console.log(this._activeListners);
+       // console.log(this._activeListners);
         this._elements;
         //  this.on('click', e => this.handleEvent(e));
         //  this.createListeners(entity);
@@ -54,3 +54,4 @@ class ActionEvent {
     }
 
 }
+console.log("Hello from action Event")
