@@ -1,12 +1,12 @@
 
 //console.log("app", app)
 class ActionEvent {
-    constructor(activeListners) {
+    constructor(activeListners,entity) {
         this._activeListners =[ activeListners];
         console.log(this._activeListners);
         this._elements;
         //  this.on('click', e => this.handleEvent(e));
-        //  this.createListeners(entity);
+          this.createListeners(activeListners);
         //  console.log(elements4Event)
 
         // this.on('selection', e => this.onSelection(e));
@@ -22,12 +22,12 @@ class ActionEvent {
     }
 
     createListeners(entity) {
-        // console.log(entity)
-        let events = operate.find(window, 'on', 'keys')
-        //  console.log(events)
+        console.log("herer",entity.events)
+        let events = operate.find(entity.events, 'event', 'values')
+          console.log("events",events)
         events.forEach((evt) => {
-            //  console.log(evt.substring(2))
-            this.on(evt.substring(2), e => this.handleEvent(e));
+              console.log(evt)
+           // this.on(evt, e => this.handleEvent(e));
             //window[evt] = this.handleEvent
         })
         //  console.clear()

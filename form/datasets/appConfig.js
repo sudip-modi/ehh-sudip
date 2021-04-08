@@ -12,4 +12,4 @@ var activeListerners = {
     ]
 }
 
-console.log("loaded",activeListerners)
+console.log("loaded",Object.values(activeListerners.events))
