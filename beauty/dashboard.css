@@ -6,6 +6,13 @@
   -webkit-user-select: none;
   -webkit-box-sizing: border-box;
 }
+select{
+      
+    font-family: 'Poppins' , sans-serif;
+   font-size: 1.8vh;
+    font-weight: 400;
+    font-style: normal;
+}
 :root{
     --blue: #3f80ea;
     --indigo: #6610f2;
@@ -55,14 +62,14 @@ a,button{
     color: var(--gray-dark);
     cursor: pointer;
     text-decoration: none;
-      padding-left:  1em;
-    padding-right:  1em;
+    padding-left:  .8em;
+    padding-right:  .8em;
     background-color: transparent;
     border: none; 
 }
 a{
-    margin-left: 1em;
-    margin-right: 1em;
+    margin-left: .5em;
+    margin-right: .5em;
 }
 #actionSpaceContainer{
     height: 100%;

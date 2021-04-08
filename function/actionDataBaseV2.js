@@ -41,7 +41,7 @@ class indexDB{
      *
      * @param key
      * @param value
-     * @param customStore Method to get a custom store. Use with caution (see the docs).
+     * @param customStore Method to get a custom store. Use with caution (see the docs). Store: Object Data base to store in
      */
     static set(key, value, customStore = indexDB.defaultGetStore()) {
         return customStore('readwrite', (store) => {

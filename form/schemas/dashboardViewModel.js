@@ -35,7 +35,7 @@ var leftSideNavBar = {
         },
         itemCollection3: {
             name: 'a',
-            'href': '#load:?workspaceBody/newStory',
+            'href': '#create:?workspaceBody/newStory',
             class: 'item row justify_SpaceBetween',
             item1: {
                 name: 'i',
@@ -51,7 +51,7 @@ var leftSideNavBar = {
         },
         itemCollection4: {
             name: 'a',
-            'href': '#load:?workspaceBody/openFile',
+            'href': '#open:?workspaceBody/openFile',
             class: 'item row justify_SpaceBetween',
             item1: {
                 name: 'i',
@@ -66,7 +66,7 @@ var leftSideNavBar = {
         },
         itemCollection5: {
             name: 'a',
-            'onclick': "engine.executeSynReq(openFileReqModel,event);",
+            'href': '#open:?workspaceBody/openFolder',
             class: 'item row justify_SpaceBetween',
             item1: {
                 name: 'i',
@@ -366,9 +366,11 @@ var workSpaceBody = {
             },
             menu: {
                 name: 'span',
+                
                 class: 'container row',
                 menuItem1: {
-                    'name': 'i',
+                    'name': 'button',
+                    'action':'[command:layout_Grid]',
                     'class': "material-icons icon",
                     'textContent': 'grid_view',
 

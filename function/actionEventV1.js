@@ -1,9 +1,10 @@
 
 //console.log("app", app)
 class ActionEvent {
-    constructor(elements4Event, entity) {
-        this._events = {};
-        this._elements = elements4Event;
+    constructor(activeListners) {
+        this._activeListners =[ activeListners];
+        console.log(this._activeListners);
+        this._elements;
         //  this.on('click', e => this.handleEvent(e));
         //  this.createListeners(entity);
         //  console.log(elements4Event)

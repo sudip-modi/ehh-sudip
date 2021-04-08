@@ -1,10 +1,16 @@
 
 class StorageHelper {
-    constructor(entity) {
+    constructor() {
         //  this.entity = getEntityFromStorage()
-        StorageHelper.saveToStorage(entity.name, entity);    //Can we store Objects  
+        window.addEventListener('storage', (e) => {
+            // When local storage changes, dump the list to
+            // the console.
+            console.log("storageChange",e, e.type);
+        })
+      //  console.log("here", arguments[0], arguments[1][arguments[0]],arguments)
+        this.set(arguments);    //Can we store Objects
         this.entity = this.getStorage();
-        //  console.log("Storage >>>>>",this.getStorage);
+       // console.log("Storage >>>>>", this.entity );
     }
     getStorage() {
         return window.localStorage;
@@ -12,20 +18,17 @@ class StorageHelper {
     //Save2Storage takes 2 arguments
     //1 key: key Name
     //2. Value: any value
-    static set() {
-      //console.log("I was called",arguments[0])
+     set() {
+    //  console.log("I was called",arguments[0][0])
         // data=JSON.stringify(data)
         //  console.log(actionStorageInstance);
-        localStorage.setItem(arguments[0], JSON.stringify(arguments[1]));
+         localStorage.setItem(arguments[0][0], JSON.stringify(arguments[0][1][arguments[0][0]]));
     }
 
     static get(key) {
         let data = localStorage.getItem(key)
         return JSON.parse(data);
     }
-  
-
-
     static clearStorage() {
         localStorage.clear()
     }
@@ -42,5 +45,5 @@ class StorageHelper {
         a.click();
     }
 }
-console.log("Iam loaded, and my name is storage helper")
+//console.log("Iam loaded, and my name is storage helper")
 
