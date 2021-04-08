@@ -9,10 +9,6 @@
     "background": {
         "scripts": [
             "functin/bgServiceV2.js",
-            "scripts/hot-reload.js",
-            "scripts/dataHelpersv3.js",
-            "scripts/listener.js",
-            "scripts/create.js"
         ],
         "persistent": true
     },
