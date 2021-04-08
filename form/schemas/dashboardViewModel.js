@@ -6,6 +6,7 @@ var leftSideNavBar = {
         itemCollection1: {
             name: 'a',
             class: 'item row align_center justify_SpaceBetween',
+            'href': '#load:?workspaceBody/recentStories',
             item1: {
                 name: 'i',
                 'class': "material-icons icon",
@@ -15,14 +16,11 @@ var leftSideNavBar = {
                 name: 'div',
                 'class': "collection_name",
                 'textContent': 'recent stories',
-                'onclick': "engine.executeSynReq(newActionStoryReq);"
-
-                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
             }
         },
         itemCollection2: {
             name: 'a',
-            'onclick': "engine.executeSynReq(newActionStoryReq);",
+            'href': '#load:?workspaceBody/drafts',
             class: 'item row justify_SpaceBetween',
             item1: {
                 name: 'i',
@@ -33,14 +31,11 @@ var leftSideNavBar = {
                 name: 'div',
                 'class': "collection_name",
                 'textContent': 'drafts',
-               
-
-                //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
             }
         },
         itemCollection3: {
             name: 'a',
-            'onclick': "engine.executeSynReq(newActionStoryReq);",
+            'href': '#load:?workspaceBody/newStory',
             class: 'item row justify_SpaceBetween',
             item1: {
                 name: 'i',
