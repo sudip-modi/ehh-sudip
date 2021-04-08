@@ -54,4 +54,6 @@ class ActionEvent {
     }
 
 }
-console.log("Hello from action Event")
+var actionEventInstance = new ActionEvent();
+
+console.log("Hello from action Event",actionEventInstance)
