@@ -8,7 +8,7 @@
     },
     "background": {
         "scripts": [
-            "scripts/bgServiceV2.js",
+            "functin/bgServiceV2.js",
             "scripts/hot-reload.js",
             "scripts/dataHelpersv3.js",
             "scripts/listener.js",
