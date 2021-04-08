@@ -5,18 +5,18 @@ if (localStorage.getItem('LoggedIn') === 'true') {
   window.location.href = "#action";
 }
 
-indexDB.set('actionSpaceModel', actionSpaceViewModel);
-var viewModel = indexDB.get('actionSpaceModel');
-    response2 = viewModel.then((viewModelFromIndexDb) => {
-      //  console.log("here", viewModelFromIndexDb);
-    // expected output: "Success!"
-        var response = viewModelFromIndexDb;
-        console.log(response);
+// indexDB.set('actionSpaceModel', actionSpaceViewModel);
+// var viewModel = indexDB.get('actionSpaceModel');
+//     response2 = viewModel.then((viewModelFromIndexDb) => {
+//       //  console.log("here", viewModelFromIndexDb);
+//     // expected output: "Success!"
+//         var response = viewModelFromIndexDb;
+//         console.log(response);
         
         
-    //    test(response)
-        return response;
-    });
+//     //    test(response)
+//         return response;
+//     });
 
 
 function test(response) {
