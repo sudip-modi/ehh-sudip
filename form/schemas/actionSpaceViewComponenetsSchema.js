@@ -16,7 +16,6 @@ var brand = {
         }
     },   
 }
-
 var signupModelV2 = {
     formSection: {
         name: 'section',

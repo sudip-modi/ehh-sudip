@@ -29,11 +29,11 @@ class indexDB{
      * @param customStore Method to get a custom store. Use with caution (see the docs).
      */
     static get(key, customStore = indexDB.defaultGetStore()) {
-        var response = customStore('readonly', get(key));
-//        var response = customStore('readonly', (store) => ActionEngine.promisifyRequest(store.get(key)))
+//        var response = customStore('readonly', get(key));
+       var response = customStore('readonly', (store) => ActionEngine.promisifyRequest(store.get(key)))
     //var output = response.resolve();
         
-   console.log("get indexdb",response)
+  // console.log("get indexdb",response)
         return response;
     }
     /**

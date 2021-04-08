@@ -11,7 +11,6 @@ class processFS{
         //  See http://docs.webplatform.org/wiki/apis/file/URL/createObjectURL
         var url = URL.createObjectURL(file, { oneTimeOnly: true });
         return url;
-
     }
     static async NewFile(event){
         event.preventDefault();

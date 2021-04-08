@@ -22,41 +22,106 @@ var actionHiddenTopNav = [
     //                     <a href="#" class="row">export</a>`
 ]
 
+
 var actionSpaceHeaderUserMenu = {
     "name": "div",
-    class: 'container menu',
-    id:'actionSpaceHeaderUserMenu',
-    "span": [
-        {
-            'name': 'a',
-            'class':'dropdown',
-            'href': '#action',
-            'textContent': 'action',
-            dropContent: {
-                name: 'span',
-                class:'dropdown-content',
-                actionHiddenTopNav
+    class: 'container align_center',
+    id: 'actionSpaceHeaderUserMenu',
+    menuItem1: {
+        'name': 'a',
+        'class': 'dropdown',
+        'href': '#action',
+        'textContent': 'action',
+        dropContent: {
+            name: 'span',
+            class: 'dropdown-content column container',
+            item1: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'create    ctrl+n',
             },
-        },
-        {
-            'name': 'a',
-            'href': '#people',
-            'textContent': 'People'
-        },
-        {
-            'name': 'a',
-            'href': '#setting',
-            'textContent': 'setting'
-        },
-    {
-            'name': 'button',
-            'class': "material-icons",
-            'textContent': 'more_vert',
-        }
-    ]
+            item2: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'import  ctrl + i',
+            },
+            item3: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'insert   ctrl + Shift + i',
+            },
+            item4: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'open   ctrl + 0',
+            },
+            item5: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'export   ctrl + e',
+            },
+            item6: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'print ctrl + p',
+            },
 
+
+        },
+    },
+    menuItem2: {
+        'name': 'a',
+        'class': 'dropdown',
+        'href': '#people',
+        'textContent': 'People',
+        dropContent: {
+            name: 'span',
+            class: 'dropdown-content column container',
+            item1: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'appointments    ctrl+n',
+            },
+            item2: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'activity report  ctrl + i',
+            },
+            item3: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'contact',
+            },
+            item4: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'open   ctrl + 0',
+            },
+            item5: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'export   ctrl + e',
+            },
+            item6: {
+                name: 'div',
+                class: 'content item',
+                textContent: 'print ctrl + p',
+            },
+
+
+        },
+    },
+    menuItem3: {
+        'name': 'a',
+        'href': '#setting',
+        'textContent': 'setting'
+    },
+    menuItem4: {
+        'name': 'button',
+        'class': "material-icons",
+        'textContent': 'more_vert',
+    }
 }
-
 
 var headerUser={
     'name': 'div',
