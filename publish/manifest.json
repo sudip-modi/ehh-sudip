@@ -4,11 +4,11 @@
     "manifest_version": 2,
     "description": "everythingHappenHere.InTestVO_1",
     "icons": {
-        "128": "icon/icon_128.png"
+        "128": "image/icons_221x.png"
     },
     "background": {
         "scripts": [
-            "functin/bgServiceV2.js",
+            "function/bgServiceV2.js"
         ],
         "persistent": true
     },
@@ -19,11 +19,11 @@
                 "https://*/*"
             ],
             "js": [
-                "scripts/ehhAppV2.js",
-                "scripts/dataHelpersv3.js"
+                "function/actionEventV1.js"
+               
             ],
             "css": [
-                "style/style.css"
+                "beauty/style.css"
             ],
             "all_frames": true
         }
