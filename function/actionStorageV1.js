@@ -13,10 +13,10 @@ class StorageHelper {
     //1 key: key Name
     //2. Value: any value
     static set() {
-        // console.log("I was called", JSON.stringify(arguments[0][1]) )
+      //console.log("I was called",arguments[0])
         // data=JSON.stringify(data)
         //  console.log(actionStorageInstance);
-        localStorage.setItem(arguments[0][0], JSON.stringify(arguments[0][1]));
+        localStorage.setItem(arguments[0], JSON.stringify(arguments[1]));
     }
 
     static get(key) {
