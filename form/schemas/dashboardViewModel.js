@@ -51,12 +51,27 @@ var leftSideNavBar = {
         },
         itemCollection4: {
             name: 'a',
-            'onclick': "engine.executeSynReq(openFileReqModel,event);",
+            'href': '#load:?workspaceBody/openFile',
             class: 'item row justify_SpaceBetween',
             item1: {
                 name: 'i',
                 'class': "material-icons icon mr - 10",
                 'textContent': 'upload_file',
+            },
+            item2: {
+                name: 'div',
+                'class': "collection_name",
+                'textContent': 'open file',
+            }
+        },
+        itemCollection5: {
+            name: 'a',
+            'onclick': "engine.executeSynReq(openFileReqModel,event);",
+            class: 'item row justify_SpaceBetween',
+            item1: {
+                name: 'i',
+                'class': "material-icons icon mr - 10",
+                'textContent': 'folder_open',
             },
             item2: {
                 name: 'div',

@@ -30,6 +30,12 @@
     <script type="text/javascript" src="function/actionStorageV1.js"></script>
     <script type="text/javascript" src="function/dashboardV1.js"></script>
     <script type="text/javascript" src="form/schemas/samples.js"></script>
-    
+  <script>
+    window.onload = function () {
+        var loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+        console.log('Page load time is ' + loadTime);
+    }
+
+</script>
 </body>
 </html>

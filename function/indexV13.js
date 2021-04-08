@@ -44,4 +44,5 @@ var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContai
 var actionSpaceViewInstance = new ActionView(actionSpaceViewModel[0].model, actionSpaceElementInstanceIndom);
 //console.log(actionSpaceInstace._actionView.entity)
  var actionEventInstance = new ActionEvent(actionSpaceViewInstance, window);
- var actionSpaceController = new ActionController(actionSpaceViewInstance, actionSpaceViewModel[0].model, actionEventInstance);
+var actionSpaceController = new ActionController(actionSpaceViewInstance, actionSpaceViewModel[0].model, actionEventInstance);
+console.log(actionSpaceController);
