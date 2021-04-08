@@ -2,7 +2,8 @@
 //console.log("app", app)
 class ActionEvent {
     constructor(activeListners) {
-        this._activeListners =[ activeListners];
+        
+        this._activeListners =[activeListners];
        // console.log(this._activeListners);
         this._elements;
         //  this.on('click', e => this.handleEvent(e));
@@ -54,6 +55,7 @@ class ActionEvent {
     }
 
 }
-var actionEventInstance = new ActionEvent();
+
+var actionEventInstance = new ActionEvent(activeListerners);
 
 console.log("Hello from action Event",actionEventInstance)

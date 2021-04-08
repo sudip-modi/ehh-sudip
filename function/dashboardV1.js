@@ -14,6 +14,10 @@ console.log(activeListernersInstance);
 
 var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer');
 var actionSpaceInstance = new Entity(userDashboard, actionSpaceElementInstanceIndom);
+
+console.log("active",activeListerners);
+let events = operate.find(activeListerners, 'event', 'keys')
+
 //console.log(actionSpaceInstance.entity);
 window.onload = function () {
     var loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
