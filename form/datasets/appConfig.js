@@ -1,8 +1,8 @@
 var activeListerners = {
-    document: {
+    'window': {
         'onhashchange': 'callback',
         'onclick':'callback',
     }
 }
 
-console.log("loaded",Object.values(activeListerners))
+console.log("loaded",Object.keys(activeListerners['window']))

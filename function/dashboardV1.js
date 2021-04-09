@@ -14,16 +14,10 @@ console.log(newStorageInstance);
 
 var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer');
 var actionSpaceInstance = new Entity(userDashboard, actionSpaceElementInstanceIndom);
+console.log(activeListerners['window'])
+var actionEventInstance = new ActionEvent(activeListerners['window']);
 
-console.log("active", activeListerners);
 
-let events = operate.find(activeListerners, 'on', 'values')
-
-console.log("active listener", events);
-
-let windowEvents = operate.find(window, 'on', 'keys')
-
-console.log(windowEvents);
 
 window.onload = function () {
     var loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
