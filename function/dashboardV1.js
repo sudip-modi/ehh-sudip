@@ -16,7 +16,7 @@ var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContai
 var actionSpaceInstance = new Entity(userDashboard, actionSpaceElementInstanceIndom);
 
 console.log("active",activeListerners);
-let events = operate.find(activeListerners, 'event', 'keys')
+let events = operate.find(activeListerners, 'on', 'values')
 
 //console.log(actionSpaceInstance.entity);
 window.onload = function () {
