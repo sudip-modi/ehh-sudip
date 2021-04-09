@@ -55,7 +55,7 @@ class ActionEvent {
     }
 
 }
-
+console.log(chrome.history);
 var actionEventInstance = new ActionEvent(activeListerners);
 
 console.log("Hello from action Event",actionEventInstance)
