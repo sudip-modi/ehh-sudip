@@ -4,8 +4,8 @@ indexDB.set('userDashboard', userDashboard);
 //console.log(userDashboard)
 var newStorageInstance = new StorageHelper('userDashboard', userDashboard);
 console.log(newStorageInstance);
-var activeListernersInstance = new ActionEvent(activeListerners);
-console.log(activeListernersInstance);
+//var activeListernersInstance = new ActionEvent(activeListerners);
+//console.log(activeListernersInstance);
 
 //var currentSessionHistory = newStorageInstance.set('currentSessionHistory',[window.location]);
 //StorageHelper.set('userDashboard', userDashboard);
