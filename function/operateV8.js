@@ -37,7 +37,7 @@ class operate {
 
         var result = Object[lookat](entity).filter(function (key, index, self) {
 
-            console.log(keyTofind, key, index, self,);
+            console.log(keyTofind, key, index, self);
             return !key.indexOf(keyTofind);
         });
       // console.log("found result", result)
