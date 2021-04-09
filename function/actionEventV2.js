@@ -37,10 +37,10 @@ class ActionEvent {
         //  console.clear()
     }
     addListener(eventName, fn) {
-      //  console.log("add listner",eventName, fn);
+    console.log("add listner",eventName, fn);
         this._events[eventName] = this._events[eventName] || [];
         this._events[eventName].push(fn);
-        console.log(this._events);
+     //   console.log(this._events);
         return this;
     }
     on(eventName, fn) {
