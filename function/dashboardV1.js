@@ -17,6 +17,7 @@ var actionSpaceInstance = new Entity(userDashboard, actionSpaceElementInstanceIn
 
 console.log("active",activeListerners);
 let events = operate.find(activeListerners, 'on', 'values')
+console.log("active listener", events);
 
 //console.log(actionSpaceInstance.entity);
 window.onload = function () {
