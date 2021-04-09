@@ -1,4 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyksfkMoE9H3AKbDcSKeyHT3Pyc2HBmId3ftF0hoH4BY4-7Bs9HjsWNIwV523Oz32v-fA/exec';
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
         super()
@@ -139,17 +140,6 @@ class ActionController extends ActionEvent {
             }  
         }
     }
-    formSubmit(event) {
-        if (!isValid)
-            event.preventDefault();
-        console.log('Target ID :- ' + e.getAttribute('id'));
-        switch (event.getAttribute('id')) {
-            case 'get':
-                Sync.get(e); console.log(event.target); break;
-            case 'set':
-                Sync.send(e); console.log(event.target); break;
-        }
-    }
     onKeyPress(entity) {//used for typing
         var match = {};
         var currentSelection = window.getSelection();
@@ -269,6 +259,26 @@ class ActionController extends ActionEvent {
             var commandJson = JSON.parse(dataCommand);
             console.log("Command " + commandJson[0].command);
             switch (commandJson[0].command) {
+                
+                case 'modal':
+                    ActionView.modalForm(event,commandJson[0].entity);break;
+                case 'closeModal':
+                    ActionView.closeModal(event);break;
+                case 'NewItem':
+                    this.NewItem(event);break;
+                case 'RemoveItem':
+                    this.RemoveItem(event);break;
+                case 'SubmitInvoice':
+                    this.SubmitInvoice(event);break;
+                case 'importFromSheet':
+                        this.importFromSheet(event);break;
+                case 'exportToSheet':
+                        this.exportToSheet(event);break;
+                //signup,login
+                case 'Signup':
+                    this.SignUp(event);break;
+                case 'Login':
+                    this.LogIn(event);break;
                 case "new":
                     console.log("new")
                     this.new1(event); break;
@@ -369,6 +379,89 @@ class ActionController extends ActionEvent {
 
             //console.log("yo")
         }
+    }
+    async SignUp(event){
+        event.preventDefault();
+        var json = {
+            'Username':document.getElementById('username').value,
+            'Password':document.getElementById('password').value,
+        };
+        var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
+        alert(response.output);
+        if(response.result == 'Success'){
+            localStorage.setItem('LoggedIn',true);
+            window.location.href = '#action';
+        }
+    }
+    async LogIn(event){
+        event.preventDefault();
+        var params = {
+            'Username':document.getElementById('username').value,
+            'Password':document.getElementById('password').value
+        };
+        var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,params),HttpService.requestBuilder("GET"));
+        alert(response.output);
+        if(response.result == 'Success'){
+            localStorage.setItem('LoggedIn',true);
+            window.location.href = '#action';
+        }
+    }
+    async importFromSheet(event){
+        try{
+            event.preventDefault();
+            var params = {'SpreadsheetId':document.getElementById('spreadsheetID').value,'NamedRange':document.getElementById('NamedRange').value}
+            ActionView.closeModal(event);
+            var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,params),HttpService.requestBuilder("GET"));
+            //console.log(response.output);
+        }catch(err){
+            console.log(err);
+        }
+    }
+    async exportToSheet(event){
+        try{
+            event.preventDefault();
+            var json = {'SpreadsheetId':document.getElementById('spreadsheetID').value,'SheetName':document.getElementById('sheetName').value,'array':[[1,2,3],[1,2,3]]};
+            ActionView.closeModal(event);
+            var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
+            alert(response.output);
+        }catch(err){
+            console.log(err);
+        }
+    }
+    async SubmitInvoice(event){
+        try{
+            event.preventDefault();
+            var children = document.getElementById('tbody').childNodes;
+            var InvoiceItems = [];
+            var DocNumber = document.getElementById('DocNumber').textContent;
+            for(var i = 0;i < children.length ; i++){
+                var item = [DocNumber,document.getElementsByClassName('Description')[i].textContent,document.getElementsByClassName('Amount')[i].textContent,
+                            document.getElementsByClassName('DetailType')[i].textContent,document.getElementsByClassName('Ref')[i].textContent,
+                            document.getElementsByClassName('Account')[i].textContent,document.getElementsByClassName('LineStatus')[i].textContent,];
+                InvoiceItems.push(item);
+            }
+            var json = {'array':InvoiceItems};
+            ActionView.closeModal(event);
+            var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
+            alert(response.output);
+            
+        }catch(err){
+            console.log(err);  
+        }
+    }
+    RemoveItem(event){
+            event.preventDefault();
+            var Id = 'tr' + event.target.getAttribute('id');console.log(Id);
+            var element = document.getElementById(Id);
+            if(element !== null)
+                element.parentNode.removeChild(element);
+    }
+    NewItem(event){
+        event.preventDefault();
+        var ItemId = uid();
+        newItemJSON['td1']['a']['id'] = ItemId;newItemJSON['id'] = 'tr'+ ItemId;
+        var json = {};json[ItemId] = newItemJSON;
+        var newItem = new Entity(json,document.getElementById('tbody'));
     }
     new1(event) {
         console.log("New One");

@@ -358,7 +358,39 @@ var leftSideNavBar= {
                                 }
 
                             },
-
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent':'Invoice Form',
+                                    'data-command': `[{"command":"modal","entity":"invoiceForm"}]`,
+                                },
+                               
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'Export to Sheet',
+                                    'data-command': `[{"command":"modal","entity":"export"}]`,
+                                },
+                                
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'Import from Sheet',
+                                    'data-command': `[{"command":"modal","entity":"import"}]`,
+                                },
+                                
+                            },
                         ]
             }
         },
@@ -1152,4 +1184,507 @@ var contextMenu = {
         { textContent: 'rename' },
         {textContent:'delete'},
     ]
+}
+var invoiceJSON = {
+    'content':{
+        'name':'div',
+        'class':'modal-content',
+    'div1':{
+            'name':'div',
+            'class':'closeContainer',
+            'span':{
+                'name':'span',
+                'data-command': `[{"command":"closeModal"}]`,
+                'class':'close',
+                'textContent':'x',
+            },
+    },
+    'br':{
+        'name':'br',
+    },
+    'invoice':{
+        'name':'div',
+        'class':'invoice',
+    'header':{
+        'name':'header',
+        'h1':{
+            'name':'h1',
+            'textContent':'Invoice'
+        },
+        'address':{
+            'name':'address',
+            'contenteditable':'',
+            'Name':{
+                'name':'p',
+                'textContent':'Geeta Baweja'
+            }, 
+            'Place':{
+                'name':'p',
+                'innerHTML':'Connaught Place, Delhi<br> India',
+            },
+            'pincode':{
+                'name':'p',
+                'textContent':'110001'
+            },
+        },
+    },
+    'article':{
+        'name':'article',
+            'h1':{
+             'name':'h1',
+             'textContent':'Recipient',
+            },
+            'address':{
+            'name':'address',
+            'contenteditable':'',
+                'p':{
+                    'name':'p',
+                    'innerHTML':'Flat,House No.,Building,Company<br>Colony,Street,Sector<br>Town/City, State<br>Pincode',
+                }
+            },
+            'meta':{
+                'name':'table',
+                'class':'meta',
+                'tr1':{
+                    'name':'tr',
+                    'th':{
+                        'name':'th',
+                        'span':{
+                            'name':'span',
+                            // 'contenteditable':'',
+                            'textContent':'Due Date'
+                        }
+                    },
+                    'td':{
+                        'name':'td',
+                        'span':{
+                            'name':'span',
+                            // 'contenteditable':'',
+                            'textContent':'9th April 2021'
+                        }
+                    }
+                },
+                'tr3':{
+                    'name':'tr',
+                    'th':{
+                        'name':'th',
+                        'span':{
+                            'name':'span',
+                            // 'contenteditable':'',
+                            'textContent':'Doc Number'
+                        }
+                    },
+                    'td':{
+                        'name':'td',
+                        'span':{
+                            'name':'span',
+                            'id':'DocNumber',
+                            'contenteditable':'',
+                            'textContent':''
+                        }
+                    }
+                },
+                'tr4':{
+                    'name':'tr',
+                    'th':{
+                        'name':'th',
+                        'span':{
+                            'name':'span',
+                            // 'contenteditable':'',
+                            'textContent':'Status'
+                        }
+                    },
+                    'td':{
+                        'name':'td',
+                        'span':{
+                            'name':'span',
+                            // 'contenteditable':'',
+                            'textContent':'Payable'
+                        }
+                    }
+                },
+            },
+            'inventory':{
+                'name':'table',
+                'class':'inventory',
+                'thead':{
+                    'name':'thead',
+                    'tr':{
+                        'name':'tr',
+                        'th1':{
+                            'name':'th',
+                            'span':{
+                                'name':'span',
+                                'contenteditable':'',
+                                'textContent':'Description',
+                            } 
+                        },
+                        'th2':{
+                            'name':'th',
+                            'span':{
+                                'name':'span',
+                                'contenteditable':'',
+                                'textContent':'Amount',
+                            } 
+                        },
+                        'th3':{
+                            'name':'th',
+                            'span':{
+                                'name':'span',
+                                'contenteditable':'',
+                                'textContent':'Detail Type',
+                            } 
+                        },
+                        'th4':{
+                            'name':'th',
+                            'span':{
+                                'name':'span',
+                                'contenteditable':'',
+                                'textContent':'Ref',
+                            } 
+                        },
+                        'th5':{
+                            'name':'th',
+                            'span':{
+                                'name':'span',
+                                'contenteditable':'',
+                                'textContent':'Account',
+                            } 
+                        },
+                        'th6':{
+                            'name':'th',
+                            'span':{
+                                'name':'span',
+                                'contenteditable':'',
+                                'textContent':'Line Status',
+                            } 
+                        },
+                    }
+                },
+                'tbody':{
+                    'name':'tbody',
+                    'id':'tbody',
+                    'trCustom':{
+                        'name':'tr',
+                        'id':'trCustom',
+                        'td1':{
+                            'name':'td',
+                            'a':{
+                                'name':'a',
+                                'id':'Custom',
+                                'class':'cut',
+                                'textContent':'-',
+                                'data-command': `[{"command":"RemoveItem"}]`,
+                            },
+                            'span':{
+                                'name':'span',
+                                'class':'Description',
+                                'contenteditable':'',
+                                'textContent':'Sample Expense'
+                            }
+                        },
+                        'td2':{
+                            'name':'td',
+                            'span1':{
+                                'name':'span',
+                                'data-prefix':'',
+                                'textContent':'Rs. '
+                            },
+                            'span2':{
+                                'name':'span',
+                                'class':'Amount',
+                                'contenteditable':'',
+                                'textContent':'600.00'
+                            }
+                        },
+                        'td3':{
+                            'name':'td',
+                            'span2':{
+                                'name':'span',
+                                'class':'DetailType',
+                                'contenteditable':'',
+                                'textContent':'Expense Detail'
+                            }
+                        },
+                        'td4':{
+                            'name':'td',
+                            'span2':{
+                                'name':'span',
+                                'class':'Ref',
+                                'contenteditable':'',
+                                'textContent':'DEF234'
+                            }
+                        },
+                        'td5':{
+                            'name':'td',
+                            'span':{
+                                'name':'span',
+                                'class':'Account',
+                                'contenteditable':'',
+                                'textContent':'EFG345'
+                            }
+                        },
+                        'td6':{
+                            'name':'td',
+                            'span2':{
+                                'name':'span',
+                                'class':'LineStatus',
+                                'contenteditable':'',
+                                'textContent':'Billable'
+                            }
+                        }
+                    }
+                }
+            },
+            'add':{
+                'name':'a',
+                'class':'add',
+                'textContent':'+',
+                'data-command': `[{"command":"NewItem"}]`,
+            },
+            // 'balance':{
+            //     'name':'table',
+            //     'class':'balance',
+            //     'tr1':{
+            //         'name':'tr',
+            //         'th':{
+            //             'name':'th',
+            //             'span':{
+            //                 'name':'span',
+            //                 'contenteditable':'',
+            //                 'textContent':'Total Amount'
+            //             }
+            //         },
+            //         'td':{
+            //             'name':'td',
+            //             'span1':{
+            //                 'name':'span',
+            //                 'data-prefix':'',
+            //                 'textContent':'Rs. '
+            //             },
+            //             'span2':{
+            //                 'name':'span',
+            //                 'id':'TotalAmount',
+            //                 'textContent':'600.00'
+            //             }
+            //         }
+            //     },
+            // },
+           
+        },
+        'submit':{
+            'name':'button',
+            'full-width':'',
+            'textContent':"Submit Invoice",
+            'data-command': `[{"command":"SubmitInvoice"}]`,
+        }
+    }
+    }
+}
+var newItemJSON ={
+        'name':'tr',
+        'id':'',
+        'td1':{
+            'name':'td',
+            'a':{
+                'name':'a',
+                'class':'cut',
+                'textContent':'-',
+                'data-command': `[{"command":"RemoveItem"}]`,
+            },
+            'span':{
+                'name':'span',
+                'class':'Description',
+                'contenteditable':'',
+                'textContent':''
+            }
+        },
+        'td2':{
+            'name':'td',
+            'span1':{
+                'name':'span',
+                'data-prefix':'',
+                'textContent':'Rs. '
+            },
+            'span2':{
+                'name':'span',
+                'class':'Amount',
+                'contenteditable':'',
+                'textContent':''
+            }
+        },
+        'td3':{
+            'name':'td',
+            'span2':{
+                'name':'span',
+                'class':'DetailType',
+                'contenteditable':'',
+                'textContent':''
+            }
+        },
+        'td4':{
+            'name':'td',
+            'span2':{
+                'name':'span',
+                'class':'Ref',
+                'contenteditable':'',
+                'textContent':''
+            }
+        },
+        'td5':{
+            'name':'td',
+            'span':{
+                'name':'span',
+                'class':'Account',
+                'contenteditable':'',
+                'textContent':''
+            }
+        },
+        'td6':{
+            'name':'td',
+            'span2':{
+                'name':'span',
+                'class':'LineStatus',
+                'contenteditable':'',
+                'textContent':''
+            }
+        }
+}
+var ImportFromSheet = {
+    'div':{
+        'name':'div',
+        'class':'modal-content',
+        'br1':{
+            'name':'br'
+        },
+        'div1':{
+            'name':'div',
+            'class':'closeContainer',
+            'span':{
+                'name':'span',
+                'data-command': `[{"command":"closeModal"}]`,
+                'class':'close',
+                'textContent':'x',
+            },
+        },
+        'h1':{
+            'name':'h1',
+            'textContent':'Import from Sheet',
+        },
+        'br2':{
+            'name':'br'
+        },
+        'label1':{
+            'name':'label',
+            'innerHTML':'<b>Spreadsheet ID</b>'
+        },
+        'br3':{
+            'name':'br'
+        },
+        'input1':{
+            'name':'input',
+            'type':'text',
+            'required':'true',
+            'placeholder':'Enter SpreadsheetID',
+            'id':'spreadsheetID'
+        },
+        'br4':{
+            'name':'br'
+        },
+        'label2':{
+            'name':'label',
+            'innerHTML':'<b>Named Range</b>'
+        },
+        'br5':{
+            'name':'br'
+        },
+        'input2':{
+            'name':'input',
+            'type':'text',
+            'required':'true',
+            'placeholder':'Enter Named Range(Eg, SheetName!A1:D10)',
+            'id':'NamedRange'
+        },
+        'br6':{
+            'name':'br'
+        },
+        'submit':{
+            'name':'button',
+            'style':'width:100%',
+            'data-command': `[{"command":"importFromSheet"}]`,
+            'innerHTML':'<b>Submit</b>'
+        },
+        'br7':{
+            'name':'br'
+        },
+    }
+}
+var ExportToSheet = {
+    'div':{
+        'name':'div',
+        'class':'modal-content',
+        'br1':{
+            'name':'br'
+        },
+        'div1':{
+            'name':'div',
+            'class':'closeContainer',
+            'span':{
+                'name':'span',
+                'data-command': `[{"command":"closeModal"}]`,
+                'class':'close',
+                'textContent':'x',
+            },
+        },
+        'h1':{
+            'name':'h1',
+            'textContent':'Export to Sheet',
+        },
+        'br2':{
+            'name':'br'
+        },
+        'label1':{
+            'name':'label',
+            'innerHTML':'<b>Spreadsheet ID</b>'
+        },
+        'br3':{
+            'name':'br'
+        },
+        'input1':{
+            'name':'input',
+            'type':'text',
+            'required':'true',
+            'placeholder':'Enter SpreadsheetID',
+            'id':'spreadsheetID'
+        },
+        'br4':{
+            'name':'br'
+        },
+        'label2':{
+            'name':'label',
+            'innerHTML':'<b>Sheet Name</b>'
+        },
+        'br5':{
+            'name':'br'
+        },
+        'input2':{
+            'name':'input',
+            'type':'text',
+            'required':'true',
+            'placeholder':'Enter Sheet Name',
+            'id':'sheetName'
+        },
+        'br6':{
+            'name':'br'
+        },
+        'submit':{
+            'name':'button',
+            'style':'width:100%',
+            'data-command': `[{"command":"exportToSheet"}]`,
+            'innerHTML':'<b>Submit</b>'
+        },
+        'br7':{
+            'name':'br'
+        },
+    }
 }
