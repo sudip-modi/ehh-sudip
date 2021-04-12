@@ -27,6 +27,9 @@ class ActionView {
    * @param {HTMLElement} DOMElement - HTML DOM Element to add HTML to
    * @param {HTMLElement} inputElem - HTML Input Element to be added into DOMElement
    */ 
+    static addInnerText(inputElem,target){
+      target.innerText = inputElem;
+    }
   static addInnerHTML(inputElem,target){
 
     target.innerHTML = inputElem;

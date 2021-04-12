@@ -1007,28 +1007,6 @@ var contextMenu = {
         {textContent:'delete'},
     ]
 }
-var directoryJSON = {
-    'li':{
-    'name':'li',
-    'span':{
-        'name':'span',
-        'class':'parent',
-        "textContent":'', //inner Text will be included
-    },
-    'list':{
-        'name':'ul',
-        'class':'nested',
-        'id':'' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
-    }
-    }
-}
-var fileJSON = {
-    'name':'li',
-    'id':'', //id - Unique ID with which file handle of this file retrieved from indexDB
-    'class':'item row',
-     "textContent":'',
-    // 'data-command': `[{"command":"file"}]`,
-}
 var invoiceJSON = {
     'content':{
         'name':'div',

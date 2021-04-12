@@ -291,14 +291,16 @@ class ActionController extends ActionEvent {
                     processFS.jsonForFile(event);break;
                 case 'OpenDirectory':
                     processFS.OpenDirectory(event);break;
-                case 'FSNew':
-                    processFS.NewFile(event); break;
-                case 'FSOpen':
-                    processFS.readFile(event); break;
-                case 'FS_Save':
-                    processFS.saveFile(event); break;
-                case 'FS_SaveAs':
-                    processFS.saveAsFile(event); break;
+                case 'file':
+                    processFS.OpenFile(event,event.target.id);break;
+                // case 'FSNew':
+                //     processFS.NewFile(event); break;
+                // case 'FSOpen':
+                //     processFS.readFile(event); break;
+                // case 'FS_Save':
+                //     processFS.saveFile(event); break;
+                // case 'FS_SaveAs':
+                //     processFS.saveAsFile(event); break;
                 // case 'file':
                 //     this.file(event);break;
                 // case 'caret':

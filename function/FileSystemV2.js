@@ -53,46 +53,6 @@ class processFS{
             await processFS.Open(event);
         }
     }
-    async Open(event, handle) {
-        event.preventDefault();
-        if (!handle) {
-            [fileHandle] = await window.showOpenFilePicker(pickerOpts);
-        } else {
-            fileHandle = handle;
-        }
-        // console.log(fileHandle);
-        var contents;
-        var file = await fileHandle.getFile();
-        if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
-            contents = await file.text();
-            ActionView.updateTitle(file['name']);
-            ActionView.updateInnerText(contents);
-        } else if (file['name'].includes('.xlx') || file['name'].includes('.xlsx') || file['name'].includes('.csv')) {
-            console.log("Work In Progress");
-        } else if (file['type'].includes('image') || file['name'].includes('.JPG') || file['name'].includes('.JPEG') || file['name'].includes('.PNG')) {
-            var reader = new FileReader();
-            reader.addEventListener("load", function () {
-                var image = new Image();
-                image.title = file.name;
-                image.width = '460'; image.height = '380';
-                image.src = reader.result;
-                ActionView.updateTitle(file['name']);
-                ActionView.displayImage(image);
-            }, false);
-            reader.readAsDataURL(file);
-        } else if (file['name'].includes('mp4')) {
-            var reader = new FileReader();
-            reader.addEventListener("load", function () {
-                var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>'
-                ActionView.updateTitle(file['name']);
-                ActionView.updateText(html);
-            }, false);
-            reader.readAsDataURL(file);
-        } else {
-            console.log("Not supported");
-        }
-
-    }
     async OpenFileV2(event, handle) {
         var response={};
         event.preventDefault();
@@ -153,6 +113,34 @@ class processFS{
         }
 
     }
+    //file folder
+    static async OpenFile(event, id) {
+        event.preventDefault();
+        var fileHandle = await indexDB.get(id);console.log(fileHandle);
+        var file = await fileHandle.getFile();
+        if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
+            var contents = await file.text();
+            ActionView.addInnerText(contents,document.getElementById('inlineContent'));
+        }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
+            var reader = new FileReader();
+            reader.addEventListener("load", function () {
+                var html = '<image src="' + reader.result + '"width="460" height="380" title="' + file.name + '"></image>';
+                ActionView.addInnerHTML(html, document.getElementById('inlineContent'));
+            }, false);
+            reader.readAsDataURL(file);
+        }else if (file['name'].includes('mp4')) {
+            var reader = new FileReader();
+            reader.addEventListener("load", function () {
+                var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>';
+                ActionView.addInnerHTML(html,document.getElementById('inlineContent'));
+            }, false);
+            reader.readAsDataURL(file);
+        }else if (file['name'].includes('.xlx') || file['name'].includes('.xlsx') || file['name'].includes('.csv')) {
+            console.log("Work In Progress");
+        }else {
+            console.log("Not supported");
+        }
+    }
     static async jsonForFile(event){
         event.preventDefault();
         try{
@@ -161,9 +149,11 @@ class processFS{
           var file =await  fileHandle.getFile();
           var input = {};
           input[fileID] = JSON.parse(JSON.stringify(fileJSON));
+          console.log(fileJSON);
           input[fileID]['id'] = fileID;input[fileID]['textContent'] = file.name;
           console.log(input);
           var data = new Entity(input,document.getElementById('myFiles'));
+          console.log(document.getElementById('myFiles').innerHTML);
         }catch(err){
             console.log(err);
         }
@@ -203,6 +193,7 @@ class processFS{
         console.log(obj);
         return obj;
     }
+    //
     static verifyPermissions() {
         // Check for the various File API support.
         if (window.File && window.FileReader && window.FileList && window.Blob) {
