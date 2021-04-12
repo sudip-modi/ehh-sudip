@@ -320,8 +320,8 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'open file',
-                                    'onclick': "engine.executeSynReq(openFileReqModel,event);"
-
+                                    //'onclick': "engine.executeSynReq(openFileReqModel,event);",
+                                    'data-command':`[{"command":"OpenFile"}]`
                                     //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 }
 
@@ -338,8 +338,9 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'add collection',
+                                    'data-command':`[{"command":"OpenDirectory"}]`
                                     //'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-                                    'onclick': "engine.executeSynReq(openFolderReqModel,event);"
+                                   // 'onclick': "engine.executeSynReq(openFolderReqModel,event);"
                                 }
 
                             },
@@ -412,58 +413,18 @@ var leftSideNavBar= {
                 class: "container column",
                         innerHTML: `
                       <li class='row item justify_SpaceBetween'><span class="parent ">my collection</span>
-                      <ul class="nested container column">
-                      <li class='item row'>story 1</li>
-                    <li class='item row'>story 2</li>
-                    <li class='item row' >story 3</li>
-                    <li class='item row'>story 4</li>
-                    <li class='item row' >
-                        <li class='item row'><span class="parent">my Nested Stories</span>
-                            <ul class="nested">
-                                <li class='item row'>story 1</li>
-                                <li class='item row'>story 2</li>
-                                <li class='item row'>story 3</li>
-                                <li class='item row'>story 4</li>
-                            </ul>
-                        </li>
-                        errands
-                    </li>
-
-                    <li><span class="parent">recent Stories</span>
-                        <ul class="nested">
-                            <li>leaf</li>
-                            <li>leaf</li>
-
-                        </ul>
-                    </li>
-                </ul>
+                      <ul class="nested container column" id="workspace">
+                      
+                      </ul>
+                      </li>
+            <span class="hozintalLine"></span>
+            <li class='row item justify_SpaceBetween'><span class="parent">my files</span>
+            <ul class="nested container column" id="myFiles">
+            </ul>
             </li>
             <span class="hozintalLine"></span>
-            <li><span class="parent">Recent Files</span>
-                <ul class="nested">
-                    <li>story 1</li>
-                    <li>story 2</li>
-                    <li>story 3</li>
-                    <li>story 4</li>
-                    <li>
-                    <li><span class="parent">my Nested Stories</span>
-                        <ul class="nested">
-                            <li>story 1</li>
-                            <li>story 2</li>
-                            <li>story 3</li>
-                            <li>story 4</li>
-                        </ul>
-                    </li>
-                    errands
-            </li>
-
-            <li><span class="parent">recent Stories</span>
-                <ul class="nested">
-                    <li>leaf</li>
-                    <li>leaf</li>
-
-                </ul>
-            </li>
+            <li class='row item justify_SpaceBetween'><span class="parent">Recent Files</span>
+            <ul class="nested container column" id="recentFiles">
             </ul>
             </li>
             <span class="hozintalLine"></span>
@@ -599,145 +560,6 @@ var leftSideNavBar= {
                         
                     },
                 },
-            //     innerHTML: `
-            //           <li class='row item justify_SpaceBetween'>
-            //              < span class= "parent " > my collection</span>
-            //           <ul class="nested container column">
-            //           <li class='item row'>story 1</li>
-            //         <li class='item row'>story 2</li>
-            //         <li class='item row' >story 3</li>
-            //         <li class='item row'>story 4</li>
-            //         <li class='item row' >
-            //             <li class='item row'><span class="parent">my Nested Stories</span>
-            //                 <ul class="nested">
-            //                     <li class='item row'>story 1</li>
-            //                     <li class='item row'>story 2</li>
-            //                     <li class='item row'>story 3</li>
-            //                     <li class='item row'>story 4</li>
-            //                 </ul>
-            //             </li>
-            //             errands
-            //         </li>
-
-            //         <li><span class="parent">recent Stories</span>
-            //             <ul class="nested">
-            //                 <li>leaf</li>
-            //                 <li>leaf</li>
-
-            //             </ul>
-            //         </li>
-            //     </ul>
-            // </li>
-            // <span class="hozintalLine"></span>
-            // <li><span class="parent">Recent Files</span>
-            //     <ul class="nested">
-            //         <li>story 1</li>
-            //         <li>story 2</li>
-            //         <li>story 3</li>
-            //         <li>story 4</li>
-            //         <li>
-            //         <li><span class="parent">my Nested Stories</span>
-            //             <ul class="nested">
-            //                 <li>story 1</li>
-            //                 <li>story 2</li>
-            //                 <li>story 3</li>
-            //                 <li>story 4</li>
-            //             </ul>
-            //         </li>
-            //         errands
-            // </li>
-
-            // <li><span class="parent">recent Stories</span>
-            //     <ul class="nested">
-            //         <li>leaf</li>
-            //         <li>leaf</li>
-
-            //     </ul>
-            // </li>
-            // </ul>
-            // </li>
-            // <span class="hozintalLine"></span>
-            // <li><span class="parent">Starred</span>
-            //     <ul class="nested">
-            //         <li>story 1</li>
-            //         <li>story 2</li>
-            //         <li>story 3</li>
-            //         <li>story 4</li>
-            //         <li>
-            //         <li><span class="parent">my Nested Stories</span>
-            //             <ul class="nested">
-            //                 <li>story 1</li>
-            //                 <li>story 2</li>
-            //                 <li>story 3</li>
-            //                 <li>story 4</li>
-            //             </ul>
-            //         </li>
-            //         errands
-            // </li>
-
-            // <li><span class="parent">recent Stories</span>
-            //     <ul class="nested">
-            //         <li>leaf</li>
-            //         <li>leaf</li>
-
-            //     </ul>
-            // </li>
-            // </ul>
-            // </li>
-            // <li><span class="parent">Tags</span>
-            //     <ul class="nested">
-            //         <li>story 1</li>
-            //         <li>story 2</li>
-            //         <li>story 3</li>
-            //         <li>story 4</li>
-            //         <li>
-            //         <li><span class="parent">my Nested Stories</span>
-            //             <ul class="nested">
-            //                 <li>story 1</li>
-            //                 <li>story 2</li>
-            //                 <li>story 3</li>
-            //                 <li>story 4</li>
-            //             </ul>
-            //         </li>
-            //         errands
-            // </li>
-
-            // <li><span class="parent">recent Stories</span>
-            //     <ul class="nested">
-            //         <li>leaf</li>
-            //         <li>leaf</li>
-
-            //     </ul>
-            // </li>
-            // </ul>
-            // </li>
-            // <li><span class="parent">Trash</span>
-            //     <ul class="nested">
-            //         <li>story 1</li>
-            //         <li>story 2</li>
-            //         <li>story 3</li>
-            //         <li>story 4</li>
-            //         <li>
-            //         <li><span class="parent">my Nested Stories</span>
-            //             <ul class="nested">
-            //                 <li>story 1</li>
-            //                 <li>story 2</li>
-            //                 <li>story 3</li>
-            //                 <li>story 4</li>
-            //             </ul>
-            //         </li>
-            //         errands
-            // </li>
-
-            // <li><span class="parent">recent Stories</span>
-            //     <ul class="nested">
-            //         <li>leaf</li>
-            //         <li>leaf</li>
-
-            //     </ul>
-            // </li>
-            // </ul>
-            // </li>`
             },
         },
         sideBar_footer: {
@@ -1184,6 +1006,28 @@ var contextMenu = {
         { textContent: 'rename' },
         {textContent:'delete'},
     ]
+}
+var directoryJSON = {
+    'li':{
+    'name':'li',
+    'span':{
+        'name':'span',
+        'class':'parent',
+        "textContent":'', //inner Text will be included
+    },
+    'list':{
+        'name':'ul',
+        'class':'nested',
+        'id':'' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
+    }
+    }
+}
+var fileJSON = {
+    'name':'li',
+    'id':'', //id - Unique ID with which file handle of this file retrieved from indexDB
+    'class':'item row',
+     "textContent":'',
+    // 'data-command': `[{"command":"file"}]`,
 }
 var invoiceJSON = {
     'content':{

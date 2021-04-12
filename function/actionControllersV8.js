@@ -287,8 +287,10 @@ class ActionController extends ActionEvent {
                 //sheet
                 
                 //File System
-                case 'FSOpenDirectory':
-                    processFS.OpenDirectory(event); break;
+                case 'OpenFile':
+                    processFS.jsonForFile(event);break;
+                case 'OpenDirectory':
+                    processFS.OpenDirectory(event);break;
                 case 'FSNew':
                     processFS.NewFile(event); break;
                 case 'FSOpen':

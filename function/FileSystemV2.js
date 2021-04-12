@@ -153,20 +153,30 @@ class processFS{
         }
 
     }
-    async OpenDirectory(event){
+    static async jsonForFile(event){
+        event.preventDefault();
+        try{
+          let [fileHandle] = await window.showOpenFilePicker(); 
+          var fileID = uid();await indexDB.set(fileID,fileHandle);
+          var file =await  fileHandle.getFile();
+          var input = {};
+          input[fileID] = JSON.parse(JSON.stringify(fileJSON));
+          input[fileID]['id'] = fileID;input[fileID]['textContent'] = file.name;
+          console.log(input);
+          var data = new Entity(input,document.getElementById('myFiles'));
+        }catch(err){
+            console.log(err);
+        }
+    }
+    static async OpenDirectory(event){
         event.preventDefault();
         try {
             const dirHandle = await window.showDirectoryPicker();
-            var dirID = uid();
-            indexDB.set(dirID, dirHandle);
+            var dirID = uid();await indexDB.set(dirID, dirHandle);
             var input = JSON.parse(JSON.stringify(directoryJSON));
-            input['li']['span']['innerText'] = dirHandle.name; input['li']['list']['id'] = dirID;
+            input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
             var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
-            console.log(input);
-            console.log(document.getElementById('workspace').innerHTML);
             var data = new Entity(input, document.getElementById('workspace'));
-            console.log(document.getElementById('workspace').innerHTML);
-            //  await indexDB.set('workspace',document.getElementById('workspace').innerHTML);
         } catch (err) {
             console.log(err);
         }
@@ -176,7 +186,7 @@ class processFS{
             var id = uid();
             if (entry.kind == 'directory') {
                 var directory = JSON.parse(JSON.stringify(directoryJSON));
-                directory['li']['span']['innerText'] = entry.name; directory['li']['list']['id'] = id;
+                directory['li']['span']['textContent'] = entry.name; directory['li']['list']['id'] = id;
                 var directoryHandle = await parentHandle.getDirectoryHandle(entry.name);
                 await indexDB.set(id, directoryHandle);
                 obj[entry.name] = directory;
@@ -184,7 +194,7 @@ class processFS{
                 await processFS.jsonForDirectory(obj[entry.name]['li']['list'], directoryHandle);
             } else if (entry.kind == 'file' && entry.name.includes('.')) {
                 var fileData = JSON.parse(JSON.stringify(fileJSON));
-                fileData['id'] = id; fileData['innerText'] = entry.name;
+                fileData['id'] = id; fileData['textContent'] = entry.name;
                 var getfileHandle = await parentHandle.getFileHandle(entry.name);
                 await indexDB.set(id, getfileHandle);
                 obj[entry.name] = fileData;
@@ -219,7 +229,6 @@ class processFS{
         // The user didn't grant permission, so return false.
         return false;
     }
-
     static updateProgress(evt) {
         // evt is an ProgressEvent.
         if (evt.lengthComputable) {
