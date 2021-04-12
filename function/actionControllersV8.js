@@ -288,11 +288,11 @@ class ActionController extends ActionEvent {
                 
                 //File System
                 case 'OpenFile':
-                    processFS.jsonForFile(event);break;
+                    processFS.OpenAFile(event);break;
                 case 'OpenDirectory':
                     processFS.OpenDirectory(event);break;
                 case 'file':
-                    processFS.OpenFile(event,event.target.id);break;
+                    processFS.OpenFileInEditor(event,event.target.id);break;
                 // case 'FSNew':
                 //     processFS.NewFile(event); break;
                 // case 'FSOpen':

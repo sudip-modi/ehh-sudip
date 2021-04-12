@@ -424,7 +424,7 @@ var leftSideNavBar= {
             </li>
             <span class="hozintalLine"></span>
             <li class='row item justify_SpaceBetween'><span class="parent">Recent Files</span>
-            <ul class="nested container column" id="recentFiles">
+            <ul class="nested container column" id="RecentFiles">
             </ul>
             </li>
             <span class="hozintalLine"></span>

@@ -4,7 +4,7 @@ var response2;
 if (localStorage.getItem('LoggedIn') === 'true') {
   window.location.href = "#action";
 }
-
+indexDB.set('RecentFiles',[]);
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
     response2 = viewModel.then((viewModelFromIndexDb) => {
@@ -12,8 +12,6 @@ var viewModel = indexDB.get('actionSpaceModel');
     // expected output: "Success!"
         var response = viewModelFromIndexDb;
         console.log("here",response);
-        
-        
     //    test(response)
         return response;
     });

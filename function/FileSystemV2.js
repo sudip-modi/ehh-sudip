@@ -114,8 +114,10 @@ class processFS{
 
     }
     //file folder
-    static async OpenFile(event, id) {
+    static async OpenFileInEditor(event, id) {
         event.preventDefault();
+        try{
+        
         var fileHandle = await indexDB.get(id);console.log(fileHandle);
         var file = await fileHandle.getFile();
         if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
@@ -140,20 +142,52 @@ class processFS{
         }else {
             console.log("Not supported");
         }
+        await processFS.RecentFiles(event,fileHandle,id);
+    }catch(err){
+            console.log(err);
+        }
     }
-    static async jsonForFile(event){
+    static async RecentFiles(event,fileHandle,id){
         event.preventDefault();
         try{
-          let [fileHandle] = await window.showOpenFilePicker(); 
-          var fileID = uid();await indexDB.set(fileID,fileHandle);
+            var array = await indexDB.get('RecentFiles');
+            var element = document.getElementById('RecentFiles');
+            if(array === undefined){
+                array = [];
+            }
+            if(!array.includes(id)){
+                console.log("Including in indexDB");
+                if(array.length == 10 && element.childNodes.length == 10){
+                    array.shift();element.removeChild(element.childNodes[0]);
+                }
+                array.push(id);
+                await processFS.jsonForFile(event,fileHandle,id,'RecentFiles');
+                await indexDB.set('RecentFiles',array);
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+    static async OpenAFile(event){
+        event.preventDefault();
+        try{
+            let [fileHandle] = await window.showOpenFilePicker(); 
+            var fileID = uid();await indexDB.set(fileID,fileHandle);
+            await processFS.jsonForFile(event,fileHandle,fileID);
+        }catch(err){
+            console.log(err);
+        }
+    }
+    static async jsonForFile(event,fileHandle,fileID,collectionId= 'myFiles'){
+        event.preventDefault();
+        try{
           var file =await  fileHandle.getFile();
           var input = {};
           input[fileID] = JSON.parse(JSON.stringify(fileJSON));
           console.log(fileJSON);
           input[fileID]['id'] = fileID;input[fileID]['textContent'] = file.name;
           console.log(input);
-          var data = new Entity(input,document.getElementById('myFiles'));
-          console.log(document.getElementById('myFiles').innerHTML);
+          var data = new Entity(input,document.getElementById(collectionId));
         }catch(err){
             console.log(err);
         }
