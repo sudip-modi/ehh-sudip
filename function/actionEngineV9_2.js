@@ -22,6 +22,7 @@ class ActionEngine {
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
+        console.log("objectModel before", req);
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
         console.log("objectModel", objectModel);
         if (result) {//Used for either callback cases, where 
