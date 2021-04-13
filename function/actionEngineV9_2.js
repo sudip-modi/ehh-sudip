@@ -11,8 +11,11 @@ class ActionEngine {
         if (parent[key]) {
            // console.log("for Initaition", key, objectModel, objectModel[key])
             var response = parent[key];
+            if(response){
            // console.log("Initaites found",response)
-            return response;
+           return response;     
+            } else console.log("can't find ",key , 'in' ,parent);
+           
         }
     }
     executeSynReq(req, result) {
@@ -23,7 +26,9 @@ class ActionEngine {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
         console.log("objectModel before", req);
+       
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
+       
         console.log("objectModel", objectModel);
         if (result) {//Used for either callback cases, where 
             var argument = result;
@@ -66,6 +71,8 @@ class ActionEngine {
                 }
             }
         } else {
+
+                 console.log("71 >>>> ", objectModel,req.method,argument);
             response = objectModel[req.method](argument);
        //     console.log("response ", response);
         }

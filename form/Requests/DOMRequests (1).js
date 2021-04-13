@@ -110,7 +110,7 @@ var newFileFlowRequest = {
         response:{}
     },{
         reqName: "NewActionStory",
-        objectModel: 'ActionView',
+        objectModel: 'actionSpaceViewInstance',
         method: "addInnerHTML",
         argument: [sampleIntroStory,"getEditorElement"],
         response:{}
