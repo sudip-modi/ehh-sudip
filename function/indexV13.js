@@ -23,8 +23,7 @@ var viewModel = indexDB.get('actionSpaceModel');
     //    test(response)
         return response;
     });
-console.log(viewModel)
-
+console.log(viewModel);
 function test(response) {
     //console.log(response);
     var actionSpaceElementInstanceIndom = document.getElementById('actionSpaceContainer');

@@ -116,33 +116,32 @@ class processFS{
     //file folder
     static async OpenFileInEditor(event, id) {
         event.preventDefault();
-        try{
-        
-        var fileHandle = await indexDB.get(id);console.log(fileHandle);
-        var file = await fileHandle.getFile();
-        if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
-            var contents = await file.text();
-            ActionView.addInnerText(contents,document.getElementById('inlineContent'));
-        }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
-            var reader = new FileReader();
-            reader.addEventListener("load", function () {
-                var html = '<image src="' + reader.result + '"width="460" height="380" title="' + file.name + '"></image>';
-                ActionView.addInnerHTML(html, document.getElementById('inlineContent'));
-            }, false);
-            reader.readAsDataURL(file);
-        }else if (file['name'].includes('mp4')) {
-            var reader = new FileReader();
-            reader.addEventListener("load", function () {
-                var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>';
-                ActionView.addInnerHTML(html,document.getElementById('inlineContent'));
-            }, false);
-            reader.readAsDataURL(file);
-        }else if (file['name'].includes('.xlx') || file['name'].includes('.xlsx') || file['name'].includes('.csv')) {
-            console.log("Work In Progress");
-        }else {
-            console.log("Not supported");
+        try{  
+        var fileHandle = await indexDB.get(id);
+        if(await processFS.verifyPermission(fileHandle)){
+            var file = await fileHandle.getFile();
+            if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
+                var contents = await file.text();
+                ActionView.addInnerText(contents,document.getElementById('inlineContent'));
+            }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
+                var reader = new FileReader();
+                reader.addEventListener("load", function () {
+                    var html = '<image src="' + reader.result + '"width="460" height="380" title="' + file.name + '"></image>';
+                    ActionView.addInnerHTML(html, document.getElementById('inlineContent'));
+                }, false);
+                reader.readAsDataURL(file);
+            }else if (file['name'].includes('mp4')) {
+                var reader = new FileReader();
+                reader.addEventListener("load", function () {
+                    var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>';
+                    ActionView.addInnerHTML(html,document.getElementById('inlineContent'));
+                }, false);
+                reader.readAsDataURL(file);
+            }else {
+                console.log("Work in Progress");
+            }
+            await processFS.RecentFiles(event,fileHandle,id);
         }
-        await processFS.RecentFiles(event,fileHandle,id);
     }catch(err){
             console.log(err);
         }
