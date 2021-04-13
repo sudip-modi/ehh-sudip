@@ -468,8 +468,12 @@ class ActionController extends ActionEvent {
     }
     new1(event) {
         event.preventDefault();
-        ActionView.addInnerHTML(sampleIntroStory,document.getElementById('inlineContent'));
         console.log("New One");
+        var result = engine.executeSynReq(newFileFlowRequest);
+        console.log(result);
+        // event.preventDefault();
+        // ActionView.addInnerHTML(sampleIntroStory,document.getElementById('inlineContent'));
+        // console.log("New One");
        
     }
     save(event) {

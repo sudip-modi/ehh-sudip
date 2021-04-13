@@ -14,34 +14,34 @@ class ActionEngine {
            // console.log("Initaites found",response)
             return response;
         }
-
-
     }
     executeSynReq(req, result) {
+        console.log(req);
       //  console.log("execute req", req)
         //testing if the req is an object
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
-      //  console.log("objectModel", req.objectModel, window['ActionView']);
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
-       // console.log("objectModel", objectModel);
+        console.log("objectModel", objectModel);
         if (result) {//Used for either callback cases, where 
             var argument = result;
         } else {
             var argument = req.argument;
+            console.log(argument);
         }
 //Build Arguments
         for (var i = 0; i < argument.length; i++) {
           //  console.log(argument[i]);
             argument[i] = this.get(argument[i], window);
-          //  console.log(argument[i]);
+            console.log(argument[i]);
 
         }
 
        
         if (req['andThen']) {
             var andThenLength = req['andThen'].length;
+            console.log(req['andThen']);
             if (andThenLength > 0) {
                 console.log(andThenLength);
                 switch (andThenLength) {
@@ -80,9 +80,35 @@ class ActionEngine {
             var callBack = window[req['callBack']];
             var response = this.reqProcessor(callBack, req[response]);
         }
-      //  console.log(response)
+       console.log(response)
         return response;
     }
+     /**
+   * This method is used for parallel requests
+   * @param {FlowRequest} reqObj - request object containing array of objects
+   */
+  processReqArray(reqObj) {
+    const state = this._flowResultState;
+    if (operate.isFlowRequest(reqObj) && operate.isArray(reqObj.flowRequest)) {
+      var flowRequest = reqObj.flowRequest;
+      for (var i = 0; i < flowRequest.length; i++) {
+        var request = flowRequest[i];
+        var args = request.argument;
+        var requestArgs = [];
+        for (var p = 0; p < args.length; p++) {
+          var reqArg = args[p];
+          if (state[reqArg]) { requestArgs[p] = state[reqArg]; }
+          else { requestArgs[p] = reqArg; }
+        }
+        var updatedRequest = { ...request, argument: requestArgs };
+        const result = this.executeSynReq(updatedRequest);
+        if (result) {
+          state[request.reqName] = result;
+        }
+      }
+    }
+    return state;
+  }
     //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&
     validateAllTrue(value, rules) {
         var self = this;

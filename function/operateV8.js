@@ -146,5 +146,16 @@ class operate {
      * options.Lookin : keys [keys, values, all]
      * 
      */
+     static isFlowRequest(obj) {
+        return "flowRequest" in obj;
+    }
+    static isArray(value) {
+        return (
+            value&&
+            Array.isArray(value)&&
+            typeof value==="object"&&
+            value.constructor===Array
+        );
+    }
 
 }

@@ -303,11 +303,11 @@ var leftSideNavBar= {
                                     'class': "collection_name",
                                     'textContent': 'new actionStory',
                                     'data-command':`[{"command":"new"}]`,
-                                    'onclick': "engine.executeSynReq(newActionStoryReq);"
+                                    //'onclick': "engine.executeSynReq(newFileReq,event);",
 
                                   //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-                                }
-
+                                },
+                               
                             },
                             {
                                 name: 'div',
@@ -321,7 +321,6 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'open file',
-                                    //'onclick': "engine.executeSynReq(openFileReqModel,event);",
                                     'data-command':`[{"command":"OpenFile"}]`
                                     //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 }
