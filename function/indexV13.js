@@ -4,7 +4,6 @@ var response2;
 if (localStorage.getItem('LoggedIn') === 'true') {
   window.location.href = "#action";
 }
-indexDB.set('RecentFiles',[]);
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
     response2 = viewModel.then((viewModelFromIndexDb) => {
@@ -12,6 +11,15 @@ var viewModel = indexDB.get('actionSpaceModel');
     // expected output: "Success!"
         var response = viewModelFromIndexDb;
         console.log("here",response);
+        var collection = localStorage.getItem('UsermyCollection');
+        if(collection !== undefined)
+          document.getElementById('myCollection').innerHTML = collection;
+        var files = localStorage.getItem('UsermyFiles');
+        if(files !== undefined)
+          document.getElementById('myFiles').innerHTML = files;
+        var RecentFiles = localStorage.getItem('UserRecentFiles');
+        if(RecentFiles !== undefined)
+          document.getElementById('RecentFiles').innerHTML = RecentFiles;
     //    test(response)
         return response;
     });

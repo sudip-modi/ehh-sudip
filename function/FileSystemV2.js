@@ -188,6 +188,7 @@ class processFS{
           input[fileID]['id'] = fileID;input[fileID]['textContent'] = file.name;
           console.log(input);
           var data = new Entity(input,document.getElementById(collectionId));
+          localStorage.setItem('User'+collectionId,document.getElementById(collectionId).innerHTML);
         }catch(err){
             console.log(err);
         }
@@ -200,7 +201,8 @@ class processFS{
             var input = JSON.parse(JSON.stringify(directoryJSON));
             input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
             var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
-            var data = new Entity(input, document.getElementById('workspace'));
+            var data = new Entity(input, document.getElementById('myCollection'));
+            localStorage.setItem('UsermyCollection',document.getElementById('myCollection').innerHTML);
         } catch (err) {
             console.log(err);
         }

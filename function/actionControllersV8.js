@@ -280,7 +280,6 @@ class ActionController extends ActionEvent {
                 case 'Login':
                     this.LogIn(event);break;
                 case "new":
-                    console.log("new")
                     this.new1(event); break;
                 case 'google':
                     Authorization.oAuth(event, 'json'); break;
@@ -468,6 +467,8 @@ class ActionController extends ActionEvent {
         var newItem = new Entity(json,document.getElementById('tbody'));
     }
     new1(event) {
+        event.preventDefault();
+        ActionView.addInnerHTML(sampleIntroStory,document.getElementById('inlineContent'));
         console.log("New One");
        
     }

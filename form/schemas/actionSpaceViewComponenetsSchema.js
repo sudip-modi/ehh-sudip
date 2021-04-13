@@ -302,6 +302,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'new actionStory',
+                                    'data-command':`[{"command":"new"}]`,
                                     'onclick': "engine.executeSynReq(newActionStoryReq);"
 
                                   //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
@@ -413,7 +414,7 @@ var leftSideNavBar= {
                 class: "container column",
                         innerHTML: `
                       <li class='row item justify_SpaceBetween'><span class="parent ">my collection</span>
-                      <ul class="nested container column" id="workspace">
+                      <ul class="nested container column" id="myCollection">
                       
                       </ul>
                       </li>
