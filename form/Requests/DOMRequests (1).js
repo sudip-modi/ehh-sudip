@@ -104,13 +104,13 @@ var setInnerHTML = {
 var newFileFlowRequest = {
      flowRequest:[{
         reqName: "getEditorElement",
-        objectModel: document,
+        objectModel: "document",
         method: "getElementById",
         argument: ["inlineContent"],
         response:{}
     },{
         reqName: "NewActionStory",
-        objectModel: ActionView,
+        objectModel: "ActionView",
         method: "addInnerHTML",
         argument: [sampleIntroStory,"getEditorElement"],
         response:{}

@@ -16,7 +16,7 @@ class ActionEngine {
         }
     }
     executeSynReq(req, result) {
-        console.log(req);
+        console.log(req);var response;
       //  console.log("execute req", req)
         //testing if the req is an object
         if (operate.isObject(req) != true) {
@@ -28,17 +28,12 @@ class ActionEngine {
             var argument = result;
         } else {
             var argument = req.argument;
-            console.log(argument);
         }
 //Build Arguments
         for (var i = 0; i < argument.length; i++) {
           //  console.log(argument[i]);
             argument[i] = this.get(argument[i], window);
-            console.log(argument[i]);
-
         }
-
-       
         if (req['andThen']) {
             var andThenLength = req['andThen'].length;
             console.log(req['andThen']);
@@ -70,17 +65,15 @@ class ActionEngine {
                 }
             }
         } else {
-         console.log(objectModel,req.method,argument)
-            var response = objectModel[req.method](argument);
+            response = objectModel[req.method](argument);
        //     console.log("response ", response);
         }
         req[response] = response;
         if (req['callBack']) {
        //     console.log("callback found")
             var callBack = window[req['callBack']];
-            var response = this.reqProcessor(callBack, req[response]);
+            response = this.reqProcessor(callBack, req[response]);
         }
-       console.log(response)
         return response;
     }
      /**
@@ -102,6 +95,7 @@ class ActionEngine {
         }
         var updatedRequest = { ...request, argument: requestArgs };
         const result = this.executeSynReq(updatedRequest);
+        console.log("Result is ");console.log(result);
         if (result) {
           state[request.reqName] = result;
         }
