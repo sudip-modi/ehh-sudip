@@ -356,6 +356,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'save',
+                                    'data-command': `[{"command":"FS_Save"}]`,
                                 }
 
                             },
@@ -902,6 +903,7 @@ var workSpaceBody = {
                             name: 'span',
                             class: 'inlineContent',
                             id:'inlineContent',
+                            fileID:'',
                             innerHTML: sampleIntroStory
                         }
                     }
