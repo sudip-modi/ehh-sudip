@@ -160,3 +160,26 @@ var saveFileFlowRequest = {
     }
     ]
 }
+var OpenAFileFlowRequest ={
+    flowRequest:[
+        {
+            reqName:"filePicker",
+            objectModel:window,
+            method:'showOpenFilePicker'
+        },{
+            reqName:'UID',
+            objectModel:processFS,
+            method:'uid'
+        },{
+            reqName:'setFileHandleToFileID',
+            objectModel:indexDB,
+            method:'set',
+            argument:['UID',"filePicker"]
+        },{
+            reqName:'jsonForFile',
+            objectModel:processFS,
+            method:'jsonForFile',
+            argument:["filePicker",'UID']
+        }
+    ]
+}

@@ -93,6 +93,8 @@ class processFS{
         var editor = document.getElementById('inlineContent');
         editor.setAttribute('fileID',id);
         var fileHandle = await indexDB.get(id);
+        if(operate.isArray(fileHandle))
+            fileHandle = fileHandle[0];
         if(await processFS.verifyPermission(fileHandle,true)){
             var file = await fileHandle.getFile();
             if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
@@ -136,7 +138,7 @@ class processFS{
                     array.shift();element.removeChild(element.childNodes[0]);
                 }
                 array.unshift(id);
-                await processFS.jsonForFile(event,fileHandle,id,'RecentFiles');
+                await processFS.jsonForFile(fileHandle,id,'RecentFiles');
                 await indexDB.set('RecentFiles',array);
             }
         }catch(err){
@@ -146,16 +148,15 @@ class processFS{
     static async OpenAFile(event){
         event.preventDefault();
         try{
-            let [fileHandle] = await window.showOpenFilePicker(); 
-            var fileID = uid();await indexDB.set(fileID,fileHandle);
-            await processFS.jsonForFile(event,fileHandle,fileID);
+            var result = engine.processReqArray(OpenAFileFlowRequest);
         }catch(err){
             console.log(err);
         }
     }
-    static async jsonForFile(event,fileHandle,fileID,collectionId= 'myFiles'){
-        event.preventDefault();
+    static async jsonForFile(fileHandle,fileID,collectionId= 'myFiles'){
         try{
+          if(operate.isArray(fileHandle))
+            fileHandle = fileHandle[0];
           var file =await  fileHandle.getFile();
           var input = {};
           input[fileID] = JSON.parse(JSON.stringify(fileJSON));
