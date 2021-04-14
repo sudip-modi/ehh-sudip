@@ -65,14 +65,16 @@ class ActionEngine {
                 }
             }
         } else {
-        console.log("71 >>>> ", objectModel,req.method,argument);
         //    response = objectModel[req.method](argument);
-        response = objectModel[req.method].apply(objectModel,argument);
-       //     console.log("response ", response);
+        if(operate.isObject(objectModel[req.method]))
+            response = objectModel[req.method][argument];
+        else if(objectModel[req.method]&&operate.isFunction(objectModel[req.method]))
+            response = objectModel[req.method].apply(objectModel,argument);      
+        else if(operate.isString(objectModel[req.method]))
+            response = objectModel[req.method];
         }
         req[response] = response;
         if (req['callBack']) {
-       //     console.log("callback found")
             var callBack = window[req['callBack']];
             response = this.reqProcessor(callBack, req[response]);
         }
@@ -82,27 +84,30 @@ class ActionEngine {
    * This method is used for parallel requests
    * @param {FlowRequest} reqObj - request object containing array of objects
    */
-  processReqArray(reqObj) {
+  async processReqArray(reqObj) {
     const state = this._flowResultState;
     if (operate.isFlowRequest(reqObj) && operate.isArray(reqObj.flowRequest)) {
       var flowRequest = reqObj.flowRequest;
       for (var i = 0; i < flowRequest.length; i++) {
         var request = flowRequest[i];
-        var args = request.argument;
-        var requestArgs = [];
-        for (var p = 0; p < args.length; p++) {
-          var reqArg = args[p];
-          if (state[reqArg]) { requestArgs[p] = state[reqArg]; }
-          else { requestArgs[p] = reqArg; }
+        console.log("For request :- " + request.reqName);
+        if(state[request.objectModel])
+            request.objectModel = state[request.objectModel];
+        if(request.argument){
+            for (var p = 0; p < request.argument.length; p++) {
+                if (state[request.argument[p]]) { 
+                    request.argument[p] = state[request.argument[p]]; 
+                }
+              }
         }
-        var updatedRequest = { ...request, argument: requestArgs };
-        const result = this.executeSynReq(updatedRequest);
+        const result =await this.executeSynReq(request);
         console.log("Result is ");console.log(result);
         if (result) {
           state[request.reqName] = result;
         }
       }
     }
+    console.log(state);
     return state;
   }
     //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&

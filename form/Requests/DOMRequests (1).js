@@ -117,3 +117,46 @@ var newFileFlowRequest = {
     }
     ]
 }
+var saveFileFlowRequest = {
+    flowRequest:[
+    {
+        reqName:'Editor',//1
+        objectModel: document,
+        method: "getElementById",
+        argument: ["inlineContent"],
+    },
+    {
+        reqName:"fileID_File",//2
+        objectModel:'Editor',
+        method:'getAttribute',
+        argument:['fileID']
+    },
+    {
+        //validator
+        reqName:"FileHandleFromIndexDB",//3
+        objectModel:indexDB,
+        method:'get',
+        argument:["fileID_File"]
+    },{
+        reqName:"createWritable",//4
+        objectModel:"FileHandleFromIndexDB",
+        method:"createWritable",
+    },
+    {
+        reqName:"getInnerText",//5
+        objectModel:'Editor',
+        method:'innerText'
+    },
+    {
+        reqName:"writeinFile",//6
+        objectModel:"createWritable",
+        method:'write',
+        argument:['getInnerText']
+    },
+    {
+        reqName:"closeWritable",//7
+        objectModel:"createWritable",
+        method:'close'
+    }
+    ]
+}

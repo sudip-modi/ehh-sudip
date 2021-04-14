@@ -146,7 +146,7 @@ class operate {
      * options.Lookin : keys [keys, values, all]
      * 
      */
-     static isFlowRequest(obj) {
+    static isFlowRequest(obj) {
         return "flowRequest" in obj;
     }
     static isArray(value) {
@@ -157,5 +157,7 @@ class operate {
             value.constructor===Array
         );
     }
-
+    static isFunction(obj) {
+        return typeof obj==='function';
+    }
 }

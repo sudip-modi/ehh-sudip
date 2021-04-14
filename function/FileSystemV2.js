@@ -84,21 +84,8 @@ class processFS{
     }
     //file folder
     static async saveFile(event){
-        event.preventDefault();var fileHandle;
-        var id = document.getElementById('inlineContent').getAttribute('fileID');
-        if(id.length > 1)
-            fileHandle = await indexDB.get(id);
-        else
-            fileHandle = await window.showSaveFilePicker();
-        const writable = await fileHandle.createWritable();
-        await writable.write(document.getElementById('inlineContent').innerText);
-        await writable.close();
-        if(id.length < 1){
-            var fileID = uid();
-            indexDB.set(fileID,fileHandle);
-            await processFS.jsonForFile(event,fileHandle,fileID);
-            await processFS.RecentFiles(event,fileHandle,fileID);
-        }
+        event.preventDefault();
+        var result = await engine.processReqArray(saveFileFlowRequest);
     }
     static async OpenFileInEditor(event, id) {
         event.preventDefault();
