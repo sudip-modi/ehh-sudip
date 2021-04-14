@@ -12,26 +12,6 @@ class processFS{
         var url = URL.createObjectURL(file, { oneTimeOnly: true });
         return url;
     }
-    static async NewFile(event){
-        event.preventDefault();
-        if(!fileHandle || document.getElementById('textBox').innerText.length < 1){
-              ActionView.updateTitle(actionStoryTemplate.name);
-              ActionView.updateText(actionUserContent[0]['innerHTML']);   
-        }else{
-            if(confirm('You want to erase the content ?')){
-                ActionView.updateTitle(actionStoryTemplate.name);
-                ActionView.updateText(actionUserContent[0]['innerHTML']);    
-            }
-        }
-    }
-    static async saveAsFile(event){
-        event.preventDefault();
-        const newHandle = await window.showSaveFilePicker(pickerOpts);
-        const writableStream = await newHandle.createWritable();
-        await writableStream.write(document.getElementById('textBox').innerText);
-        await writableStream.close();
-        fileHandle = newHandle;
-    }
     static async readFile(event){
         event.preventDefault();
         if(fileHandle){
@@ -104,14 +84,20 @@ class processFS{
     }
     //file folder
     static async saveFile(event){
-        event.preventDefault();
+        event.preventDefault();var fileHandle;
         var id = document.getElementById('inlineContent').getAttribute('fileID');
-        console.log("ID of the file :-> " + id);
-        if(id.length > 1){
-            var fileHandle = await indexDB.get(id);
-            const writable = await fileHandle.createWritable();
-            await writable.write(document.getElementById('inlineContent').innerText);
-            await writable.close();
+        if(id.length > 1)
+            fileHandle = await indexDB.get(id);
+        else
+            fileHandle = await window.showSaveFilePicker();
+        const writable = await fileHandle.createWritable();
+        await writable.write(document.getElementById('inlineContent').innerText);
+        await writable.close();
+        if(id.length < 1){
+            var fileID = uid();
+            indexDB.set(fileID,fileHandle);
+            await processFS.jsonForFile(event,fileHandle,fileID);
+            await processFS.RecentFiles(event,fileHandle,fileID);
         }
     }
     static async OpenFileInEditor(event, id) {
@@ -152,6 +138,7 @@ class processFS{
         event.preventDefault();
         try{
             var array = await indexDB.get('RecentFiles');
+            console.log(array);
             var element = document.getElementById('RecentFiles');
             if(array === undefined){
                 array = [];
@@ -161,7 +148,7 @@ class processFS{
                 if(array.length == 10 && element.childNodes.length == 10){
                     array.shift();element.removeChild(element.childNodes[0]);
                 }
-                array.push(id);
+                array.unshift(id);
                 await processFS.jsonForFile(event,fileHandle,id,'RecentFiles');
                 await indexDB.set('RecentFiles',array);
             }
