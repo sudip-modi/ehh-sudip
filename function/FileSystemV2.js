@@ -24,17 +24,6 @@ class processFS{
             }
         }
     }
-    static async saveFile(event){
-        event.preventDefault();
-        console.log('File Handle ' + fileHandle);
-        if(fileHandle === undefined){
-            await processFS.saveAsFile(event);
-        }else{
-            const writable = await fileHandle.createWritable();
-            await writable.write(document.getElementById('textBox').innerText);
-            await writable.close();
-        }
-    }
     static async saveAsFile(event){
         event.preventDefault();
         const newHandle = await window.showSaveFilePicker(pickerOpts);
@@ -114,11 +103,24 @@ class processFS{
 
     }
     //file folder
+    static async saveFile(event){
+        event.preventDefault();
+        var id = document.getElementById('inlineContent').getAttribute('fileID');
+        console.log("ID of the file :-> " + id);
+        if(id.length > 1){
+            var fileHandle = await indexDB.get(id);
+            const writable = await fileHandle.createWritable();
+            await writable.write(document.getElementById('inlineContent').innerText);
+            await writable.close();
+        }
+    }
     static async OpenFileInEditor(event, id) {
         event.preventDefault();
         try{  
+        var editor = document.getElementById('inlineContent');
+        editor.setAttribute('fileID',id);
         var fileHandle = await indexDB.get(id);
-        if(await processFS.verifyPermission(fileHandle)){
+        if(await processFS.verifyPermission(fileHandle,true)){
             var file = await fileHandle.getFile();
             if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
                 var contents = await file.text();
@@ -183,7 +185,6 @@ class processFS{
           var file =await  fileHandle.getFile();
           var input = {};
           input[fileID] = JSON.parse(JSON.stringify(fileJSON));
-          console.log(fileJSON);
           input[fileID]['id'] = fileID;input[fileID]['textContent'] = file.name;
           console.log(input);
           var data = new Entity(input,document.getElementById(collectionId));

@@ -292,12 +292,12 @@ class ActionController extends ActionEvent {
                     processFS.OpenDirectory(event);break;
                 case 'file':
                     processFS.OpenFileInEditor(event,event.target.id);break;
+                case 'FS_Save':
+                    processFS.saveFile(event);break;
                 // case 'FSNew':
                 //     processFS.NewFile(event); break;
                 // case 'FSOpen':
                 //     processFS.readFile(event); break;
-                // case 'FS_Save':
-                //     processFS.saveFile(event); break;
                 // case 'FS_SaveAs':
                 //     processFS.saveAsFile(event); break;
                 // case 'file':
@@ -466,9 +466,11 @@ class ActionController extends ActionEvent {
         var json = {};json[ItemId] = newItemJSON;
         var newItem = new Entity(json,document.getElementById('tbody'));
     }
-    new1(event) {
+    async new1(event) {
         event.preventDefault();
+        await processFS.saveFile(event);
         var result = engine.processReqArray(newFileFlowRequest);
+        document.getElementById('inlineContent').setAttribute('fileID','');
         console.log(result);
     }
     save(event) {
