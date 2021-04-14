@@ -11,35 +11,29 @@ class ActionEngine {
         if (parent[key]) {
            // console.log("for Initaition", key, objectModel, objectModel[key])
             var response = parent[key];
-            if(response){
-           // console.log("Initaites found",response)
-           return response;     
-            } else console.log("can't find ",key , 'in' ,parent);
-           
+            return response;
+        }else{
+            return key;
         }
     }
     executeSynReq(req, result) {
-        console.log(req);var response;
-      //  console.log("execute req", req)
-        //testing if the req is an object
+        var response,argument;
         if (operate.isObject(req) != true) {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
-        console.log("objectModel before", req);
-       
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
        
         console.log("objectModel", objectModel);
         if (result) {//Used for either callback cases, where 
-            var argument = result;
+            argument = result;
         } else {
-            var argument = req.argument;
+            argument = req.argument;
         }
 //Build Arguments
-        for (var i = 0; i < argument.length; i++) {
-          //  console.log(argument[i]);
-            argument[i] = this.get(argument[i], window);
-        }
+        // for (var i = 0; i < argument.length; i++) {
+        //   //  console.log(argument[i]);
+        //     argument[i] = this.get(argument[i], window);
+        // }
         if (req['andThen']) {
             var andThenLength = req['andThen'].length;
             console.log(req['andThen']);
@@ -71,9 +65,9 @@ class ActionEngine {
                 }
             }
         } else {
-
-                 console.log("71 >>>> ", objectModel,req.method,argument);
-            response = objectModel[req.method](argument);
+        console.log("71 >>>> ", objectModel,req.method,argument);
+        //    response = objectModel[req.method](argument);
+        response = objectModel[req.method].apply(objectModel,argument);
        //     console.log("response ", response);
         }
         req[response] = response;

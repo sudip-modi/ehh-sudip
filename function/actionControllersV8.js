@@ -468,15 +468,8 @@ class ActionController extends ActionEvent {
     }
     new1(event) {
         event.preventDefault();
-        console.log("New One",newFileFlowRequest);
-       // var result = engine.executeSynReq(newFileFlowRequest);
         var result = engine.processReqArray(newFileFlowRequest);
-
         console.log(result);
-        // event.preventDefault();
-        // ActionView.addInnerHTML(sampleIntroStory,document.getElementById('inlineContent'));
-        // console.log("New One");
-       
     }
     save(event) {
         var entityName = ActionView.getTitle();
