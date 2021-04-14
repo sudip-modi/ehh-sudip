@@ -112,7 +112,7 @@ var newFileFlowRequest = {
         reqName: "NewActionStory",
         objectModel: ActionView,
         method: "addInnerHTML",
-        argument: [sampleIntroStory,"getEditorElement"],
+         argument: [ehhIntro,"getEditorElement"],
         response:{}
     }
     ]
