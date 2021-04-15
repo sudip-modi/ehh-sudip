@@ -88,14 +88,5 @@ class DOMConversion {
       console.log(domJSON);
   }
 
-  /**
-   * This method is used for adding InnerHTML to DOM Elements
-   * @param {HTMLElement} DOMElement - HTML DOM Element to add HTML to
-   * @param {HTMLElement} propertyName - HTML element property name e.g className, href, name
-   * @param {HTMLElement} input - HTML Input Element to be added into DOMElement
-   */
-  static addHTMLElementProperty(DOMElement,propertyName,input) {
-      console.log(DOMElement)
-      DOMElement[propertyName]=input;
-  }
+  
 }
