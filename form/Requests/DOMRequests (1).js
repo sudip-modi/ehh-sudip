@@ -157,7 +157,7 @@ var saveFileFlowRequest = {
         reqName:"closeWritable",//7
         objectModel:"createWritable",
         method:'close'
-    }
+    },
     ]
 }
 var OpenAFileFlowRequest ={
@@ -176,10 +176,25 @@ var OpenAFileFlowRequest ={
             method:'set',
             argument:['UID',"filePicker"]
         },{
+            reqName:'Editor',//1
+            objectModel: document,
+            method: "getElementById",
+            argument: ["inlineContent"],
+        },{
+            reqName:"SetFileIDToEditor",//2
+            objectModel:'Editor',
+            method:'setAttribute',
+            argument:['fileid',"UID"]
+        },{
             reqName:'jsonForFile',
             objectModel:processFS,
             method:'jsonForFile',
             argument:["filePicker",'UID']
-        }
+        },{
+            reqName:"FileInEditor",
+            objectModel:processFS,
+            method:'OpenFileInEditor',
+            argument:["UID"]
+        },
     ]
 }

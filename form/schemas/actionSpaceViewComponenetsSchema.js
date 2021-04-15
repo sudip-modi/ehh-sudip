@@ -302,12 +302,11 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'new actionStory',
-                                    'data-command':`[{"command":"new"}]`,
                                     //'onclick': "engine.executeSynReq(newFileReq,event);",
 
                                   //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 },
-                               
+                                'data-command':`[{"command":"new"}]`,
                             },
                             {
                                 name: 'div',
@@ -321,10 +320,9 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'open file',
-                                    'data-command':`[{"command":"OpenFile"}]`
                                     //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-                                }
-
+                                },
+                                'data-command':`[{"command":"OpenFile"}]`
                             },
                             {
                                 name: 'div',
@@ -338,11 +336,11 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'add collection',
-                                    'data-command':`[{"command":"OpenDirectory"}]`
+                                    
                                     //'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                    // 'onclick': "engine.executeSynReq(openFolderReqModel,event);"
-                                }
-
+                                },
+                                'data-command':`[{"command":"OpenDirectory"}]`
                             },
                             {
                                 name: 'div',
@@ -356,9 +354,8 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'save',
-                                    'data-command': `[{"command":"FS_Save"}]`,
-                                }
-
+                                },
+                                'data-command': `[{"command":"FS_Save"}]`,
                             },
                             {
                                 name: 'div',

@@ -83,15 +83,20 @@ class processFS{
 
     }
     //file folder
-    static async saveFile(event){
+    static async OpenFile(event){
         event.preventDefault();
-        var result = await engine.processReqArray(saveFileFlowRequest);
+        try{
+            var result1 = await engine.processReqArray(saveFileFlowRequest);
+            console.log(result1);
+            var result2 = await engine.processReqArray(OpenAFileFlowRequest);
+            console.log(result2);
+        }catch(err){
+            console.log(err);
+        }
     }
-    static async OpenFileInEditor(event, id) {
-        event.preventDefault();
+    static async OpenFileInEditor(id) {
         try{  
-        var editor = document.getElementById('inlineContent');
-        editor.setAttribute('fileID',id);
+        console.log("Id of the file :- " + id);
         var fileHandle = await indexDB.get(id);
         if(operate.isArray(fileHandle))
             fileHandle = fileHandle[0];
@@ -117,7 +122,6 @@ class processFS{
             }else {
                 console.log("Work in Progress");
             }
-            await processFS.RecentFiles(event,fileHandle,id);
         }
     }catch(err){
             console.log(err);
@@ -141,14 +145,6 @@ class processFS{
                 await processFS.jsonForFile(fileHandle,id,'RecentFiles');
                 await indexDB.set('RecentFiles',array);
             }
-        }catch(err){
-            console.log(err);
-        }
-    }
-    static async OpenAFile(event){
-        event.preventDefault();
-        try{
-            var result = engine.processReqArray(OpenAFileFlowRequest);
         }catch(err){
             console.log(err);
         }
@@ -204,7 +200,6 @@ class processFS{
         console.log(obj);
         return obj;
     }
-    //
     static verifyPermissions() {
         // Check for the various File API support.
         if (window.File && window.FileReader && window.FileList && window.Blob) {

@@ -287,13 +287,13 @@ class ActionController extends ActionEvent {
                 
                 //File System
                 case 'OpenFile':
-                    processFS.OpenAFile(event);break;
+                    processFS.OpenFile(event);break;
                 case 'OpenDirectory':
                     processFS.OpenDirectory(event);break;
                 case 'file':
-                    processFS.OpenFileInEditor(event,event.target.id);break;
+                    document.getElementById('inlineContent').setAttribute('fileID',event.target.id);processFS.OpenFileInEditor(event.target.id);break;
                 case 'FS_Save':
-                    processFS.saveFile(event);break;
+                    engine.processReqArray(saveFileFlowRequest);;break;
                 // case 'FSNew':
                 //     processFS.NewFile(event); break;
                 // case 'FSOpen':
@@ -468,8 +468,7 @@ class ActionController extends ActionEvent {
     }
     async new1(event) {
         event.preventDefault();
-        await processFS.saveFile(event);
-        var result = engine.processReqArray(newFileFlowRequest);
+        var result2 = engine.processReqArray(newFileFlowRequest);
         document.getElementById('inlineContent').setAttribute('fileID','');
         console.log(result);
     }
