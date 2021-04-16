@@ -83,8 +83,9 @@ class processFS{
     static async OpenFile(event){
         event.preventDefault();
         try{
-            var result1 = await engine.processReqArray(saveFileFlowRequest);
-            var result2 = await engine.processReqArray(OpenAFileFlowRequest);
+            if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)
+                await engine.processReqArray(saveFileFlowRequest);
+            await engine.processReqArray(OpenAFileFlowRequest);
         }catch(err){
             console.log(err);
         }
