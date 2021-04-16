@@ -1,7 +1,7 @@
 /**
  * @type RequestObj
  */
-var getElement = {
+ var getElement = {
     reqName: "getElement", //CommanName
     objectModel: document,
     method: "getElementById",
@@ -101,22 +101,34 @@ var setInnerHTML = {
         arguments: ["getFirstElement", "<div>I am nested</div>"],
     }
 };
+//New File Flow - 1.get Editor element 2.get a randome uid 3.Assign it to editor's fileid,4.Change the content of editor
 var newFileFlowRequest = {
      flowRequest:[{
-        reqName: "getEditorElement",
+        reqName: "Editor",
         objectModel: document,
         method: "getElementById",
         argument: ["inlineContent"],
         response:{}
     },{
+        reqName:'UID',
+        objectModel:processFS,
+        method:'uid'
+    },{
+        reqName:"fileID_File",//2
+        objectModel:'Editor',
+        method:'setAttribute',
+        argument:['fileid','UID']
+    },{
         reqName: "NewActionStory",
         objectModel: ActionView,
         method: "addInnerHTML",
-         argument: [ehhIntro,"getEditorElement"],
+         argument: [ehhIntro,"Editor"],
         response:{}
     }
     ]
 }
+//save file Flow -  1.get Editor element 2.get FileID from editor attribute 3.getInnerText of editor 4.get file handle from indexDB
+//5. check whether result of (4.) length greater than 0 and stores it in localStorage(new actionStory) 6.create writable 7.update innerText of file using FS8.close writable
 var saveFileFlowRequest = {
     flowRequest:[
     {
@@ -132,38 +144,52 @@ var saveFileFlowRequest = {
         argument:['fileID']
     },
     {
-        //validator
-        reqName:"FileHandleFromIndexDB",//3
-        objectModel:indexDB,
-        method:'get',
-        argument:["fileID_File"]
-    },{
-        reqName:"createWritable",//4
-        objectModel:"FileHandleFromIndexDB",
-        method:"createWritable",
-    },
-    {
-        reqName:"getInnerText",//5
+        reqName:"getInnerText",//3
         objectModel:'Editor',
         method:'innerText'
     },
     {
-        reqName:"writeinFile",//6
+        //validator
+        reqName:"FileHandleFromIndexDB",//4
+        objectModel:indexDB,
+        method:'get',
+        argument:["fileID_File"]
+    },
+    {
+        validate:{
+            objectModel:operate,
+            method:'isNotEmpty',
+            argument:['FileHandleFromIndexDB'],
+            output:false
+        },
+        reqName:'LocalStorage',//5
+        objectModel:localStorage,
+        method:'setItem',
+        argument:['fileID_File','getInnerText']
+    },
+    {
+        reqName:"createWritable",//6
+        objectModel:"FileHandleFromIndexDB",
+        method:"createWritable",
+    },
+    {
+        reqName:"writeinFile",//7
         objectModel:"createWritable",
         method:'write',
         argument:['getInnerText']
     },
     {
-        reqName:"closeWritable",//7
+        reqName:"closeWritable",//8
         objectModel:"createWritable",
         method:'close'
     },
     ]
 }
+//Open a File Flow -1.Show file Picker 2.Generate a uid 3.Set that uid to fileHandle 4. make a file entry in myFiles 5.,open in the editor
 var OpenAFileFlowRequest ={
     flowRequest:[
         {
-            reqName:"filePicker",
+            reqName:'filePicker',
             objectModel:window,
             method:'showOpenFilePicker'
         },{
@@ -176,25 +202,16 @@ var OpenAFileFlowRequest ={
             method:'set',
             argument:['UID',"filePicker"]
         },{
-            reqName:'Editor',//1
-            objectModel: document,
-            method: "getElementById",
-            argument: ["inlineContent"],
-        },{
-            reqName:"SetFileIDToEditor",//2
-            objectModel:'Editor',
-            method:'setAttribute',
-            argument:['fileid',"UID"]
-        },{
             reqName:'jsonForFile',
             objectModel:processFS,
             method:'jsonForFile',
-            argument:["filePicker",'UID']
-        },{
+            argument:['UID','myFiles','filePicker']
+        },
+        {
             reqName:"FileInEditor",
             objectModel:processFS,
             method:'OpenFileInEditor',
-            argument:["UID"]
+            argument:['UID']
         },
     ]
 }

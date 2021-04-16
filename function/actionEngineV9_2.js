@@ -22,8 +22,6 @@ class ActionEngine {
             return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
-       
-        console.log("objectModel", objectModel);
         if (result) {//Used for either callback cases, where 
             argument = result;
         } else {
@@ -85,29 +83,45 @@ class ActionEngine {
    * @param {FlowRequest} reqObj - request object containing array of objects
    */
   async processReqArray(reqObj) {
-    const state = this._flowResultState;
+    const state = [];//this._flowResultState;
     if (operate.isFlowRequest(reqObj) && operate.isArray(reqObj.flowRequest)) {
       var flowRequest = reqObj.flowRequest;
       for (var i = 0; i < flowRequest.length; i++) {
-        var request = flowRequest[i];
-        console.log("For request :- " + request.reqName);
-        if(state[request.objectModel])
-            request.objectModel = state[request.objectModel];
-        if(request.argument){
-            for (var p = 0; p < request.argument.length; p++) {
-                if (state[request.argument[p]]) { 
-                    request.argument[p] = state[request.argument[p]]; 
+        var request = flowRequest[i];var validateResult;
+        if(request.validate){
+            if(state[request.validate.objectModel])
+                request.validate.objectModel = state[request.validate.objectModel];
+            if(request.validate.argument){
+                for (var p = 0; p < request.validate.argument.length; p++) {
+                    if (state.hasOwnProperty(request.validate.argument[p])){ 
+                        request.validate.argument[p] = state[request.validate.argument[p]]; 
+                    }
                 }
-              }
+                console.log(request.validate.argument);
+            }
+            validateResult = this.executeSynReq(request.validate);
         }
-        const result =await this.executeSynReq(request);
-        console.log("Result is ");console.log(result);
-        if (result) {
-          state[request.reqName] = result;
+        if(!request.validate || validateResult == request.validate.output){
+            console.log("For request :- " + request.reqName);
+            if(state[request.objectModel])
+                request.objectModel = state[request.objectModel];
+            if(request.argument){
+                for (var p = 0; p < request.argument.length; p++) {
+                    if (state[request.argument[p]]) { 
+                        request.argument[p] = state[request.argument[p]]; 
+                    }
+                }
+            }
+            const result =await this.executeSynReq(request);
+            // if (result) {
+            state[request.reqName] = result;
+            console.log(state);
+            // }
+        }else{
+            continue;
         }
       }
     }
-    console.log(state);
     return state;
   }
     //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&

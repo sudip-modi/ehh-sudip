@@ -12,13 +12,13 @@ var viewModel = indexDB.get('actionSpaceModel');
         var response = viewModelFromIndexDb;
         console.log("here",response);
         var collection = localStorage.getItem('UsermyCollection');
-        if(collection !== undefined)
+        if(collection !== null)
           document.getElementById('myCollection').innerHTML = collection;
         var files = localStorage.getItem('UsermyFiles');
-        if(files !== undefined)
+        if(files !== null)
           document.getElementById('myFiles').innerHTML = files;
         var RecentFiles = localStorage.getItem('UserRecentFiles');
-        if(RecentFiles !== undefined)
+        if(RecentFiles !== null)
           document.getElementById('RecentFiles').innerHTML = RecentFiles;
     //    test(response)
         return response;

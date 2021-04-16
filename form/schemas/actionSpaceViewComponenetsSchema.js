@@ -900,7 +900,7 @@ var workSpaceBody = {
                             name: 'span',
                             class: 'inlineContent',
                             id:'inlineContent',
-                            fileID:'',
+                            fileID:processFS.uid(),
                             innerHTML: sampleIntroStory
                         }
                     }

@@ -1,7 +1,4 @@
 var fileHandle,defaultGetStoreFunc;;
-
-
-
 class processFS{
     static newfileObjectURL() {
         var file = new File(["foo"], "foo.txt", {
@@ -87,9 +84,21 @@ class processFS{
         event.preventDefault();
         try{
             var result1 = await engine.processReqArray(saveFileFlowRequest);
-            console.log(result1);
             var result2 = await engine.processReqArray(OpenAFileFlowRequest);
-            console.log(result2);
+        }catch(err){
+            console.log(err);
+        }
+    }
+    static async File(event){
+        event.preventDefault();
+        try{
+        console.log("FileID" + event.target.id);
+        var editor = document.getElementById('inlineContent');
+        console.log(editor);
+        var fileHandle = await indexDB.get(editor.getAttribute('fileid'));
+        await processFS.RecentFiles(editor.getAttribute('fileid'),fileHandle);
+        editor.setAttribute('fileID',event.target.id);
+        await processFS.OpenFileInEditor(event.target.id);
         }catch(err){
             console.log(err);
         }
@@ -97,38 +106,44 @@ class processFS{
     static async OpenFileInEditor(id) {
         try{  
         console.log("Id of the file :- " + id);
-        var fileHandle = await indexDB.get(id);
-        if(operate.isArray(fileHandle))
-            fileHandle = fileHandle[0];
-        if(await processFS.verifyPermission(fileHandle,true)){
-            var file = await fileHandle.getFile();
-            if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
-                var contents = await file.text();
-                ActionView.addInnerText(contents,document.getElementById('inlineContent'));
-            }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
-                var reader = new FileReader();
-                reader.addEventListener("load", function () {
-                    var html = '<image src="' + reader.result + '"width="460" height="380" title="' + file.name + '"></image>';
-                    ActionView.addInnerHTML(html, document.getElementById('inlineContent'));
-                }, false);
-                reader.readAsDataURL(file);
-            }else if (file['name'].includes('mp4')) {
-                var reader = new FileReader();
-                reader.addEventListener("load", function () {
-                    var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>';
-                    ActionView.addInnerHTML(html,document.getElementById('inlineContent'));
-                }, false);
-                reader.readAsDataURL(file);
-            }else {
-                console.log("Work in Progress");
+        if(localStorage.getItem(id)!== null){
+            console.log(localStorage.getItem(id));
+            console.log("From Local Storage");
+            ActionView.addInnerText(localStorage.getItem(id),document.getElementById('inlineContent'));
+        }else{
+            console.log("From File System");
+            var fileHandle = await indexDB.get(id);
+            if(operate.isArray(fileHandle))
+                fileHandle = fileHandle[0];
+            if(await processFS.verifyPermission(fileHandle,true)){
+                var file = await fileHandle.getFile();
+                if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
+                    var contents = await file.text();
+                    ActionView.addInnerText(contents,document.getElementById('inlineContent'));
+                }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
+                    var reader = new FileReader();
+                    reader.addEventListener("load", function () {
+                        var html = '<image src="' + reader.result + '"width="460" height="380" title="' + file.name + '"></image>';
+                        ActionView.addInnerHTML(html, document.getElementById('inlineContent'));
+                    }, false);
+                    reader.readAsDataURL(file);
+                }else if (file['name'].includes('mp4')) {
+                    var reader = new FileReader();
+                    reader.addEventListener("load", function () {
+                        var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>';
+                        ActionView.addInnerHTML(html,document.getElementById('inlineContent'));
+                    }, false);
+                    reader.readAsDataURL(file);
+                }else {
+                    console.log("Work in Progress");
+                }
             }
-        }
+        } 
     }catch(err){
             console.log(err);
         }
     }
-    static async RecentFiles(event,fileHandle,id){
-        event.preventDefault();
+    static async RecentFiles(id,fileHandle){
         try{
             var array = await indexDB.get('RecentFiles');
             console.log(array);
@@ -142,21 +157,28 @@ class processFS{
                     array.shift();element.removeChild(element.childNodes[0]);
                 }
                 array.unshift(id);
-                await processFS.jsonForFile(fileHandle,id,'RecentFiles');
+                if(fileHandle)
+                    await processFS.jsonForFile(id,'RecentFiles',fileHandle);
+                else
+                    await processFS.jsonForFile(id,'RecentFiles');
                 await indexDB.set('RecentFiles',array);
             }
         }catch(err){
             console.log(err);
         }
     }
-    static async jsonForFile(fileHandle,fileID,collectionId= 'myFiles'){
+    static async jsonForFile(fileID,collectionId= 'myFiles',fileHandle){
         try{
-          if(operate.isArray(fileHandle))
-            fileHandle = fileHandle[0];
-          var file =await  fileHandle.getFile();
-          var input = {};
-          input[fileID] = JSON.parse(JSON.stringify(fileJSON));
-          input[fileID]['id'] = fileID;input[fileID]['textContent'] = file.name;
+            var input = {};
+            input[fileID] = JSON.parse(JSON.stringify(fileJSON));input[fileID]['id'] = fileID;
+          if(fileHandle){
+                if(operate.isArray(fileHandle))
+                    fileHandle = fileHandle[0]
+                var file =await  fileHandle.getFile();
+                input[fileID]['textContent'] = file.name;
+          }else{
+              input[fileID]['textContent'] = fileID;
+          }
           console.log(input);
           var data = new Entity(input,document.getElementById(collectionId));
           localStorage.setItem('User'+collectionId,document.getElementById(collectionId).innerHTML);

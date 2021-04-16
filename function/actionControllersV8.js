@@ -291,9 +291,9 @@ class ActionController extends ActionEvent {
                 case 'OpenDirectory':
                     processFS.OpenDirectory(event);break;
                 case 'file':
-                    document.getElementById('inlineContent').setAttribute('fileID',event.target.id);processFS.OpenFileInEditor(event.target.id);break;
+                    processFS.File(event);break;
                 case 'FS_Save':
-                    engine.processReqArray(saveFileFlowRequest);;break;
+                    engine.processReqArray(saveFileFlowRequest);break;
                 // case 'FSNew':
                 //     processFS.NewFile(event); break;
                 // case 'FSOpen':
