@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyksfkMoE9H3AKbDcSKeyHT3Pyc2HBmId3ftF0hoH4BY4-7Bs9HjsWNIwV523Oz32v-fA/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycby9nKS0bfKz-gobGAoBqorYCTKtkPjSF2s8Lp7lSR_QDL0rkIb70P7Bxkn5EV2Ydl9Ovw/exec';
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
         super()
@@ -276,9 +276,9 @@ class ActionController extends ActionEvent {
                         this.exportToSheet(event);break;
                 //signup,login
                 case 'Signup':
-                    this.SignUp(event);break;
+                    engine.processReqArray(SignUpFlowRequest);break;
                 case 'Login':
-                    this.LogIn(event);break;
+                    engine.processReqArray(LoginFlowRequest);break;
                 case "new":
                     this.new1(event); break;
                 case 'google':
@@ -375,32 +375,6 @@ class ActionController extends ActionEvent {
             //event.target.previousElementSibling('visibility',true)
 
             //console.log("yo")
-        }
-    }
-    async SignUp(event){
-        event.preventDefault();
-        var json = {
-            'Username':document.getElementById('username').value,
-            'Password':document.getElementById('password').value,
-        };
-        var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
-        alert(response.output);
-        if(response.result == 'Success'){
-            localStorage.setItem('LoggedIn',true);
-            window.location.href = '#action';
-        }
-    }
-    async LogIn(event){
-        event.preventDefault();
-        var params = {
-            'Username':document.getElementById('username').value,
-            'Password':document.getElementById('password').value
-        };
-        var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,params),HttpService.requestBuilder("GET"));
-        alert(response.output);
-        if(response.result == 'Success'){
-            localStorage.setItem('LoggedIn',true);
-            window.location.href = '#action';
         }
     }
     async importFromSheet(event){

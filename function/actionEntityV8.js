@@ -95,6 +95,12 @@ class Entity {
                 //buffer=output;
             }
 
+        }else{
+            if(key){
+                input[key] = output;
+            }else{
+                input = output;
+            }
         }
         return output;
     }

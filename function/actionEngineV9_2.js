@@ -32,44 +32,41 @@ class ActionEngine {
         //   //  console.log(argument[i]);
         //     argument[i] = this.get(argument[i], window);
         // }
+        //    response = objectModel[req.method](argument);
+        if(req.assign){
+            console.log(req.assign);
+            objectModel[req.method] = argument[0];
+            response = objectModel[req.method];
+            console.log(objectModel[req.method] +"->" + argument);
+            console.log(response);
+        }else if(operate.isObject(objectModel[req.method]))
+            response = objectModel[req.method][argument];
+        else if(objectModel[req.method]&&operate.isFunction(objectModel[req.method]))
+            response = objectModel[req.method].apply(objectModel,argument);      
+        else
+            response = objectModel[req.method];
         if (req['andThen']) {
-            var andThenLength = req['andThen'].length;
-            console.log(req['andThen']);
-            if (andThenLength > 0) {
-                console.log(andThenLength);
-                switch (andThenLength) {
+            if (operate.isArray(req['andThen']) && req['andThen'].length > 0) {
+                switch (req['andThen'].length) {
                     case 1:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
+                        response = response[req['andThen']?.[0]];
                         break;
                     case 2:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
+                        response = response[req['andThen']?.[0], req['andThen']?.[1]];
                         break;
                     case 3:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
+                        response = response[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2]];
                         break;
                     case 4:
-                        var response = objectModel[req.method](argument)[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2], req['andThen']?.[3]];
-                        console.log("response ", response);
-                        //  console.log("click", event.type, event.target)
+                        response = response[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2], req['andThen']?.[3]];
                         break;
                     default:
                     // console.log("I don't know such values",event.type);
                 }
+                console.log(response);
+            }else if(operate.isObject(req['andThen'])){
+                response = this.executeSynReq(req.andThen);
             }
-        } else {
-        //    response = objectModel[req.method](argument);
-        if(operate.isObject(objectModel[req.method]))
-            response = objectModel[req.method][argument];
-        else if(objectModel[req.method]&&operate.isFunction(objectModel[req.method]))
-            response = objectModel[req.method].apply(objectModel,argument);      
-        else if(operate.isString(objectModel[req.method]))
-            response = objectModel[req.method];
         }
         req[response] = response;
         if (req['callBack']) {
@@ -82,47 +79,62 @@ class ActionEngine {
    * This method is used for parallel requests
    * @param {FlowRequest} reqObj - request object containing array of objects
    */
-  async processReqArray(reqObj) {
-    const state = [];//this._flowResultState;
+  async processReqArray(reqObj,params) {
+    const state = {};//this._flowResultState;
+    console.log(params);
     if (operate.isFlowRequest(reqObj) && operate.isArray(reqObj.flowRequest)) {
       var flowRequest = reqObj.flowRequest;
       for (var i = 0; i < flowRequest.length; i++) {
         var request = flowRequest[i];var validateResult;
         if(request.validate){
-            if(state[request.validate.objectModel])
-                request.validate.objectModel = state[request.validate.objectModel];
-            if(request.validate.argument){
-                for (var p = 0; p < request.validate.argument.length; p++) {
-                    if (state.hasOwnProperty(request.validate.argument[p])){ 
-                        request.validate.argument[p] = state[request.validate.argument[p]]; 
-                    }
-                }
-                console.log(request.validate.argument);
-            }
-            validateResult = this.executeSynReq(request.validate);
+            var validateRequest = this.handleObjectModelArguments(state,request.validate,params);
+            console.log(validateRequest);
+            validateResult = this.executeSynReq(validateRequest);
+            console.log("Validated Result" + validateResult);
         }
         if(!request.validate || validateResult == request.validate.output){
             console.log("For request :- " + request.reqName);
-            if(state[request.objectModel])
-                request.objectModel = state[request.objectModel];
-            if(request.argument){
-                for (var p = 0; p < request.argument.length; p++) {
-                    if (state[request.argument[p]]) { 
-                        request.argument[p] = state[request.argument[p]]; 
-                    }
-                }
+            if(request.andThen && operate.isObject(request.andThen)){
+                request.andThen = this.handleObjectModelArguments(state,request.andThen,params);
             }
-            const result =await this.executeSynReq(request);
-            // if (result) {
+            const result =await this.executeSynReq(this.handleObjectModelArguments(state,request,params));
             state[request.reqName] = result;
-            console.log(state);
-            // }
+            console.log("");
+            if(request.exit)
+                break;
         }else{
             continue;
         }
       }
     }
+    console.log("Done")
     return state;
+  }
+  handleObjectModelArguments(state,request,params){
+      if(state[request.objectModel])
+            request.objectModel = state[request.objectModel];
+      else if(String(request.objectModel) == 'state'){
+            request.objectModel = state;
+            console.log(request.objectModel);
+      }
+      if(request.argument){
+            for (var p = 0; p < request.argument.length; p++) {
+                if(operate.isInsideArray('params',String(request.argument[p]))){
+                    var arr = String(request.argument[p]).split('.');
+                    request.argument[p] = params[arr[1]];
+                }else if (state.hasOwnProperty(request.argument[p])) { 
+                    request.argument[p] = state[request.argument[p]];    
+                }else if(operate.isInsideArray('.',String(request.argument[p]))){
+                    var arr = request.argument[p].split('.');
+                    if(state.hasOwnProperty(arr[0])){
+                        var arg0 = state[arr[0]];
+                        var arg1 = arg0[arr[1]];
+                        request.argument[p] = arg1;
+                    }
+                }
+            }
+      }
+      return request;
   }
     //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&
     validateAllTrue(value, rules) {

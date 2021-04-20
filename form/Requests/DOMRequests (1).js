@@ -165,7 +165,8 @@ var saveFileFlowRequest = {
         reqName:'LocalStorage',//5
         objectModel:localStorage,
         method:'setItem',
-        argument:['fileID_File','getInnerText']
+        argument:['fileID_File','getInnerText'],
+        exit:true
     },
     {
         reqName:"createWritable",//6
@@ -213,5 +214,222 @@ var OpenAFileFlowRequest ={
             method:'OpenFileInEditor',
             argument:['UID']
         },
+    ]
+}
+//RecentFiles flow
+var recentFilesFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'Array',
+            objectModel:indexDB,
+            method:'get',
+            argument:['RecentFiles']
+        },
+        {
+                reqName:'Element',//1
+                objectModel: document,
+                method: "getElementById",
+                argument: ["RecentFiles"],
+        },
+        {
+            reqName:'SetArrayValue',
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                argument:['Array'],
+                output:false
+            },
+            objectModel:'state',
+            method:'Array',
+            assign:true,
+            argument:[ [], ]
+        },
+        {
+            reqName:'FirstChildOfElement',
+            objectModel:'Element',
+            method:'childNodes',
+            andThen:['0']
+        },
+        {
+            reqName:'RemovingAnItem',
+            validate:{
+                objectModel:operate,
+                method:'isEqualStrict',
+                argument:['Array.length',10],
+                output:true,
+            },
+            objectModel:'Array',
+            method:'shift',
+            andThen:{
+                objectModel:'Element',
+                method:'removeChild',
+                argument:['FirstChildOfElement']
+            }
+        },
+        {
+            reqName:'IncludeFileIDOfTheFile',
+            validate:{
+                objectModel:operate,
+                method:'isInsideArray',
+                argument:["params.id",'Array'],//'Array'
+                output:false
+            },
+            objectModel:'Array',
+            method:'unshift',
+            argument:['params.id']//id
+        },
+        {
+            objectModel:processFS,
+            method:'jsonForFile',
+            argument:['params.id','RecentFiles','params.fileHandle']
+        },
+        {
+            objectModel:indexDB,
+            method:'set',
+            argument:['RecentFiles','Array']
+        }
+
+    ]
+}
+var LoginFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetUsername',
+            objectModel:document,
+            method: "getElementById",
+            argument: ["username"],
+            andThen:['value']
+        },
+        {
+            reqName:'GetPassword',
+            objectModel:document,
+            method: "getElementById",
+            argument: ["password"],
+            andThen:['value']
+        },
+        {
+            reqName:'SetData',
+            objectModel:Entity,
+            method:'set',
+            argument:[paramsJSON,'GetUsername','Username'],
+            andThen:{
+                objectModel:Entity,
+                method:'set',
+                argument:[paramsJSON,'GetPassword','Password']
+            }
+        },
+        {
+            reqName:'URLBuilder',
+            objectModel:HttpService,
+            method:'urlBuilder',
+            argument:[scriptURL,paramsJSON]
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            argument:["GET"]
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            argument:['URLBuilder','RequestBuilder']
+        },
+        {
+            reqName:'alert',
+            objectModel:window,
+            method:'alert',
+            argument:['response.output']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                argument:['response.result','Success'],
+                output:true
+            },
+            reqName:'RedirectToActionSpaceEditor',
+            objectModel:localStorage,
+            method:'setItem',
+            argument:['LoggedIn',true],
+            andThen:{
+                objectModel:location,
+                method:'href',
+                argument:['#action'],
+                assign:true
+            }
+        },
+    ]
+}
+var SignUpFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetUsername',
+            objectModel:document,
+            method: "getElementById",
+            argument: ["username"],
+            andThen:['value']
+        },
+        {
+            reqName:'GetPassword',
+            objectModel:document,
+            method: "getElementById",
+            argument: ["password"],
+            andThen:['value']
+        },
+        {
+            reqName:'SetUsername',
+            objectModel:Entity,
+            method:'set',
+            argument:[paramsJSON,'GetUsername','Username'],
+            andThen:{
+            objectModel:Entity,
+            method:'set',
+            argument:[paramsJSON,'GetPassword','Password']
+            }
+        },
+        {
+            reqName:'PostContent',
+            objectModel:JSON,
+            method:'stringify',
+            argument:[paramsJSON]
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            argument:["POST",undefined,'PostContent']
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            argument:[scriptURL,'RequestBuilder']
+        },
+        {
+            reqName:'alert',
+            objectModel:window,
+            method:'alert',
+            argument:['response.output']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                argument:['response.result','Success'],
+                output:true
+            },
+            reqName:'RedirectToActionSpaceEditor',
+            objectModel:localStorage,
+            method:'setItem',
+            argument:['LoggedIn',true],
+            andThen:{
+                objectModel:location,
+                method:'href',
+                argument:['#action'],
+                assign:true
+            }
+        }
     ]
 }

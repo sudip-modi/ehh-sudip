@@ -27,7 +27,7 @@ class operate {
      * 
      */
     static isInsideArray(argA, argB) {
-        // console.log("IsInside", argA, argB);
+        // console.log("IsInside ", argA);
         return argB.indexOf(argA) > -1 ? true : false;
     }
     //Find iside an object, array or Object, returns if find keys
@@ -60,6 +60,7 @@ class operate {
         });
         return result;
     }
+    static isEqual(argA,argB){ return argA == argB ? true : false;}
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
     //for array's one sided value existence check, return true if each element of a is present in b
@@ -97,7 +98,7 @@ class operate {
     // Returns if a value is a static
     static isstatic(value) { return typeof value === 'static'; }
     // Returns if a value is an object
-    static isObject(value) { return value && typeof value === 'object' && value.constructor === Object; }
+    static isObject(value) {;return value && typeof value === 'object' && value.constructor === Object; }
     static isHTML(argA) { return operate.is(argA).includes("HTML") }
     //Retuns if a values is either of null or undefined
     static isUseless(value) { return value === null || typeof value === 'undefined'; }

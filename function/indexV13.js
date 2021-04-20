@@ -11,15 +11,15 @@ var viewModel = indexDB.get('actionSpaceModel');
     // expected output: "Success!"
         var response = viewModelFromIndexDb;
         console.log("here",response);
-        var collection = localStorage.getItem('UsermyCollection');
-        if(collection !== null)
-          document.getElementById('myCollection').innerHTML = collection;
-        var files = localStorage.getItem('UsermyFiles');
-        if(files !== null)
-          document.getElementById('myFiles').innerHTML = files;
-        var RecentFiles = localStorage.getItem('UserRecentFiles');
-        if(RecentFiles !== null)
-          document.getElementById('RecentFiles').innerHTML = RecentFiles;
+        // var collection = localStorage.getItem('UsermyCollection');
+        // if(collection !== null)
+        //   document.getElementById('myCollection').innerHTML = collection;
+        // var files = localStorage.getItem('UsermyFiles');
+        // if(files !== null)
+        //   document.getElementById('myFiles').innerHTML = files;
+        // var RecentFiles = localStorage.getItem('UserRecentFiles');
+        // if(RecentFiles !== null)
+        //   document.getElementById('RecentFiles').innerHTML = RecentFiles;
     //    test(response)
         return response;
     });

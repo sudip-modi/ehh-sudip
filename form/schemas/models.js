@@ -67,6 +67,10 @@ var fileJSON = {
     "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
     "textContent":'',
 }
+var paramsJSON = {
+    'Username':'',
+    'Password':'',
+}
 const pickerOpts = {
     types: [
         {

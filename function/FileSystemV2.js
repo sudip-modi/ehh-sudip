@@ -97,7 +97,8 @@ class processFS{
         var editor = document.getElementById('inlineContent');
         console.log(editor);
         var fileHandle = await indexDB.get(editor.getAttribute('fileid'));
-        await processFS.RecentFiles(editor.getAttribute('fileid'),fileHandle);
+        if(editor.getAttribute('fileid').length > 0)
+            await processFS.RecentFiles(editor.getAttribute('fileid'),fileHandle);
         editor.setAttribute('fileID',event.target.id);
         await processFS.OpenFileInEditor(event.target.id);
         }catch(err){
@@ -106,13 +107,9 @@ class processFS{
     }
     static async OpenFileInEditor(id) {
         try{  
-        console.log("Id of the file :- " + id);
         if(localStorage.getItem(id)!== null){
-            console.log(localStorage.getItem(id));
-            console.log("From Local Storage");
             ActionView.addInnerText(localStorage.getItem(id),document.getElementById('inlineContent'));
         }else{
-            console.log("From File System");
             var fileHandle = await indexDB.get(id);
             if(operate.isArray(fileHandle))
                 fileHandle = fileHandle[0];
@@ -146,24 +143,25 @@ class processFS{
     }
     static async RecentFiles(id,fileHandle){
         try{
-            var array = await indexDB.get('RecentFiles');
-            console.log(array);
-            var element = document.getElementById('RecentFiles');
-            if(array === undefined){
-                array = [];
-            }
-            if(!array.includes(id)){
-                console.log("Including in indexDB");
-                if(array.length == 10 && element.childNodes.length == 10){
-                    array.shift();element.removeChild(element.childNodes[0]);
-                }
-                array.unshift(id);
-                if(fileHandle)
-                    await processFS.jsonForFile(id,'RecentFiles',fileHandle);
-                else
-                    await processFS.jsonForFile(id,'RecentFiles');
-                await indexDB.set('RecentFiles',array);
-            }
+            engine.processReqArray(recentFilesFlowRequest,{'id':id,'fileHandle':fileHandle});
+            // var array = await indexDB.get('RecentFiles');
+            // console.log(array);
+            // var element = document.getElementById('RecentFiles');
+            // if(array === undefined){
+            //     array = [];
+            // }
+            // if(!array.includes(id)){
+            //     console.log("Including in indexDB");
+            //     array.unshift(id);
+            //     if(array.length == 11 && element.childNodes.length == 10){
+            //         array.shift();element.removeChild(element.childNodes[0]);
+            //     }
+            //     if(fileHandle)
+            //         await processFS.jsonForFile(id,'RecentFiles',fileHandle);
+            //     else
+            //         await processFS.jsonForFile(id,'RecentFiles');
+            //     await indexDB.set('RecentFiles',array);
+            // }
         }catch(err){
             console.log(err);
         }
@@ -191,12 +189,14 @@ class processFS{
         event.preventDefault();
         try {
             const dirHandle = await window.showDirectoryPicker();
-            var dirID = uid();await indexDB.set(dirID, dirHandle);
-            var input = JSON.parse(JSON.stringify(directoryJSON));
-            input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
-            var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
-            var data = new Entity(input, document.getElementById('myCollection'));
-            localStorage.setItem('UsermyCollection',document.getElementById('myCollection').innerHTML);
+            if(await processFS.verifyPermission(fileHandle,true)){
+                var dirID = uid();await indexDB.set(dirID, dirHandle);
+                var input = JSON.parse(JSON.stringify(directoryJSON));
+                input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
+                var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
+                var data = new Entity(input, document.getElementById('myCollection'));
+                localStorage.setItem('UsermyCollection',document.getElementById('myCollection').innerHTML);
+            }
         } catch (err) {
             console.log(err);
         }
