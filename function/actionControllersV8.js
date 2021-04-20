@@ -276,9 +276,9 @@ class ActionController extends ActionEvent {
                         this.exportToSheet(event);break;
                 //signup,login
                 case 'Signup':
-                    engine.processReqArray(SignUpFlowRequest);break;
+                    console.log(document.getElementById('password').value);engine.processReqArray(SignUpFlowRequest);break;
                 case 'Login':
-                    engine.processReqArray(LoginFlowRequest);break;
+                    event.preventDefault();console.log(document.getElementById('password').value);engine.processReqArray(LoginFlowRequest);break;
                 case "new":
                     this.new1(event); break;
                 case 'google':

@@ -34,11 +34,8 @@ class ActionEngine {
         // }
         //    response = objectModel[req.method](argument);
         if(req.assign){
-            console.log(req.assign);
             objectModel[req.method] = argument[0];
             response = objectModel[req.method];
-            console.log(objectModel[req.method] +"->" + argument);
-            console.log(response);
         }else if(operate.isObject(objectModel[req.method]))
             response = objectModel[req.method][argument];
         else if(objectModel[req.method]&&operate.isFunction(objectModel[req.method]))
@@ -63,7 +60,6 @@ class ActionEngine {
                     default:
                     // console.log("I don't know such values",event.type);
                 }
-                console.log(response);
             }else if(operate.isObject(req['andThen'])){
                 response = this.executeSynReq(req.andThen);
             }
@@ -80,8 +76,8 @@ class ActionEngine {
    * @param {FlowRequest} reqObj - request object containing array of objects
    */
   async processReqArray(reqObj,params) {
-    const state = {};//this._flowResultState;
-    console.log(params);
+    const state = {};//this._flowResultState
+    console.log(state);
     if (operate.isFlowRequest(reqObj) && operate.isArray(reqObj.flowRequest)) {
       var flowRequest = reqObj.flowRequest;
       for (var i = 0; i < flowRequest.length; i++) {
@@ -98,8 +94,8 @@ class ActionEngine {
                 request.andThen = this.handleObjectModelArguments(state,request.andThen,params);
             }
             const result =await this.executeSynReq(this.handleObjectModelArguments(state,request,params));
+            console.log(result);
             state[request.reqName] = result;
-            console.log("");
             if(request.exit)
                 break;
         }else{
@@ -107,7 +103,8 @@ class ActionEngine {
         }
       }
     }
-    console.log("Done")
+    console.log(state);
+    console.log("Done");
     return state;
   }
   handleObjectModelArguments(state,request,params){
@@ -124,12 +121,16 @@ class ActionEngine {
                     request.argument[p] = params[arr[1]];
                 }else if (state.hasOwnProperty(request.argument[p])) { 
                     request.argument[p] = state[request.argument[p]];    
-                }else if(operate.isInsideArray('.',String(request.argument[p]))){
+                }else if(String(request.argument[p]).split('.').length - 1 === 1){
                     var arr = request.argument[p].split('.');
-                    if(state.hasOwnProperty(arr[0])){
-                        var arg0 = state[arr[0]];
-                        var arg1 = arg0[arr[1]];
-                        request.argument[p] = arg1;
+                    if(state.hasOwnProperty(arr[0]) || state.hasOwnProperty(arr[1])){
+                        var part1,part2;
+                        if(String(arr[0])== 'state')
+                            part1 = state;
+                        else if(state.hasOwnProperty(arr[0]))
+                            part1 = state[arr[0]];    
+                        part2 = part1[arr[1]];
+                        request.argument[p] = part2;
                     }
                 }
             }

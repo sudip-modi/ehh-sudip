@@ -308,21 +308,32 @@ var LoginFlowRequest = {
             andThen:['value']
         },
         {
-            reqName:'SetData',
+            reqName:"stringify",
+            objectModel:JSON,
+            method:'stringify',
+            argument:[paramsJSON]
+        },{
+            reqName:'Parse',
+            objectModel:JSON,
+            method:'parse',
+            argument:["stringify"]
+        },
+        {
+            reqName:'SetData1',
             objectModel:Entity,
             method:'set',
-            argument:[paramsJSON,'GetUsername','Username'],
+            argument:['state.Parse','GetUsername','Username'],
             andThen:{
                 objectModel:Entity,
                 method:'set',
-                argument:[paramsJSON,'GetPassword','Password']
+                argument:['state.Parse','GetPassword','Password'],
             }
         },
         {
             reqName:'URLBuilder',
             objectModel:HttpService,
             method:'urlBuilder',
-            argument:[scriptURL,paramsJSON]
+            argument:[scriptURL,'Parse']
         },
         {
             reqName:'RequestBuilder',
@@ -341,6 +352,17 @@ var LoginFlowRequest = {
             objectModel:window,
             method:'alert',
             argument:['response.output']
+        },
+        {
+            reqName:'getFormElement',
+            objectModel:document,
+            method:'getElementById',
+            argument:['regForm'],
+        },
+        {
+            reqName:'ResetForm',
+            objectModel:'getFormElement',
+            method:'reset', 
         },
         {
             validate:{
