@@ -193,20 +193,41 @@ var OpenAFileFlowRequest ={
             reqName:'filePicker',
             objectModel:window,
             method:'showOpenFilePicker'
-        },{
+        },
+        {
             reqName:'UID',
             objectModel:processFS,
             method:'uid'
-        },{
+        },
+        {
             reqName:'setFileHandleToFileID',
             objectModel:indexDB,
             method:'set',
-            argument:['UID',"filePicker"]
-        },{
+            argument:["UID","filePicker.0"]
+        },
+        {
+            reqName:'GetFileHandleToFileID',
+            objectModel:indexDB,
+            method:'get',
+            argument:["UID"]
+        },
+        {
             reqName:'jsonForFile',
             objectModel:processFS,
             method:'jsonForFile',
-            argument:['UID','myFiles','filePicker']
+            argument:["UID","myFiles","filePicker.0"]
+        },
+        {
+            reqName:'Editor',
+            objectModel:document,
+            method:'getElementById',
+            argument:['inlineContent']
+        },
+        {
+            reqName:'assigningFileID',
+            objectModel:'Editor',
+            method:'setAttribute',
+            argument:['fileid','UID']
         },
         {
             reqName:"FileInEditor",
@@ -214,6 +235,7 @@ var OpenAFileFlowRequest ={
             method:'OpenFileInEditor',
             argument:['UID']
         },
+       
     ]
 }
 //RecentFiles flow

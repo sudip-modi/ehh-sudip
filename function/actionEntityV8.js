@@ -98,7 +98,7 @@ class Entity {
         }else{
             if(key){
                 input[key] = output;
-                console.log(input[key] + " and o/p is " + output);
+                console.log(input);
             }else{
                 input = output;
             }

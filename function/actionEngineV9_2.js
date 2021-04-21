@@ -84,18 +84,20 @@ class ActionEngine {
         var request = flowRequest[i];var validateResult;
         if(request.validate){
             var validateRequest = this.handleObjectModelArguments(state,request.validate,params);
-            console.log(validateRequest);
             validateResult = this.executeSynReq(validateRequest);
-            console.log("Validated Result" + validateResult);
         }
         if(!request.validate || validateResult == request.validate.output){
             console.log("For request :- " + request.reqName);
             if(request.andThen && operate.isObject(request.andThen)){
                 request.andThen = this.handleObjectModelArguments(state,request.andThen,params);
             }
-            const result =await this.executeSynReq(this.handleObjectModelArguments(state,request,params));
-            console.log(result);
+            var updatedRequest = this.handleObjectModelArguments(state,request,params);
+            if(request.reqName == 'SetData1')
+                console.log(request.argument);
+            const result =await this.executeSynReq(updatedRequest);
             state[request.reqName] = result;
+            console.log(result);
+            console.log(" : " + Object.keys(state).length);
             if(request.exit)
                 break;
         }else{

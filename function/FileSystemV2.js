@@ -84,11 +84,22 @@ class processFS{
         event.preventDefault();
         try{
             if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)
-                await engine.processReqArray(saveFileFlowRequest);
+                await processFS.saveFile(event); // engine.processReqArray(saveFileFlowRequest);
             await engine.processReqArray(OpenAFileFlowRequest);
         }catch(err){
             console.log(err);
         }
+    }
+    static async saveFile(event){
+        event.preventDefault();
+        console.log("Saving File");
+        var editor = document.getElementById('inlineContent');
+        var fileHandle = await indexDB.get(editor.getAttribute('fileid'));
+        if(operate.isArray(fileHandle))
+            fileHandle = fileHandle[0];
+        var writable =  await fileHandle.createWritable();
+        await writable.write(editor.innerText);
+        await writable.close();
     }
     static async File(event){
         event.preventDefault();
@@ -97,8 +108,11 @@ class processFS{
         var editor = document.getElementById('inlineContent');
         console.log(editor);
         var fileHandle = await indexDB.get(editor.getAttribute('fileid'));
-        if(editor.getAttribute('fileid').length > 0)
-            await processFS.RecentFiles(editor.getAttribute('fileid'),fileHandle);
+        if(editor.getAttribute('fileid').length > 0){
+            await processFS.saveFile(event);
+            //await processFS.RecentFiles(editor.getAttribute('fileid'),fileHandle);
+        }
+            
         editor.setAttribute('fileID',event.target.id);
         await processFS.OpenFileInEditor(event.target.id);
         }catch(err){
@@ -107,6 +121,7 @@ class processFS{
     }
     static async OpenFileInEditor(id) {
         try{  
+        console.log(id);
         if(localStorage.getItem(id)!== null){
             ActionView.addInnerText(localStorage.getItem(id),document.getElementById('inlineContent'));
         }else{
@@ -115,7 +130,7 @@ class processFS{
                 fileHandle = fileHandle[0];
             if(await processFS.verifyPermission(fileHandle,true)){
                 var file = await fileHandle.getFile();
-                if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.xml')) {
+                if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.css')) {
                     var contents = await file.text();
                     ActionView.addInnerText(contents,document.getElementById('inlineContent'));
                 }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
@@ -143,7 +158,7 @@ class processFS{
     }
     static async RecentFiles(id,fileHandle){
         try{
-            engine.processReqArray(recentFilesFlowRequest,{'id':id,'fileHandle':fileHandle});
+           // engine.processReqArray(recentFilesFlowRequest,{'id':id,'fileHandle':fileHandle});
             // var array = await indexDB.get('RecentFiles');
             // console.log(array);
             // var element = document.getElementById('RecentFiles');
@@ -168,6 +183,8 @@ class processFS{
     }
     static async jsonForFile(fileID,collectionId= 'myFiles',fileHandle){
         try{
+            console.log( fileHandle);
+            console.log(fileID + " : " + collectionId);
             var input = {};
             input[fileID] = JSON.parse(JSON.stringify(fileJSON));input[fileID]['id'] = fileID;
           if(fileHandle){
@@ -189,7 +206,7 @@ class processFS{
         event.preventDefault();
         try {
             const dirHandle = await window.showDirectoryPicker();
-            if(await processFS.verifyPermission(fileHandle,true)){
+            if(await processFS.verifyPermission(dirHandle,true)){
                 var dirID = uid();await indexDB.set(dirID, dirHandle);
                 var input = JSON.parse(JSON.stringify(directoryJSON));
                 input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
