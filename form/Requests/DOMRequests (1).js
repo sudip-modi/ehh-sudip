@@ -107,8 +107,7 @@ var newFileFlowRequest = {
         reqName: "Editor",
         objectModel: document,
         method: "getElementById",
-        argument: ["inlineContent"],
-        response:{}
+        arguments: ["inlineContent"],
     },{
         reqName:'UID',
         objectModel:processFS,
@@ -117,13 +116,12 @@ var newFileFlowRequest = {
         reqName:"fileID_File",//2
         objectModel:'Editor',
         method:'setAttribute',
-        argument:['fileid','UID']
+        arguments:['fileid','UID']
     },{
         reqName: "NewActionStory",
         objectModel: ActionView,
         method: "addInnerHTML",
-         argument: [ehhIntro,"Editor"],
-        response:{}
+        arguments: [ehhIntro,"Editor"],
     }
     ]
 }
@@ -135,49 +133,50 @@ var saveFileFlowRequest = {
         reqName:'Editor',//1
         objectModel: document,
         method: "getElementById",
-        argument: ["inlineContent"],
+        arguments: ["inlineContent"],
     },
     {
         reqName:"fileID_File",//2
         objectModel:'Editor',
         method:'getAttribute',
-        argument:['fileID']
+        arguments:['fileid']
     },
     {
-        reqName:"getInnerText",//3
-        objectModel:'Editor',
-        method:'innerText'
-    },
-    {
-        //validator
         reqName:"FileHandleFromIndexDB",//4
         objectModel:indexDB,
         method:'get',
-        argument:["fileID_File"]
+        arguments:["fileID_File"]
+    },
+    {
+        reqName:"getInnerText",//3
+        objectModel:document,
+        method: "getElementById",
+        arguments: ["inlineContent"],
+        andThen:['innerText']
     },
     {
         validate:{
             objectModel:operate,
             method:'isNotEmpty',
-            argument:['FileHandleFromIndexDB'],
+            arguments:['FileHandleFromIndexDB'],
             output:false
         },
         reqName:'LocalStorage',//5
         objectModel:localStorage,
         method:'setItem',
-        argument:['fileID_File','getInnerText'],
+        arguments:['fileID_File','getInnerText'],
         exit:true
     },
     {
-        reqName:"createWritable",//6
+        reqName:"Writable",//6
         objectModel:"FileHandleFromIndexDB",
         method:"createWritable",
     },
     {
         reqName:"writeinFile",//7
-        objectModel:"createWritable",
+        objectModel:"Writable",
         method:'write',
-        argument:['getInnerText']
+        arguments:['getInnerText']
     },
     {
         reqName:"closeWritable",//8
@@ -190,9 +189,10 @@ var saveFileFlowRequest = {
 var OpenAFileFlowRequest ={
     flowRequest:[
         {
-            reqName:'filePicker',
+            reqName:'GetAFile',
             objectModel:window,
-            method:'showOpenFilePicker'
+            method:'showOpenFilePicker',
+            andThen:["0"]
         },
         {
             reqName:'UID',
@@ -200,42 +200,41 @@ var OpenAFileFlowRequest ={
             method:'uid'
         },
         {
-            reqName:'setFileHandleToFileID',
+            reqName:'FileHandleToFileID',
             objectModel:indexDB,
             method:'set',
-            argument:["UID","filePicker.0"]
+            arguments:["UID","GetAFile"]
         },
         {
             reqName:'GetFileHandleToFileID',
             objectModel:indexDB,
             method:'get',
-            argument:["UID"]
+            arguments:["UID"]
         },
         {
             reqName:'jsonForFile',
             objectModel:processFS,
             method:'jsonForFile',
-            argument:["UID","myFiles","filePicker.0"]
+            arguments:["UID","myFiles","GetAFile"]
         },
         {
             reqName:'Editor',
             objectModel:document,
             method:'getElementById',
-            argument:['inlineContent']
+            arguments:['inlineContent']
         },
         {
             reqName:'assigningFileID',
             objectModel:'Editor',
             method:'setAttribute',
-            argument:['fileid','UID']
+            arguments:['fileid','UID']
         },
         {
             reqName:"FileInEditor",
             objectModel:processFS,
             method:'OpenFileInEditor',
-            argument:['UID']
+            arguments:['UID']
         },
-       
     ]
 }
 //RecentFiles flow
@@ -427,11 +426,12 @@ var SignUpFlowRequest = {
             objectModel:Entity,
             method:'set',
             argument:[paramsJSON,'GetUsername','Username'],
-            andThen:{
+        },
+        {
+            reqName:"SetPassword",
             objectModel:Entity,
             method:'set',
             argument:[paramsJSON,'GetPassword','Password']
-            }
         },
         {
             reqName:'PostContent',

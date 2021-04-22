@@ -293,8 +293,8 @@ class ActionController extends ActionEvent {
                 case 'file':
                     processFS.File(event);break;
                 case 'FS_Save':
-                    processFS.saveFile(event);break;
-                    //engine.processReqArray(saveFileFlowRequest);break;
+                    //processFS.saveFile(event);break;
+                    engine.processReq(saveFileFlowRequest);break;
                 // case 'FSOpen':
                 //     processFS.readFile(event); break;
                 // case 'FS_SaveAs':
@@ -438,8 +438,8 @@ class ActionController extends ActionEvent {
     async new1(event) {
         event.preventDefault();
         if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)
-            await engine.processReqArray(saveFileFlowRequest);
-        await engine.processReqArray(newFileFlowRequest);
+            await engine.processReq(saveFileFlowRequest);
+        await engine.processReq(newFileFlowRequest);
     }
     save(event) {
         var entityName = ActionView.getTitle();

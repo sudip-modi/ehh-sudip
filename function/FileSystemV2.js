@@ -79,17 +79,6 @@ class processFS{
         }
 
     }
-    //file folder
-    static async OpenFile(event){
-        event.preventDefault();
-        try{
-            if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)
-                await processFS.saveFile(event); // engine.processReqArray(saveFileFlowRequest);
-            await engine.processReqArray(OpenAFileFlowRequest);
-        }catch(err){
-            console.log(err);
-        }
-    }
     static async saveFile(event){
         event.preventDefault();
         console.log("Saving File");
@@ -100,6 +89,17 @@ class processFS{
         var writable =  await fileHandle.createWritable();
         await writable.write(editor.innerText);
         await writable.close();
+    }
+    //file folder
+    static async OpenFile(event){
+        event.preventDefault();
+        try{
+            if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)
+                await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
+            await engine.processReq(OpenAFileFlowRequest);
+        }catch(err){
+            console.log(err);
+        }
     }
     static async File(event){
         event.preventDefault();
@@ -159,24 +159,24 @@ class processFS{
     static async RecentFiles(id,fileHandle){
         try{
            // engine.processReqArray(recentFilesFlowRequest,{'id':id,'fileHandle':fileHandle});
-            // var array = await indexDB.get('RecentFiles');
-            // console.log(array);
-            // var element = document.getElementById('RecentFiles');
-            // if(array === undefined){
-            //     array = [];
-            // }
-            // if(!array.includes(id)){
-            //     console.log("Including in indexDB");
-            //     array.unshift(id);
-            //     if(array.length == 11 && element.childNodes.length == 10){
-            //         array.shift();element.removeChild(element.childNodes[0]);
-            //     }
-            //     if(fileHandle)
-            //         await processFS.jsonForFile(id,'RecentFiles',fileHandle);
-            //     else
-            //         await processFS.jsonForFile(id,'RecentFiles');
-            //     await indexDB.set('RecentFiles',array);
-            // }
+            var array = await indexDB.get('RecentFiles');
+            console.log(array);
+            var element = document.getElementById('RecentFiles');
+            if(array === undefined){
+                array = [];
+            }
+            if(!array.includes(id)){
+                console.log("Including in indexDB");
+                array.unshift(id);
+                if(array.length == 11 && element.childNodes.length == 10){
+                    array.shift();element.removeChild(element.childNodes[0]);
+                }
+                if(fileHandle)
+                    await processFS.jsonForFile(id,'RecentFiles',fileHandle);
+                else
+                    await processFS.jsonForFile(id,'RecentFiles');
+                await indexDB.set('RecentFiles',array);
+            }
         }catch(err){
             console.log(err);
         }
