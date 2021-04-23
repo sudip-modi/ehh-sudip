@@ -27,7 +27,7 @@ class ActionEngine {
         this._flowResultState={};
     }
 //This can easily be replaced by operate.isin(key,object)
-    async processReq(reqObj,resultObj=null) {
+    async processReq(reqObj,resultObj) {
         // if (Validators.isNestedRequest(reqObj)) {
         //     return this.processReqNestedObject(reqObj);
         // }
@@ -35,12 +35,13 @@ class ActionEngine {
             return await this.processReqArray(reqObj);
         }
         if(Validators.isSingleRequest(reqObj)) {
-            return await this.processSingleReq(reqObj,resultObj)
+            return await this.action(reqObj,resultObj)
         }
         throw new Error("Request type not supported")
     }
     get(key,parent) {
-        // console.log("for Initaition", key, objectModel, objectModel[key])
+         if(parent[key])
+            console.log('Nothing');
          if (parent[key]) {
             // console.log("for Initaition", key, objectModel, objectModel[key])
              var response = parent[key];
@@ -77,92 +78,72 @@ class ActionEngine {
             }
         }
         var updatedRequest = {...reqObj,objectModel:model,arguments:argument};
+        console.log(updatedRequest);
         return updatedRequest;
     }
     /**
-     * processes single request
+     * action
      * @param {RequestObj} reqObj - request object
-     * @param {unknown} [resultObj=null] - Optional parameter for passing result of previous requests
+     * @param {state} state - parameter for passing results of previous requests
      * @returns {Promise}
      */
-    async processSingleReq(reqObj,state,resultObj=null) {
-        reqObj = this.handleRequiredPreviousResults(state,reqObj);
-        var processResult,validateResult;
-        if(reqObj.hasOwnProperty('validate')){
-                validateResult =await this.processSingleReq(reqObj.validate,state);
-                console.log("validateResult" + validateResult + " and it's output should be equal to " + reqObj.validate.output);
+    async action(req, state) {
+        if (operate.isObject(req) != true) {
+          return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
-        if(reqObj.hasOwnProperty('validate') && !operate.isEqual(validateResult,reqObj.validate.output)){
+        req = this.handleRequiredPreviousResults(state,req);
+        var response,validateResult;
+        if(req.hasOwnProperty('validate')){
+            validateResult = await this.action(req.validate,state);
+            console.log("validateResult" + validateResult + " and it's output should be equal to " + req.validate.output);
+        }
+        if(req.hasOwnProperty('validate') && !operate.isEqual(validateResult,req.validate.output)){
             return null;
         }
-        if(reqObj.hasOwnProperty('andThen')) {
-            for(var p=0;p<reqObj.andThen.length;p++) {
-                if(window[reqObj.andThen]) {
-                    reqObj.andThen[p]=window[reqObj.andThen]
-                    for(var i=0;i<reqObj.andThen[p].arguments.length;i++) {
-                        if(typeof reqObj.andThen[p].arguments[i]==='object') {
-                            var args=reqObj.andThen[p].arguments[i].$ref;
-                            var tempArgs=this._flowResultState;
-                            for(var j=0;j<args.length;j++) {
-                                console.log(args[j])
-                                tempArgs=tempArgs[args[j][0]];
-                                console.log(tempArgs)
-
-                            }
-                            reqObj.andThen[p].arguments[i]=tempArgs;
-                        }
-                    }
-                }
-            }
-        }
-        //what are you trying to do here?
-        var objectModel = this.get(reqObj.objectModel,window);
-        var method= objectModel[reqObj.method];
-        // if(reqObj.arguments&&operate.isArray(reqObj.arguments)) {
-        //     for(var i=0;i<reqObj.arguments.length;i++) {
-        //         if(!operate.isObject(reqObj.arguments[i])&&reqObj.arguments[i]==="fromPrevious") {
-        //             reqObj.arguments[i]=resultObj;
-        //         } else if(operate.isObject(reqObj.arguments[i])&&reqObj.arguments[i].$ref) {
-        //             var request=this.processSingleReq(reqObj.arguments[i].$ref);
-        //             reqObj.arguments[i]=request;
-        //         }
-        //     }
-
+        var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
+        var method = objectModel[req.method];
+        // if (result) {//Used for either callback cases, where 
+        //   var argument = result;
+        // } else {
+        //   var argument = req.arguments;
         // }
-        if(method&&operate.isFunction(method)) {
-            if(reqObj.andThen) {
-                var tempResult= await method.apply(objectModel,reqObj.arguments);
-                for(var i=0;i<reqObj.andThen.length;i++) {
-                    if(!operate.isObject(reqObj.andThen[i])) {
-                        tempResult=tempResult[reqObj.andThen[i]]
-                    } else {
-                        var args=reqObj.andThen[i].arguments;
-                        if(!reqObj.andThen[i].method) {
-                            tempResult[args[0]]=args[1]
-                        } else {
-                            tempResult[reqObj.andThen[i].method].apply(tempResult,args);
-                        }
-                    }
-                }
-                processResult=tempResult
-            } else {
-                processResult=await method.apply(objectModel,reqObj.arguments);
-
+        // //Build Arguments
+        // for (var i = 0; i < argument.length; i++) {
+        //   //  console.log(argument[i]);
+        //   argument[i] = Entity.get(argument[i], window);
+        //   //  console.log(argument[i]);
+    
+        // }
+        response = await method.apply(objectModel,req.arguments);
+        if (req.hasOwnProperty('andThen')) {
+          var andThenLength = req['andThen'].length;
+          if (andThenLength > 0) {
+            switch (andThenLength) {
+              case 1:
+                response = response[req['andThen']?.[0]];
+                break;
+              case 2:
+                response = response[req['andThen']?.[0], req['andThen']?.[1]];
+                break;
+              case 3:
+                response = response[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2]];
+                break;
+              case 4:
+                response = response[req['andThen']?.[0], req['andThen']?.[1], req['andThen']?.[2], req['andThen']?.[3]];
+                break;
+              default:
             }
-
+          }
+        } 
+        // req['response'] = response;
+        // console.log()
+        if (req['callBack']) {
+          var callBack = window[req['callBack']];
+          var callBackrequest = {...callBack,objectModel:response};
+          response = await this.action(callBackrequest, state);
         }
-
-        if(reqObj.callBack) {
-            var callBack=window[reqObj.callBack];
-            if(callBack) {
-                processResult=this.processReq(callBack,processResult);
-            }
-        }
-
-
-        return processResult;
-    }
-
+        return response;
+      }
     /**
      * This method is used for parallel requests
      * @param {FlowRequest} reqObj - request object containing array of objects
@@ -172,7 +153,6 @@ class ActionEngine {
         if(!state.flowRequest) {
             state.flowRequest={}
         }
-
         if(operate.isFlowRequest(reqObj)&&operate.isArray(reqObj.flowRequest)) {
             var flowRequest=reqObj.flowRequest;
             for(var i=0;i<flowRequest.length;i++) {
@@ -181,7 +161,7 @@ class ActionEngine {
                // var args=request.arguments;
                // var requestArgs=getRequestArgs.apply(this,[args,state.flowRequest]);
                // var updatedRequest = {...request,arguments:requestArgs};
-                var result= await this.processReq(request,state.flowRequest);
+                var result= await this.action(request,state.flowRequest);
                 console.log(result);
                 //  if(result) {
                     state.flowRequest={

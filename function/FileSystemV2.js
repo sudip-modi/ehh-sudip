@@ -94,8 +94,10 @@ class processFS{
     static async OpenFile(event){
         event.preventDefault();
         try{
-            if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)
+            if(document.getElementById('inlineContent').getAttribute('fileid').length > 0){
                 await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
+                await processFS.RecentFiles(editor.getAttribute('fileid'));
+            }
             await engine.processReq(OpenAFileFlowRequest);
         }catch(err){
             console.log(err);
@@ -107,10 +109,9 @@ class processFS{
         console.log("FileID" + event.target.id);
         var editor = document.getElementById('inlineContent');
         console.log(editor);
-        var fileHandle = await indexDB.get(editor.getAttribute('fileid'));
         if(editor.getAttribute('fileid').length > 0){
-            await processFS.saveFile(event);
-            //await processFS.RecentFiles(editor.getAttribute('fileid'),fileHandle);
+            await engine.processReq(saveFileFlowRequest);
+            await processFS.RecentFiles(editor.getAttribute('fileid'));
         }
             
         editor.setAttribute('fileID',event.target.id);
@@ -156,7 +157,7 @@ class processFS{
             console.log(err);
         }
     }
-    static async RecentFiles(id,fileHandle){
+    static async RecentFiles(id){
         try{
            // engine.processReqArray(recentFilesFlowRequest,{'id':id,'fileHandle':fileHandle});
             var array = await indexDB.get('RecentFiles');
@@ -171,6 +172,7 @@ class processFS{
                 if(array.length == 11 && element.childNodes.length == 10){
                     array.shift();element.removeChild(element.childNodes[0]);
                 }
+                var fileHandle = await indexDB.get(id);
                 if(fileHandle)
                     await processFS.jsonForFile(id,'RecentFiles',fileHandle);
                 else
@@ -183,8 +185,7 @@ class processFS{
     }
     static async jsonForFile(fileID,collectionId= 'myFiles',fileHandle){
         try{
-            console.log( fileHandle);
-            console.log(fileID + " : " + collectionId);
+            console.log(fileHandle);
             var input = {};
             input[fileID] = JSON.parse(JSON.stringify(fileJSON));input[fileID]['id'] = fileID;
           if(fileHandle){

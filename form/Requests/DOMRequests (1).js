@@ -376,7 +376,7 @@ var LoginFlowRequest = {
             objectModel:document,
             method:'getElementById',
             arguments:['regForm'],
-            andThen:[{method:'reset'}]
+            callBack:{method:'reset'}
         },
         {
             reqName:"SetLoggedIn",
