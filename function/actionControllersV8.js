@@ -114,7 +114,6 @@ class ActionController extends ActionEvent {
 
     }
     onRouteChange(e) {
-      //  console.log("event occoured",e.type);
         var routeKeyword;
         if (document.location.hash) {
            // console.log("it's a hash Change", document.location.hash.substring(1));
@@ -139,6 +138,18 @@ class ActionController extends ActionEvent {
                 console.log('no route found');
             }  
         }
+    }
+    static onChangeRoute(routeKeyword){
+        console.log("onChangeRoute :- " + routeKeyword);
+        if (routeKeyword) {
+             var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
+             if (routeModel.length !=0) {
+                 window.location.hash =  routeKeyword;
+             } else {
+                 console.log('no route found');
+             }  
+         }
+
     }
     onKeyPress(entity) {//used for typing
         var match = {};
@@ -276,9 +287,9 @@ class ActionController extends ActionEvent {
                         this.exportToSheet(event);break;
                 //signup,login
                 case 'Signup':
-                    console.log(document.getElementById('password').value);engine.processReqArray(SignUpFlowRequest);break;
+                    event.preventDefault();engine.processReqArray(SignUpFlowRequest);break;
                 case 'Login':
-                    event.preventDefault();console.log(document.getElementById('password').value);engine.processReqArray(LoginFlowRequest);break;
+                    event.preventDefault();engine.processReqArray(LoginFlowRequest);break;
                 case "new":
                     this.new1(event); break;
                 case 'google':

@@ -39,14 +39,26 @@ class ActionEngine {
         }
         throw new Error("Request type not supported")
     }
-
+    get(key,parent) {
+        // console.log("for Initaition", key, objectModel, objectModel[key])
+         if (parent[key]) {
+            // console.log("for Initaition", key, objectModel, objectModel[key])
+             var response = parent[key];
+            // console.log("Initaites found",response)
+             return response;
+         }else{
+             return key;
+         }
+ 
+ 
+     }
     /**
      * 
      * @param {State} state - results of previous requests in an object
      * @param {RequestObj} reqObj - request obj
      * @returns {RequestObj}
      */
-    async handleRequiredPreviousResults(state,reqObj){
+    handleRequiredPreviousResults(state,reqObj){
         var argument = [];var model;
         if(state.hasOwnProperty(String(reqObj.objectModel)))
             model = state[reqObj.objectModel];
@@ -54,10 +66,14 @@ class ActionEngine {
             model = reqObj.objectModel;
         if(reqObj.arguments){
             for(var p = 0;p < reqObj.arguments.length;p++){
-                if(state.hasOwnProperty(String(reqObj.arguments[p]))){
-                    argument[p] = state[reqObj.arguments[p]]; 
+                var arg = reqObj.arguments[p];
+                if(state.hasOwnProperty(String(arg))){
+                    argument[p] = state[arg]; 
+                }else if(state.hasOwnProperty(String(arg).substring(0,String(arg).indexOf(".")))){
+                    var arr = arg.split(".");
+                    argument[p] = state[arr[0]][arr[1]];
                 }else
-                    argument[p] = reqObj.arguments[p];  
+                    argument[p] = arg;  
             }
         }
         var updatedRequest = {...reqObj,objectModel:model,arguments:argument};
@@ -70,10 +86,9 @@ class ActionEngine {
      * @returns {Promise}
      */
     async processSingleReq(reqObj,state,resultObj=null) {
-        reqObj = await this.handleRequiredPreviousResults(state,reqObj);
+        reqObj = this.handleRequiredPreviousResults(state,reqObj);
         var processResult,validateResult;
         if(reqObj.hasOwnProperty('validate')){
-                console.log(reqObj.validate);
                 validateResult =await this.processSingleReq(reqObj.validate,state);
                 console.log("validateResult" + validateResult + " and it's output should be equal to " + reqObj.validate.output);
         }
@@ -101,7 +116,8 @@ class ActionEngine {
             }
         }
         //what are you trying to do here?
-        var method=reqObj.objectModel[reqObj.method];
+        var objectModel = this.get(reqObj.objectModel,window);
+        var method= objectModel[reqObj.method];
         // if(reqObj.arguments&&operate.isArray(reqObj.arguments)) {
         //     for(var i=0;i<reqObj.arguments.length;i++) {
         //         if(!operate.isObject(reqObj.arguments[i])&&reqObj.arguments[i]==="fromPrevious") {
@@ -113,11 +129,9 @@ class ActionEngine {
         //     }
 
         // }
-
-
         if(method&&operate.isFunction(method)) {
             if(reqObj.andThen) {
-                var tempResult= await method.apply(reqObj.objectModel,reqObj.arguments);
+                var tempResult= await method.apply(objectModel,reqObj.arguments);
                 for(var i=0;i<reqObj.andThen.length;i++) {
                     if(!operate.isObject(reqObj.andThen[i])) {
                         tempResult=tempResult[reqObj.andThen[i]]
@@ -132,7 +146,7 @@ class ActionEngine {
                 }
                 processResult=tempResult
             } else {
-                processResult= method.apply(reqObj.objectModel,reqObj.arguments);
+                processResult=await method.apply(objectModel,reqObj.arguments);
 
             }
 

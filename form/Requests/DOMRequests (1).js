@@ -318,91 +318,90 @@ var LoginFlowRequest = {
             reqName:'GetUsername',
             objectModel:document,
             method: "getElementById",
-            argument: ["username"],
+            arguments: ["username"],
             andThen:['value']
         },
         {
             reqName:'GetPassword',
             objectModel:document,
             method: "getElementById",
-            argument: ["password"],
+            arguments: ["password"],
             andThen:['value']
         },
         {
-            reqName:"stringify",
-            objectModel:JSON,
-            method:'stringify',
-            argument:[paramsJSON]
-        },{
-            reqName:'Parse',
-            objectModel:JSON,
-            method:'parse',
-            argument:["stringify"]
-        },
-        {
-            reqName:'SetData1',
+            reqName:'SetUsername',
             objectModel:Entity,
             method:'set',
-            argument:['state.Parse','GetUsername','Username'],
-            andThen:{
-                objectModel:Entity,
-                method:'set',
-                argument:['state.Parse','GetPassword','Password'],
-            }
+            arguments:[paramsJSON,'GetUsername','Username'],
+        },
+        {
+            reqName:'SetPassword',
+            objectModel:Entity,
+            method:'set',
+            arguments:[paramsJSON,'GetPassword','Password'],
         },
         {
             reqName:'URLBuilder',
             objectModel:HttpService,
             method:'urlBuilder',
-            argument:[scriptURL,'Parse']
+            arguments:[scriptURL,paramsJSON]
         },
         {
             reqName:'RequestBuilder',
             objectModel:HttpService,
             method:'requestBuilder',
-            argument:["GET"]
+            arguments:["GET"]
         },
         {
             reqName:'response',
             objectModel:HttpService,
             method:'fetchRequest',
-            argument:['URLBuilder','RequestBuilder']
+            arguments:['URLBuilder','RequestBuilder']
         },
         {
+
             reqName:'alert',
             objectModel:window,
             method:'alert',
-            argument:['response.output']
-        },
-        {
-            reqName:'getFormElement',
-            objectModel:document,
-            method:'getElementById',
-            argument:['regForm'],
-        },
-        {
-            reqName:'ResetForm',
-            objectModel:'getFormElement',
-            method:'reset', 
+            arguments:['response.output']
         },
         {
             validate:{
                 objectModel:operate,
                 method:'isEqual',
-                argument:['response.result','Success'],
+                arguments:['response.result','Success'],
+                output:false
+            },
+            reqName:'getFormElement',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['regForm'],
+            andThen:[{method:'reset'}]
+        },
+        {
+            reqName:"SetLoggedIn",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
                 output:true
             },
-            reqName:'RedirectToActionSpaceEditor',
             objectModel:localStorage,
             method:'setItem',
-            argument:['LoggedIn',true],
-            andThen:{
-                objectModel:location,
-                method:'href',
-                argument:['#action'],
-                assign:true
-            }
+            arguments:['LoggedIn',true],
         },
+        {
+            reqName:'RedirectingToActionSpaceEditor',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
+                output:true
+            },
+            objectModel: ActionController,
+            method:'onChangeRoute',
+            arguments:["action"],
+        }
     ]
 }
 var SignUpFlowRequest = {
@@ -411,69 +410,75 @@ var SignUpFlowRequest = {
             reqName:'GetUsername',
             objectModel:document,
             method: "getElementById",
-            argument: ["username"],
+            arguments: ["username"],
             andThen:['value']
         },
         {
             reqName:'GetPassword',
             objectModel:document,
             method: "getElementById",
-            argument: ["password"],
+            arguments: ["password"],
             andThen:['value']
         },
         {
             reqName:'SetUsername',
             objectModel:Entity,
             method:'set',
-            argument:[paramsJSON,'GetUsername','Username'],
+            arguments:[paramsJSON,'GetUsername','Username'],
         },
         {
             reqName:"SetPassword",
             objectModel:Entity,
             method:'set',
-            argument:[paramsJSON,'GetPassword','Password']
+            arguments:[paramsJSON,'GetPassword','Password']
         },
         {
             reqName:'PostContent',
             objectModel:JSON,
             method:'stringify',
-            argument:[paramsJSON]
+            arguments:[paramsJSON]
         },
         {
             reqName:'RequestBuilder',
             objectModel:HttpService,
             method:'requestBuilder',
-            argument:["POST",undefined,'PostContent']
+            arguments:["POST",undefined,'PostContent']
         },
         {
             reqName:'response',
             objectModel:HttpService,
             method:'fetchRequest',
-            argument:[scriptURL,'RequestBuilder']
+            arguments:[scriptURL,'RequestBuilder']
         },
         {
             reqName:'alert',
             objectModel:window,
             method:'alert',
-            argument:['response.output']
+            arguments:['response.output']
         },
         {
+            reqName:"SetLoggedIn",
             validate:{
                 objectModel:operate,
                 method:'isEqual',
-                argument:['response.result','Success'],
+                arguments:['response.result','Success'],
                 output:true
             },
-            reqName:'RedirectToActionSpaceEditor',
             objectModel:localStorage,
             method:'setItem',
-            argument:['LoggedIn',true],
-            andThen:{
-                objectModel:location,
-                method:'href',
-                argument:['#action'],
-                assign:true
-            }
+            arguments:['LoggedIn',true],
+        },
+        {
+            reqName:'RedirectingToActionSpaceEditor',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
+                output:true
+            },
+            objectModel: ActionController,
+            method:'onChangeRoute',
+            arguments:["action"],
         }
     ]
 }
