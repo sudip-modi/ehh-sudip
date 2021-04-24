@@ -300,7 +300,7 @@ class ActionController extends ActionEvent {
                 case 'OpenFile':
                     processFS.OpenFile(event);break;
                 case 'OpenDirectory':
-                    processFS.OpenDirectory(event);break;
+                    event.preventDefault();engine.processReq(OpenADirectoryRequest);break;
                 case 'file':
                     processFS.File(event);break;
                 case 'FS_Save':

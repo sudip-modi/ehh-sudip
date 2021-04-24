@@ -90,6 +90,23 @@ class processFS{
         await writable.write(editor.innerText);
         await writable.close();
     }
+    static async OpenDirectory(event){
+        event.preventDefault();
+        try {
+            const dirHandle = await window.showDirectoryPicker();
+            if(await processFS.verifyPermission(dirHandle,true)){
+                var dirID = uid();await indexDB.set(dirID, dirHandle);
+
+                var input = JSON.parse(JSON.stringify(directoryJSON));
+                input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
+                var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
+                var data = new Entity(input, document.getElementById('myCollection'));
+                localStorage.setItem('UsermyCollection',document.getElementById('myCollection').innerHTML);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
     //file folder
     static async OpenFile(event){
         event.preventDefault();
@@ -156,7 +173,7 @@ class processFS{
             console.log(err);
         }
     }
-    static async RecentFiles(id,fileHandle = null){
+    static async RecentFiles(id){
         try{
            // engine.processReqArray(recentFilesFlowRequest,{'id':id,'fileHandle':fileHandle});
             var array = await indexDB.get('RecentFiles');
@@ -200,22 +217,6 @@ class processFS{
           var data = new Entity(input,document.getElementById(collectionId));
           localStorage.setItem('User'+collectionId,document.getElementById(collectionId).innerHTML);
         }catch(err){
-            console.log(err);
-        }
-    }
-    static async OpenDirectory(event){
-        event.preventDefault();
-        try {
-            const dirHandle = await window.showDirectoryPicker();
-            if(await processFS.verifyPermission(dirHandle,true)){
-                var dirID = uid();await indexDB.set(dirID, dirHandle);
-                var input = JSON.parse(JSON.stringify(directoryJSON));
-                input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
-                var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
-                var data = new Entity(input, document.getElementById('myCollection'));
-                localStorage.setItem('UsermyCollection',document.getElementById('myCollection').innerHTML);
-            }
-        } catch (err) {
             console.log(err);
         }
     }

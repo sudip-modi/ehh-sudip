@@ -72,7 +72,13 @@ class ActionEngine {
                     argument[p] = state[arg]; 
                 }else if(state.hasOwnProperty(String(arg).substring(0,String(arg).indexOf(".")))){
                     var arr = arg.split(".");
-                    argument[p] = state[arr[0]][arr[1]];
+                    switch(arr.length){
+                        case 2:argument[p] = state[arr[0]][arr[1]];break;
+                        case 3:argument[p] = state[arr[0]][arr[1]][arr[2]];break;
+                        case 4:argument[p] = state[arr[0]][arr[1]][arr[2]][arr[3]];break;
+                        case 5:argument[p] = state[arr[0]][arr[1]][arr[2]][arr[3]][arr[4]];break;
+                        default:
+                    }
                 }else
                     argument[p] = arg;  
             }

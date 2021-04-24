@@ -243,7 +243,7 @@ var OpenADirectoryRequest = {
             reqName:'DirectoryHandle',
             objectModel:window,
             method:'showDirectoryPicker',
-            andThen:["0"]
+           // andThen:["0"]
         },
         {
             reqName:"TakeUserPermissionsandGetUID",
@@ -253,7 +253,7 @@ var OpenADirectoryRequest = {
                 arguments:['DirectoryHandle',true],
                 output:true
             },
-            exit:true,
+            exitBeforeExecutingRequest:true,
             objectModel:processFS,
             method:'uid'
         },
@@ -264,17 +264,54 @@ var OpenADirectoryRequest = {
             arguments:["TakeUserPermissionsandGetUID",'DirectoryHandle']
         },
         {
-            reqName:"JsonForDirectory",
-            objectModel:processFS,
-            method:'jsonForDirectory',
-            arguments:['','DirectoryHandle']
+            reqName:'StringifyDirectoryJSON',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[directoryJSON]
         },
         {
-            reqName:'myCollection',
+            reqName:'input',
+            objectModel:JSON,
+            method:'parse',
+            arguments:['StringifyDirectoryJSON']
+        },
+        {
+            reqName:'DirHandleName',
+            objectModel:Entity,
+            method:'set',
+            arguments:['input.li.span','DirectoryHandle.name','textContent']
+        },
+        {
+            reqName:"DirHandleId",
+            objectModel:Entity,
+            method:'set',
+            arguments:["input.li.list","TakeUserPermissionsandGetUID",'id']
+        },
+        {
+            reqName:"jsonForDirectory",
+            objectModel:processFS,
+            method:'jsonForDirectory',
+            arguments:['input.li.list','DirectoryHandle']
+        },
+        {
+            reqName:'CollectionElement',
             objectModel:document,
             method:'getElementById',
             arguments:['myCollection']
         },
+        {
+            reqName:'newEntity',
+            objectModel:ActionView,
+            method:'newEntity',
+            //new Entity
+            arguments:['input','CollectionElement']
+        },
+        {
+            reqName:'SetUsermyCollection',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['UsermyCollection','CollectionElement.innerHTML']
+        }
     ]
 }
 //RecentFiles flow
@@ -284,27 +321,26 @@ var recentFilesFlowRequest = {
             reqName:'Array',
             objectModel:indexDB,
             method:'get',
-            argument:['RecentFiles']
+            arguments:['RecentFiles']
         },
         {
-                reqName:'Element',//1
-                objectModel: document,
-                method: "getElementById",
-                argument: ["RecentFiles"],
+            reqName:'Element',//1
+            objectModel: document,
+            method: "getElementById",
+            arguments: ["RecentFiles"],
         },
         {
             reqName:'SetArrayValue',
             validate:{
                 objectModel:operate,
                 method:'isNotEmpty',
-                argument:['Array'],
+                arguments:['Array'],
                 output:false
             },
-            objectModel:'state',
-            method:'Array',
-            assign:true,
-            argument:[ [], ]
-        },
+            objectModel:Entity,
+            method:'set',
+            arguments:['state', [],'Array' ]
+        },//correct
         {
             reqName:'FirstChildOfElement',
             objectModel:'Element',

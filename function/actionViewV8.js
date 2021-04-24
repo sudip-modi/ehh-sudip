@@ -20,7 +20,9 @@ class ActionView {
         target.innerHTML = newChild.entity.innerHTML;
         return target;
      }
-
+     static newEntity(input,element){
+         var newEntity = new Entity(input,element);
+     }
     /**
      * Validtions to be added.
    * This method is used for adding InnerHTML to DOM Elements
