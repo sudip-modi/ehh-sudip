@@ -71,6 +71,15 @@ var paramsJSON = {
     'Username':'',
     'Password':'',
 }
+var importFromSheetparamsJSON = {
+    'SpreadsheetId':'',
+    'NamedRange':'',
+}
+var exportToSheetparamsJSON = {
+    'SpreadsheetId':'',
+    'SheetName':'',
+    'array':[[1,2,3],[1,2,3]]
+}
 const pickerOpts = {
     types: [
         {
