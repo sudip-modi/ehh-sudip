@@ -126,12 +126,7 @@ class Entity {
             }
 
         }else{
-            if(key){
-                input[key] = output;
-                console.log(input);
-            }else{
-                input = output;
-            }
+           
         }
         return output;
     }

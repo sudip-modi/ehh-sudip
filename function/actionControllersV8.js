@@ -282,9 +282,11 @@ class ActionController extends ActionEvent {
                 case 'SubmitInvoice':
                     this.SubmitInvoice(event);break;
                 case 'importFromSheet':
-                        this.importFromSheet(event);break;
+                    event.preventDefault();importFromSheetFlowRequest.flowRequest[4].arguments.push(event);
+                    engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':
-                        this.exportToSheet(event);break;
+                    event.preventDefault(); exportToSheetFlowRequest.flowRequest[4].arguments.push(event);
+                    engine.processReq(exportToSheetFlowRequest);break;
                 //signup,login
                 case 'Signup':
                     event.preventDefault();engine.processReqArray(SignUpFlowRequest);break;
@@ -387,28 +389,6 @@ class ActionController extends ActionEvent {
             //event.target.previousElementSibling('visibility',true)
 
             //console.log("yo")
-        }
-    }
-    async importFromSheet(event){
-        try{
-            event.preventDefault();
-            var params = {'SpreadsheetId':document.getElementById('spreadsheetID').value,'NamedRange':document.getElementById('NamedRange').value}
-            ActionView.closeModal(event);
-            var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,params),HttpService.requestBuilder("GET"));
-            //console.log(response.output);
-        }catch(err){
-            console.log(err);
-        }
-    }
-    async exportToSheet(event){
-        try{
-            event.preventDefault();
-            var json = {'SpreadsheetId':document.getElementById('spreadsheetID').value,'SheetName':document.getElementById('sheetName').value,'array':[[1,2,3],[1,2,3]]};
-            ActionView.closeModal(event);
-            var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
-            alert(response.output);
-        }catch(err){
-            console.log(err);
         }
     }
     async SubmitInvoice(event){

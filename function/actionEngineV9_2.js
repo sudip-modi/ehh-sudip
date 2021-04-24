@@ -39,6 +39,12 @@ class ActionEngine {
         }
         throw new Error("Request type not supported")
     }
+    /**
+     * 
+     * @param {*} key 
+     * @param {*} parent - 
+     * @returns if parent[key] exists or returns key
+     */
     get(key,parent) {
          if(parent[key])
             console.log('Nothing');
@@ -50,14 +56,31 @@ class ActionEngine {
          }else{
              return key;
          }
- 
- 
-     }
+    }
+    /**
+     * 
+     * @param {*} input 
+     * @param {*} output 
+     * @param {*} key 
+     * @returns output
+     * Set if key exists input[key] = output else input = output
+     */
+    set(input,output,key){
+        if(key){
+            input[key] = output;
+            console.log(input);
+        }else{
+            input = output;
+        }
+        return output;
+    }
     /**
      * 
      * @param {State} state - results of previous requests in an object
      * @param {RequestObj} reqObj - request obj
      * @returns {RequestObj}
+     * handleRequiredPreviousResults
+     * Assigns previous results of requests to objectModel and arguments
      */
     async handleRequiredPreviousResults(state,reqObj){
         var argument = [];var model;
@@ -68,14 +91,7 @@ class ActionEngine {
         if(reqObj.arguments){
             for(var p = 0;p < reqObj.arguments.length;p++){
                 var arg = reqObj.arguments[p];
-                if(operate.isInsideArray('state',String(arg))){
-                    if(operate.isEqual(arg,'state'))
-                        argument[p] = state;
-                    else if(arg.indexOf(".") > -1){
-                        var arr = arg.split(".");
-                        argument[p] = state[arr[0]];
-                    }
-                }else if(state.hasOwnProperty(String(arg))){
+                if(state.hasOwnProperty(String(arg))){
                     argument[p] = state[arg]; 
                 }else if(state.hasOwnProperty(String(arg).substring(0,String(arg).indexOf(".")))){
                     var arr = arg.split(".");
@@ -99,6 +115,9 @@ class ActionEngine {
      * @param {RequestObj} reqObj - request object
      * @param {state} state - parameter for passing results of previous requests
      * @returns {Promise}
+     * 1.Gets an updated Request from handleRequiredPrevious Results
+     * 2.if validate object exists get a validateResult
+     * 3.if validate doesn't exist || validateResult == output value of validate object then executes a  request
      */
     async action(req, state) {
         if (operate.isObject(req) != true) {

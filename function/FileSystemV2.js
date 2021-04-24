@@ -9,126 +9,149 @@ class processFS{
         var url = URL.createObjectURL(file, { oneTimeOnly: true });
         return url;
     }
-    static async readFile(event){
-        event.preventDefault();
-        if(fileHandle){
-            if(confirm('Want to erase all the changes made it to the file')){
-                await processFS.Open(event);
-            }
-        }else{
-            await processFS.Open(event);
-        }
-    }
-    async OpenFileV2(event, handle) {
-        var response={};
-        event.preventDefault();
-        if(!handle){
-            [fileHandle] = await window.showOpenFilePicker(pickerOpts);
-        }else{
-            fileHandle = handle;
-        }
-       // console.log(fileHandle);
-        var contents;
-        var file = await fileHandle.getFile();
-        if(file['name'].includes('.json') || file['name'].includes('.txt')|| file['name'].includes('.html')|| file['name'].includes('.js')||file['name'].includes('.xml')){
+    // static async readFile(event){
+    //     event.preventDefault();
+    //     if(fileHandle){
+    //         if(confirm('Want to erase all the changes made it to the file')){
+    //             await processFS.Open(event);
+    //         }
+    //     }else{
+    //         await processFS.Open(event);
+    //     }
+    // }
+    // async OpenFileV2(event, handle) {
+    //     var response={};
+    //     event.preventDefault();
+    //     if(!handle){
+    //         [fileHandle] = await window.showOpenFilePicker(pickerOpts);
+    //     }else{
+    //         fileHandle = handle;
+    //     }
+    //    // console.log(fileHandle);
+    //     var contents;
+    //     var file = await fileHandle.getFile();
+    //     if(file['name'].includes('.json') || file['name'].includes('.txt')|| file['name'].includes('.html')|| file['name'].includes('.js')||file['name'].includes('.xml')){
           
-            response['name'] = file['name'];
-            response['file'] = file;
-            response['content'] = await file.text();
-          // console.log(file['name'], response);
-            return response;
-          //  ActionView.updateTitle(file['name']);
-           // ActionView.updateInnerText(contents);
-        }else if(file['name'].includes('.xlx') || file['name'].includes('.xlsx')|| file['name'].includes('.csv')){
-            console.log("Work In Progress");
-        }else if(file['type'].includes('image') ||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')){
-           var reader = new FileReader();
-           reader.addEventListener("load", function () {
-            var image = new Image();
-            image.title = file.name;
-            image.width = '460';image.height = '380';
-               image.src = reader.result;
-               console.log(image);
-           // ActionView.updateTitle(file['name']);
-          //  ActionView.displayImage(image);
-           }, false);
-            console.log(image);
-            reader.readAsDataURL(file);
-        }else if(file['name'].includes('mp4')){
-            var reader = new FileReader();
-            reader.addEventListener("load", function () {
-             var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>'
-          //   ActionView.updateTitle(file['name']);
-            // ActionView.updateText(html);
-           }, false);
-           reader.readAsDataURL(file);
-        }else{
-            console.log("Not supported");
-        }
+    //         response['name'] = file['name'];
+    //         response['file'] = file;
+    //         response['content'] = await file.text();
+    //       // console.log(file['name'], response);
+    //         return response;
+    //       //  ActionView.updateTitle(file['name']);
+    //        // ActionView.updateInnerText(contents);
+    //     }else if(file['name'].includes('.xlx') || file['name'].includes('.xlsx')|| file['name'].includes('.csv')){
+    //         console.log("Work In Progress");
+    //     }else if(file['type'].includes('image') ||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')){
+    //        var reader = new FileReader();
+    //        reader.addEventListener("load", function () {
+    //         var image = new Image();
+    //         image.title = file.name;
+    //         image.width = '460';image.height = '380';
+    //            image.src = reader.result;
+    //            console.log(image);
+    //        // ActionView.updateTitle(file['name']);
+    //       //  ActionView.displayImage(image);
+    //        }, false);
+    //         console.log(image);
+    //         reader.readAsDataURL(file);
+    //     }else if(file['name'].includes('mp4')){
+    //         var reader = new FileReader();
+    //         reader.addEventListener("load", function () {
+    //          var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>'
+    //       //   ActionView.updateTitle(file['name']);
+    //         // ActionView.updateText(html);
+    //        }, false);
+    //        reader.readAsDataURL(file);
+    //     }else{
+    //         console.log("Not supported");
+    //     }
 
-    }
-    async OpenDirectoryV2(event) {
-        event.preventDefault();
-        try {
-            const response = await window.showDirectoryPicker();
-            console.log("returning", response);
-            return response;
+    // }
+    // async OpenDirectoryV2(event) {
+    //     event.preventDefault();
+    //     try {
+    //         const response = await window.showDirectoryPicker();
+    //         console.log("returning", response);
+    //         return response;
  
-        } catch (err) {
-            console.log(err);
-        }
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
 
-    }
-    static async saveFile(event){
-        event.preventDefault();
-        console.log("Saving File");
-        var editor = document.getElementById('inlineContent');
-        var fileHandle = await indexDB.get(editor.getAttribute('fileid'));
-        if(operate.isArray(fileHandle))
-            fileHandle = fileHandle[0];
-        var writable =  await fileHandle.createWritable();
-        await writable.write(editor.innerText);
-        await writable.close();
-    }
-    static async OpenDirectory(event){
-        event.preventDefault();
-        try {
-            const dirHandle = await window.showDirectoryPicker();
-            if(await processFS.verifyPermission(dirHandle,true)){
-                var dirID = uid();await indexDB.set(dirID, dirHandle);
+    // }
+    // static async saveFile(event){
+    //     event.preventDefault();
+    //     console.log("Saving File");
+    //     var editor = document.getElementById('inlineContent');
+    //     var fileHandle = await indexDB.get(editor.getAttribute('fileid'));
+    //     if(operate.isArray(fileHandle))
+    //         fileHandle = fileHandle[0];
+    //     var writable =  await fileHandle.createWritable();
+    //     await writable.write(editor.innerText);
+    //     await writable.close();
+    // }
+    // static async OpenDirectory(event){
+    //     event.preventDefault();
+    //     try {
+    //         const dirHandle = await window.showDirectoryPicker();
+    //         if(await processFS.verifyPermission(dirHandle,true)){
+    //             var dirID = uid();await indexDB.set(dirID, dirHandle);
 
-                var input = JSON.parse(JSON.stringify(directoryJSON));
-                input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
-                var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
-                var data = new Entity(input, document.getElementById('myCollection'));
-                localStorage.setItem('UsermyCollection',document.getElementById('myCollection').innerHTML);
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    //             var input = JSON.parse(JSON.stringify(directoryJSON));
+    //             input['li']['span']['textContent'] = dirHandle.name; input['li']['list']['id'] = dirID;
+    //             var json = await processFS.jsonForDirectory(input['li']['list'], dirHandle);
+    //             var data = new Entity(input, document.getElementById('myCollection'));
+    //             localStorage.setItem('UsermyCollection',document.getElementById('myCollection').innerHTML);
+    //         }
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
+    // static verifyPermissions() {
+    //     // Check for the various File API support.
+    //     if (window.File && window.FileReader && window.FileList && window.Blob) {
+    //         console.log("Great success! All the File APIs are supported.");
+    //         return true; // 
+    //     } else {
+    //         alert('The File APIs are not fully supported in this browser.');
+    //         return false; // 
+    //     }
+    // }
     //file folder
-    static async OpenFile(event){
-        event.preventDefault();
+    /**
+     * OpenFile 
+     * 1.saves the Previous viewed by User
+     * 2.Makes the entry of previous file in RecentFiles
+     * 3.Opens a new File makes a entry in myFiles
+     */
+    static async OpenFile(){
         try{
             if(document.getElementById('inlineContent').getAttribute('fileid').length > 0){
                     await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
-                    await processFS.RecentFiles(editor.getAttribute('fileid'));
+                    await engine.processReqArray(recentFilesFlowRequest);
             }
             await engine.processReq(OpenAFileFlowRequest);
         }catch(err){
             console.log(err);
         }
     }
+    /**
+     * 
+     * @param {*} event - To Know which file name is clicked by the user
+     * File
+     * 1.saves the Previous viewed by User
+     * 2.Makes the entry of previous file in RecentFiles
+     * 3.Set Attribute fileID to Id of the file on which user has clicked
+     * 4.Open that file in the editor
+     */
     static async File(event){
         event.preventDefault();
         try{
         console.log("FileID" + event.target.id);
         var editor = document.getElementById('inlineContent');
-        console.log(editor);
         if(editor.getAttribute('fileid').length > 0){
             await engine.processReq(saveFileFlowRequest);
-            await processFS.RecentFiles();
+            await engine.processReqArray(recentFilesFlowRequest);
         }    
         editor.setAttribute('fileID',event.target.id);
         await processFS.OpenFileInEditor(event.target.id);
@@ -136,6 +159,15 @@ class processFS{
             console.log(err);
         }
     }
+    /**
+     * 
+     * @param {*} id - File id of file whose content should be displayed in the editor
+     * OpenFileInEditor
+     * Checks whether id id from LocalStorage or not
+     * if from local Storage loads the content in editor
+     * or else
+     * checks for the type of file and displays it's content in the editor
+    */
     static async OpenFileInEditor(id) {
         try{  
         console.log(id);
@@ -173,44 +205,25 @@ class processFS{
             console.log(err);
         }
     }
-    static async RecentFiles(){
+    /**
+     * 
+     * @param {*} fileID - id of File with which FileHandle is stored
+     * @param {*} collectionId - whether JSON is required for myFiles/RecentFiles
+     * @param {*} fileHandle - FileHandle of the file
+     * jsonForFile
+     * Appends fileName, id in a fileJSON 
+     * Build a HTML from fileJSON using Entity and modifies Local Storage Item
+     */
+    static async jsonForFile(fileID,collectionId,fileHandle){
         try{
-            engine.processReqArray(recentFilesFlowRequest);
-            // var array = await indexDB.get('RecentFiles');
-            // console.log(array);
-            // var element = document.getElementById('RecentFiles');
-            // if(array === undefined){
-            //     array = [];
-            // }
-            // if(!array.includes(id)){
-            //     console.log("Including in indexDB");
-            //     array.unshift(id);
-            //     if(array.length == 11 && element.childNodes.length == 10){
-            //         array.shift();element.removeChild(element.childNodes[0]);
-            //     }
-            //     if(localStorage.getItem(id)!== null)
-            //         await processFS.jsonForFile(id,'RecentFiles');
-            //     else{
-            //         var fileHandle = await indexDB.get(id);
-            //         await processFS.jsonForFile(id,'RecentFiles',fileHandle);
-            //     }
-            //     await indexDB.set('RecentFiles',array);
-            // }
-        }catch(err){
-            console.log(err);
-        }
-    }
-    static async jsonForFile(fileID,collectionId= 'myFiles',fileHandle){
-        try{
-            console.log(fileHandle);
             var input = {};
             input[fileID] = JSON.parse(JSON.stringify(fileJSON));input[fileID]['id'] = fileID;
-          if(operate.isNotEmpty(fileHandle)){
-                var file =await  fileHandle.getFile();
-                input[fileID]['textContent'] = file.name;
-          }else{
-              input[fileID]['textContent'] = fileID;
-          }
+            if(operate.isNotEmpty(fileHandle)){
+                    var file =await  fileHandle.getFile();
+                    input[fileID]['textContent'] = file.name;
+            }else{
+                input[fileID]['textContent'] = fileID;
+            }
           console.log(input);
           var data = new Entity(input,document.getElementById(collectionId));
           localStorage.setItem('User'+collectionId,document.getElementById(collectionId).innerHTML);
@@ -218,6 +231,17 @@ class processFS{
             console.log(err);
         }
     }
+    /**
+     * 
+     * @param {*} obj - JSON has to be appended to include as a folder in myCollection
+     * @param {*} parentHandle - directory Handle for which JSON is required
+     * @returns obj
+     * jsonForDirectory
+     * Loops over dirHandle
+     * Checks if Directory - Appends directoryJSON it's id,file and calls jsonForDirectory to loop over it's directoryHandle
+     * else if file - appends FileJSON it's id, file
+     * 
+     */
     static async jsonForDirectory(obj, parentHandle) {
         for await (var entry of parentHandle.values()) {
             var id = uid();
@@ -240,27 +264,25 @@ class processFS{
         console.log(obj);
         return obj;
     }
-    static verifyPermissions() {
-        // Check for the various File API support.
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-            console.log("Great success! All the File APIs are supported.");
-            return true; // 
-        } else {
-            alert('The File APIs are not fully supported in this browser.');
-            return false; // 
-        }
-    }
-    static async verifyPermission(fileHandle, readWrite) {
+    /**
+     * 
+     * @param {*} Handle - FileHandle/DirectoryHandle for which permission is required
+     * @param {*} readWrite - if read and write permission needed - True or else if read permission needed false
+     * @returns true/false - whether user has given permission or not
+     * verifyPermission
+     * Checks if permission granted by user or else requests user permission
+     */
+    static async verifyPermission(Handle, readWrite) {
         const options = {};
         if (readWrite) {
             options.mode = 'readwrite';
         }
         // Check if permission was already granted. If so, return true.
-        if ((await fileHandle.queryPermission(options)) === 'granted') {
+        if ((await Handle.queryPermission(options)) === 'granted') {
             return true;
         }
         // Request permission. If the user grants permission, return true.
-        if ((await fileHandle.requestPermission(options)) === 'granted') {
+        if ((await Handle.requestPermission(options)) === 'granted') {
             return true;
         }
         // The user didn't grant permission, so return false.
@@ -277,6 +299,10 @@ class processFS{
             }
         }
     }
+    /**
+     * 
+     * @returns UID - unique ID
+     */
     static uid() {
         let timmy = Date.now().toString(36).toLocaleUpperCase();
         let randy = parseInt(Math.random() * Number.MAX_SAFE_INTEGER);

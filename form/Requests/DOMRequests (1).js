@@ -277,13 +277,13 @@ var OpenADirectoryRequest = {
         },
         {
             reqName:'DirHandleName',
-            objectModel:Entity,
+            objectModel:engine,
             method:'set',
             arguments:['input.li.span','DirectoryHandle.name','textContent']
         },
         {
             reqName:"DirHandleId",
-            objectModel:Entity,
+            objectModel:engine,
             method:'set',
             arguments:["input.li.list","TakeUserPermissionsandGetUID",'id']
         },
@@ -421,13 +421,13 @@ var LoginFlowRequest = {
         },
         {
             reqName:'SetUsername',
-            objectModel:Entity,
+            objectModel:engine,
             method:'set',
             arguments:[paramsJSON,'GetUsername','Username'],
         },
         {
             reqName:'SetPassword',
-            objectModel:Entity,
+            objectModel:engine,
             method:'set',
             arguments:[paramsJSON,'GetPassword','Password'],
         },
@@ -513,13 +513,13 @@ var SignUpFlowRequest = {
         },
         {
             reqName:'SetUsername',
-            objectModel:Entity,
+            objectModel:engine,
             method:'set',
             arguments:[paramsJSON,'GetUsername','Username'],
         },
         {
             reqName:"SetPassword",
-            objectModel:Entity,
+            objectModel:engine,
             method:'set',
             arguments:[paramsJSON,'GetPassword','Password']
         },
@@ -573,9 +573,123 @@ var SignUpFlowRequest = {
         }
     ]
 }
-var GetDataFlowRequest = {
-    flowRequest:{
-
-    }
+var importFromSheetFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetSpreadsheetId',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ["spreadsheetID"],
+            andThen:['value']
+        },  
+        {
+            reqName:'GetNamedRange',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ['NamedRange'],
+            andThen:['value']
+        },
+        {
+            reqName:'SetSpreadsheetId',
+            objectModel:engine,
+            method:'set',
+            arguments:[importFromSheetparamsJSON,'GetSpreadsheetId','SpreadsheetId']
+        },
+        {
+            reqName:'SetNamedRange',
+            objectModel:engine,
+            method:'set',
+            arguments:[importFromSheetparamsJSON,'GetNamedRange','NamedRange']
+        },
+        {
+            reqName:'CloseModal',
+            objectModel:ActionView,
+            method:'closeModal',
+            arguments:[]//event will be appended
+        },
+        {
+            reqName:'URLBuilder',
+            objectModel:HttpService,
+            method:'urlBuilder',
+            arguments:[scriptURL,importFromSheetparamsJSON]
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["GET"]
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLBuilder','RequestBuilder']
+        },
+    ]
 }
-
+var exportToSheetFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetSpreadsheetId',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ["spreadsheetID"],
+            andThen:['value']
+        },  
+        {
+            reqName:'GetSheetName',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ['sheetName'],
+            andThen:['value']
+        },
+        {
+            reqName:'SetSpreadsheetId',
+            objectModel:engine,
+            method:'set',
+            arguments:[exportToSheetparamsJSON,'GetSpreadsheetId','SpreadsheetId']
+        },
+        {
+            reqName:'SetNamedRange',
+            objectModel:engine,
+            method:'set',
+            arguments:[exportToSheetparamsJSON,'GetSheetName','SheetName']
+        },
+        {
+            reqName:'CloseModal',
+            objectModel:ActionView,
+            method:'closeModal',
+            arguments:[]//event will be appended
+        },
+        {
+            reqName:'stringifyParams',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[exportToSheetparamsJSON]
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["POST",undefined,'stringifyParams']
+        },  
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:[scriptURL,'RequestBuilder']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:['response'],
+                output:true
+            },
+            reqName:'Alert',
+            objectModel:window,
+            method:'alert',
+            arguments:['response.output']
+        },
+    ]
+}
