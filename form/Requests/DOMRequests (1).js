@@ -165,7 +165,7 @@ var saveFileFlowRequest = {
         objectModel:localStorage,
         method:'setItem',
         arguments:['fileID_File','getInnerText'],
-        exit:true
+        exitAfterExecutingRequest:true
     },
     {
         reqName:"Writable",//6
@@ -180,7 +180,7 @@ var saveFileFlowRequest = {
     },
     {
         reqName:"closeWritable",//8
-        objectModel:"createWritable",
+        objectModel:"Writable",
         method:'close'
     },
     ]
@@ -234,6 +234,46 @@ var OpenAFileFlowRequest ={
             objectModel:processFS,
             method:'OpenFileInEditor',
             arguments:['UID']
+        },
+    ]
+}
+var OpenADirectoryRequest = {
+    flowRequest:[
+        {
+            reqName:'DirectoryHandle',
+            objectModel:window,
+            method:'showDirectoryPicker',
+            andThen:["0"]
+        },
+        {
+            reqName:"TakeUserPermissionsandGetUID",
+            validate:{
+                objectModel:processFS,
+                method:'verifyPermission',
+                arguments:['DirectoryHandle',true],
+                output:true
+            },
+            exit:true,
+            objectModel:processFS,
+            method:'uid'
+        },
+        {
+            reqName:'FileHandleToFileID',
+            objectModel:indexDB,
+            method:'set',
+            arguments:["TakeUserPermissionsandGetUID",'DirectoryHandle']
+        },
+        {
+            reqName:"JsonForDirectory",
+            objectModel:processFS,
+            method:'jsonForDirectory',
+            arguments:['','DirectoryHandle']
+        },
+        {
+            reqName:'myCollection',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['myCollection']
         },
     ]
 }
@@ -482,3 +522,4 @@ var SignUpFlowRequest = {
         }
     ]
 }
+

@@ -169,8 +169,10 @@ class ActionEngine {
                         [request.reqName]: result
                     };
                 //  }
-                if(request.exit && operate.isEqual(null,result)){
-                    break;
+                if(request.exitBeforeExecutingRequest && operate.isEqual(result,null))
+                        break;
+                if(request.exitAfterExecutingRequest && result !== null){
+                        break;
                 }
             }
         }

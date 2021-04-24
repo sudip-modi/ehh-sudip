@@ -886,8 +886,6 @@ var workSpaceBody = {
                 name: 'div',
                 class: 'container column',
                 id: 'content',
-                contentEditable: 'true',
-            
                 activeActionStory: {
                     name: 'div',
                     class: 'container column',
@@ -900,6 +898,7 @@ var workSpaceBody = {
                             name: 'span',
                             class: 'inlineContent',
                             id:'inlineContent',
+                            contentEditable: 'true',
                             fileID:'',
                             innerHTML: sampleIntroStory
                         }
