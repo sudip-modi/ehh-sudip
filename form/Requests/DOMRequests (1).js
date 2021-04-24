@@ -318,6 +318,25 @@ var OpenADirectoryRequest = {
 var recentFilesFlowRequest = {
     flowRequest:[
         {
+            reqName:'id',
+            objectModel:document,
+            method: 'getElementById',
+            arguments:['inlineContent'],
+            callBack:{method:'getAttribute',arguments:['fileid']}
+        },
+        {
+            reqName:'SetArrayValue',
+            validate:{
+                objectModel:indexDB,
+                method:'get',
+                arguments:['RecentFiles'],
+                output: '',
+            },
+            objectModel:indexDB,
+            method:'set',
+            arguments:['RecentFiles', []]
+        },
+        {
             reqName:'Array',
             objectModel:indexDB,
             method:'get',
@@ -330,62 +349,58 @@ var recentFilesFlowRequest = {
             arguments: ["RecentFiles"],
         },
         {
-            reqName:'SetArrayValue',
+            reqName:'IncludeFileIDOfTheFile',
             validate:{
                 objectModel:operate,
-                method:'isNotEmpty',
-                arguments:['Array'],
+                method:'isInsideArray',
+                arguments:["id",'Array'],//'Array'
                 output:false
             },
-            objectModel:Entity,
-            method:'set',
-            arguments:['state', [],'Array' ]
-        },//correct
-        {
-            reqName:'FirstChildOfElement',
-            objectModel:'Element',
-            method:'childNodes',
-            andThen:['0']
+            objectModel:'Array',
+            method:'unshift',
+            arguments:['id'],
+            exitBeforeExecutingRequest:true
         },
         {
             reqName:'RemovingAnItem',
             validate:{
                 objectModel:operate,
                 method:'isEqualStrict',
-                argument:['Array.length',10],
+                arguments:['Array.length',11],
                 output:true,
             },
             objectModel:'Array',
             method:'shift',
-            andThen:{
-                objectModel:'Element',
-                method:'removeChild',
-                argument:['FirstChildOfElement']
-            }
         },
         {
-            reqName:'IncludeFileIDOfTheFile',
+            reqName:'RemovingChildNodeRecentFiles',
             validate:{
                 objectModel:operate,
-                method:'isInsideArray',
-                argument:["params.id",'Array'],//'Array'
-                output:false
+                method:'isEqualStrict',
+                arguments:['Element.childNodes.length',10],
+                output:true,
             },
-            objectModel:'Array',
-            method:'unshift',
-            argument:['params.id']//id
+            objectModel:'Element',
+            method:'removeChild',
+            arguments:['Element.childNodes.0']
         },
         {
+            reqName:'FileHandle',
+            objectModel:indexDB,
+            method:'get',
+            arguments:['id']
+        },
+        {
+            reqName:'JSONForFile',
             objectModel:processFS,
             method:'jsonForFile',
-            argument:['params.id','RecentFiles','params.fileHandle']
+            arguments:['id','RecentFiles','FileHandle']
         },
         {
             objectModel:indexDB,
             method:'set',
-            argument:['RecentFiles','Array']
-        }
-
+            arguments:['RecentFiles','Array']
+        },
     ]
 }
 var LoginFlowRequest = {
@@ -557,5 +572,10 @@ var SignUpFlowRequest = {
             arguments:["action"],
         }
     ]
+}
+var GetDataFlowRequest = {
+    flowRequest:{
+
+    }
 }
 

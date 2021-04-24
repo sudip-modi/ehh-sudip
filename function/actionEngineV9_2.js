@@ -59,7 +59,7 @@ class ActionEngine {
      * @param {RequestObj} reqObj - request obj
      * @returns {RequestObj}
      */
-    handleRequiredPreviousResults(state,reqObj){
+    async handleRequiredPreviousResults(state,reqObj){
         var argument = [];var model;
         if(state.hasOwnProperty(String(reqObj.objectModel)))
             model = state[reqObj.objectModel];
@@ -68,7 +68,14 @@ class ActionEngine {
         if(reqObj.arguments){
             for(var p = 0;p < reqObj.arguments.length;p++){
                 var arg = reqObj.arguments[p];
-                if(state.hasOwnProperty(String(arg))){
+                if(operate.isInsideArray('state',String(arg))){
+                    if(operate.isEqual(arg,'state'))
+                        argument[p] = state;
+                    else if(arg.indexOf(".") > -1){
+                        var arr = arg.split(".");
+                        argument[p] = state[arr[0]];
+                    }
+                }else if(state.hasOwnProperty(String(arg))){
                     argument[p] = state[arg]; 
                 }else if(state.hasOwnProperty(String(arg).substring(0,String(arg).indexOf(".")))){
                     var arr = arg.split(".");
@@ -97,11 +104,11 @@ class ActionEngine {
         if (operate.isObject(req) != true) {
           return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
-        req = this.handleRequiredPreviousResults(state,req);
+        req = await this.handleRequiredPreviousResults(state,req);
         var response,validateResult;
         if(req.hasOwnProperty('validate')){
             validateResult = await this.action(req.validate,state);
-            console.log("validateResult" + validateResult + " and it's output should be equal to " + req.validate.output);
+            console.log("validateResult :- " + validateResult + " and it's output should be equal to " + req.validate.output);
         }
         if(req.hasOwnProperty('validate') && !operate.isEqual(validateResult,req.validate.output)){
             return null;
@@ -141,11 +148,10 @@ class ActionEngine {
             }
           }
         } 
-        // req['response'] = response;
-        // console.log()
-        if (req['callBack']) {
-          var callBack = window[req['callBack']];
+        if (req.hasOwnProperty('callBack')) {
+          var callBack = req['callBack'];
           var callBackrequest = {...callBack,objectModel:response};
+          console.log("CallBack : - " + JSON.stringify(callBackrequest));
           response = await this.action(callBackrequest, state);
         }
         return response;

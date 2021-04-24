@@ -128,7 +128,7 @@ class processFS{
         console.log(editor);
         if(editor.getAttribute('fileid').length > 0){
             await engine.processReq(saveFileFlowRequest);
-            await processFS.RecentFiles(editor.getAttribute('fileid'));
+            await processFS.RecentFiles();
         }    
         editor.setAttribute('fileID',event.target.id);
         await processFS.OpenFileInEditor(event.target.id);
@@ -173,29 +173,29 @@ class processFS{
             console.log(err);
         }
     }
-    static async RecentFiles(id){
+    static async RecentFiles(){
         try{
-           // engine.processReqArray(recentFilesFlowRequest,{'id':id,'fileHandle':fileHandle});
-            var array = await indexDB.get('RecentFiles');
-            console.log(array);
-            var element = document.getElementById('RecentFiles');
-            if(array === undefined){
-                array = [];
-            }
-            if(!array.includes(id)){
-                console.log("Including in indexDB");
-                array.unshift(id);
-                if(array.length == 11 && element.childNodes.length == 10){
-                    array.shift();element.removeChild(element.childNodes[0]);
-                }
-                if(localStorage.getItem(id)!== null)
-                    await processFS.jsonForFile(id,'RecentFiles');
-                else{
-                    var fileHandle = await indexDB.get(id);
-                    await processFS.jsonForFile(id,'RecentFiles',fileHandle);
-                }
-                await indexDB.set('RecentFiles',array);
-            }
+            engine.processReqArray(recentFilesFlowRequest);
+            // var array = await indexDB.get('RecentFiles');
+            // console.log(array);
+            // var element = document.getElementById('RecentFiles');
+            // if(array === undefined){
+            //     array = [];
+            // }
+            // if(!array.includes(id)){
+            //     console.log("Including in indexDB");
+            //     array.unshift(id);
+            //     if(array.length == 11 && element.childNodes.length == 10){
+            //         array.shift();element.removeChild(element.childNodes[0]);
+            //     }
+            //     if(localStorage.getItem(id)!== null)
+            //         await processFS.jsonForFile(id,'RecentFiles');
+            //     else{
+            //         var fileHandle = await indexDB.get(id);
+            //         await processFS.jsonForFile(id,'RecentFiles',fileHandle);
+            //     }
+            //     await indexDB.set('RecentFiles',array);
+            // }
         }catch(err){
             console.log(err);
         }
@@ -205,9 +205,7 @@ class processFS{
             console.log(fileHandle);
             var input = {};
             input[fileID] = JSON.parse(JSON.stringify(fileJSON));input[fileID]['id'] = fileID;
-          if(fileHandle){
-                if(operate.isArray(fileHandle))
-                    fileHandle = fileHandle[0]
+          if(operate.isNotEmpty(fileHandle)){
                 var file =await  fileHandle.getFile();
                 input[fileID]['textContent'] = file.name;
           }else{
