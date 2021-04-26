@@ -143,7 +143,7 @@ class ActionController extends ActionEvent {
         console.log("onChangeRoute :- " + routeKeyword);
         if (routeKeyword) {
              var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
-             if (routeModel.length !=0) {
+             if (routeModel.length !== 0) {
                  window.location.hash =  routeKeyword;
              } else {
                  console.log('no route found');
@@ -271,8 +271,8 @@ class ActionController extends ActionEvent {
             console.log("Command " + commandJson[0].command);
             switch (commandJson[0].command) {
                 
-                case 'modal':
-                    ActionView.modalForm(event,commandJson[0].entity);break;
+                case 'redirect':
+                    ActionController.onChangeRoute(commandJson[0].entity);break;
                 case 'closeModal':
                     ActionView.closeModal(event);break;
                 case 'NewItem':

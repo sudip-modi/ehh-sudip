@@ -409,7 +409,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'Export to Sheet',
-                                    'data-command': `[{"command":"modal","entity":"export"}]`,
+                                    'data-command': `[{"command":"redirect","entity":"exportData"}]`,
                                 },
                                 
                             },
@@ -420,7 +420,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'Import from Sheet',
-                                    'data-command': `[{"command":"modal","entity":"import"}]`,
+                                    'data-command': `[{"command":"redirect","entity":"importData"}]`,
                                 },
                                 
                             },

@@ -40,7 +40,8 @@ input {
  #regForm {
       margin: 200px auto;
       padding:54px;
-   
+      width: 45%;
+      height: 40%;  
       border-radius:  13px;
     }
 
