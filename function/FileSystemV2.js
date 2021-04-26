@@ -117,6 +117,33 @@ class processFS{
     //         return false; // 
     //     }
     // }
+     /**
+     * 
+     * @param {*} fileID - id of File with which FileHandle is stored
+     * @param {*} collectionId - whether JSON is required for myFiles/RecentFiles
+     * @param {*} fileHandle - FileHandle of the file
+     * jsonForFile
+     * Appends fileName, id in a fileJSON 
+     * Build a HTML from fileJSON using Entity and modifies Local Storage Item
+     */
+    // static async jsonForFile(fileID,collectionId,fileHandle){
+    //     try{
+    //         var input = {};
+    //         input[fileID] = JSON.parse(JSON.stringify(fileJSON));
+    //         input[fileID]['id'] = fileID;
+    //         if(operate.isNotEmpty(fileHandle)){
+    //             var file =await  fileHandle.getFile();
+    //             input[fileID]['textContent'] = file.name;
+    //         }else{
+    //             input[fileID]['textContent'] = fileID;
+    //         }
+    //         console.log(input);
+    //         var data = new Entity(input,document.getElementById(collectionId));
+    //         localStorage.setItem('User'+collectionId,document.getElementById(collectionId).innerHTML);
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // }
     //file folder
     /**
      * OpenFile 
@@ -126,10 +153,8 @@ class processFS{
      */
     static async OpenFile(){
         try{
-            if(document.getElementById('inlineContent').getAttribute('fileid').length > 0){
-                    await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
-                    await engine.processReqArray(recentFilesFlowRequest);
-            }
+            await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
+            await engine.processReqArray(recentFilesFlowRequest);
             await engine.processReq(OpenAFileFlowRequest);
         }catch(err){
             console.log(err);
@@ -147,14 +172,10 @@ class processFS{
     static async File(event){
         event.preventDefault();
         try{
-        console.log("FileID" + event.target.id);
-        var editor = document.getElementById('inlineContent');
-        if(editor.getAttribute('fileid').length > 0){
             await engine.processReq(saveFileFlowRequest);
             await engine.processReqArray(recentFilesFlowRequest);
-        }    
-        editor.setAttribute('fileID',event.target.id);
-        await processFS.OpenFileInEditor(event.target.id);
+            document.getElementById('inlineContent').setAttribute('fileID',event.target.id);
+            await processFS.OpenFileInEditor(event.target.id);
         }catch(err){
             console.log(err);
         }
@@ -175,8 +196,6 @@ class processFS{
             ActionView.addInnerText(localStorage.getItem(id),document.getElementById('inlineContent'));
         }else{
             var fileHandle = await indexDB.get(id);
-            if(operate.isArray(fileHandle))
-                fileHandle = fileHandle[0];
             if(await processFS.verifyPermission(fileHandle,true)){
                 var file = await fileHandle.getFile();
                 if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.css')) {
@@ -207,32 +226,6 @@ class processFS{
     }
     /**
      * 
-     * @param {*} fileID - id of File with which FileHandle is stored
-     * @param {*} collectionId - whether JSON is required for myFiles/RecentFiles
-     * @param {*} fileHandle - FileHandle of the file
-     * jsonForFile
-     * Appends fileName, id in a fileJSON 
-     * Build a HTML from fileJSON using Entity and modifies Local Storage Item
-     */
-    static async jsonForFile(fileID,collectionId,fileHandle){
-        try{
-            var input = {};
-            input[fileID] = JSON.parse(JSON.stringify(fileJSON));input[fileID]['id'] = fileID;
-            if(operate.isNotEmpty(fileHandle)){
-                    var file =await  fileHandle.getFile();
-                    input[fileID]['textContent'] = file.name;
-            }else{
-                input[fileID]['textContent'] = fileID;
-            }
-          console.log(input);
-          var data = new Entity(input,document.getElementById(collectionId));
-          localStorage.setItem('User'+collectionId,document.getElementById(collectionId).innerHTML);
-        }catch(err){
-            console.log(err);
-        }
-    }
-    /**
-     * 
      * @param {*} obj - JSON has to be appended to include as a folder in myCollection
      * @param {*} parentHandle - directory Handle for which JSON is required
      * @returns obj
@@ -251,7 +244,6 @@ class processFS{
                 var directoryHandle = await parentHandle.getDirectoryHandle(entry.name);
                 await indexDB.set(id, directoryHandle);
                 obj[entry.name] = directory;
-                console.log(obj[entry.name]['li']['list']);
                 await processFS.jsonForDirectory(obj[entry.name]['li']['list'], directoryHandle);
             } else if (entry.kind == 'file' && entry.name.includes('.')) {
                 var fileData = JSON.parse(JSON.stringify(fileJSON));

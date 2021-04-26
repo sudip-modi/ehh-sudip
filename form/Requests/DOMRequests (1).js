@@ -130,6 +130,7 @@ var newFileFlowRequest = {
 var saveFileFlowRequest = {
     flowRequest:[
     {
+
         reqName:'Editor',//1
         objectModel: document,
         method: "getElementById",
@@ -142,10 +143,17 @@ var saveFileFlowRequest = {
         arguments:['fileid']
     },
     {
+        validate:{
+            objectModel:operate,
+            method:'isEqual',
+            arguments:['fileID_File.length',0],
+            output:false,
+        },
         reqName:"FileHandleFromIndexDB",//4
         objectModel:indexDB,
         method:'get',
-        arguments:["fileID_File"]
+        arguments:["fileID_File"],
+        exitBeforeExecutingRequest:true
     },
     {
         reqName:"getInnerText",//3
@@ -211,23 +219,95 @@ var OpenAFileFlowRequest ={
             method:'get',
             arguments:["UID"]
         },
+        // {
+        //     reqName:'jsonForFile',
+        //     objectModel:processFS,
+        //     method:'jsonForFile',
+        //     arguments:["UID","myFiles","GetAFile"]
+        // },
         {
-            reqName:'jsonForFile',
-            objectModel:processFS,
-            method:'jsonForFile',
-            arguments:["UID","myFiles","GetAFile"]
+            reqName:'SetUIDToFileJSON',
+            objectModel:engine,
+            method:'set',
+            arguments:[fileJSON,"UID","id",]
+        },
+        {
+           reqName:"SetNameToLocalStorageFile",
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:["GetAFile"],
+                output:false
+            },
+            objectModel:engine,
+            method:'set',
+            arguments:[fileJSON,"UID","textContent"]
+        },
+        {
+            reqName:'file',
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:["GetAFile"],
+                output:true
+            },
+            objectModel:"GetAFile",
+            method:'getFile'
+        },
+        {
+            reqName:'SetNameToFSFile',
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:["GetAFile"],
+                output:true
+            },
+            objectModel:engine,
+            method:'set',
+            arguments:[fileJSON,"file.name","textContent"]
+        },
+        {
+            reqName:"StringifyJSON",
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[{}]
+        },
+        {
+            reqName:"ParseJSON",
+            objectModel:JSON,
+            method:'parse',
+            arguments:["StringifyJSON"]
+        },
+        {
+            reqName:'input',
+            objectModel:engine,
+            method:'set',
+            arguments:["ParseJSON",fileJSON,"UID"]
+        },
+        {
+            reqName:"myFilesElement",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['myFiles']
+        },
+        {
+            reqName:"newEntity",
+            objectModel:ActionView,
+            method:'newEntity',
+            arguments:['input',"myFilesElement"]
+        },
+        {
+            reqName:'SetUsermyFilesLocalStorage',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['UsermyFiles',"myFilesElement.innerHTML"]
         },
         {
             reqName:'Editor',
             objectModel:document,
             method:'getElementById',
-            arguments:['inlineContent']
-        },
-        {
-            reqName:'assigningFileID',
-            objectModel:'Editor',
-            method:'setAttribute',
-            arguments:['fileid','UID']
+            arguments:['inlineContent'],
+            callBack:{  method:'setAttribute',arguments:['fileid','UID']}
         },
         {
             reqName:"FileInEditor",
@@ -318,7 +398,7 @@ var OpenADirectoryRequest = {
 var recentFilesFlowRequest = {
     flowRequest:[
         {
-            reqName:'id',
+            reqName:'Fileid',
             objectModel:document,
             method: 'getElementById',
             arguments:['inlineContent'],
@@ -330,17 +410,24 @@ var recentFilesFlowRequest = {
                 objectModel:indexDB,
                 method:'get',
                 arguments:['RecentFiles'],
-                output: '',
+                output: undefined,
             },
             objectModel:indexDB,
             method:'set',
             arguments:['RecentFiles', []]
         },
         {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['Fileid.length',0],
+                output:false
+            },
             reqName:'Array',
             objectModel:indexDB,
             method:'get',
-            arguments:['RecentFiles']
+            arguments:['RecentFiles'],
+            exitBeforeExecutingRequest:true
         },
         {
             reqName:'Element',//1
@@ -353,12 +440,12 @@ var recentFilesFlowRequest = {
             validate:{
                 objectModel:operate,
                 method:'isInsideArray',
-                arguments:["id",'Array'],//'Array'
+                arguments:["Fileid",'Array'],//'Array'
                 output:false
             },
             objectModel:'Array',
             method:'unshift',
-            arguments:['id'],
+            arguments:['Fileid'],
             exitBeforeExecutingRequest:true
         },
         {
@@ -388,15 +475,87 @@ var recentFilesFlowRequest = {
             reqName:'FileHandle',
             objectModel:indexDB,
             method:'get',
-            arguments:['id']
+            arguments:['Fileid']
+        },
+        // {
+        //     reqName:'JSONForFile',
+        //     objectModel:processFS,
+        //     method:'jsonForFile',
+        //     arguments:['Fileid','RecentFiles','FileHandle']
+        // },
+        {
+            reqName:'SetUIDToFileJSON',
+            objectModel:engine,
+            method:'set',
+            arguments:[fileJSON,"Fileid","id",]
         },
         {
-            reqName:'JSONForFile',
-            objectModel:processFS,
-            method:'jsonForFile',
-            arguments:['id','RecentFiles','FileHandle']
+            reqName:"SetNameToLocalStorageFile",
+             validate:{
+                 objectModel:operate,
+                 method:'isNotEmpty',
+                 arguments:["FileHandle"],
+                 output:false
+             },
+             objectModel:engine,
+             method:'set',
+             arguments:[fileJSON,"Fileid","textContent"]
         },
         {
+            reqName:'file',
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:["FileHandle"],
+                output:true
+            },
+            objectModel:"FileHandle",
+            method:'getFile'
+        },
+        {
+            reqName:'SetNameToFSFile',
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:["FileHandle"],
+                output:true
+            },
+            objectModel:engine,
+            method:'set',
+            arguments:[fileJSON,"file.name","textContent"]
+        },
+        {
+            reqName:"StringifyJSON",
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[{}]
+        },
+        {
+            reqName:"ParseJSON",
+            objectModel:JSON,
+            method:'parse',
+            arguments:["StringifyJSON"]
+        },
+        {
+            reqName:'input',
+            objectModel:engine,
+            method:'set',
+            arguments:["ParseJSON",fileJSON,"Fileid"]
+        },
+        {
+            reqName:"newEntity",
+            objectModel:ActionView,
+            method:'newEntity',
+            arguments:['input',"Element"]
+        },
+        {
+            reqName:'SetRecentFilesLocalStorage',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['UserRecentFiles',"Element.innerHTML"]
+        },
+        {
+            reqName:"setRecentFilesInIndexDB",
             objectModel:indexDB,
             method:'set',
             arguments:['RecentFiles','Array']

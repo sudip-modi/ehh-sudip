@@ -62,17 +62,16 @@ class ActionEngine {
      * @param {*} input 
      * @param {*} output 
      * @param {*} key 
-     * @returns output
+     * @returns input
      * Set if key exists input[key] = output else input = output
      */
     set(input,output,key){
         if(key){
             input[key] = output;
-            console.log(input);
         }else{
             input = output;
         }
-        return output;
+        return input;
     }
     /**
      * 
@@ -123,7 +122,6 @@ class ActionEngine {
         if (operate.isObject(req) != true) {
           return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
-        req = await this.handleRequiredPreviousResults(state,req);
         var response,validateResult;
         if(req.hasOwnProperty('validate')){
             validateResult = await this.action(req.validate,state);
@@ -132,6 +130,7 @@ class ActionEngine {
         if(req.hasOwnProperty('validate') && !operate.isEqual(validateResult,req.validate.output)){
             return null;
         }
+        req = await this.handleRequiredPreviousResults(state,req);
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
         var method = objectModel[req.method];
         // if (result) {//Used for either callback cases, where 
