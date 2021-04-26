@@ -255,7 +255,48 @@ var headerSignup = {
     'brand': brand,
   //  'menu': actionSpaceHeaderVistorMenu,
 }
-
+var sampleNestedFolder = {
+    'name':'ul',
+    'class':'nested',
+    'li1':{'name':'li','textContent':'story 1'},
+    'li2':{'name':'li','textContent':'story 2'},
+    'li3':{'name':'li','textContent':'story 3'},
+    'li4':{'name':'li','textContent':'story 4'},
+    'li5':{
+        'name':'li',
+        'li':{
+            'name':'li',
+            'textContent':'errands',
+            'span':{
+                'name':'span',
+                'class':'parent',
+                'textContent':'my Nested Stories',
+            },
+            'ul':{
+                'name':'ul',
+                'class':'nested',
+                'li1':{'name':'li','textContent':'story 1'},
+                'li2':{'name':'li','textContent':'story 2'},
+                'li3':{'name':'li','textContent':'story 3'},
+                'li4':{'name':'li','textContent':'story 4'},
+            }
+        }
+    },
+    'li6':{
+        'name':'li',
+        'span':{
+            'name':'span',
+            'class':'parent',
+            'textContent':'recent Stories',
+        },
+        'ul':{
+            'name':'ul',
+            'class':'nested',
+            'li1':{'name':'li','textContent':'leaf1 1'},
+            'li2':{'name':'li','textContent':'leaf2 2'}, 
+        }
+    }
+}
 var leftSideNavBar= {
     name: 'section',
     id: "navigationSection",
@@ -302,9 +343,6 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'new actionStory',
-                                    //'onclick': "engine.executeSynReq(newFileReq,event);",
-
-                                  //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 },
                                 'data-command':`[{"command":"new"}]`,
                             },
@@ -320,7 +358,6 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'open file',
-                                    //  'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
                                 },
                                 'data-command':`[{"command":"OpenFile"}]`
                             },
@@ -336,9 +373,6 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'add collection',
-                                    
-                                    //'data-command': '[{"command":"new ","entity": "actionContent","value":"innerHTML"}]',
-                                   // 'onclick': "engine.executeSynReq(openFolderReqModel,event);"
                                 },
                                 'data-command':`[{"command":"OpenDirectory"}]`
                             },
@@ -409,104 +443,87 @@ var leftSideNavBar= {
             collectionItem: {
                 name: 'div',
                 class: "container column",
-                        innerHTML: `
-                      <li class='row item justify_SpaceBetween'><span class="parent ">my collection</span>
-                      <ul class="nested container column" id="myCollection">
-                      
-                      </ul>
-                      </li>
-            <span class="hozintalLine"></span>
-            <li class='row item justify_SpaceBetween'><span class="parent">my files</span>
-            <ul class="nested container column" id="myFiles">
-            </ul>
-            </li>
-            <span class="hozintalLine"></span>
-            <li class='row item justify_SpaceBetween'><span class="parent">Recent Files</span>
-            <ul class="nested container column" id="RecentFiles">
-            </ul>
-            </li>
-            <span class="hozintalLine"></span>
-            <li><span class="parent">Starred</span>
-                <ul class="nested">
-                    <li>story 1</li>
-                    <li>story 2</li>
-                    <li>story 3</li>
-                    <li>story 4</li>
-                    <li>
-                    <li><span class="parent">my Nested Stories</span>
-                        <ul class="nested">
-                            <li>story 1</li>
-                            <li>story 2</li>
-                            <li>story 3</li>
-                            <li>story 4</li>
-                        </ul>
-                    </li>
-                    errands
-            </li>
-
-            <li><span class="parent">recent Stories</span>
-                <ul class="nested">
-                    <li>leaf</li>
-                    <li>leaf</li>
-
-                </ul>
-            </li>
-            </ul>
-            </li>
-            <li><span class="parent">Tags</span>
-                <ul class="nested">
-                    <li>story 1</li>
-                    <li>story 2</li>
-                    <li>story 3</li>
-                    <li>story 4</li>
-                    <li>
-                    <li><span class="parent">my Nested Stories</span>
-                        <ul class="nested">
-                            <li>story 1</li>
-                            <li>story 2</li>
-                            <li>story 3</li>
-                            <li>story 4</li>
-                        </ul>
-                    </li>
-                    errands
-            </li>
-
-            <li><span class="parent">recent Stories</span>
-                <ul class="nested">
-                    <li>leaf</li>
-                    <li>leaf</li>
-
-                </ul>
-            </li>
-            </ul>
-            </li>
-            <li><span class="parent">Trash</span>
-                <ul class="nested">
-                    <li>story 1</li>
-                    <li>story 2</li>
-                    <li>story 3</li>
-                    <li>story 4</li>
-                    <li>
-                    <li><span class="parent">my Nested Stories</span>
-                        <ul class="nested">
-                            <li>story 1</li>
-                            <li>story 2</li>
-                            <li>story 3</li>
-                            <li>story 4</li>
-                        </ul>
-                    </li>
-                    errands
-            </li>
-
-            <li><span class="parent">recent Stories</span>
-                <ul class="nested">
-                    <li>leaf</li>
-                    <li>leaf</li>
-
-                </ul>
-            </li>
-            </ul>
-            </li>`
+                 'limyCollection':{
+                        'name':'li',
+                        'class':'row item justify_SpaceBetween',
+                        'span':{
+                            'name':'span',
+                            'class':'parent',
+                            'textContent':'my collection'
+                        },
+                        'ul':{
+                            'name':'ul',
+                            'class':'nested container column',
+                            'id':'myCollection'
+                        }
+                 },
+                'span1':{
+                    'name':'span',
+                    'class':'hozintalLine'
+                },
+                'limyFiles':{
+                    'name':'li',
+                    'class':'row item justify_SpaceBetween',
+                    'span':{
+                        'name':'span',
+                        'class':'parent',
+                        'textContent':'my files'
+                    },
+                    'ul':{
+                        'name':'ul',
+                        'class':'nested container column',
+                        'id':'myFiles'
+                    }
+                },
+                'span2':{
+                    'name':'span',
+                    'class':'hozintalLine'
+                },
+                'liRecentFiles':{
+                    'name':'li',
+                    'class':'row item justify_SpaceBetween',
+                    'span':{
+                        'name':'span',
+                        'class':'parent',
+                        'textContent':'Recent Files'
+                    },
+                    'ul':{
+                        'name':'ul',
+                        'class':'nested container column',
+                        'id':'RecentFiles'
+                    }
+                },
+                'span3':{
+                    'name':'span',
+                    'class':'hozintalLine'
+                },
+                'liStarred':{
+                    'name':'li',
+                    'span':{
+                        'name':'span',
+                        'class':'parent',
+                        'textContent':'Starred'
+                    },
+                    'ul':sampleNestedFolder
+                },
+                'liTags':{
+                    'name':'li',
+                    'span':{
+                        'name':'span',
+                        'class':'parent',
+                        'textContent':'Tags'
+                    },
+                    'ul':sampleNestedFolder
+                },
+                'liTrash':{
+                    'name':'li',
+                    'span':{
+                        'name':'span',
+                        'class':'parent',
+                        'textContent':'Starred'
+                    },
+                    'ul':sampleNestedFolder
+                }
             },
             collectionItem2: {
                 name: 'div',
