@@ -1525,3 +1525,143 @@ var ExportToSheet = {
         },
     }
 }
+var importfromSheetJSON = {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+        form: {
+            id: 'regForm',
+            name: 'form',
+            'class': 'align_center',
+            content: {
+                'name': 'div',
+                class: 'column align_center',
+                'formHeading': {
+                    'name': 'h1',
+                    'textContent': 'Import From Sheet',
+                },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelSpreadsheetID': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'spreadsheetID',
+                        'textContent': 'Spreadsheet ID',
+                    },
+                    'inputSpreadsheetID': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'spreadsheetID',
+                        'required': 'true',
+                        'placeholder': 'Enter SpreadsheetID',
+                    }
+                },
+                item2: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelNamedRange': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'NamedRange',
+                        'textContent': 'Named Range',
+                    },
+                    'inputNamedRange': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'NamedRange',
+                        'required': 'true',
+                        'placeholder': 'Enter Named Range(Eg, SheetName!A1:D10)',
+                    }
+                },
+                item3: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'SUBMIT',
+                        },
+                       'data-command ':`[{"command":"importFromSheet"}]`,
+                    },
+                },
+            }
+
+        }
+    }
+}
+var exportToSheetJSON = {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+        form: {
+            id: 'regForm',
+            name: 'form',
+            'class': 'align_center',
+            content: {
+                'name': 'div',
+                class: 'column align_center',
+                'formHeading': {
+                    'name': 'h1',
+                    'textContent': 'Export To Sheet',
+                },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelSpreadsheetID': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'spreadsheetID',
+                        'textContent': 'Spreadsheet ID',
+                    },
+                    'inputSpreadsheetID': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'spreadsheetID',
+                        'required': 'true',
+                        'placeholder': 'Enter SpreadsheetID',
+                    }
+                },
+                item2: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelSheetName': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'sheetName',
+                        'textContent': 'Sheet Name',
+                    },
+                    'inputsheetName': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'sheetName',
+                        'required': 'true',
+                        'placeholder': 'Enter Sheet Name',
+                    }
+                },
+                item3: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'SUBMIT',
+                        },
+                        'data-command': `[{"command":"exportToSheet"}]`,
+                    },
+                },
+            }
+
+        }
+    }
+}

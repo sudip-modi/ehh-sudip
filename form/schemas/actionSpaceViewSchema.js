@@ -43,5 +43,19 @@ var actionSpaceViewModel = [
         actorRole: 'visitor',
         model: basicsignUpLayoutVisitorV1,
     },
+    {
+        keyword: 'exportData',
+        name: 'exportSpace',
+        id: 'exportSpace',
+        actorRole: 'user',
+        model: exportToSheetJSON,
+    },
+    {
+        keyword: 'importData',
+        name: 'importSpace',
+        id: 'importSpace',
+        actorRole: 'user',
+        model: importfromSheetJSON,
+    }
 ]
 //console.log(actionSpaceViewModel)
