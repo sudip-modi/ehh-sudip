@@ -1387,145 +1387,7 @@ var newItemJSON ={
             }
         }
 }
-var ImportFromSheet = {
-    'div':{
-        'name':'div',
-        'class':'modal-content',
-        'br1':{
-            'name':'br'
-        },
-        'div1':{
-            'name':'div',
-            'class':'closeContainer',
-            'span':{
-                'name':'span',
-                'data-command': `[{"command":"closeModal"}]`,
-                'class':'close',
-                'textContent':'x',
-            },
-        },
-        'h1':{
-            'name':'h1',
-            'textContent':'Import from Sheet',
-        },
-        'br2':{
-            'name':'br'
-        },
-        'label1':{
-            'name':'label',
-            'innerHTML':'<b>Spreadsheet ID</b>'
-        },
-        'br3':{
-            'name':'br'
-        },
-        'input1':{
-            'name':'input',
-            'type':'text',
-            'required':'true',
-            'placeholder':'Enter SpreadsheetID',
-            'id':'spreadsheetID'
-        },
-        'br4':{
-            'name':'br'
-        },
-        'label2':{
-            'name':'label',
-            'innerHTML':'<b>Named Range</b>'
-        },
-        'br5':{
-            'name':'br'
-        },
-        'input2':{
-            'name':'input',
-            'type':'text',
-            'required':'true',
-            'placeholder':'Enter Named Range(Eg, SheetName!A1:D10)',
-            'id':'NamedRange'
-        },
-        'br6':{
-            'name':'br'
-        },
-        'submit':{
-            'name':'button',
-            'style':'width:100%',
-            'data-command': `[{"command":"importFromSheet"}]`,
-            'innerHTML':'<b>Submit</b>'
-        },
-        'br7':{
-            'name':'br'
-        },
-    }
-}
-var ExportToSheet = {
-    'div':{
-        'name':'div',
-        'class':'modal-content',
-        'br1':{
-            'name':'br'
-        },
-        'div1':{
-            'name':'div',
-            'class':'closeContainer',
-            'span':{
-                'name':'span',
-                'data-command': `[{"command":"closeModal"}]`,
-                'class':'close',
-                'textContent':'x',
-            },
-        },
-        'h1':{
-            'name':'h1',
-            'textContent':'Export to Sheet',
-        },
-        'br2':{
-            'name':'br'
-        },
-        'label1':{
-            'name':'label',
-            'innerHTML':'<b>Spreadsheet ID</b>'
-        },
-        'br3':{
-            'name':'br'
-        },
-        'input1':{
-            'name':'input',
-            'type':'text',
-            'required':'true',
-            'placeholder':'Enter SpreadsheetID',
-            'id':'spreadsheetID'
-        },
-        'br4':{
-            'name':'br'
-        },
-        'label2':{
-            'name':'label',
-            'innerHTML':'<b>Sheet Name</b>'
-        },
-        'br5':{
-            'name':'br'
-        },
-        'input2':{
-            'name':'input',
-            'type':'text',
-            'required':'true',
-            'placeholder':'Enter Sheet Name',
-            'id':'sheetName'
-        },
-        'br6':{
-            'name':'br'
-        },
-        'submit':{
-            'name':'button',
-            'style':'width:100%',
-            'data-command': `[{"command":"exportToSheet"}]`,
-            'innerHTML':'<b>Submit</b>'
-        },
-        'br7':{
-            'name':'br'
-        },
-    }
-}
-var importfromSheetJSON = {
+var importfromSheet = {
     formSection: {
         name: 'section',
         class: 'container row',
@@ -1595,7 +1457,7 @@ var importfromSheetJSON = {
         }
     }
 }
-var exportToSheetJSON = {
+var exportToSheet = {
     formSection: {
         name: 'section',
         class: 'container row',

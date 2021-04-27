@@ -21,6 +21,8 @@ var viewModel = indexDB.get('actionSpaceModel');
         var RecentFiles = localStorage.getItem('UserRecentFiles');
         if(RecentFiles !== null && document.getElementById('RecentFiles'))
           document.getElementById('RecentFiles').innerHTML = RecentFiles;
+        console.log(entityModel4Html);
+        console.log(Entity.toJSON(document.getElementById('inlineContent'),entityModel4Html))
         return response;
     });
 console.log(viewModel);

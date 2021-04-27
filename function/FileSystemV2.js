@@ -240,7 +240,8 @@ class processFS{
             var id = uid();
             if (entry.kind == 'directory') {
                 var directory = JSON.parse(JSON.stringify(directoryJSON));
-                directory['li']['span']['textContent'] = entry.name; directory['li']['list']['id'] = id;
+                directory['li']['span']['textContent'] = entry.name; 
+                directory['li']['list']['id'] = id;
                 var directoryHandle = await parentHandle.getDirectoryHandle(entry.name);
                 await indexDB.set(id, directoryHandle);
                 obj[entry.name] = directory;

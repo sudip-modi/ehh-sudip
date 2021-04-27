@@ -101,9 +101,10 @@ var setInnerHTML = {
         arguments: ["getFirstElement", "<div>I am nested</div>"],
     }
 };
-//New File Flow - 1.get Editor element 2.get a randome uid 3.Assign it to editor's fileid,4.Change the content of editor
+//New File Flow - 1.get Editor element 2.get a uid 3.Assign it to editor's fileid,4.Change the content of editor
 var newFileFlowRequest = {
-     flowRequest:[{
+     flowRequest:[
+    {
         reqName: "Editor",
         objectModel: document,
         method: "getElementById",
@@ -392,6 +393,126 @@ var OpenADirectoryRequest = {
             method:'setItem',
             arguments:['UsermyCollection','CollectionElement.innerHTML']
         }
+    ]
+}
+//json for Directory
+var jsonForDirectory_Directory = {
+    flowRequest:[
+        {
+            reqName:"UID",
+            objectModel:processFS,
+            method:'uid'
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['entry.kind','directory'],
+                output:true
+            },
+            reqName:"Stringify",
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[directoryJSON],
+            exitBeforeExecutingRequest:true,
+        },
+        {
+            reqName:"Directory",
+            objectModel:JSON,
+            method:'Parse',
+            arguments:["Stringify"]
+        },
+        {
+            reqName:"SetDirectoryName",
+            objectModel:engine,
+            method:'set',
+            arguments:['Directory.li.span','entry.name','textContent']
+        },
+        {
+            reqName:"SetDirectoryID",
+            objectModel:engine,
+            method:'set',
+            arguments:['Directory.li.list','UID','id']
+        },
+        {
+            reqName:"directoryHandle",
+            objectModel:"parentHandle",
+            method:'getDirectoryHandle',
+            arguments:['entry.name']
+        },
+        {
+            reqName:"MakeANEntryInIndexDB",
+            objectModel:indexDB,
+            method:'set',
+            arguments:['UID',"directoryHandle"]
+        },
+        {
+            reqName:"IncludeInObj",
+            objectModel:engine,
+            method:'set',
+            arguments:[obj,"Directory","entry.name"]
+        },
+        {
+            //call this json For Directory again
+        }
+    ]
+}
+var jsonForDirectory_File = {
+    flowRequest:[
+        {
+            reqName:"UID",
+            objectModel:processFS,
+            method:'uid'
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['entry.kind','file'],
+                output:true
+            },
+            reqName:"Stringify",
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[fileJSON],
+            exitBeforeExecutingRequest:true,
+        }, 
+        {
+            reqName:"File",
+            objectModel:JSON,
+            method:'Parse',
+            arguments:["Stringify"]
+        },
+        {
+            reqName:"SetFileName",
+            objectModel:engine,
+            method:'set',
+            arguments:['File','entry.name','textContent']
+        },
+        {
+            reqName:"SetFileID",
+            objectModel:engine,
+            method:'set',
+            arguments:['File','UID','id']
+        },
+        {
+            reqName:"getFileHandle",
+            objectModel:"parentHandle",
+            method:'getFileHandle',
+            arguments:['entry.name']
+        },
+        {
+            reqName:"MakeANEntryInIndexDB",
+            objectModel:indexDB,
+            method:'set',
+            arguments:['UID',"getFileHandle"]
+        },
+        {
+            reqName:"IncludeInObj",
+            objectModel:engine,
+            method:'set',
+            arguments:[obj,"File","entry.name"]
+        },
     ]
 }
 //RecentFiles flow

@@ -48,14 +48,14 @@ var actionSpaceViewModel = [
         name: 'exportSpace',
         id: 'exportSpace',
         actorRole: 'user',
-        model: exportToSheetJSON,
+        model: exportToSheet,
     },
     {
         keyword: 'importData',
         name: 'importSpace',
         id: 'importSpace',
         actorRole: 'user',
-        model: importfromSheetJSON,
+        model: importfromSheet,
     }
 ]
 //console.log(actionSpaceViewModel)
