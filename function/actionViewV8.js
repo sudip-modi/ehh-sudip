@@ -41,15 +41,15 @@ class ActionView {
     var modal = document.getElementById('data');
     document.getElementById('data').style.display = 'block';
     var json = {};
-    if( type == 'invoiceForm'){
+    // if( type == 'invoiceForm'){
        json = invoiceJSON;
        json['content']['invoice']['article']['meta']['tr3']['td']['span']['textContent'] = uid();
        console.log(json);
-    }else if(type == 'import'){
-       json = ImportFromSheet;
-    }else if(type == 'export'){
-       json = ExportToSheet;
-    }
+    // }else if(type == 'import'){
+    //    json = ImportFromSheet;
+    // }else if(type == 'export'){
+    //    json = ExportToSheet;
+    // }
     var modalForm = new Entity(json,{});
     var modalViewInstance = new ActionView(json,modal);
     var modalEventInstance = new ActionEvent(modal,window);

@@ -1448,8 +1448,9 @@ var importfromSheet = {
                         textLable: {
                             name: 'lable',
                             'textContent': 'SUBMIT',
+                            'data-command':`[{"command":"importFromSheet"}]`,
                         },
-                       'data-command ':`[{"command":"importFromSheet"}]`,
+                       'data-command':`[{"command":"importFromSheet"}]`,
                     },
                 },
             }
@@ -1518,6 +1519,7 @@ var exportToSheet = {
                         textLable: {
                             name: 'lable',
                             'textContent': 'SUBMIT',
+                            'data-command': `[{"command":"exportToSheet"}]`,
                         },
                         'data-command': `[{"command":"exportToSheet"}]`,
                     },

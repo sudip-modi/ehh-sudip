@@ -325,6 +325,8 @@ class Entity {
      * @param {object} model - Model Schema for JSON object
      */
     static toJSON(object, model) {
+        console.log(object);
+        console.log(model);
         const output = {}; // Initialize output object
         // iterate over the properties of the model
         for (var key in model) {

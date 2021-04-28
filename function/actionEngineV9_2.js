@@ -191,7 +191,7 @@ class ActionEngine {
                // var args=request.arguments;
                // var requestArgs=getRequestArgs.apply(this,[args,state.flowRequest]);
                // var updatedRequest = {...request,arguments:requestArgs};
-                var result= await this.action(request,state.flowRequest);
+                var result= await this.processReq(request,state.flowRequest);
                 console.log(result);
                 //  if(result) {
                     state.flowRequest={

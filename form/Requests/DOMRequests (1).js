@@ -321,7 +321,7 @@ var OpenAFileFlowRequest ={
 var OpenADirectoryRequest = {
     flowRequest:[
         {
-            reqName:'DirectoryHandle',
+            reqName:'parentHandle',
             objectModel:window,
             method:'showDirectoryPicker',
            // andThen:["0"]
@@ -331,7 +331,7 @@ var OpenADirectoryRequest = {
             validate:{
                 objectModel:processFS,
                 method:'verifyPermission',
-                arguments:['DirectoryHandle',true],
+                arguments:['parentHandle',true],
                 output:true
             },
             exitBeforeExecutingRequest:true,
@@ -342,10 +342,10 @@ var OpenADirectoryRequest = {
             reqName:'FileHandleToFileID',
             objectModel:indexDB,
             method:'set',
-            arguments:["TakeUserPermissionsandGetUID",'DirectoryHandle']
+            arguments:["TakeUserPermissionsandGetUID",'parentHandle']
         },
         {
-            reqName:'StringifyDirectoryJSON',
+            reqName:'Stringify',
             objectModel:JSON,
             method:'stringify',
             arguments:[directoryJSON]
@@ -354,13 +354,13 @@ var OpenADirectoryRequest = {
             reqName:'input',
             objectModel:JSON,
             method:'parse',
-            arguments:['StringifyDirectoryJSON']
+            arguments:['Stringify']
         },
         {
             reqName:'DirHandleName',
             objectModel:engine,
             method:'set',
-            arguments:['input.li.span','DirectoryHandle.name','textContent']
+            arguments:['input.li.span','parentHandle.name','textContent']
         },
         {
             reqName:"DirHandleId",
@@ -372,7 +372,149 @@ var OpenADirectoryRequest = {
             reqName:"jsonForDirectory",
             objectModel:processFS,
             method:'jsonForDirectory',
-            arguments:['input.li.list','DirectoryHandle']
+            arguments:['input.li.list','parentHandle']
+        },
+        {
+            reqName:'CollectionElement',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['myCollection']
+        },
+        {
+            reqName:'newEntity',
+            objectModel:ActionView,
+            method:'newEntity',
+            //new Entity
+            arguments:['input','CollectionElement']
+        },
+        {
+            reqName:'SetUsermyCollection',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['UsermyCollection','CollectionElement.innerHTML']
+        }
+    ]
+}
+var OpenADirectoryRequestV2 = {
+    flowRequest:[
+        {
+            reqName:'parentHandle',
+            objectModel:window,
+            method:'showDirectoryPicker',
+           // andThen:["0"]
+        },
+        {
+            reqName:"TakeUserPermissionsandGetUID",
+            validate:{
+                objectModel:processFS,
+                method:'verifyPermission',
+                arguments:['parentHandle',true],
+                output:true
+            },
+            exitBeforeExecutingRequest:true,
+            objectModel:processFS,
+            method:'uid'
+        },
+        {
+            reqName:'FileHandleToFileID',
+            objectModel:indexDB,
+            method:'set',
+            arguments:["TakeUserPermissionsandGetUID",'parentHandle']
+        },
+        {
+            reqName:'Stringify',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[directoryJSON]
+        },
+        {
+            reqName:'input',
+            objectModel:JSON,
+            method:'parse',
+            arguments:['Stringify']
+        },
+        {
+            reqName:'DirHandleName',
+            objectModel:engine,
+            method:'set',
+            arguments:['input.li.span','parentHandle.name','textContent']
+        },
+        {
+            reqName:"DirHandleId",
+            objectModel:engine,
+            method:'set',
+            arguments:["input.li.list","TakeUserPermissionsandGetUID",'id']
+        },
+        // {
+        //     reqName:"jsonForDirectory",
+        //     objectModel:processFS,
+        //     method:'jsonForDirectory',
+        //     arguments:['input.li.list','parentHandle']
+        // },
+        {
+            objectModel:"parentHandle",
+            method:'values',
+            element:'entry',
+            forLoop:[
+                {
+                    reqName:"UID",
+                    objectModel:processFS,
+                    method:'uid'
+                },
+                {
+                    flowRequest:[
+                        {
+                            validate:{
+                                objectModel:operate,
+                                method:'isEqual',
+                                arguments:['entry.kind','file'],
+                                output:true
+                            },
+                            reqName:"StringifyFileJSON",
+                            objectModel:JSON,
+                            method:'stringify',
+                            arguments:[fileJSON],
+                            exitBeforeExecutingRequest:true,
+                        },
+                        {
+                            reqName:"File",
+                            objectModel:JSON,
+                            method:'Parse',
+                            arguments:["StringifyFileJSON"]
+                        },
+                        {
+                            reqName:"SetFileName",
+                            objectModel:engine,
+                            method:'set',
+                            arguments:['File','entry.name','textContent']
+                        },
+                        {
+                            reqName:"SetFileID",
+                            objectModel:engine,
+                            method:'set',
+                            arguments:['File','UID','id']
+                        },
+                        {
+                            reqName:"getFileHandle",
+                            objectModel:"parentHandle",
+                            method:'getFileHandle',
+                            arguments:['entry.name']
+                        },
+                        {
+                            reqName:"EntryInIndexDB",
+                            objectModel:indexDB,
+                            method:'set',
+                            arguments:['UID',"getFileHandle"]
+                        },
+                        {
+                            reqName:"IncludeObj",
+                            objectModel:engine,
+                            method:'set',
+                            arguments:['input.li.list',"File","entry.name"]
+                        },
+                    ]
+                }
+            ]   
         },
         {
             reqName:'CollectionElement',
@@ -396,13 +538,127 @@ var OpenADirectoryRequest = {
     ]
 }
 //json for Directory
-var jsonForDirectory_Directory = {
-    flowRequest:[
+var jsonForDirectory = {
+    objectModel:"DirectoryHandle",
+    method:'values',
+    element:'entry',
+    forLoop:[
         {
             reqName:"UID",
             objectModel:processFS,
             method:'uid'
         },
+        // {
+        //     flowRequest:[
+        //         {
+        //             validate:{
+        //                 objectModel:operate,
+        //                 method:'isEqual',
+        //                 arguments:['entry.kind','directory'],
+        //                 output:true
+        //             },
+        //             reqName:"StringifyDirectoryJSON",
+        //             objectModel:JSON,
+        //             method:'stringify',
+        //             arguments:[directoryJSON],
+        //             exitBeforeExecutingRequest:true,
+        //         },
+        //         {
+        //             reqName:"Directory",
+        //             objectModel:JSON,
+        //             method:'Parse',
+        //             arguments:["StringifyDirectoryJSON"]
+        //         },
+        //         {
+        //             reqName:"SetDirectoryName",
+        //             objectModel:engine,
+        //             method:'set',
+        //             arguments:['Directory.li.span','entry.name','textContent']
+        //         },
+        //         {
+        //             reqName:"SetDirectoryID",
+        //             objectModel:engine,
+        //             method:'set',
+        //             arguments:['Directory.li.list','UID','id']
+        //         },
+        //         {
+        //             reqName:"directoryHandle",
+        //             objectModel:"parentHandle",
+        //             method:'getDirectoryHandle',
+        //             arguments:['entry.name']
+        //         },
+        //         {
+        //             reqName:"MakeANEntryInIndexDB",
+        //             objectModel:indexDB,
+        //             method:'set',
+        //             arguments:['UID',"directoryHandle"]
+        //         },
+        //         {
+        //             reqName:"IncludeInObj",
+        //             objectModel:engine,
+        //             method:'set',
+        //             arguments:['input.li.list',"Directory","entry.name"]
+        //         },
+        //     ]
+        // },
+        {
+            flowRequest:[
+                {
+                    validate:{
+                        objectModel:operate,
+                        method:'isEqual',
+                        arguments:['entry.kind','file'],
+                        output:true
+                    },
+                    reqName:"StringifyFileJSON",
+                    objectModel:JSON,
+                    method:'stringify',
+                    arguments:[fileJSON],
+                    exitBeforeExecutingRequest:true,
+                },
+                {
+                    reqName:"File",
+                    objectModel:JSON,
+                    method:'Parse',
+                    arguments:["StringifyFileJSON"]
+                },
+                {
+                    reqName:"SetFileName",
+                    objectModel:engine,
+                    method:'set',
+                    arguments:['File','entry.name','textContent']
+                },
+                {
+                    reqName:"SetFileID",
+                    objectModel:engine,
+                    method:'set',
+                    arguments:['File','UID','id']
+                },
+                {
+                    reqName:"getFileHandle",
+                    objectModel:"parentHandle",
+                    method:'getFileHandle',
+                    arguments:['entry.name']
+                },
+                {
+                    reqName:"EntryInIndexDB",
+                    objectModel:indexDB,
+                    method:'set',
+                    arguments:['UID',"getFileHandle"]
+                },
+                {
+                    reqName:"IncludeObj",
+                    objectModel:engine,
+                    method:'set',
+                    arguments:['input.li.list',"File","entry.name"]
+                },
+            ]
+        }
+    ]
+}
+var jsonForDirectory_Directory = {
+    flowRequest:[
+       
         {
             validate:{
                 objectModel:operate,
@@ -881,12 +1137,12 @@ var importFromSheetFlowRequest = {
             method:'set',
             arguments:[importFromSheetparamsJSON,'GetNamedRange','NamedRange']
         },
-        {
-            reqName:'CloseModal',
-            objectModel:ActionView,
-            method:'closeModal',
-            arguments:[]//event will be appended
-        },
+        // {
+        //     reqName:'CloseModal',
+        //     objectModel:ActionView,
+        //     method:'closeModal',
+        //     arguments:[]//event will be appended
+        // },
         {
             reqName:'URLBuilder',
             objectModel:HttpService,
@@ -900,11 +1156,53 @@ var importFromSheetFlowRequest = {
             arguments:["GET"]
         },
         {
+            reqName:'redirect',
+            objectModel:ActionController,
+            method:"onChangeRoute",
+            arguments:['action']
+        },
+        {
             reqName:'response',
             objectModel:HttpService,
             method:'fetchRequest',
             arguments:['URLBuilder','RequestBuilder']
         },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
+                output:false
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:['response.output'],
+        },
+        {
+            reqName:"Element",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
+                output:true
+            },
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent']
+        },
+        {
+
+            reqName:"SetDatafromSheet",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['Element',null],
+                output:false
+            },
+            objectModel:engine,
+            method:'set',
+            arguments:['Element','response.output','innerText']
+        }
     ]
 }
 var exportToSheetFlowRequest = {
@@ -935,12 +1233,12 @@ var exportToSheetFlowRequest = {
             method:'set',
             arguments:[exportToSheetparamsJSON,'GetSheetName','SheetName']
         },
-        {
-            reqName:'CloseModal',
-            objectModel:ActionView,
-            method:'closeModal',
-            arguments:[]//event will be appended
-        },
+        // {
+        //     reqName:'CloseModal',
+        //     objectModel:ActionView,
+        //     method:'closeModal',
+        //     arguments:[]//event will be appended
+        // },
         {
             reqName:'stringifyParams',
             objectModel:JSON,
@@ -971,5 +1269,11 @@ var exportToSheetFlowRequest = {
             method:'alert',
             arguments:['response.output']
         },
+        {
+                reqName:'redirect',
+                objectModel:ActionController,
+                method:"onChangeRoute",
+                arguments:['action']
+        }, 
     ]
 }

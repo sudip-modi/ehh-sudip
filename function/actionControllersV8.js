@@ -261,7 +261,7 @@ class ActionController extends ActionEvent {
         /**
          * check if the target entity has any click or data - command set, if yes, then process it.
          */
-        console.log("Clicked" + event.target.classList);
+        console.log("Clicked" + event.target.hasAttribute("data-command"));
      //   event.preventDefault();
         if (event.target.hasAttribute("data-command")) {
   
@@ -270,7 +270,8 @@ class ActionController extends ActionEvent {
             var commandJson = JSON.parse(dataCommand);
             console.log("Command " + commandJson[0].command);
             switch (commandJson[0].command) {
-                
+                case 'toJSON':
+                    Entity.toJSON(document.getElementById('inlineContent').innerHTML,entityModel4Html);
                 case 'redirect':
                     ActionController.onChangeRoute(commandJson[0].entity);break;
                 case 'closeModal':
@@ -282,8 +283,7 @@ class ActionController extends ActionEvent {
                 case 'SubmitInvoice':
                     this.SubmitInvoice(event);break;
                 case 'importFromSheet':
-                    event.preventDefault();importFromSheetFlowRequest.flowRequest[4].arguments.push(event);
-                    engine.processReq(importFromSheetFlowRequest);break;
+                    event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':
                     event.preventDefault(); exportToSheetFlowRequest.flowRequest[4].arguments.push(event);
                     engine.processReq(exportToSheetFlowRequest);break;
