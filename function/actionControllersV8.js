@@ -289,7 +289,7 @@ class ActionController extends ActionEvent {
                 case 'Login':
                     event.preventDefault();engine.processReqArray(LoginFlowRequest);break;
                 case "new":
-                    this.new1(event); break;
+                    processFS.newFile(); break;
                 case 'google':
                     Authorization.oAuth(event, 'json'); break;
                 //sheet
@@ -422,13 +422,6 @@ class ActionController extends ActionEvent {
         newItemJSON['td1']['a']['id'] = ItemId;newItemJSON['id'] = 'tr'+ ItemId;
         var json = {};json[ItemId] = newItemJSON;
         var newItem = new Entity(json,document.getElementById('tbody'));
-    }
-    
-    async new1(event) {
-        event.preventDefault();
-        await engine.processReq(saveFileFlowRequest);
-        await engine.processReq(recentFilesFlowRequest);
-        await engine.processReq(newFileFlowRequest);
     }
     save(event) {
         var entityName = ActionView.getTitle();

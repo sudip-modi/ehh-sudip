@@ -146,6 +146,20 @@ class processFS{
     // }
     //file folder
     /**
+     * 1.saves the Previous viewed by User
+     * 2.Makes the entry of previous file in RecentFiles
+     * 3.Opens a new  action story
+     */
+    static async newFile(){
+        try{
+            await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
+            await engine.processReqArray(recentFilesFlowRequest);
+            await engine.processReq(newFileFlowRequest);
+        }catch(err){
+            console.log(err);
+        }
+    }
+    /**
      * OpenFile 
      * 1.saves the Previous viewed by User
      * 2.Makes the entry of previous file in RecentFiles
