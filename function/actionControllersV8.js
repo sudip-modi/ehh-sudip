@@ -403,7 +403,7 @@ class ActionController extends ActionEvent {
             ActionView.addInnerHTML('',document.getElementById('viewForm'));
             var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
             alert(response.output);
-            ActionView.addInnerHTML(ehhIntro,document.getElementById('inlineContent'));
+            ActionView.addInnerHTML(sampleIntroStory,document.getElementById('inlineContent'));
             
         }catch(err){
             console.log(err);  
@@ -426,8 +426,8 @@ class ActionController extends ActionEvent {
     
     async new1(event) {
         event.preventDefault();
-        if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)
-            await engine.processReq(saveFileFlowRequest);
+        await engine.processReq(saveFileFlowRequest);
+        await engine.processReq(recentFilesFlowRequest);
         await engine.processReq(newFileFlowRequest);
     }
     save(event) {

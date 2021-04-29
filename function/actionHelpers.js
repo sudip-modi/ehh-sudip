@@ -157,7 +157,7 @@ class mutate {
         // console.log("current Key in updation",currentKey,input,currentRow,previousRow)
         //Adding the inputValue in the currentRow at the index of the currentKey, also deletes an empty space from before.
         currentRow.splice(output[0].indexOf(currentKey), 1, input);
-        console.log("updated Row",currentRow)
+        //console.log("updated Row",currentRow)
         return currentRow;
     }
     static setEntity(input, output, key) { 
@@ -219,7 +219,6 @@ class mutate {
                 //   console.log("errand", key, input[key],typeof key)
             }
         }
-        console.log(output);
         return output;
     }
     static processArr(input, output, previousRow, currentRow, currentKey, d, path, parent) {
@@ -279,6 +278,19 @@ class mutate {
         }
         return output;
       }
+    static TWODARRAY(array){
+        var sample = array[0];
+        for(var i = 1;i < array.length;i++){
+            var arr = array[i];
+            if(arr.length !== sample.length){
+                for(var j = 0; j < (sample.length - arr.length);j++){
+                    arr[arr.length + j] = "";
+                }
+            }
+            array[i] = arr;
+        }
+        return array;
+    }
 }
 
 

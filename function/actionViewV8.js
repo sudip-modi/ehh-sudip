@@ -50,10 +50,8 @@ class ActionView {
        var HTMLjson = Entity.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
        console.log(HTMLjson);
        var inputjson = {};inputjson['editor'] = HTMLjson;
-       var array = mutate.Obj2(inputjson, []);
+       var array =mutate.TWODARRAY (mutate.Obj2(inputjson, []));
        console.log(array);
-       var json = mutate.arr2Object(array,array[0],{});
-       console.log(json);
        exportToSheetparamsJSON['array'] = array;
        json = exportToSheet;
     }

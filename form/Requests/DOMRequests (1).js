@@ -1194,7 +1194,7 @@ var importFromSheetFlowRequest = {
             reqName:"Set sample story",
             objectModel:engine,
             method:'set',
-            arguments:['Element',ehhIntro,'innerHTML'],
+            arguments:['Element',sampleIntroStory,'innerHTML'],
             exitAfterExecutingRequest:true
         },
         {
@@ -1240,11 +1240,35 @@ var exportToSheetFlowRequest = {
             arguments:[exportToSheetparamsJSON]
         },
         {
+            reqName:"formElement",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['viewForm']
+        },
+        {
+            reqName:"RemoveForm",
+            objectModel:engine,
+            method:'set',
+            arguments:["formElement",'','innerHTML']
+        },
+        {
+            reqName:"Element",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent']
+        },
+        {
             reqName:'RequestBuilder',
             objectModel:HttpService,
             method:'requestBuilder',
             arguments:["POST",undefined,'stringifyParams']
-        },  
+        },
+        {
+            reqName:"Set sample story",
+            objectModel:engine,
+            method:'set',
+            arguments:['Element',sampleIntroStory,'innerHTML'],  
+        },
         {
             reqName:'response',
             objectModel:HttpService,
