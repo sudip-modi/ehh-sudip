@@ -111,7 +111,7 @@ var newFileFlowRequest = {
         arguments: ["inlineContent"],
     },{
         reqName:'UID',
-        objectModel:processFS,
+        objectModel:window,
         method:'uid'
     },{
         reqName:"fileID_File",//2
@@ -205,7 +205,7 @@ var OpenAFileFlowRequest ={
         },
         {
             reqName:'UID',
-            objectModel:processFS,
+            objectModel:window,
             method:'uid'
         },
         {
@@ -220,12 +220,6 @@ var OpenAFileFlowRequest ={
             method:'get',
             arguments:["UID"]
         },
-        // {
-        //     reqName:'jsonForFile',
-        //     objectModel:processFS,
-        //     method:'jsonForFile',
-        //     arguments:["UID","myFiles","GetAFile"]
-        // },
         {
             reqName:'SetUIDToFileJSON',
             objectModel:engine,
@@ -312,7 +306,7 @@ var OpenAFileFlowRequest ={
         },
         {
             reqName:"FileInEditor",
-            objectModel:processFS,
+            objectModel:processFSInstance,
             method:'OpenFileInEditor',
             arguments:['UID']
         },
@@ -329,13 +323,13 @@ var OpenADirectoryRequest = {
         {
             reqName:"TakeUserPermissionsandGetUID",
             validate:{
-                objectModel:processFS,
+                objectModel:processFSInstance,
                 method:'verifyPermission',
                 arguments:['parentHandle',true],
                 output:true
             },
             exitBeforeExecutingRequest:true,
-            objectModel:processFS,
+            objectModel:window,
             method:'uid'
         },
         {
@@ -370,7 +364,7 @@ var OpenADirectoryRequest = {
         },
         {
             reqName:"jsonForDirectory",
-            objectModel:processFS,
+            objectModel:processFSInstance,
             method:'jsonForDirectory',
             arguments:['input.li.list','parentHandle']
         },
@@ -406,13 +400,13 @@ var OpenADirectoryRequestV2 = {
         {
             reqName:"TakeUserPermissionsandGetUID",
             validate:{
-                objectModel:processFS,
+                objectModel:processFSInstance,
                 method:'verifyPermission',
                 arguments:['parentHandle',true],
                 output:true
             },
             exitBeforeExecutingRequest:true,
-            objectModel:processFS,
+            objectModel:window,
             method:'uid'
         },
         {
@@ -445,12 +439,6 @@ var OpenADirectoryRequestV2 = {
             method:'set',
             arguments:["input.li.list","TakeUserPermissionsandGetUID",'id']
         },
-        // {
-        //     reqName:"jsonForDirectory",
-        //     objectModel:processFS,
-        //     method:'jsonForDirectory',
-        //     arguments:['input.li.list','parentHandle']
-        // },
         {
             objectModel:"parentHandle",
             method:'values',
@@ -458,7 +446,7 @@ var OpenADirectoryRequestV2 = {
             forLoop:[
                 {
                     reqName:"UID",
-                    objectModel:processFS,
+                    objectModel:window,
                     method:'uid'
                 },
                 {
@@ -545,7 +533,7 @@ var jsonForDirectory = {
     forLoop:[
         {
             reqName:"UID",
-            objectModel:processFS,
+            objectModel:window,
             method:'uid'
         },
         // {
@@ -717,7 +705,7 @@ var jsonForDirectory_File = {
     flowRequest:[
         {
             reqName:"UID",
-            objectModel:processFS,
+            objectModel:window,
             method:'uid'
         },
         {
@@ -854,12 +842,6 @@ var recentFilesFlowRequest = {
             method:'get',
             arguments:['Fileid']
         },
-        // {
-        //     reqName:'JSONForFile',
-        //     objectModel:processFS,
-        //     method:'jsonForFile',
-        //     arguments:['Fileid','RecentFiles','FileHandle']
-        // },
         {
             reqName:'SetUIDToFileJSON',
             objectModel:engine,
@@ -1287,5 +1269,78 @@ var exportToSheetFlowRequest = {
             method:'alert',
             arguments:['response.output']
         },
+    ]
+}
+var newActionStoryRequest = {
+    flowRequest:[
+        {
+            reqName:"Save",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[saveFileFlowRequest]
+        },
+        {
+            reqName:'RecentFiles',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[recentFilesFlowRequest]
+        },
+        {
+            reqName:"New",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[newFileFlowRequest]
+        }
+    ]
+}
+var openAFileRequest = {
+    flowRequest:[
+        {
+            reqName:"Save",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[saveFileFlowRequest]
+        },
+        {
+            reqName:'RecentFiles',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[recentFilesFlowRequest]
+        },
+        {
+            reqName:"OpenFile",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[OpenAFileFlowRequest]
+        } 
+    ]
+}
+var everyFileRequest = {
+    flowRequest:[
+        {
+            reqName:"Save",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[saveFileFlowRequest]
+        },
+        {
+            reqName:'RecentFiles',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[recentFilesFlowRequest]
+        },
+        {
+            reqName:"EditorElement",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent'],
+            callBack:{method:'getAttribute',arguments:['fileid',]}//event.target.id to be pushed
+        },
+        {
+            reqName:"OpenInEditor",
+            objectModel:processFSInstance,
+            method:'OpenFileInEditor',
+            arguments:[]//event.target.id to be pushed
+        }   
     ]
 }

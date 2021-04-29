@@ -150,30 +150,30 @@ class processFS{
      * 2.Makes the entry of previous file in RecentFiles
      * 3.Opens a new  action story
      */
-    static async newFile(){
-        try{
-            await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
-            await engine.processReqArray(recentFilesFlowRequest);
-            await engine.processReq(newFileFlowRequest);
-        }catch(err){
-            console.log(err);
-        }
-    }
+    // static async newFile(){
+    //     try{
+    //         await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
+    //         await engine.processReq(recentFilesFlowRequest);
+    //         await engine.processReq(newFileFlowRequest);
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // }
     /**
      * OpenFile 
      * 1.saves the Previous viewed by User
      * 2.Makes the entry of previous file in RecentFiles
      * 3.Opens a new File makes a entry in myFiles
      */
-    static async OpenFile(){
-        try{
-            await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
-            await engine.processReqArray(recentFilesFlowRequest);
-            await engine.processReq(OpenAFileFlowRequest);
-        }catch(err){
-            console.log(err);
-        }
-    }
+    // static async OpenFile(){
+    //     try{
+    //         await engine.processReq(saveFileFlowRequest);//processFS.saveFile(event);
+    //         await engine.processReq(recentFilesFlowRequest);
+    //         await engine.processReq(OpenAFileFlowRequest);
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // }
     /**
      * 
      * @param {*} event - To Know which file name is clicked by the user
@@ -183,17 +183,17 @@ class processFS{
      * 3.Set Attribute fileID to Id of the file on which user has clicked
      * 4.Open that file in the editor
      */
-    static async File(event){
-        event.preventDefault();
-        try{
-            await engine.processReq(saveFileFlowRequest);
-            await engine.processReqArray(recentFilesFlowRequest);
-            document.getElementById('inlineContent').setAttribute('fileID',event.target.id);
-            await processFS.OpenFileInEditor(event.target.id);
-        }catch(err){
-            console.log(err);
-        }
-    }
+    // static async File(event){
+    //     event.preventDefault();
+    //     try{
+    //         await engine.processReq(saveFileFlowRequest);
+    //         await engine.processReqArray(recentFilesFlowRequest);
+    //         document.getElementById('inlineContent').setAttribute('fileid',event.target.id);
+    //         await processFS.OpenFileInEditor(event.target.id);
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // }
     /**
      * 
      * @param {*} id - File id of file whose content should be displayed in the editor
@@ -203,14 +203,14 @@ class processFS{
      * or else
      * checks for the type of file and displays it's content in the editor
     */
-    static async OpenFileInEditor(id) {
+    async OpenFileInEditor(id) {
         try{  
         console.log(id);
         if(localStorage.getItem(id)!== null){
             ActionView.addInnerText(localStorage.getItem(id),document.getElementById('inlineContent'));
         }else{
             var fileHandle = await indexDB.get(id);
-            if(await processFS.verifyPermission(fileHandle,true)){
+            if(await processFSInstance.verifyPermission(fileHandle,true)){
                 var file = await fileHandle.getFile();
                 if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.css')) {
                     var contents = await file.text();
@@ -249,7 +249,7 @@ class processFS{
      * else if file - appends FileJSON it's id, file
      * 
      */
-    static async jsonForDirectory(obj, parentHandle) {
+    async jsonForDirectory(obj, parentHandle) {
         for await (var entry of parentHandle.values()) {
             var id = uid();
             if (entry.kind == 'directory') {
@@ -259,7 +259,7 @@ class processFS{
                 var directoryHandle = await parentHandle.getDirectoryHandle(entry.name);
                 await indexDB.set(id, directoryHandle);
                 obj[entry.name] = directory;
-                await processFS.jsonForDirectory(obj[entry.name]['li']['list'], directoryHandle);
+                await processFSInstance.jsonForDirectory(obj[entry.name]['li']['list'], directoryHandle);
             } else if (entry.kind == 'file' && entry.name.includes('.')) {
                 var fileData = JSON.parse(JSON.stringify(fileJSON));
                 fileData['id'] = id; fileData['textContent'] = entry.name;
@@ -279,7 +279,7 @@ class processFS{
      * verifyPermission
      * Checks if permission granted by user or else requests user permission
      */
-    static async verifyPermission(Handle, readWrite) {
+    async verifyPermission(Handle, readWrite) {
         const options = {};
         if (readWrite) {
             options.mode = 'readwrite';
@@ -295,7 +295,7 @@ class processFS{
         // The user didn't grant permission, so return false.
         return false;
     }
-    static updateProgress(evt) {
+    updateProgress(evt) {
         // evt is an ProgressEvent.
         if (evt.lengthComputable) {
             var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
@@ -306,16 +306,6 @@ class processFS{
             }
         }
     }
-    /**
-     * 
-     * @returns UID - unique ID
-     */
-    static uid() {
-        let timmy = Date.now().toString(36).toLocaleUpperCase();
-        let randy = parseInt(Math.random() * Number.MAX_SAFE_INTEGER);
-        randy = randy.toString(36).slice(0, 12).padStart(12, '0').toLocaleUpperCase();
-        return ''.concat(timmy, '-', randy);
-    }    
 }
 var processFSInstance = new processFS();
 //console.log("iam loaded, fs,processFS", processFSInstance)

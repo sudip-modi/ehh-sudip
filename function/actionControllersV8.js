@@ -270,8 +270,6 @@ class ActionController extends ActionEvent {
             var commandJson = JSON.parse(dataCommand);
             console.log("Command " + commandJson[0].command);
             switch (commandJson[0].command) {
-                case 'form':
-                        ActionView.viewForm(event,commandJson[0].entity);break;
                 case 'NewItem':
                     this.NewItem(event);break;
                 case 'RemoveItem':
@@ -283,33 +281,31 @@ class ActionController extends ActionEvent {
                 case 'exportToSheet':
                     event.preventDefault(); exportToSheetFlowRequest.flowRequest[4].arguments.push(event);
                     engine.processReq(exportToSheetFlowRequest);break;
-                //signup,login
+                //signup,login,forms
                 case 'Signup':
                     event.preventDefault();engine.processReqArray(SignUpFlowRequest);break;
                 case 'Login':
                     event.preventDefault();engine.processReqArray(LoginFlowRequest);break;
-                case "new":
-                    processFS.newFile(); break;
                 case 'google':
                     Authorization.oAuth(event, 'json'); break;
+                case 'form':
+                    ActionView.viewForm(event,commandJson[0].entity);break;
                 //sheet
                 
                 //File System
+                case "new":
+                    engine.processReq(newActionStoryRequest); break;
                 case 'OpenFile':
-                    processFS.OpenFile(event);break;
+                    engine.processReq(openAFileRequest);break;
                 case 'OpenDirectory':
                     event.preventDefault();engine.processReq(OpenADirectoryRequest);break;
                 case 'file':
-                    processFS.File(event);break;
+                    everyFileRequest.flowRequest[2].callBack.arguments.push(event.target.id);
+                    everyFileRequest.flowRequest[3].arguments.push(event.target.id);
+                    engine.processReq(everyFileRequest);break;
                 case 'FS_Save':
-                    //processFS.saveFile(event);break;
                     engine.processReq(saveFileFlowRequest);break;
-                // case 'FSOpen':
-                //     processFS.readFile(event); break;
-                // case 'FS_SaveAs':
-                //     processFS.saveAsFile(event); break;
                 // local storage
-             
                 case 'save':
                     this.save(event); break;
                 case 'cloud':

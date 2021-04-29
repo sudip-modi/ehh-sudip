@@ -32,7 +32,7 @@ class ActionEngine {
         //     return this.processReqNestedObject(reqObj);
         // }
         if(Validators.isFlowRequest(reqObj)) {
-            return await this.processReqArray(reqObj);
+            return await this.processReqArray(reqObj,resultObj);
         }
         if(Validators.isSingleRequest(reqObj)) {
             return await this.action(reqObj,resultObj)
@@ -178,10 +178,9 @@ class ActionEngine {
      * This method is used for parallel requests
      * @param {FlowRequest} reqObj - request object containing array of objects
      */
-    async processReqArray(reqObj) {
-        var state= {};
-        if(!state.flowRequest) {
-            state.flowRequest={}
+    async processReqArray(reqObj,resultObj ={}) {
+        if(!resultObj.flowRequest) {
+            resultObj.flowRequest={}
         }
         if(operate.isFlowRequest(reqObj)&&operate.isArray(reqObj.flowRequest)) {
             var flowRequest=reqObj.flowRequest;
@@ -191,11 +190,11 @@ class ActionEngine {
                // var args=request.arguments;
                // var requestArgs=getRequestArgs.apply(this,[args,state.flowRequest]);
                // var updatedRequest = {...request,arguments:requestArgs};
-                var result= await this.processReq(request,state.flowRequest);
+                var result= await this.processReq(request,resultObj.flowRequest);
                 console.log(result);
                 //  if(result) {
-                    state.flowRequest={
-                        ...state.flowRequest,
+                    resultObj.flowRequest={
+                        ...resultObj.flowRequest,
                         [request.reqName]: result
                     };
                 //  }
@@ -206,8 +205,8 @@ class ActionEngine {
                 }
             }
         }
-        console.log(state);
-        return state;
+        console.log(resultObj);
+        return resultObj;
     }
     /**
      * This method is used for nested requests
