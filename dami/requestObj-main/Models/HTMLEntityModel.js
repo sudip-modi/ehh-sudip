@@ -36,6 +36,15 @@ var copy2HTMLModel={
       arguments: ['tagName']
     }
   },
+  textContent:{
+    value:null,
+    type:'string',
+    process:{
+      objectModel:operate,
+      method:['isString'],
+      arguments:['textContent']
+    }
+  },
   attributes: {
     value: {
       id: {
@@ -171,25 +180,6 @@ var copy2HTMLModel={
           arguments: ['attributes.name',2]
         },
       },
-      innerText: {
-        value: {
-          nodeValue: {
-            value: null,
-            type: 'string',
-            process: {
-              objectModel: operate,
-              method: 'isString',
-              arguments: ['attributes.id']
-            }
-          }
-        },
-        type: 'object',
-        process: {
-          objectModel: operate,
-          method: 'isNode',
-          arguments: ['attributes.innerText',2]
-        },
-      },
     },
     type: 'object',
     process: {
@@ -197,7 +187,8 @@ var copy2HTMLModel={
       method: 'isNamedNodeMap',
       arguments: ['attributes']
     }
-  },children: {
+  },
+  children: {
     value: null,
     type: 'array',
     process: {
