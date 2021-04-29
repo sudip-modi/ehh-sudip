@@ -31,7 +31,7 @@ var copy2HTMLModel={
     value: null,
     type: 'string',
     process: {
-      objectModel: Operate,
+      objectModel: operate,
       method: 'isString',
       arguments: ['tagName']
     }
@@ -44,7 +44,7 @@ var copy2HTMLModel={
             value: null,
             type: 'string',
             process: {
-              objectModel: Operate,
+              objectModel: operate,
               method: 'isString',
               arguments: ['attributes.id']
             }
@@ -52,9 +52,9 @@ var copy2HTMLModel={
         },
         type: 'object',
         process: {
-          objectModel: Operate,
+          objectModel: operate,
           method: 'isNode',
-          arguments: ['attributes.id']
+          arguments: ['attributes.id',2]
         }
       },
       class: {
@@ -63,7 +63,7 @@ var copy2HTMLModel={
             value: null,
             type: 'string',
             process: {
-              objectModel: Operate,
+              objectModel: operate,
               method: 'isString',
               arguments: ['attributes.id']
             }
@@ -71,7 +71,7 @@ var copy2HTMLModel={
         },
         type: 'object',
         process: {
-          objectModel: Operate,
+          objectModel: operate,
           method: 'isNode',
           arguments: ['attributes.class',2]
         }
@@ -82,7 +82,7 @@ var copy2HTMLModel={
             value: null,
             type: 'string',
             process: {
-              objectModel: Operate,
+              objectModel: operate,
               method: 'isString',
               arguments: ['attributes.id',2]
             }
@@ -90,7 +90,7 @@ var copy2HTMLModel={
         },
         type: 'object',
         process: {
-          objectModel: Operate,
+          objectModel: operate,
           method: 'isNode',
           arguments: ['attributes.style',2]
         },
@@ -101,7 +101,7 @@ var copy2HTMLModel={
             value: null,
             type: 'string',
             process: {
-              objectModel: Operate,
+              objectModel: operate,
               method: 'isString',
               arguments: ['attributes.id',2]
             }
@@ -109,7 +109,7 @@ var copy2HTMLModel={
         },
         type: 'object',
         process: {
-          objectModel: Operate,
+          objectModel: operate,
           method: 'isNode',
           arguments: ['attributes.src',2]
         },
@@ -120,7 +120,7 @@ var copy2HTMLModel={
             value: null,
             type: 'string',
             process: {
-              objectModel: Operate,
+              objectModel: operate,
               method: 'isString',
               arguments: ['attributes.id',2]
             }
@@ -128,15 +128,53 @@ var copy2HTMLModel={
         },
         type: 'object',
         process: {
-          objectModel: Operate,
+          objectModel: operate,
           method: 'isNode',
           arguments: ['attributes.alt',2]
         },
-      }
+      },
+      fileid: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id',2]
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.fileid',2]
+        },
+      },
+      name: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id']
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.name',2]
+        },
+      },
     },
     type: 'object',
     process: {
-      objectModel: Operate,
+      objectModel: operate,
       method: 'isNamedNodeMap',
       arguments: ['attributes']
     }
@@ -144,7 +182,7 @@ var copy2HTMLModel={
     value: null,
     type: 'array',
     process: {
-      objectModel: Operate,
+      objectModel: operate,
       method: 'isHTMLCollection',
       arguments: ['children']
     },

@@ -107,9 +107,11 @@ class ActionEngine {
             for(var i=0;i<flowRequest.length;i++) {
                 var request=flowRequest[i];
                 var args=request.arguments;
+                console.log(request.reqName);
                 var requestArgs=getRequestArgs.apply(this,[args,state.flowRequest]);
                 var updatedRequest={...request,arguments: requestArgs};
                 const result=this.processReq(updatedRequest);
+                console.log(result);
                 if(result) {
                     state.flowRequest={
                         ...state.flowRequest,
@@ -119,7 +121,7 @@ class ActionEngine {
             }
         }
 
-        return null;
+        return state;
     }
     /**
      * This method is used for nested requests

@@ -78,7 +78,7 @@ var importFromSheetparamsJSON = {
 var exportToSheetparamsJSON = {
     'SpreadsheetId':'',
     'SheetName':'',
-    'array':[[1,2,3],[1,2,3]]
+    'array':''
 }
 const pickerOpts = {
     types: [

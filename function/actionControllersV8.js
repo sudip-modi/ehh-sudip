@@ -270,12 +270,8 @@ class ActionController extends ActionEvent {
             var commandJson = JSON.parse(dataCommand);
             console.log("Command " + commandJson[0].command);
             switch (commandJson[0].command) {
-                case 'toJSON':
-                    Entity.toJSON(document.getElementById('inlineContent').innerHTML,entityModel4Html);
-                case 'redirect':
-                    ActionController.onChangeRoute(commandJson[0].entity);break;
-                case 'closeModal':
-                    ActionView.closeModal(event);break;
+                case 'form':
+                        ActionView.viewForm(event,commandJson[0].entity);break;
                 case 'NewItem':
                     this.NewItem(event);break;
                 case 'RemoveItem':
@@ -404,9 +400,10 @@ class ActionController extends ActionEvent {
                 InvoiceItems.push(item);
             }
             var json = {'array':InvoiceItems};
-            ActionView.closeModal(event);
+            ActionView.addInnerHTML('',document.getElementById('viewForm'));
             var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
             alert(response.output);
+            ActionView.addInnerHTML(ehhIntro,document.getElementById('inlineContent'));
             
         }catch(err){
             console.log(err);  
@@ -426,6 +423,7 @@ class ActionController extends ActionEvent {
         var json = {};json[ItemId] = newItemJSON;
         var newItem = new Entity(json,document.getElementById('tbody'));
     }
+    
     async new1(event) {
         event.preventDefault();
         if(document.getElementById('inlineContent').getAttribute('fileid').length > 0)

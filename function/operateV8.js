@@ -161,4 +161,18 @@ class operate {
     static isFunction(obj) {
         return typeof obj==='function';
     }
+    static isNamedNodeMap(obj) {
+        return (obj&&typeof obj==='object'&&obj.constructor===NamedNodeMap);
+    }
+
+    static isNode(obj,type) {
+        return (
+            typeof Node==="object"? obj instanceof Node:
+                obj&&typeof obj==="object"&&typeof obj.nodeName==="string"&&typeof obj.nodeType==="number"&&obj.nodeType===type
+        );
+    }
+
+    static isHTMLCollection(obj) {
+        return obj instanceof HTMLCollection||(value&&typeof value==='object'&&value.constructor==='HTMLCollection');
+    }
 }

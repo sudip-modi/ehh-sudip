@@ -36,29 +36,32 @@ class ActionView {
 
     target.innerHTML = inputElem;
   }
-  static modalForm(event,type){
+  static viewForm(event,type){
     event.preventDefault();
-    var modal = document.getElementById('data');
-    document.getElementById('data').style.display = 'block';
+    var formElement = document.getElementById('viewForm');
+    ActionView.addInnerHTML('',formElement);
     var json = {};
-    // if( type == 'invoiceForm'){
+     if( type == 'invoiceForm'){
        json = invoiceJSON;
        json['content']['invoice']['article']['meta']['tr3']['td']['span']['textContent'] = uid();
+    }else if(type == 'import'){
+       json = importfromSheet;
+    }else if(type == 'export'){
+       var HTMLjson = Entity.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
+       console.log(HTMLjson);
+       var inputjson = {};inputjson['editor'] = HTMLjson;
+       var array = mutate.Obj2(inputjson, []);
+       console.log(array);
+       var json = mutate.arr2Object(array,array[0],{});
        console.log(json);
-    // }else if(type == 'import'){
-    //    json = ImportFromSheet;
-    // }else if(type == 'export'){
-    //    json = ExportToSheet;
-    // }
-    var modalForm = new Entity(json,{});
-    var modalViewInstance = new ActionView(json,modal);
-    var modalEventInstance = new ActionEvent(modal,window);
-    var modalControllerInstance = new ActionController(modalForm,modalViewInstance,modalEventInstance);
-}
-static closeModal(event){
-    event.preventDefault();
-   document.getElementById('data').style.display = 'none';
-   document.getElementById('data').innerHTML = '';
+       exportToSheetparamsJSON['array'] = array;
+       json = exportToSheet;
+    }
+    ActionView.addInnerHTML('',document.getElementById('inlineContent'));
+    var Form = new Entity(json,{});
+    var ViewInstance = new ActionView(json,formElement);
+    var EventInstance = new ActionEvent(editor,window);
+    var ControllerInstance = new ActionController(Form,ViewInstance,EventInstance);
 }
 }
 

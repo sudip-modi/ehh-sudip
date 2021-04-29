@@ -1137,12 +1137,6 @@ var importFromSheetFlowRequest = {
             method:'set',
             arguments:[importFromSheetparamsJSON,'GetNamedRange','NamedRange']
         },
-        // {
-        //     reqName:'CloseModal',
-        //     objectModel:ActionView,
-        //     method:'closeModal',
-        //     arguments:[]//event will be appended
-        // },
         {
             reqName:'URLBuilder',
             objectModel:HttpService,
@@ -1154,12 +1148,6 @@ var importFromSheetFlowRequest = {
             objectModel:HttpService,
             method:'requestBuilder',
             arguments:["GET"]
-        },
-        {
-            reqName:'redirect',
-            objectModel:ActionController,
-            method:"onChangeRoute",
-            arguments:['action']
         },
         {
             reqName:'response',
@@ -1179,29 +1167,41 @@ var importFromSheetFlowRequest = {
             arguments:['response.output'],
         },
         {
+            reqName:"formElement",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['viewForm']
+        },
+        {
+            reqName:"RemoveForm",
+            objectModel:engine,
+            method:'set',
+            arguments:["formElement",'','innerHTML']
+        },
+        {
             reqName:"Element",
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['response.result','Success'],
-                output:true
-            },
             objectModel:document,
             method:'getElementById',
             arguments:['inlineContent']
         },
-        {
-
-            reqName:"SetDatafromSheet",
+        { 
             validate:{
                 objectModel:operate,
                 method:'isEqual',
-                arguments:['Element',null],
+                arguments:['response.result','Success'],
                 output:false
             },
+            reqName:"Set sample story",
             objectModel:engine,
             method:'set',
-            arguments:['Element','response.output','innerText']
+            arguments:['Element',ehhIntro,'innerHTML'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:"SetDatafromSheet",
+            objectModel:engine,
+            method:'set',
+            arguments:['Element','response.output','innerText'],
         }
     ]
 }
@@ -1233,12 +1233,6 @@ var exportToSheetFlowRequest = {
             method:'set',
             arguments:[exportToSheetparamsJSON,'GetSheetName','SheetName']
         },
-        // {
-        //     reqName:'CloseModal',
-        //     objectModel:ActionView,
-        //     method:'closeModal',
-        //     arguments:[]//event will be appended
-        // },
         {
             reqName:'stringifyParams',
             objectModel:JSON,
@@ -1269,11 +1263,5 @@ var exportToSheetFlowRequest = {
             method:'alert',
             arguments:['response.output']
         },
-        {
-                reqName:'redirect',
-                objectModel:ActionController,
-                method:"onChangeRoute",
-                arguments:['action']
-        }, 
     ]
 }

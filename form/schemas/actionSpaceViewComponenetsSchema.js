@@ -398,7 +398,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent':'Invoice Form',
-                                    'data-command': `[{"command":"modal","entity":"invoiceForm"}]`,
+                                    'data-command': `[{"command":"form","entity":"invoiceForm"}]`,
                                 },
                                
                             },
@@ -409,7 +409,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'Export to Sheet',
-                                    'data-command': `[{"command":"redirect","entity":"exportData"}]`,
+                                    'data-command': `[{"command":"form","entity":"export"}]`,
                                 },
                                 
                             },
@@ -420,7 +420,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'Import from Sheet',
-                                    'data-command': `[{"command":"redirect","entity":"importData"}]`,
+                                    'data-command': `[{"command":"form","entity":"import"}]`,
                                 },
                                 
                             },
@@ -911,14 +911,18 @@ var workSpaceBody = {
                         name: 'div',
                         class: 'blocks',
                         id:'blocks+Index',
-                        li: {
+                        li1:{
+                            name:'span',
+                            id:'viewForm',
+                        },
+                        li2: {
                             name: 'span',
                             class: 'inlineContent',
                             id:'inlineContent',
                             contentEditable: 'true',
                             fileID:'',
                             innerHTML: sampleIntroStory
-                        }
+                        },
                     }
                     
                 }
@@ -1025,17 +1029,6 @@ var contextMenu = {
 var invoiceJSON = {
     'content':{
         'name':'div',
-        'class':'modal-content',
-    'div1':{
-            'name':'div',
-            'class':'closeContainer',
-            'span':{
-                'name':'span',
-                'data-command': `[{"command":"closeModal"}]`,
-                'class':'close',
-                'textContent':'x',
-            },
-    },
     'br':{
         'name':'br',
     },
@@ -1392,12 +1385,12 @@ var importfromSheet = {
         name: 'section',
         class: 'container row',
         form: {
-            id: 'regForm',
+          //  id: 'regForm',
             name: 'form',
             'class': 'align_center',
             content: {
                 'name': 'div',
-                class: 'column align_center',
+                class: 'column align_center',//column align_center
                 'formHeading': {
                     'name': 'h1',
                     'textContent': 'Import From Sheet',
@@ -1456,14 +1449,14 @@ var importfromSheet = {
             }
 
         }
-    }
+   }
 }
 var exportToSheet = {
     formSection: {
         name: 'section',
         class: 'container row',
         form: {
-            id: 'regForm',
+           // id: 'regForm',
             name: 'form',
             'class': 'align_center',
             content: {
