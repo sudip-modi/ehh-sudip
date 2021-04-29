@@ -171,6 +171,25 @@ var copy2HTMLModel={
           arguments: ['attributes.name',2]
         },
       },
+      innerText: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id']
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.innerText',2]
+        },
+      },
     },
     type: 'object',
     process: {
