@@ -36,13 +36,20 @@ class ActionView {
 
     target.innerHTML = inputElem;
   }
-  static viewForm(event,type){
+  static async viewForm(event,type){
     event.preventDefault();
     var formElement = document.getElementById('viewForm');
     ActionView.addInnerHTML('',formElement);
     var json = {};
      if( type == 'invoiceForm'){
-       json = invoiceJSON;
+        var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,{'form':'invoiceForm'}),HttpService.requestBuilder("GET"));
+        if(response){
+            var invoiceArray = response.output;
+            json = mutate.arr2Object(invoiceArray,invoiceArray[0],{});
+            console.log(json);
+        }else{
+            json = invoiceJSON;
+        }
        json['content']['invoice']['article']['meta']['tr3']['td']['span']['textContent'] = uid();
     }else if(type == 'import'){
        json = importfromSheet;

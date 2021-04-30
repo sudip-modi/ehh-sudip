@@ -947,10 +947,7 @@ var actionWorkSpace = {
     id: "actionWorkspaceSection",
     class: "column",
     'workspaceHeader': workspaceHeader,
-    'workSpaceBody': workSpaceBody,
-   
-  
-   
+    'workSpaceBody': workSpaceBody,  
 }
 var actionSpaceBody = {
     name: 'div',
@@ -1029,9 +1026,6 @@ var contextMenu = {
 var invoiceJSON = {
     'content':{
         'name':'div',
-    'br':{
-        'name':'br',
-    },
     'invoice':{
         'name':'div',
         'class':'invoice',
@@ -1413,6 +1407,7 @@ var importfromSheet = {
                         'id': 'spreadsheetID',
                         'required': 'true',
                         'placeholder': 'Enter SpreadsheetID',
+                        'value':'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw',
                     }
                 },
                 item2: {
@@ -1424,12 +1419,21 @@ var importfromSheet = {
                         'for': 'NamedRange',
                         'textContent': 'Named Range',
                     },
-                    'inputNamedRange': {
-                        'name': 'input',
-                        'type': 'text',
-                        'id': 'NamedRange',
-                        'required': 'true',
-                        'placeholder': 'Enter Named Range(Eg, SheetName!A1:D10)',
+                    // 'inputNamedRange': {
+                    //     'name': 'input',
+                    //     'type': 'text',
+                    //     'id': 'NamedRange',
+                    //     'required': 'true',
+                    //     'placeholder': 'Enter Named Range(Eg, SheetName!A1:D10)',
+                    // },
+                    'inputNamedRange':{
+                        'name':'select',
+                        'id':'NamedRange',
+                        'required':'true',
+                        'o1':{'name':'option','value':'FormsV1!A1:C5','textContent':'FormsV1!A1:C5'},
+                        'o2':{'name':'option','value':'FormsV1!A10:E20','textContent':'FormsV1!A10:E20'},
+                        'o3':{'name':'option','value':'Test!A1:D8','textContent':'Test!A1:D8'},
+                        'o4':{'name':'option','value':'Test!A15:D20','textContent':'Test!A15:D20'},
                     }
                 },
                 item3: {
@@ -1484,6 +1488,7 @@ var exportToSheet = {
                         'id': 'spreadsheetID',
                         'required': 'true',
                         'placeholder': 'Enter SpreadsheetID',
+                        'value':'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw',
                     }
                 },
                 item2: {
@@ -1495,12 +1500,19 @@ var exportToSheet = {
                         'for': 'sheetName',
                         'textContent': 'Sheet Name',
                     },
-                    'inputsheetName': {
-                        'name': 'input',
-                        'type': 'text',
-                        'id': 'sheetName',
-                        'required': 'true',
-                        'placeholder': 'Enter Sheet Name',
+                    // 'inputsheetName': {
+                    //     'name': 'input',
+                    //     'type': 'text',
+                    //     'id': 'sheetName',
+                    //     'required': 'true',
+                    //     'placeholder': 'Enter Sheet Name',
+                    // }
+                    'inputSheetName':{
+                        'name':'select',
+                        'id':'sheetName',
+                        'required':'true',
+                        'o1':{'name':'option','value':'FormsV1','textContent':'FormsV1'},
+                        'o2':{'name':'option','value':'Test','textContent':'Test'},
                     }
                 },
                 item3: {
