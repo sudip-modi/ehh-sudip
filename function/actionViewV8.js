@@ -42,7 +42,8 @@ class ActionView {
     ActionView.addInnerHTML('',formElement);
     var json = {};
      if( type == 'invoiceForm'){
-        var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,{'form':'invoiceForm'}),HttpService.requestBuilder("GET"));
+         var params = JSON.parse(JSON.stringify({'Form':'invoiceForm'}));
+        var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,params),HttpService.requestBuilder("GET",undefined,undefined));
         if(response){
             var invoiceArray = response.output;
             json = mutate.arr2Object(invoiceArray,invoiceArray[0],{});
