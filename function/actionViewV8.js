@@ -42,15 +42,15 @@ class ActionView {
     ActionView.addInnerHTML('',formElement);
     var json = {};
      if( type == 'invoiceForm'){
-         var params = JSON.parse(JSON.stringify({'Form':'invoiceForm'}));
-        var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,params),HttpService.requestBuilder("GET",undefined,undefined));
-        if(response){
-            var invoiceArray = response.output;
-            json = mutate.arr2Object(invoiceArray,invoiceArray[0],{});
-            console.log(json);
-        }else{
+        var params = JSON.parse(JSON.stringify({'Form':'invoiceForm'}));
+        var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,params),HttpService.requestBuilder("GET"));
+       // if(response){
+            // var invoiceArray = response.output;
+            // json = mutate.arr2Object(invoiceArray,invoiceArray[0],{});
+            // console.log(json);
+      //  }else{
             json = invoiceJSON;
-        }
+      //  }
        json['content']['invoice']['article']['meta']['tr3']['td']['span']['textContent'] = uid();
     }else if(type == 'import'){
        json = importfromSheet;
@@ -58,7 +58,7 @@ class ActionView {
        var HTMLjson = Entity.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
        console.log(HTMLjson);
        var inputjson = {};inputjson['editor'] = HTMLjson;
-       var array =mutate.TWODARRAY (mutate.Obj2(inputjson, []));
+       var array =mutate.TWODARRAY(mutate.Obj2(inputjson, []));
        console.log(array);
        exportToSheetparamsJSON['array'] = array;
        json = exportToSheet;

@@ -300,9 +300,7 @@ class ActionController extends ActionEvent {
                 case 'OpenDirectory':
                     event.preventDefault();engine.processReq(OpenADirectoryRequest);break;
                 case 'file':
-                    everyFileRequest.flowRequest[2].callBack.arguments.push(event.target.id);
-                    everyFileRequest.flowRequest[3].arguments.push(event.target.id);
-                    engine.processReq(everyFileRequest);break;
+                    engine.processReq(everyFileRequest,{"event":event});break;
                 case 'FS_Save':
                     engine.processReq(saveFileFlowRequest);break;
                 // local storage
@@ -407,7 +405,7 @@ class ActionController extends ActionEvent {
     }
     RemoveItem(event){
             event.preventDefault();
-            var Id = 'tr' + event.target.getAttribute('id');console.log(Id);
+            var Id = 'tr' + event.target.getAttribute('id');
             var element = document.getElementById(Id);
             if(element !== null)
                 element.parentNode.removeChild(element);
@@ -415,9 +413,10 @@ class ActionController extends ActionEvent {
     NewItem(event){
         event.preventDefault();
         var ItemId = uid();
-        newItemJSON['td1']['a']['id'] = ItemId;newItemJSON['id'] = 'tr'+ ItemId;
-        var json = {};json[ItemId] = newItemJSON;
-        var newItem = new Entity(json,document.getElementById('tbody'));
+        var newItem = JSON.parse(JSON.stringify({}));
+        newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
+        newItem[ItemId]['td1']['a']['id'] = ItemId;newItem[ItemId]['id'] = 'tr'+ ItemId;
+        var newItem = new Entity(newItem,document.getElementById('tbody'));
     }
     save(event) {
         var entityName = ActionView.getTitle();

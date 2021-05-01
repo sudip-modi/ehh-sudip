@@ -27,15 +27,15 @@ class ActionEngine {
         this._flowResultState={};
     }
 //This can easily be replaced by operate.isin(key,object)
-    async processReq(reqObj,resultObj) {
+    async processReq(reqObj,params={},resultObj={}) {
         // if (Validators.isNestedRequest(reqObj)) {
         //     return this.processReqNestedObject(reqObj);
         // }
         if(Validators.isFlowRequest(reqObj)) {
-            return await this.processReqArray(reqObj,resultObj);
+            return await this.processReqArray(reqObj,params,resultObj);
         }
         if(Validators.isSingleRequest(reqObj)) {
-            return await this.action(reqObj,resultObj)
+            return await this.action(reqObj,params,resultObj)
         }
         throw new Error("Request type not supported")
     }
@@ -118,13 +118,13 @@ class ActionEngine {
      * 2.if validate object exists get a validateResult
      * 3.if validate doesn't exist || validateResult == output value of validate object then executes a  request
      */
-    async action(req, state) {
+    async action(req,params, state) {
         if (operate.isObject(req) != true) {
           return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
         }
         var response,validateResult;
         if(req.hasOwnProperty('validate')){
-            validateResult = await this.action(req.validate,state);
+            validateResult = await this.action(req.validate,params,state);
             console.log("validateResult :- " + validateResult + " and it's output should be equal to " + req.validate.output);
         }
         if(req.hasOwnProperty('validate') && !operate.isEqual(validateResult,req.validate.output)){
@@ -170,7 +170,7 @@ class ActionEngine {
           var callBack = req['callBack'];
           var callBackrequest = {...callBack,objectModel:response};
           console.log("CallBack : - " + JSON.stringify(callBackrequest));
-          response = await this.action(callBackrequest, state);
+          response = await this.action(callBackrequest,params,state);
         }
         return response;
       }
@@ -178,10 +178,11 @@ class ActionEngine {
      * This method is used for parallel requests
      * @param {FlowRequest} reqObj - request object containing array of objects
      */
-    async processReqArray(reqObj,resultObj ={}) {
+    async processReqArray(reqObj,params,resultObj) {
         if(!resultObj.flowRequest) {
             resultObj.flowRequest={}
         }
+        resultObj.flowRequest = {...params};
         if(operate.isFlowRequest(reqObj)&&operate.isArray(reqObj.flowRequest)) {
             var flowRequest=reqObj.flowRequest;
             for(var i=0;i<flowRequest.length;i++) {
@@ -190,7 +191,7 @@ class ActionEngine {
                // var args=request.arguments;
                // var requestArgs=getRequestArgs.apply(this,[args,state.flowRequest]);
                // var updatedRequest = {...request,arguments:requestArgs};
-                var result= await this.processReq(request,resultObj.flowRequest);
+                var result= await this.processReq(request,params,resultObj.flowRequest);
                 console.log(result);
                 //  if(result) {
                     resultObj.flowRequest={

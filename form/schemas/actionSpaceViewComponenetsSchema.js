@@ -429,8 +429,8 @@ var leftSideNavBar= {
         },
         hr: {
             name: 'div',
-                class: 'hr',
-                },
+            class: 'hr',
+        },
 
         sideBar_Collection_withDropDown: {
             name: 'div',
@@ -443,6 +443,24 @@ var leftSideNavBar= {
             collectionItem: {
                 name: 'div',
                 class: "container column",
+                'liCurrentActionStory':{
+                    'name':'li',
+                    'class':'row item justify_SpaceBetween',
+                    'span':{
+                        'name':'span',
+                        'class':'parent',
+                        'textContent':'Current Action Story'
+                    },
+                    'ul':{
+                        'name':'ul',
+                        'class':'nested container column',
+                        'id':'CurrentActionStory'
+                    }
+                },
+                'span0':{
+                    'name':'span',
+                    'class':'hozintalLine'
+                },
                  'limyCollection':{
                         'name':'li',
                         'class':'row item justify_SpaceBetween',

@@ -1277,19 +1277,19 @@ var newActionStoryRequest = {
             reqName:"Save",
             objectModel:engine,
             method:'processReq',
-            arguments:[saveFileFlowRequest]
+            arguments:[{},saveFileFlowRequest]
         },
         {
             reqName:'RecentFiles',
             objectModel:engine,
             method:'processReq',
-            arguments:[recentFilesFlowRequest]
+            arguments:[{},recentFilesFlowRequest]
         },
         {
             reqName:"New",
             objectModel:engine,
             method:'processReq',
-            arguments:[newFileFlowRequest]
+            arguments:[{},newFileFlowRequest]
         }
     ]
 }
@@ -1334,13 +1334,13 @@ var everyFileRequest = {
             objectModel:document,
             method:'getElementById',
             arguments:['inlineContent'],
-            callBack:{method:'getAttribute',arguments:['fileid',]}//event.target.id to be pushed
+            callBack:{method:'getAttribute',arguments:['fileid','event.target.id']}//event.target.id to be pushed
         },
         {
             reqName:"OpenInEditor",
             objectModel:processFSInstance,
             method:'OpenFileInEditor',
-            arguments:[]//event.target.id to be pushed
+            arguments:['event.target.id']//event.target.id to be pushed
         }   
     ]
 }
