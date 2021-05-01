@@ -270,24 +270,13 @@ class ActionController extends ActionEvent {
             var commandJson = JSON.parse(dataCommand);
             console.log("Command " + commandJson[0].command);
             switch (commandJson[0].command) {
+            //invoice operations
+                case 'SubmitInvoice':
+                    this.SubmitInvoice(event);break;
                 case 'NewItem':
                     this.NewItem(event);break;
                 case 'RemoveItem':
                     this.RemoveItem(event);break;
-                case 'SubmitInvoice':
-                    this.SubmitInvoice(event);break;
-                case 'importFromSheet':
-                    event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
-                case 'exportToSheet':
-                    event.preventDefault(); exportToSheetFlowRequest.flowRequest[4].arguments.push(event);
-                    engine.processReq(exportToSheetFlowRequest);break;
-                //signup,login,forms
-                case 'Signup':
-                    event.preventDefault();engine.processReqArray(SignUpFlowRequest);break;
-                case 'Login':
-                    event.preventDefault();engine.processReqArray(LoginFlowRequest);break;
-                case 'google':
-                    Authorization.oAuth(event, 'json'); break;
                 case 'form':
                     ActionView.viewForm(event,commandJson[0].entity);break;
                 case 'modal':
@@ -295,7 +284,15 @@ class ActionController extends ActionEvent {
                 case 'closeModal':
                     ActionView.closeModal(event);break;
                 //sheet
-                
+                case 'importFromSheet':
+                    event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
+                case 'exportToSheet':
+                    event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
+                //signup,login
+                case 'Signup':
+                    event.preventDefault();engine.processReqArray(SignUpFlowRequest);break;
+                case 'Login':
+                    event.preventDefault();engine.processReqArray(LoginFlowRequest);break;
                 //File System
                 case "new":
                     engine.processReq(newActionStoryRequest); break;
@@ -307,25 +304,6 @@ class ActionController extends ActionEvent {
                     engine.processReq(everyFileRequest,{"event":event});break;
                 case 'FS_Save':
                     engine.processReq(saveFileFlowRequest);break;
-                // local storage
-                case 'save':
-                    this.save(event); break;
-                case 'cloud':
-                    this.load(event); break;
-                case 'download':
-                    this.download(event); break;
-                case 'delete':
-                    this.delete(event); break;
-                case 'logout':
-                    this.logout(event); break;
-                case 'keyup':
-                    this.onKeyUp(event); break;
-                case 'mouseover':
-                    this.onMouseOver(event); break;
-                case 'storage':
-                    console.log("storage", event.type, event.target)
-                    console.log(Object.keys(actionStorageInstance.entity))
-                    break;
                 default:
                 // console.log("I don't know such values",event.type);
             }
@@ -421,65 +399,5 @@ class ActionController extends ActionEvent {
         newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
         newItem[ItemId]['td1']['a']['id'] = ItemId;newItem[ItemId]['id'] = 'tr'+ ItemId;
         var newItem = new Entity(newItem,document.getElementById('tbody'));
-    }
-    save(event) {
-        var entityName = ActionView.getTitle();
-        console.log(entityName);
-        var entityValue = ActionView.getText();
-        StorageHelper.saveToStorage(entityName, entityValue);
-    }
-    load(event) {
-        const entityName = window.prompt('Enter name of the Action Story you want to load', '');
-        const entitytValue = StorageHelper.getFromStorage(entityName);
-        console.log(entityName + ":::::" + entitytValue);
-        if (entitytValue !== null) {
-            ActionView.updateTitle(entityName);
-            ActionView.updateText(entitytValue);
-            //   this.view.updateText(entitytValue);
-            console.log("Loaded successfully");
-        } else {
-            alert(entityName + " doesn't exist");
-        }
-    }
-    delete(event) {
-        const entityName = window.prompt('Enter name of the Action Story you want to delete', '');
-        console.log("entityName:- " + entityName);
-        const entitytValue = StorageHelper.getFromStorage(entityName);
-        console.log(entityName + ":::::" + entitytValue);
-        if (entitytValue !== null) {
-            StorageHelper.removeFromStorage(entityName);
-            console.log("Deleted successfully");
-        } else {
-            alert(entityName + " doesn't exist");
-        }
-    }
-    download(event) {
-        const entityName = window.prompt('Enter name of the Action Story you want to download', '');
-        console.log("entityName:- " + entityName);
-        const entitytValue = StorageHelper.getFromStorage(entityName);
-        console.log(entityName + ":::::" + entitytValue);
-        if (entitytValue !== null) {
-            StorageHelper.export(entityName, entitytValue);
-            console.log("Downloaded successfully");
-        } else {
-            alert(entityName + " doesn't exist");
-        }
-    }
-    async logout(event) {
-        console.log("Logout");
-        event.preventDefault();
-        if (localStorage.getItem('LoginEhh' + localStorage.getItem('emailID')) === 'true') {
-            localStorage.removeItem('LoginEhh' + localStorage.getItem('emailID'));
-            alert('Logged out through ehh');
-        } else if (localStorage.getItem('LoginEhhGoogle' + localStorage.getItem('emailID')) === 'true') {
-            localStorage.removeItem('LoginEhhGoogle' + localStorage.getItem('emailID'));
-            var response = await Credentials.actions(event, "LOGOUT");
-            if (!response.error) {
-                console.log("You have been logged out successfully");
-            }
-            alert('Logged out through ehh Google');
-        }
-        localStorage.removeItem('emailID');
-        window.location.href = '../';
     }
 }

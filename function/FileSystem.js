@@ -1,18 +1,4 @@
-var fileHandle,defaultGetStoreFunc;;
-const pickerOpts = {
-    types: [
-      {
-        description: '.txt,.html,.js,.json,.csv,.xml,.xlsx,.jpg,.jpeg,.png,.mp4',
-        accept: {
-          'text/*':['.txt','.html','.json','.js','.xml','.csv'],
-          'image/*':['.jpg','.jpeg','.png'],
-          'video/*':['.mp4'],
-        }
-      },
-    ],
-    excludeAcceptAllOption: true,
-    multiple: false
-};
+var defaultGetStoreFunc;;
 class processFS{
     static async NewFile(event){
         event.preventDefault();

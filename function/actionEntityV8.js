@@ -244,20 +244,6 @@ class Entity {
 
     //This method walks through all the keys of an obect. By default it retunrs all the keys wile getting them from Window scope.
     // It has optional patameter of Max Item, Max Depth and Recurse.
-
-    // walkReqModel = {
-//     name: 'eachKey',
-//     objectModel: 'ActionEngine',
-//     method: 'eachKey',
-//     argument: ['input'],
-//     params: {
-//         response: {},// If present the response is stored here. If an object returned as an object, if an array return as an array.
-//         recurse: 'true',
-//         maxDepth: 5,
-//         maxItem: 10,
-//     }
-// }
-
     static walk(req) {
         console.log("walk request", req['argument'])
         //  if (!req['currentDepth']) { req['currentDepth'] = 0;console.log("it's a fresh start")}     
@@ -359,15 +345,26 @@ var obj = {
         }
     ]
 };
+var   walkReqModel = {
+    name: 'eachKey',
+    objectModel: 'ActionEngine',
+    method: 'eachKey',
+    argument: ['input'],
+    params: {
+        response: {},// If present the response is stored here. If an object returned as an object, if an array return as an array.
+        recurse: 'true',
+        maxDepth: 5,
+        maxItem: 10,
+    }
+}
+ var req = ['recentStoriesCollectionView','workSpaceBody']
+// console.log('testing req', req, typeof req)
+// var req1 = ['a', '0', 'b', 'c'];
+// var req2 = 'a[0].b.c';
 
-var req = ['recentStoriesCollectionView','workSpaceBody']
-console.log('testing req', req, typeof req)
-var req1 = ['a', '0', 'b', 'c'];
-var req2 = 'a[0].b.c';
-
-// var newWalkModelReq = walkReqModel;
-// newWalkModelReq['argument'] = req;
-// var getPath = Entity.walk(newWalkModelReq);
+var newWalkModelReq = walkReqModel;
+newWalkModelReq['argument'] = req;
+//var getPath = Entity.walk(newWalkModelReq);
 
 
 // // Logs 3

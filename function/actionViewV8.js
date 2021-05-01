@@ -5,14 +5,14 @@ class ActionView {
         this._actionView = new Entity(viewModel, parent);
         //  console.log(" new View ", this._actionView.entity);
     }
-    static setAttribute(input, key, value) {
-        input.key = value;
-        return input;
-    }
-    appendChild(input,target){
-        target.appendChild('input');
-        return input;
-    }
+//     static setAttribute(input, key, value) {
+//         input.key = value;
+//         return input;
+//     }
+//     appendChild(input,target){
+//         target.appendChild('input');
+//         return input;
+//     }
     replaceChild([input, target]) {
     //console.log("replaceChild",input,target)
         var newChild = new Entity(input, document.createElement('div'));
@@ -32,11 +32,11 @@ class ActionView {
     static addInnerText(inputElem,target){
       target.innerText = inputElem;
     }
-  static addInnerHTML(inputElem,target){
+    static addInnerHTML(inputElem,target){
 
     target.innerHTML = inputElem;
-  }
-  static async viewForm(event,type){
+    }
+    static async viewForm(event,type){
     event.preventDefault();
     var formElement = document.getElementById('viewForm');
     ActionView.addInnerHTML('',formElement);
@@ -88,8 +88,6 @@ class ActionView {
         ActionView.addInnerHTML('',modal);
     }
 }
-
-
 /**
  * @file get/set caret position and insert text
  * @author islishude
