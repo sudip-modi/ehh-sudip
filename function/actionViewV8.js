@@ -55,20 +55,38 @@ class ActionView {
     }else if(type == 'import'){
        json = importfromSheet;
     }else if(type == 'export'){
-       var HTMLjson = Entity.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
-       console.log(HTMLjson);
-       var inputjson = {};inputjson['editor'] = HTMLjson;
-       var array =mutate.TWODARRAY(mutate.Obj2(inputjson, []));
-       console.log(array);
-       exportToSheetparamsJSON['array'] = array;
-       json = exportToSheet;
+    //    var HTMLjson = Entity.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
+    //    console.log(HTMLjson);
+    //    var inputjson = {};inputjson['editor'] = HTMLjson;
+    //    var array =mutate.TWODARRAY(mutate.Obj2(inputjson, []));
+    //    console.log(array);
+    //    exportToSheetparamsJSON['array'] = array;
+    //    json = exportToSheet;
     }
     ActionView.addInnerHTML('',document.getElementById('inlineContent'));
     var Form = new Entity(json,{});
     var ViewInstance = new ActionView(json,formElement);
     var EventInstance = new ActionEvent(editor,window);
     var ControllerInstance = new ActionController(Form,ViewInstance,EventInstance);
-}
+    }
+    static async viewModal(event){
+        event.preventDefault();
+        var HTMLjson = Entity.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
+        var inputjson = {};inputjson['editor'] = HTMLjson;
+        var array =mutate.TWODARRAY(mutate.Obj2(inputjson, []));
+        console.log(array);
+        exportToSheetparamsJSON['array'] = array;
+        var json = exportToSheet;
+        var modal = document.getElementById('data');
+        modal.style.display = 'block';
+        ActionView.newEntity(json,modal);
+    }
+    static async closeModal(event){
+        event.preventDefault();
+        var modal = document.getElementById('data');
+        modal.style.display = 'none';
+        ActionView.addInnerHTML('',modal);
+    }
 }
 
 

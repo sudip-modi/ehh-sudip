@@ -1,4 +1,8 @@
 /* reset */
+.exportToSheet {
+	margin: 5%;
+	width: 90%;
+}
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

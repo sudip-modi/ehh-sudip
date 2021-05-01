@@ -1287,34 +1287,10 @@ var exportToSheetFlowRequest = {
             arguments:[exportToSheetparamsJSON]
         },
         {
-            reqName:"formElement",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['viewForm']
-        },
-        {
-            reqName:"RemoveForm",
-            objectModel:engine,
-            method:'set',
-            arguments:["formElement",'','innerHTML']
-        },
-        {
-            reqName:"Element",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['inlineContent']
-        },
-        {
             reqName:'RequestBuilder',
             objectModel:HttpService,
             method:'requestBuilder',
             arguments:["POST",undefined,'stringifyParams']
-        },
-        {
-            reqName:"Set sample story",
-            objectModel:engine,
-            method:'set',
-            arguments:['Element',sampleIntroStory,'innerHTML'],  
         },
         {
             reqName:'response',
@@ -1334,6 +1310,25 @@ var exportToSheetFlowRequest = {
             method:'alert',
             arguments:['response.output']
         },
+        {
+            reqName:"formElement",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['data']
+        },
+        {
+            reqName:"RemoveForm",
+            objectModel:ActionView,
+            method:'addInnerHTML',
+            arguments:['','formElement']
+        },
+        {
+            reqName:'RemoveModal',
+            objectModel:engine,
+            method:'set',
+            arguments:['formElement.style','none','display']
+        }
+
     ]
 }
 var newActionStoryRequest = {

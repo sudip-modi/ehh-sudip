@@ -290,6 +290,10 @@ class ActionController extends ActionEvent {
                     Authorization.oAuth(event, 'json'); break;
                 case 'form':
                     ActionView.viewForm(event,commandJson[0].entity);break;
+                case 'modal':
+                    ActionView.viewModal(event);break;
+                case 'closeModal':
+                    ActionView.closeModal(event);break;
                 //sheet
                 
                 //File System

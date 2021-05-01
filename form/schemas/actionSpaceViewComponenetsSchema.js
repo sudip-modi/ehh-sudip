@@ -409,7 +409,7 @@ var leftSideNavBar= {
                                     name: 'div',
                                     'class': "collection_name",
                                     'textContent': 'Export to Sheet',
-                                    'data-command': `[{"command":"form","entity":"export"}]`,
+                                    'data-command': `[{"command":"modal","entity":"export"}]`,//form
                                 },
                                 
                             },
@@ -1474,13 +1474,29 @@ var importfromSheet = {
    }
 }
 var exportToSheet = {
+    div:{
+    'name':'div',
+    'class':'modal-content',
+    'br1':{
+        'name':'br'
+    },
+     'div1':{
+     'name':'div',
+     'class':'closeContainer',
+     'span':{
+        'name':'span',
+        'data-command': `[{"command":"closeModal"}]`,
+        'class':'close',
+        'textContent':'x',
+        },
+    },
     formSection: {
         name: 'section',
         class: 'container row',
         form: {
            // id: 'regForm',
             name: 'form',
-            'class': 'align_center',
+            'class': 'exportToSheet',
             content: {
                 'name': 'div',
                 class: 'column align_center',
@@ -1495,8 +1511,9 @@ var exportToSheet = {
                     name: 'li',
                     class: 'full-width item column',
                     'labelSpreadsheetID': {
-                        'name': 'label',
+                        name: 'label',
                         class: 'alignSelf-left small',
+                        'width':'100%',
                         'for': 'spreadsheetID',
                         'textContent': 'Spreadsheet ID',
                     },
@@ -1504,6 +1521,7 @@ var exportToSheet = {
                         'name': 'input',
                         'type': 'text',
                         'id': 'spreadsheetID',
+                        'width':'100%',
                         'required': 'true',
                         'placeholder': 'Enter SpreadsheetID',
                         'value':'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw',
@@ -1551,4 +1569,5 @@ var exportToSheet = {
 
         }
     }
+}
 }
