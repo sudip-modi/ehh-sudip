@@ -123,7 +123,7 @@ var newFileFlowRequest = {
         objectModel: ActionView,
         method: "addInnerHTML",
         arguments: [ehhIntro,"Editor"],
-    }
+    },
     ]
 }
 //save file Flow -  1.get Editor element 2.get FileID from editor attribute 3.getInnerText of editor 4.get file handle from indexDB
@@ -387,6 +387,71 @@ var OpenADirectoryRequest = {
             method:'setItem',
             arguments:['UsermyCollection','CollectionElement.innerHTML']
         }
+    ]
+}
+var ActionStoryFlowRequest = {
+    flowRequest:[
+        {
+            reqName: "Editor",
+            objectModel: document,
+            method: "getElementById",
+            arguments: ["inlineContent"],
+        },
+        {
+            reqName:"fileid",
+            objectModel:"Editor",
+            method:"getAttribute",
+            arguments:['fileid']
+        },
+        {
+            reqName:'json',
+            objectModel:Entity,
+            method:'toJSON',
+            arguments:["Editor",actionStory2HTML]
+        },
+        {
+            reqName:"Stringify",
+            objectModel:JSON,
+            method:"stringify",
+            arguments:[directoryJSON]
+        },
+        {
+            reqName:"input",
+            objectModel:JSON,
+            method:'parse',
+            arguments:["Stringify"]
+        },
+        {
+            reqName:'SetName',
+            objectModel:engine,
+            method:'set',
+            arguments:['input.li.span','json.tagName','textContent']
+        },
+        {
+            reqName:'SetId',
+            objectModel:engine,
+            method:'set',
+            arguments:['input.li.list','fileid','id']
+        },
+        {
+            reqName:"jsonForACtionStory",
+            objectModel:processFSInstance,
+            method:'CurrentActionStory',
+            arguments:['input.li.list','json.children']
+        },
+        {
+            reqName:"ActionStory",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['CurrentActionStory'] 
+        },
+        {
+            reqName:'newEntity',
+            objectModel:ActionView,
+            method:'newEntity',
+            //new Entity
+            arguments:['input','ActionStory']
+        },    
     ]
 }
 var OpenADirectoryRequestV2 = {
@@ -1277,19 +1342,25 @@ var newActionStoryRequest = {
             reqName:"Save",
             objectModel:engine,
             method:'processReq',
-            arguments:[{},saveFileFlowRequest]
+            arguments:[saveFileFlowRequest]
         },
         {
             reqName:'RecentFiles',
             objectModel:engine,
             method:'processReq',
-            arguments:[{},recentFilesFlowRequest]
+            arguments:[recentFilesFlowRequest]
         },
         {
             reqName:"New",
             objectModel:engine,
             method:'processReq',
-            arguments:[{},newFileFlowRequest]
+            arguments:[newFileFlowRequest]
+        },
+        {
+            reqName:"Current",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[ActionStoryFlowRequest]
         }
     ]
 }
@@ -1312,7 +1383,13 @@ var openAFileRequest = {
             objectModel:engine,
             method:'processReq',
             arguments:[OpenAFileFlowRequest]
-        } 
+        },
+        {
+            reqName:"Current",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[ActionStoryFlowRequest]
+        }
     ]
 }
 var everyFileRequest = {
@@ -1341,6 +1418,12 @@ var everyFileRequest = {
             objectModel:processFSInstance,
             method:'OpenFileInEditor',
             arguments:['event.target.id']//event.target.id to be pushed
-        }   
+        },
+        {
+            reqName:"Current",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[ActionStoryFlowRequest]
+        }  
     ]
 }

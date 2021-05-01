@@ -271,6 +271,26 @@ class processFS{
         console.log(obj);
         return obj;
     }
+    async CurrentActionStory(obj,json){
+        for(var i =0;i < json.length ;i++){
+            var element = json[i];
+            var id = uid();
+            var name = element.tagName ;
+            if(element.attributes.hasOwnProperty('id'))
+                name = name + "( " + element.attributes.id.nodeValue + ")";
+            if(element.hasOwnProperty('children') &&  (!operate.isEmpty(element.children))){
+                var parent = JSON.parse(JSON.stringify(parentJSON));
+                parent['li']['list']['id'] = id;parent['li']['span']['textContent'] = name; 
+                obj[id] = parent;
+                await processFSInstance.CurrentActionStory(obj[id]['li']['list'],element.children);
+            }else{
+                var child = JSON.parse(JSON.stringify(childJSON));
+                child['id'] = id;child['textContent'] = name;
+                obj[id] = child;
+            }
+        }
+        return obj;
+    }
     /**
      * 
      * @param {*} Handle - FileHandle/DirectoryHandle for which permission is required

@@ -198,3 +198,52 @@ var copy2HTMLModel={
     },
   },
 }
+var actionStory2HTML = {
+  tagName: {
+    value: null,
+    type: 'string',
+    process: {
+      objectModel: operate,
+      method: 'isString',
+      arguments: ['tagName']
+    }
+  },
+  attributes: {
+    value: {
+      id: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id']
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.id',2]
+        }
+      },
+    },
+    type: 'object',
+    process: {
+      objectModel: operate,
+      method: 'isNamedNodeMap',
+      arguments: ['attributes']
+    }
+  },
+  children: {
+    value: null,
+    type: 'array',
+    process: {
+      objectModel: operate,
+      method: 'isHTMLCollection',
+      arguments: ['children']
+    },
+  },
+}
