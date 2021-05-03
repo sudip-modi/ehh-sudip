@@ -132,18 +132,6 @@ class ActionEngine {
         req = await this.handleRequiredPreviousResults(state,req);
         var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
         var method = objectModel[req.method];
-        // if (result) {//Used for either callback cases, where 
-        //   var argument = result;
-        // } else {
-        //   var argument = req.arguments;
-        // }
-        // //Build Arguments
-        // for (var i = 0; i < argument.length; i++) {
-        //   //  console.log(argument[i]);
-        //   argument[i] = Entity.get(argument[i], window);
-        //   //  console.log(argument[i]);
-    
-        // }
         response = await method.apply(objectModel,req.arguments);
         if (req.hasOwnProperty('andThen')) {
           var andThenLength = req['andThen'].length;
@@ -187,17 +175,12 @@ class ActionEngine {
             for(var i=0;i<flowRequest.length;i++) {
                 var request=flowRequest[i];
                 console.log(request.reqName);
-               // var args=request.arguments;
-               // var requestArgs=getRequestArgs.apply(this,[args,state.flowRequest]);
-               // var updatedRequest = {...request,arguments:requestArgs};
                 var result= await this.processReq(request,params,resultObj.flowRequest);
                 console.log(result);
-                //  if(result) {
                     resultObj.flowRequest={
                         ...resultObj.flowRequest,
                         [request.reqName]: result
                     };
-                //  }
                 if(request.exitBeforeExecutingRequest && operate.isEqual(result,null))
                         break;
                 if(request.exitAfterExecutingRequest && result !== null){

@@ -23,7 +23,7 @@ var singleReq = {
 * @type RequestObj
 */
 var convertToJSON = {
-    objectModel: DOMConversion,
+    objectModel: Entity,
     method: "toJSON",
     arguments: ["fromPrevious", entityModel4Html],
 };
@@ -32,7 +32,7 @@ var convertToJSON = {
  * @type RequestObj
  */
 var displayJSON = {
-    objectModel: DOMConversion,
+    objectModel: Entity,
     method: "displayDOMJSON",
     arguments: ["fromPrevious"],
 };
@@ -96,7 +96,7 @@ var setInnerHTML = {
     arguments: ["first"],
     andThen: {
         reqName: "addSecondToFirst",
-        objectModel: DOMConversion,
+        objectModel: ActionView,
         method: "addInnerHTML",
         arguments: ["getFirstElement", "<div>I am nested</div>"],
     }
@@ -398,6 +398,13 @@ var ActionStoryFlowRequest = {
             arguments: ["inlineContent"],
         },
         {
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:["Editor"],
+                output:true
+            },
+            exitBeforeExecutingRequest:true,
             reqName:"fileid",
             objectModel:"Editor",
             method:"getAttribute",
