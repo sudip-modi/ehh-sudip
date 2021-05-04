@@ -139,7 +139,7 @@ class ActionController extends ActionEvent {
             }  
         }
     }
-    static Redirect(routeKeyword){
+    static onChangeRoute(routeKeyword){
         console.log("onChangeRoute :- " + routeKeyword);
         if (routeKeyword) {
              var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
@@ -286,6 +286,8 @@ class ActionController extends ActionEvent {
                 //sheet
                 case 'SpreadsheetFlow':
                     event.preventDefault();engine.processReq(SpreadsheetFlowRequest);break;
+                case 'CreateFileInGDrive':
+                    event.preventDefault();engine.processReq(createAFileInGDriveFlowRequest);break;
                 case 'importFromSheet':
                     event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':

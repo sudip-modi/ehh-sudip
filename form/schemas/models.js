@@ -347,13 +347,28 @@ var redirect = {
       'response_type': 'token'
   }
 }
-var Spreadsheet = {
+var GoogleFlowData = {
       'CreateSpreadsheetUrl':'https://sheets.googleapis.com/v4/spreadsheets',
+      'CreateSpreadsheetBody':{
+        "properties":{
+            "title":''
+        }, 
+      },
       'AddSheetUrl':'https://sheets.googleapis.com/v4/spreadsheets/SpreadsheetId:batchUpdate',
+      'AddSheetBody':{
+        "requests":[{
+                addSheet: {
+                  properties: {
+                    title: 'Sheet2',
+                  }
+                }
+        }]
+      },
       'CopySpreadsheetUrl':'https://www.googleapis.com/drive/v3/files/fileId/copy',
+      'CreateAFileInGDriveUrl':'https://www.googleapis.com/upload/drive/v3/files',
       'headers':{
           'Accept':'application/json',
-          'Content-Type':'application/json',
+         // 'Content-Type':'application/json',
       }
 }
 var createSpreadsheetJSON = {

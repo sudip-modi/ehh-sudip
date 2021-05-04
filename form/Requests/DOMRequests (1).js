@@ -1075,35 +1075,35 @@ var SpreadsheetFlowRequest = {
                 output:false
             },
             exitBeforeExecutingRequest:true,
-            reqName:'StringifySpreadsheet',
+            reqName:'StringifyData',
             objectModel:JSON,
             method:'stringify',
-            arguments:[Spreadsheet]
+            arguments:[GoogleFlowData]
         },
         {
-            reqName:'ParseSpreadsheet',
+            reqName:'ParseData',
             objectModel:JSON,
             method:'parse',
-            arguments:['StringifySpreadsheet']
+            arguments:['StringifyData']
         },
         {
             reqName:'SetTokenInHeader',
             objectModel:engine,
             method:'set',
-            arguments:['ParseSpreadsheet.headers','GetToken','Authorization']
+            arguments:['ParseData.headers','GetToken','Authorization']
         },
-        {
-            reqName:"StringifyRequest1Body",
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[createSpreadsheetJSON]
-        },
-        {
-            reqName:'ParseRequest1Body',
-            objectModel:JSON,
-            method:'parse',
-            arguments:["StringifyRequest1Body"]
-        },
+        // {
+        //     reqName:"StringifyRequest1Body",
+        //     objectModel:JSON,
+        //     method:'stringify',
+        //     arguments:[createSpreadsheetJSON]
+        // },
+        // {
+        //     reqName:'ParseRequest1Body',
+        //     objectModel:JSON,
+        //     method:'parse',
+        //     arguments:["StringifyRequest1Body"]
+        // },
         {
             reqName:"GetSpreadsheetName",
             objectModel:window,
@@ -1114,43 +1114,43 @@ var SpreadsheetFlowRequest = {
             reqName:"SetTitleOfSpreadsheet",
             objectModel:engine,
             method:'set',
-            arguments:['ParseRequest1Body.properties','GetSpreadsheetName','title']
+            arguments:['ParseData.CreateSpreadsheetBody.properties','GetSpreadsheetName','title']
         },
         {
             reqName:"StringifyBodyRequest1",
             objectModel:JSON,
             method:'stringify',
-            arguments:['ParseRequest1Body']
+            arguments:['ParseData.CreateSpreadsheetBody']
         },
         {
             reqName:'ReqBuilderForCreateSpreadsheet',
             objectModel:HttpService,
             method:'requestBuilder',
-            arguments:["POST",'ParseSpreadsheet.headers','StringifyBodyRequest1']
+            arguments:["POST",'ParseData.headers','StringifyBodyRequest1']
         },
         {
             reqName:'Response1',
             objectModel:HttpService,
             method:'fetchRequest',
-            arguments:['ParseSpreadsheet.CreateSpreadsheetUrl','ReqBuilderForCreateSpreadsheet']
+            arguments:['ParseData.CreateSpreadsheetUrl','ReqBuilderForCreateSpreadsheet']
         },
         {
             reqName:"UrlRequest2",
             objectModel:operate,
             method:'replaceSubstring',
-            arguments:['ParseSpreadsheet.AddSheetUrl','SpreadsheetId','Response1.spreadsheetId']
+            arguments:['ParseData.AddSheetUrl','SpreadsheetId','Response1.spreadsheetId']
         },
         {
             reqName:"StringifyBodyRequest2",
             objectModel:JSON,
             method:'stringify',
-            arguments:[createNewSheetJSON]
+            arguments:['ParseData.AddSheetBody']
         },
         {
             reqName:"ReqBuilderForAddSheet",
             objectModel:HttpService,
             method:'requestBuilder',
-            arguments:["POST",'ParseSpreadsheet.headers',"StringifyBodyRequest2"]
+            arguments:["POST",'ParseData.headers',"StringifyBodyRequest2"]
         },
         {
             reqName:"Response2",
@@ -1162,13 +1162,13 @@ var SpreadsheetFlowRequest = {
             reqName:"UrlRequest3",
             objectModel:operate,
             method:'replaceSubstring',
-            arguments:['ParseSpreadsheet.CopySpreadsheetUrl','fileId','Response1.spreadsheetId']
+            arguments:['ParseData.CopySpreadsheetUrl','fileId','Response1.spreadsheetId']
         },
         {
             reqName:'ReqBuilderForCopyOfASheet',
             objectModel:HttpService,
             method:'requestBuilder',
-            arguments:["POST",'ParseSpreadsheet.headers']
+            arguments:["POST",'ParseData.headers']
         },
         {
             reqName:'Response3',
@@ -1178,11 +1178,50 @@ var SpreadsheetFlowRequest = {
         }
     ]
 }
-var promptFlowRequest = {
-    flowRequest:[{
-        reqName:"GetSpreadsheetName",
-        objectModel:window,
-        method:'prompt',
-        arguments:['Enter Spreadsheet name you want to create','SpreadsheetByActionSpaceEditor']
-    }]
+var createAFileInGDriveFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetToken',
+            objectModel:localStorage,
+            method:'getItem',
+            arguments:['Authorization']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['GetToken',null],
+                output:false
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'StringifyData',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[GoogleFlowData]
+        },
+        {
+            reqName:'ParseData',
+            objectModel:JSON,
+            method:'parse',
+            arguments:['StringifyData']
+        },
+        {
+            reqName:'SetTokenInHeader',
+            objectModel:engine,
+            method:'set',
+            arguments:['ParseData.headers','GetToken','Authorization']
+        },
+        {
+            reqName:"RequestBuilder",
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["POST",'ParseData.headers']//file
+        },
+        {
+            reqName:'Response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['ParseData.CreateAFileInGDriveUrl',"RequestBuilder"]
+        }
+    ]
 }

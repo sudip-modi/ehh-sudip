@@ -17,12 +17,12 @@ class HttpService{
             request['body'] = body;                       
         return request;
     }
-    static async FileUpload(file) {
+    static async FileUpload(file = undefined) {
         return new Promise((resolve, reject) => {
          var contentType = file.type || 'application/octet-stream';
          var metadata = {
-                'title':file.name,
-                'name':file.name,
+                'title':file.name || 'Untitled',
+                'name':file.name || 'Untitled',
                 'mimeType':contentType,
             }
           const reader = new FileReader();
@@ -31,9 +31,10 @@ class HttpService{
             var base64Data = btoa(reader.result);
             var multipartRequestBody =
                  delimiter + 'Content-Type: application/json\r\n\r\n' + JSON.stringify(metadata) +
-                 delimiter + 'Content-Type: ' + contentType + '\r\n' +
-                 'Content-Transfer-Encoding: base64\r\n' + '\r\n' + base64Data + close_delim;
-        
+                 delimiter + 'Content-Type: ' + contentType + '\r\n';
+            if(file)
+                multipartRequestBody  = multipartRequestBody +  'Content-Transfer-Encoding: base64\r\n' + '\r\n' + base64Data;
+            multipartRequestBody = multipartRequestBody + close_delim;
             resolve(multipartRequestBody);
         };
           reader.onerror = error => reject(error);
