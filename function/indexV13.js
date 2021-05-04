@@ -2,7 +2,11 @@
 var response2;
 
 if (localStorage.getItem('LoggedIn') === 'true') {
-  window.location.href = "#action";
+  ActionController.onChangeRoute("action");
+}
+if(window.location.href.includes('#state=ActionSpaceEditor')){
+    Authenticate.authToken(window.location.href);
+    ActionController.onChangeRoute("google");
 }
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
@@ -21,7 +25,7 @@ var viewModel = indexDB.get('actionSpaceModel');
         var RecentFiles = localStorage.getItem('UserRecentFiles');
         if(RecentFiles !== null && document.getElementById('RecentFiles'))
           document.getElementById('RecentFiles').innerHTML = RecentFiles;
-        engine.processReq(ActionStoryFlowRequest);
+        //engine.processReq(ActionStoryFlowRequest);
         return response;
     });
 console.log(viewModel);

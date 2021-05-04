@@ -78,3 +78,18 @@ class HttpService{
         return data;    
     }    
 }
+class Authenticate{
+    static oAuth(){
+        console.log("In oAuth()");
+        var service = HttpService.urlBuilder(redirect['url'],redirect['params']);
+        console.log(service);
+        window.location.href = service;
+
+    }
+    static authToken(uri){
+        var service = HttpService.unbuildEndodedUri(uri);
+        var authorization = service['token_type'] +" "+service['access_token'];
+        localStorage.setItem('Authorization',authorization);
+        console.log("Authorization:--- " + authorization);
+    }
+}

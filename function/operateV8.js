@@ -61,6 +61,9 @@ class operate {
         return result;
     }
     static isEqual(argA,argB){ return argA == argB ? true : false;}
+    static replaceSubstring(argA,argB,argC){
+        return argA.replace(argB,argC);
+    }
     //curently works only for string numbers
     static isEqualStrict(argA, argB) { return argA === argB ? true : false; }
     //for array's one sided value existence check, return true if each element of a is present in b

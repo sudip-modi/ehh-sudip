@@ -376,6 +376,17 @@ var leftSideNavBar= {
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
+                                    'textContent':'Google',
+                                    'data-command': `[{"command":"Google"}]`,
+                                },
+                               
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
                                     'textContent':'Invoice Form',
                                     'data-command': `[{"command":"form","entity":"invoiceForm"}]`,
                                 },
@@ -1549,4 +1560,94 @@ var exportToSheet = {
         }
     }
 }
+}
+var GoogleJSON = {
+    formSection:{
+        name: 'section',
+        class: 'container row',
+        form: {
+            id: 'regForm',
+            name: 'form',
+            'class': 'align_center',
+            content: {
+                'name': 'div',
+                class: 'column align_center',
+                'Heading1': {
+                    'name': 'h1',
+                    'textContent': 'Spreadsheet Flow',
+                },
+                item1:{
+                    name: 'li',
+                    class: 'full-width item column',
+                    'label1': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'textContent': '1. Create a Spreadsheet',
+                    }, 
+                    'label2': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'textContent': '2. Create a new Sheet',
+                    },
+                    'label3': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'textContent': '3. Create a copy of the Spreadsheet',
+                    }, 
+                },
+                item2:{
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent':'Execute Spreadsheet Flow',
+                        },
+                        'data-command': `[{"command":"SpreadsheetFlow"}]`,
+
+                    },
+                },
+                'br1':{
+                    'name':'br',
+                },
+                'Heading2': {
+                    'name': 'h1',
+                    'textContent': 'Create a file in Google Drive',
+                },
+                item3:{
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent':'Execute this Flow',
+                        },
+
+                    },
+                },
+                'br2':{
+                    'name':'br',
+                }
+                ,
+                item5:{
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent':'Back to Editor',
+                        },
+                        'data-command': `[{"command":"Redirect","entity":"action"}]`,
+
+                    },
+                }
+            }
+        }
+    }
 }

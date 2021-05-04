@@ -190,7 +190,7 @@ var copy2HTMLModel={
       },
     },
 };
-  var actionStory2HTML = {
+var actionStory2HTML = {
     tagName: {
       value: null,
       type: 'string',
@@ -335,3 +335,38 @@ const pickerOpts = {
     excludeAcceptAllOption: true,
     multiple: false
 };
+var redirect = {
+  'url':'https://accounts.google.com/o/oauth2/v2/auth',
+  'params':{
+      'client_id': '1053381465878-vb5nntqvopdnbag9f060pon9d7qh81j4.apps.googleusercontent.com',
+      'redirect_uri': 'http://127.0.0.1:5502/indexV13.html',//'https://kgayatri15.github.io/Integration/html/json2Spreadsheet.html',
+      'scope': "https://www.googleapis.com/auth/drive",
+      'state': 'ActionSpaceEditor',
+      'include_granted_scopes': 'true',
+      'prompt':'consent',
+      'response_type': 'token'
+  }
+}
+var Spreadsheet = {
+      'CreateSpreadsheetUrl':'https://sheets.googleapis.com/v4/spreadsheets',
+      'AddSheetUrl':'https://sheets.googleapis.com/v4/spreadsheets/SpreadsheetId:batchUpdate',
+      'CopySpreadsheetUrl':'https://www.googleapis.com/drive/v3/files/fileId/copy',
+      'headers':{
+          'Accept':'application/json',
+          'Content-Type':'application/json',
+      }
+}
+var createSpreadsheetJSON = {
+  "properties":{
+      "title":''
+  }, 
+}
+var createNewSheetJSON ={
+  "requests":[{
+          addSheet: {
+            properties: {
+              title: 'Sheet2',
+            }
+          }
+  }]
+}

@@ -139,7 +139,7 @@ class ActionController extends ActionEvent {
             }  
         }
     }
-    static onChangeRoute(routeKeyword){
+    static Redirect(routeKeyword){
         console.log("onChangeRoute :- " + routeKeyword);
         if (routeKeyword) {
              var routeModel = operate.findMatchingInArrayOfObject(actionSpaceViewModel, 'keyword', routeKeyword, 'values');
@@ -284,6 +284,8 @@ class ActionController extends ActionEvent {
                 case 'closeModal':
                     ActionView.closeModal(event);break;
                 //sheet
+                case 'SpreadsheetFlow':
+                    event.preventDefault();engine.processReq(SpreadsheetFlowRequest);break;
                 case 'importFromSheet':
                     event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':
@@ -293,6 +295,8 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReqArray(SignUpFlowRequest);break;
                 case 'Login':
                     event.preventDefault();engine.processReqArray(LoginFlowRequest);break;
+                case 'Google':
+                    event.preventDefault();Authenticate.oAuth();break;
                 //File System
                 case "new":
                     engine.processReq(newActionStoryRequest); break;
@@ -304,6 +308,8 @@ class ActionController extends ActionEvent {
                     engine.processReq(everyFileRequest,{"event":event});break;
                 case 'FS_Save':
                     engine.processReq(saveFileFlowRequest);break;
+                case 'Redirect':
+                    event.preventDefault();ActionController.onChangeRoute(commandJson[0].entity);break;
                 default:
                 // console.log("I don't know such values",event.type);
             }
