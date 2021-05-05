@@ -1221,7 +1221,7 @@ var createAFileInGDriveFlowRequest = {
             reqName:'Response',
             objectModel:HttpService,
             method:'fetchRequest',
-            arguments:['ParseData.CreateAFileInGDriveUrl',"RequestBuilder"]
+            arguments:['ParseData.FileUploadInGDriveUrl',"RequestBuilder"]
         }
     ]
 }
@@ -1289,7 +1289,101 @@ var uploadFileToAppDataFlowRequest ={
             reqName:'Response',
             objectModel:HttpService,
             method:'fetchRequest',
-            arguments:['ParseData.CreateAFileInGDriveUrl',"RequestBuilder"]
+            arguments:['ParseData.FileUploadInGDriveUrl',"RequestBuilder"]
         }
+    ]
+}
+var folderFromGDriveFlowRequest = {
+    flowRequest:[
+        //folderName
+        {
+            reqName:"NameofFolder",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['folderName'],
+            andThen:['value']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:["NameofFolder",null],
+                output:false
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'GetToken',
+            objectModel:localStorage,
+            method:'getItem',
+            arguments:['Authorization']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['GetToken',null],
+                output:false
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'StringifyData',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[GoogleFlowData]
+        },
+        {
+            reqName:'ParseData',
+            objectModel:JSON,
+            method:'parse',
+            arguments:['StringifyData']
+        },
+        {
+            reqName:'SetTokenInHeader',
+            objectModel:engine,
+            method:'set',
+            arguments:['ParseData.headers','GetToken','Authorization']
+        },
+        {
+            reqName:'SearchFolderRequestUrl',
+            objectModel:operate,
+            method:'replaceSubstring',
+            arguments:['ParseData.SearchFolderinGDriveUrl','FOLDERNAME','NameofFolder']
+        },
+        {
+            reqName:'ReqBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["GET",'ParseData.headers']
+        },
+        {
+            reqName:"Response",
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['SearchFolderRequestUrl','ReqBuilder']
+        },
+        {
+            reqName:"IfFolderDoesn'tExist",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['Response.files.length',0],
+                output:true
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Entered Folder Name in the field doesn't exist"],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'FolderExists',
+            objectModel:window,
+            method:'alert',
+            arguments:["Entered Folder exists. Now Redirecting to Action Space Editor"],
+        },
+        {
+            reqName:'redirect',
+            objectModel:ActionController,
+            method:'onChangeRoute',
+            arguments:['action']
+        },
+        
     ]
 }

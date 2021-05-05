@@ -288,6 +288,8 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(SpreadsheetFlowRequest);break;
                 case 'CreateFileInGDrive':
                     event.preventDefault();engine.processReq(createAFileInGDriveFlowRequest);break;
+                case 'SearchFolder':
+                    event.preventDefault();engine.processReq(folderFromGDriveFlowRequest);break;
                 case 'importFromSheet':
                     event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':

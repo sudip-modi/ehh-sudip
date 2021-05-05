@@ -365,11 +365,12 @@ var GoogleFlowData = {
         }]
       },
       'CopySpreadsheetUrl':'https://www.googleapis.com/drive/v3/files/fileId/copy',
-      'CreateAFileInGDriveUrl':'https://www.googleapis.com/upload/drive/v3/files',
+      'FileUploadInGDriveUrl':'https://www.googleapis.com/upload/drive/v3/files',
+      'SearchFolderinGDriveUrl':"https://www.googleapis.com/drive/v3/files?q=name='FOLDERNAME'&mimeType='application/vnd.google-apps.folder'",
       'headers':{
           'Accept':'application/json',
          // 'Content-Type':'application/json',
-      }
+      },
 }
 var createSpreadsheetJSON = {
   "properties":{

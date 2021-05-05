@@ -1672,7 +1672,7 @@ var GoogleJSON = {
                             name: 'lable',
                             'textContent':'Search for a folder',
                         },
-                       // 'data-command': `[{"command":"Redirect","entity":"action"}]`,
+                        'data-command': `[{"command":"SearchFolder"}]`,
 
                     },
                 },
