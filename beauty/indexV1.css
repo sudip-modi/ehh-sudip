@@ -38,10 +38,10 @@ input {
  
 }
  #regForm {
-      margin: 200px auto;
-      padding:54px;
+      margin: 5% auto;
+      padding:3.5%;
       width: 45%;
-      height: 40%;  
+      /* height: 40%;   */
       border-radius:  13px;
     }
 

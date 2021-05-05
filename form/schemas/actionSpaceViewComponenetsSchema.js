@@ -1609,8 +1609,12 @@ var GoogleJSON = {
 
                     },
                 },
-                'br1':{
-                    'name':'br',
+                // 'br1':{
+                //     'name':'br',
+                // },
+                hr1: {
+                    name: 'div',
+                    class: 'hr',
                 },
                 'Heading2': {
                     'name': 'h1',
@@ -1629,11 +1633,54 @@ var GoogleJSON = {
                         'data-command': `[{"command":"CreateFileInGDrive"}]`,
                     },
                 },
-                'br2':{
-                    'name':'br',
-                }
-                ,
+                // 'br2':{
+                //     'name':'br',
+                // },
+                hr2: {
+                    name: 'div',
+                    class: 'hr',
+                },
+                'Heading3': {
+                    'name': 'h1',
+                    'textContent': 'Read a folder from Google Drive',
+                },
+                item4:{
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelSpreadsheetID': {
+                        name: 'label',
+                        class: 'alignSelf-left small',
+                        'width':'100%',
+                        'textContent': 'Folder Name in your Drive',
+                    },
+                    'inputSpreadsheetID': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'folderName',
+                        'width':'100%',
+                        'required': 'true',
+                        'placeholder': 'Enter Folder name',
+                    }
+                },
                 item5:{
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent':'Search for a folder',
+                        },
+                       // 'data-command': `[{"command":"Redirect","entity":"action"}]`,
+
+                    },
+                },
+                hr3: {
+                    name: 'div',
+                    class: 'hr',
+                },
+                item6:{
                     name: 'li',
                     class: 'full-width item',
                     'button': {

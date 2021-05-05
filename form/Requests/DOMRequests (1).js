@@ -1225,3 +1225,71 @@ var createAFileInGDriveFlowRequest = {
         }
     ]
 }
+var uploadFileToAppDataFlowRequest ={
+    //input type = file should be included for file input
+    flowRequest:[
+        {
+            reqName:"file",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['file'],
+            andThen:['files','0']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['file',null],
+                output:false
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'GetToken',
+            objectModel:localStorage,
+            method:'getItem',
+            arguments:['Authorization']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['GetToken',null],
+                output:false
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'StringifyData',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[GoogleFlowData]
+        },
+        {
+            reqName:'ParseData',
+            objectModel:JSON,
+            method:'parse',
+            arguments:['StringifyData']
+        },
+        {
+            reqName:'SetTokenInHeader',
+            objectModel:engine,
+            method:'set',
+            arguments:['ParseData.headers','GetToken','Authorization']
+        },
+        {
+            reqName:'UploadFile',
+            objectModel:HttpService,
+            method:'FileUpload',
+            arguments:['file',true]
+        },
+        {
+            reqName:"RequestBuilder",
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["POST",'ParseData.headers','UploadFile']//file
+        },
+        {
+            reqName:'Response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['ParseData.CreateAFileInGDriveUrl',"RequestBuilder"]
+        }
+    ]
+}
