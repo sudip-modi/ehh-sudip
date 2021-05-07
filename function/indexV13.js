@@ -4,6 +4,7 @@ var response2;
 if (localStorage.getItem('LoggedIn') === 'true') {
   ActionController.onChangeRoute("action");
 }
+console.log(document.currentScript.src);
 if(window.location.href.includes('#state=ActionSpaceEditor')){
     Authenticate.authToken(window.location.href);
     ActionController.onChangeRoute("google");

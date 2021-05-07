@@ -7,10 +7,9 @@
 // } catch (err) {
 //   console.error(err);
 // }
-
-
-
-
+function getFuncName() {
+    return getFuncName.caller.name
+}
 function* createIndex() {
     let number = 1;
     while (true)

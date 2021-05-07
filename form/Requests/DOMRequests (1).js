@@ -1296,21 +1296,21 @@ var uploadFileToAppDataFlowRequest ={
 var folderFromGDriveFlowRequest = {
     flowRequest:[
         //folderName
+        // {
+        //     reqName:"NameofFolder",
+        //     objectModel:document,
+        //     method:'getElementById',
+        //     arguments:['folderName'],
+        //     andThen:['value']
+        // },
         {
-            reqName:"NameofFolder",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['folderName'],
-            andThen:['value']
-        },
-        {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:["NameofFolder",null],
-                output:false
-            },
-            exitBeforeExecutingRequest:true,
+            // validate:{
+            //     objectModel:operate,
+            //     method:'isEqual',
+            //     arguments:["NameofFolder",null],
+            //     output:false
+            // },
+            // exitBeforeExecutingRequest:true,
             reqName:'GetToken',
             objectModel:localStorage,
             method:'getItem',
@@ -1384,6 +1384,23 @@ var folderFromGDriveFlowRequest = {
             method:'onChangeRoute',
             arguments:['action']
         },
-        
+        {
+            reqName:'ChildrenListUrl',
+            objectModel:operate,
+            method:'replaceSubstring',
+            arguments:['ParseData.GetChildrenUrl','FOLDERID','Response1.files.0.id']
+        },
+        {
+            reqName:'ReqBuilderForChildrenList',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["GET",'ParseData.headers']
+        },
+        {
+            reqName:'Response2',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['ParseData.ChildrenListUrl','ReqBuilderForChildrenList']//'ChildrenListUrl'-replace 1st arg
+        }
     ]
 }

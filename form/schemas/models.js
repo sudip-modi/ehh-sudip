@@ -7,300 +7,299 @@ var directoryDataModelSchema = {
         location: '',
         createdon: '',
         attributes:['readonly:boolean','Hidden:boolean']
-    }   
-}
-
+  }   
+    }    
 /**
- * @type {HTMLJSONEntityModel4Html}
- */
+* @type {HTMLJSONEntityModel4Html}
+*/
 var entityModel4Html = {
     tagName: "tagName",
     attributes: { class: "class", style: "style", src: "src", alt: "alt" },
     children: ["all"],
 };
 var copy2HTMLModel={
-    tagName: {
-      value: null,
-      type: 'string',
-      process: {
-        objectModel: operate,
-        method: 'isString',
-        arguments: ['tagName']
-      }
-    },
-    textContent:{
-      value:null,
-      type:'string',
-      process:{
-        objectModel:operate,
-        method:['isString'],
-        arguments:['textContent']
-      }
-    },
-    attributes: {
-      value: {
-        id: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id']
-              }
+  tagName: {
+    value: null,
+    type: 'string',
+    process: {
+      objectModel: operate,
+      method: 'isString',
+      arguments: ['tagName']
+    }
+  },
+  textContent:{
+    value:null,
+    type:'string',
+    process:{
+      objectModel:operate,
+      method:['isString'],
+      arguments:['textContent']
+    }
+  },
+  attributes: {
+    value: {
+      id: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id']
             }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.id',2]
           }
         },
-        class: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id']
-              }
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.id',2]
+        }
+      },
+      class: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id']
             }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.class',2]
           }
         },
-        style: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id',2]
-              }
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.class',2]
+        }
+      },
+      style: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id',2]
             }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.style',2]
-          },
+          }
         },
-        src: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id',2]
-              }
-            }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.src',2]
-          },
-        },
-        alt: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id',2]
-              }
-            }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.alt',2]
-          },
-        },
-        fileid: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id',2]
-              }
-            }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.fileid',2]
-          },
-        },
-        name: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id']
-              }
-            }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.name',2]
-          },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.style',2]
         },
       },
-      type: 'object',
-      process: {
-        objectModel: operate,
-        method: 'isNamedNodeMap',
-        arguments: ['attributes']
-      }
-    },
-    children: {
-      value: null,
-      type: 'array',
-      process: {
-        objectModel: operate,
-        method: 'isHTMLCollection',
-        arguments: ['children']
+      src: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id',2]
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.src',2]
+        },
+      },
+      alt: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id',2]
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.alt',2]
+        },
+      },
+      fileid: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id',2]
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.fileid',2]
+        },
+      },
+      name: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id']
+            }
+          }
+        },
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.name',2]
+        },
       },
     },
+    type: 'object',
+    process: {
+      objectModel: operate,
+      method: 'isNamedNodeMap',
+      arguments: ['attributes']
+    }
+  },
+  children: {
+    value: null,
+    type: 'array',
+    process: {
+      objectModel: operate,
+      method: 'isHTMLCollection',
+      arguments: ['children']
+    },
+  },
 };
 var actionStory2HTML = {
-    tagName: {
-      value: null,
-      type: 'string',
-      process: {
-        objectModel: operate,
-        method: 'isString',
-        arguments: ['tagName']
-      }
-    },
-    attributes: {
-      value: {
-        id: {
-          value: {
-            nodeValue: {
-              value: null,
-              type: 'string',
-              process: {
-                objectModel: operate,
-                method: 'isString',
-                arguments: ['attributes.id']
-              }
+  tagName: {
+    value: null,
+    type: 'string',
+    process: {
+      objectModel: operate,
+      method: 'isString',
+      arguments: ['tagName']
+    }
+  },
+  attributes: {
+    value: {
+      id: {
+        value: {
+          nodeValue: {
+            value: null,
+            type: 'string',
+            process: {
+              objectModel: operate,
+              method: 'isString',
+              arguments: ['attributes.id']
             }
-          },
-          type: 'object',
-          process: {
-            objectModel: operate,
-            method: 'isNode',
-            arguments: ['attributes.id',2]
           }
         },
-      },
-      type: 'object',
-      process: {
-        objectModel: operate,
-        method: 'isNamedNodeMap',
-        arguments: ['attributes']
-      }
-    },
-    children: {
-      value: null,
-      type: 'array',
-      process: {
-        objectModel: operate,
-        method: 'isHTMLCollection',
-        arguments: ['children']
+        type: 'object',
+        process: {
+          objectModel: operate,
+          method: 'isNode',
+          arguments: ['attributes.id',2]
+        }
       },
     },
+    type: 'object',
+    process: {
+      objectModel: operate,
+      method: 'isNamedNodeMap',
+      arguments: ['attributes']
+    }
+  },
+  children: {
+    value: null,
+    type: 'array',
+    process: {
+      objectModel: operate,
+      method: 'isHTMLCollection',
+      arguments: ['children']
+    },
+  },
 }
 var fileModel = {
-    directoryname: {
-        directoryName: 'name',
-        id:'',
-        type: 'folder/collection',
-        items: [],
-        lastModified: [],
-        location: '',
-        createdon: '',
-        attributes: ['readonly:boolean', 'Hidden:boolean']
-    }
+  directoryname: {
+      directoryName: 'name',
+      id:'',
+      type: 'folder/collection',
+      items: [],
+      lastModified: [],
+      location: '',
+      createdon: '',
+      attributes: ['readonly:boolean', 'Hidden:boolean']
+  }
 }
 var fileData = {
-    'sample.xml': {
-        data: '<test>Hello!</test>',
-        type: 'application/xml'
-    },
-    'sample.csv': {
-        data: 'Test1,Test2\nHello1,Hello2',
-        type: 'text/csv'
-    },
-    'sample.json': {
-        data: JSON.stringify({ test: 'Hello!' }),
-        type: 'application/json'
-    }
+  'sample.xml': {
+      data: '<test>Hello!</test>',
+      type: 'application/xml'
+  },
+  'sample.csv': {
+      data: 'Test1,Test2\nHello1,Hello2',
+      type: 'text/csv'
+  },
+  'sample.json': {
+      data: JSON.stringify({ test: 'Hello!' }),
+      type: 'application/json'
+  }
 };
 var directoryJSON = {
-    'li':{
-        'name':'li',
-        'span':{
-            'name':'span',
-            'class':'parent',
-            "textContent":'', //inner Text will be included
-        },
-        'list':{
-            'name':'ul',
-            'class':'nested',
-            'id':'' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
-        }
-    }
+  'li':{
+      'name':'li',
+      'span':{
+          'name':'span',
+          'class':'parent',
+          "textContent":'', //inner Text will be included
+      },
+      'list':{
+          'name':'ul',
+          'class':'nested',
+          'id':'' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
+      }
+  }
 }
 var fileJSON = {
-    "class":"item row",
-    "name":"li",
-    "data-command": `[{"command":"file"}]`,
-    "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
-    "textContent":'',
+  "class":"item row",
+  "name":"li",
+  "data-command": `[{"command":"file"}]`,
+  "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
+  "textContent":'',
 }
 var parentJSON = {
-    'li':{
-        'name':'li',
-        'span':{
-            'name':'span',
-            'class':'parent',
-            "textContent":'', //inner Text will be included
-        },
-        'list':{
-            'name':'ul',
-            'class':'nested',
-            'id':'' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
-        }
-    }
+  'li':{
+      'name':'li',
+      'span':{
+          'name':'span',
+          'class':'parent',
+          "textContent":'', //inner Text will be included
+      },
+      'list':{
+          'name':'ul',
+          'class':'nested',
+          'id':'' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
+      }
+  }
 }
 var childJSON = {
     "class":"item row",
@@ -348,41 +347,29 @@ var redirect = {
   }
 }
 var GoogleFlowData = {
-      'CreateSpreadsheetUrl':'https://sheets.googleapis.com/v4/spreadsheets',
-      'CreateSpreadsheetBody':{
-        "properties":{
-            "title":''
-        }, 
-      },
-      'AddSheetUrl':'https://sheets.googleapis.com/v4/spreadsheets/SpreadsheetId:batchUpdate',
-      'AddSheetBody':{
-        "requests":[{
-                addSheet: {
-                  properties: {
-                    title: 'Sheet2',
-                  }
+    'CreateSpreadsheetUrl':'https://sheets.googleapis.com/v4/spreadsheets',
+    'CreateSpreadsheetBody':{
+      "properties":{
+          "title":''
+      } 
+    },
+    'AddSheetUrl':'https://sheets.googleapis.com/v4/spreadsheets/SpreadsheetId:batchUpdate',
+    'AddSheetBody':{
+      "requests":[{
+              addSheet: {
+                properties: {
+                  title: 'Sheet2',
                 }
-        }]
-      },
-      'CopySpreadsheetUrl':'https://www.googleapis.com/drive/v3/files/fileId/copy',
-      'FileUploadInGDriveUrl':'https://www.googleapis.com/upload/drive/v3/files',
-      'SearchFolderinGDriveUrl':"https://www.googleapis.com/drive/v3/files?q=name='FOLDERNAME'&mimeType='application/vnd.google-apps.folder'",
-      'headers':{
-          'Accept':'application/json',
-         // 'Content-Type':'application/json',
-      },
-}
-var createSpreadsheetJSON = {
-  "properties":{
-      "title":''
-  }, 
-}
-var createNewSheetJSON ={
-  "requests":[{
-          addSheet: {
-            properties: {
-              title: 'Sheet2',
-            }
-          }
-  }]
+              }
+      }]
+    },
+    'CopySpreadsheetUrl':'https://www.googleapis.com/drive/v3/files/fileId/copy',
+    'FileUploadInGDriveUrl':'https://www.googleapis.com/upload/drive/v3/files',
+    'SearchFolderinGDriveUrl':"https://www.googleapis.com/drive/v3/files?q=name='FOLDERNAME'",//https://developers.google.com/drive/api/v3/reference/files/get
+    'GetChildrenUrl':"https://www.googleapis.com/drive/v3/files/1PE3RYjqnSE548ShlVKYcQCgmnV5m0LHv/children",//FOLDERID
+    'GetFileUrl':"https://www.googleapis.com/drive/v3/files/1r3aA8YUP9Bx_CmChvAvjXnBKMYj3h6TaO4GRwvlGI2I/export?mimeType=application/vnd.google-apps.document",//FILEID
+    'headers':{
+        'Accept':'application/json',
+       // 'Content-Type':'application/json',
+    },
 }
