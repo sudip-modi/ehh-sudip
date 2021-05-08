@@ -670,6 +670,19 @@ var LoginFlowRequest = {
             arguments:['URLBuilder','RequestBuilder']
         },
         {
+            reqName:"check",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response',undefined],
+                output:true
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Clouldn't send request to the server . Try Again !"],
+            exitAfterExecutingRequest:true
+        },
+        {
 
             reqName:'alert',
             objectModel:window,
@@ -747,7 +760,7 @@ var SignUpFlowRequest = {
             reqName:'PostContent',
             objectModel:JSON,
             method:'stringify',
-            arguments:[paramsJSON]
+            arguments:["SetPassword"]
         },
         {
             reqName:'RequestBuilder',
@@ -760,6 +773,19 @@ var SignUpFlowRequest = {
             objectModel:HttpService,
             method:'fetchRequest',
             arguments:[scriptURL,'RequestBuilder']
+        },
+        {
+            reqName:"check",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response',undefined],
+                output:true
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Clouldn't send request to the server . Try Again !"],
+            exitAfterExecutingRequest:true
         },
         {
             reqName:'alert',

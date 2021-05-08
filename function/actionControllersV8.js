@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwRw-rmGqfA6oq-ASM1tpR7NMKiowe3TrrgTaUZqN10vnSJccKdkbU86xQoeDbRM1mKSw/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyZgP7bBDczZ33IWXQazqjopEyfXzESKrh8071l5wv-UnUVXDhUQ79QbGBEr6n4ooK_cQ/exec';
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
         super()
@@ -296,9 +296,9 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
                 //signup,login
                 case 'Signup':
-                    event.preventDefault();engine.processReqArray(SignUpFlowRequest);break;
+                    event.preventDefault();engine.processReq(SignUpFlowRequest);break;
                 case 'Login':
-                    event.preventDefault();engine.processReqArray(LoginFlowRequest);break;
+                    event.preventDefault();engine.processReq(LoginFlowRequest);break;
                 case 'Google':
                     event.preventDefault();Authenticate.oAuth();break;
                 //File System
