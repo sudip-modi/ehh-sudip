@@ -86,6 +86,31 @@ class processFS{
         console.log(obj);
         return obj;
     }
+    async jsonForGDriveFolder(folderjson,HTMLjson){
+        if(folderjson.hasOwnProperty('children')){
+            var directory = JSON.parse(JSON.stringify(directoryJSON));
+            directory['li']['span']['textContent'] = folderjson['name']; 
+            directory['li']['list']['id'] = folderjson['id'];
+            HTMLjson[folderjson['id']] = directory;
+            var SubData = HTMLjson[folderjson['id']]['li']['list'];
+            for await(var child of folderjson.children){
+                    if(child.hasOwnProperty('children')){
+                        await processFSInstance.jsonForGDriveFolder(child,SubData);
+                    }else{
+                        var file = JSON.parse(JSON.stringify(GDrivefileJSON));
+                        file['id'] = child['id'];file['textContent'] = child['name'];
+                        SubData[child['id']] = file;
+                    }
+            }
+        }
+        return HTMLjson[folderjson['id']] ;
+    }
+    /**
+     * 
+     * @param {*} obj - JSON to include the tags included in the currentActionStory
+     * @param {*} json - children to included in obj
+     * @returns 
+     */
     async CurrentActionStory(obj,json){
         for(var i =0;i < json.length ;i++){
             var element = json[i];

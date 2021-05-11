@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyZgP7bBDczZ33IWXQazqjopEyfXzESKrh8071l5wv-UnUVXDhUQ79QbGBEr6n4ooK_cQ/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzKnhyfG0Bp820GhyGsyG0fxMIcOwKWRZDWfVHoZOqUuu39RxUC9_9aF8dfmdeJ23hv-w/exec';
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
         super()
@@ -257,7 +257,7 @@ class ActionController extends ActionEvent {
     onKeyUp(entity) {
        // console.log("key was up")
     }
-    onClick(event) {
+    async onClick(event) {
         /**
          * check if the target entity has any click or data - command set, if yes, then process it.
          */
@@ -284,23 +284,25 @@ class ActionController extends ActionEvent {
                 case 'closeModal':
                     ActionView.closeModal(event);break;
                 //sheet
-                case 'SpreadsheetFlow':
-                    event.preventDefault();engine.processReq(SpreadsheetFlowRequest);break;
-                case 'CreateFileInGDrive':
-                    event.preventDefault();engine.processReq(createAFileInGDriveFlowRequest);break;
-                case 'SearchFolder':
-                    event.preventDefault();engine.processReq(folderFromGDriveFlowRequest);break;
+                case 'SpreadsheetFlowGoogleClient':
+                    engine.processReq(SpreadsheetGoogle_ClientFlowRequest);break;
+                case 'CreateFileGoogleClient':
+                    engine.processReq(createAFileInGoogle_ClientFlowRequest);break;
+                case 'SearchFolderGoogleClient':
+                    engine.processReq(folderGoogle_ClientFlowRequest);break;
                 case 'importFromSheet':
-                    event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
+                    engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':
-                    event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
+                    engine.processReq(exportToSheetFlowRequest);break;
+                case 'SearchFolder_GoogleServer':
+                    engine.processReq(folderGoogle_ServerFlowRequest);break;
                 //signup,login
                 case 'Signup':
-                    event.preventDefault();engine.processReq(SignUpFlowRequest);break;
+                    engine.processReq(SignUpFlowRequest);break;
                 case 'Login':
-                    event.preventDefault();engine.processReq(LoginFlowRequest);break;
-                case 'Google':
-                    event.preventDefault();Authenticate.oAuth();break;
+                    engine.processReq(LoginFlowRequest);break;
+                case 'GDrive_Client':
+                    Authenticate.oAuth();break;
                 //File System
                 case "new":
                     engine.processReq(newActionStoryRequest); break;

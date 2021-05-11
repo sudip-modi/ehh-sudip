@@ -1085,7 +1085,7 @@ var everyFileRequest = {
         }  
     ]
 }
-var SpreadsheetFlowRequest = {
+var SpreadsheetGoogle_ClientFlowRequest = {
     flowRequest:[
         {
             reqName:'GetToken',
@@ -1204,7 +1204,7 @@ var SpreadsheetFlowRequest = {
         }
     ]
 }
-var createAFileInGDriveFlowRequest = {
+var createAFileInGoogle_ClientFlowRequest = {
     flowRequest:[
         {
             reqName:'GetToken',
@@ -1251,7 +1251,7 @@ var createAFileInGDriveFlowRequest = {
         }
     ]
 }
-var uploadFileToAppDataFlowRequest ={
+var uploadFileToAppDataGoogle_ClientFlowRequest ={
     //input type = file should be included for file input
     flowRequest:[
         {
@@ -1319,7 +1319,7 @@ var uploadFileToAppDataFlowRequest ={
         }
     ]
 }
-var folderFromGDriveFlowRequest = {
+var folderGoogle_ClientFlowRequest = {
     flowRequest:[
         //folderName
         // {
@@ -1429,4 +1429,120 @@ var folderFromGDriveFlowRequest = {
             arguments:['ParseData.ChildrenListUrl','ReqBuilderForChildrenList']//'ChildrenListUrl'-replace 1st arg
         }
     ]
+}
+var folderGoogle_ServerFlowRequest = {
+    flowRequest:[
+        {
+            flowRequest:[
+                {
+                    reqName:'GetfolderName',
+                    objectModel:document,
+                    method: "getElementById",
+                    arguments: ["folderName"],
+                    andThen:['value']
+                },
+                {
+                    validate:{
+                        objectModel:operate,
+                        method:'isEqual',
+                        arguments:['','GetfolderName'],
+                        output:false
+                    },
+                    exitBeforeExecutingRequest:true,
+                    reqName:'SetfolderName',
+                    objectModel:engine,
+                    method:'set',
+                    arguments:[JSON.parse(JSON.stringify({'SearchFolderName':''})),'GetfolderName','SearchFolderName']
+                },
+                {
+                    reqName:'UrlBuilder',
+                    objectModel:HttpService,
+                    method:'urlBuilder',
+                    arguments:[scriptURL,'SetfolderName']
+                },
+                {
+                    reqName:'RequestBuilder',
+                    objectModel:HttpService,
+                    method:'requestBuilder',
+                    arguments:["GET"]
+                },
+                {
+                    reqName:'Response',
+                    objectModel:HttpService,
+                    method:'fetchRequest',
+                    arguments:['UrlBuilder','RequestBuilder']
+                }, 
+                {
+                    validate:{
+                        objectModel:operate,
+                        method:'isEqual',
+                        arguments:['Response',undefined],
+                        output:false
+                    },
+                    reqName:'CollectionElement',
+                    objectModel:document,
+                    method:'getElementById',
+                    arguments:['myCollection'],
+                    exitBeforeExecutingRequest:true
+                },
+                {
+                    reqName:'UnSuccessfulAttempt',
+                    validate:{
+                        objectModel:operate,
+                        method:'isEqual',
+                        arguments:['Response.result','Success'],
+                        output:false
+                    },
+                    objectModel:window,
+                    method:'alert',
+                    arguments:['Response.output'],
+                    exitAfterExecutingRequest:true
+                },
+                {
+                    reqName:'HTML_JSON',
+                    objectModel:processFSInstance,
+                    method:'jsonForGDriveFolder',
+                    arguments:['Response.output',JSON.parse(JSON.stringify({}))]
+                },
+                {
+                    reqName:'newEntity',
+                    objectModel:ActionView,
+                    method:'newEntity',
+                    //new Entity
+                    arguments:['HTML_JSON','CollectionElement']
+                },
+                {
+                    reqName:'SetUsermyCollection',
+                    objectModel:localStorage,
+                    method:'setItem',
+                    arguments:['UsermyCollection','CollectionElement.innerHTML']
+                }
+            ]
+        },
+        {
+            reqName:"formElement",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['viewForm']
+        },
+        {
+            reqName:"RemoveForm",
+            objectModel:engine,
+            method:'set',
+            arguments:["formElement",'','innerHTML']
+        },
+        {
+            reqName:"Element",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent']
+        },
+        { 
+            reqName:"Set sample story",
+            objectModel:engine,
+            method:'set',
+            arguments:['Element',sampleIntroStory,'innerHTML'],
+        },
+    ]
+    
 }

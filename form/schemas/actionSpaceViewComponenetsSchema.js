@@ -370,16 +370,26 @@ var leftSideNavBar= {
                                 },
                                 'data-command': `[{"command":"FS_Save"}]`,
                             },
+                            // {
+                            //     name: 'div',
+                            //     class: 'item',
+                            //     item2: {
+                            //         name: 'div',
+                            //         'class': "collection_name",
+                            //         'textContent':'Google',
+                            //         'data-command': `[{"command":"GDrive_Client"}]`,
+                            //     },
+                               
+                            // }
                             {
                                 name: 'div',
                                 class: 'item',
                                 item2: {
                                     name: 'div',
                                     'class': "collection_name",
-                                    'textContent':'Google',
-                                    'data-command': `[{"command":"Google"}]`,
+                                    'textContent':'Get A Folder from GDrive',
+                                    'data-command': `[{"command":"form","entity":"GDrive_Server"}]`,
                                 },
-                               
                             },
                             {
                                 name: 'div',
@@ -1453,7 +1463,6 @@ var importfromSheet = {
                         textLable: {
                             name: 'lable',
                             'textContent': 'SUBMIT',
-                            'data-command':`[{"command":"importFromSheet"}]`,
                         },
                        'data-command':`[{"command":"importFromSheet"}]`,
                     },
@@ -1550,7 +1559,6 @@ var exportToSheet = {
                         textLable: {
                             name: 'lable',
                             'textContent': 'SUBMIT',
-                            'data-command': `[{"command":"exportToSheet"}]`,
                         },
                         'data-command': `[{"command":"exportToSheet"}]`,
                     },
@@ -1605,7 +1613,7 @@ var GoogleJSON = {
                             name: 'lable',
                             'textContent':'Execute Spreadsheet Flow',
                         },
-                        'data-command': `[{"command":"SpreadsheetFlow"}]`,
+                        'data-command': `[{"command":"SpreadsheetFlowGoogleClient"}]`,
 
                     },
                 },
@@ -1630,7 +1638,7 @@ var GoogleJSON = {
                             name: 'lable',
                             'textContent':'Execute this Flow',
                         },
-                        'data-command': `[{"command":"CreateFileInGDrive"}]`,
+                        'data-command': `[{"command":"CreateFileGoogleClient"}]`,
                     },
                 },
                 // 'br2':{
@@ -1672,7 +1680,7 @@ var GoogleJSON = {
                             name: 'lable',
                             'textContent':'Search for a folder',
                         },
-                        'data-command': `[{"command":"SearchFolder"}]`,
+                        'data-command': `[{"command":"SearchFolderGoogleClient"}]`,
 
                     },
                 },
@@ -1697,4 +1705,58 @@ var GoogleJSON = {
             }
         }
     }
+}
+var GetFileFromGDrive = {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+        form: {
+            id: 'ClientForm',
+            name: 'form',
+            'class': 'align_center',
+            content: {
+                'name': 'div',
+                class: 'column align_center',//column align_center
+                'formHeading': {
+                    'name': 'h1',
+                    'textContent': 'Search Folder in GDrive',
+                },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelNamedRange': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'folderName',
+                        'textContent': 'Folder Name',
+                    },
+                    'inputNamedRange': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'folderName',
+                        'required': 'true',
+                        'placeholder': 'Enter folder Name',
+                        'value':'JSONForm1.0',
+                    },
+                },
+                item2: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'SUBMIT',
+                        },
+                        'data-command':`[{"command":"SearchFolder_GoogleServer"}]`,
+                    },
+                },
+            }
+
+        }
+   }
 }

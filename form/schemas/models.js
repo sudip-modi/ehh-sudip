@@ -286,6 +286,12 @@ var fileJSON = {
   "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
   "textContent":'',
 }
+var GDrivefileJSON = {
+  "class":"item row",
+  "name":"li",
+  "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
+  "textContent":'',
+}
 var parentJSON = {
   'li':{
       'name':'li',

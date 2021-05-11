@@ -4,11 +4,10 @@ var response2;
 if (localStorage.getItem('LoggedIn') === 'true') {
   ActionController.onChangeRoute("action");
 }
-console.log(document.currentScript.src);
-if(window.location.href.includes('#state=ActionSpaceEditor')){
-    Authenticate.authToken(window.location.href);
-    ActionController.onChangeRoute("google");
-}
+// if(window.location.href.includes('#state=ActionSpaceEditor')){
+//     Authenticate.authToken(window.location.href);
+//     ActionController.onChangeRoute("google");
+// }
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
     response2 = viewModel.then((viewModelFromIndexDb) => {
@@ -16,7 +15,7 @@ var viewModel = indexDB.get('actionSpaceModel');
     // expected output: "Success!"
         var response = viewModelFromIndexDb;
         console.log("here",response);
-    //    localStorage.setItem('UsermyCollection','');localStorage.setItem('UsermyFiles','');localStorage.setItem('UserRecentFiles','');
+//        localStorage.setItem('UsermyCollection','');localStorage.setItem('UsermyFiles','');localStorage.setItem('UserRecentFiles','');
         var collection = localStorage.getItem('UsermyCollection');
         if(collection !== null &&  document.getElementById('myCollection'))
           document.getElementById('myCollection').innerHTML = collection;
