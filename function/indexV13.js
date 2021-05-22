@@ -4,10 +4,11 @@ var response2;
 if (localStorage.getItem('LoggedIn') === 'true') {
   ActionController.onChangeRoute("action");
 }
-// if(window.location.href.includes('#state=ActionSpaceEditor')){
-//     Authenticate.authToken(window.location.href);
-//     ActionController.onChangeRoute("google");
-// }
+if(window.location.href.includes('#state=ActionSpaceEditor')){
+    Authenticate.authToken(window.location.href);
+    console.log("Directing to Google");
+    ActionController.onChangeRoute("google");
+}
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
     response2 = viewModel.then((viewModelFromIndexDb) => {

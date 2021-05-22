@@ -1546,3 +1546,56 @@ var folderGoogle_ServerFlowRequest = {
     ]
     
 }
+var deployProjectGoogle_ClientFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetToken',
+            objectModel:localStorage,
+            method:'getItem',
+            arguments:['Authorization']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['GetToken',null],
+                output:false
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'StringifyData',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[GoogleFlowData]
+        },
+        {
+            reqName:'ParseData',
+            objectModel:JSON,
+            method:'parse',
+            arguments:['StringifyData']
+        },
+        {
+            reqName:'SetTokenInHeader',
+            objectModel:engine,
+            method:'set',
+            arguments:['ParseData.headers','GetToken','Authorization']
+        },
+        {
+            reqName:'UrlBuilder',
+            objectModel:operate,
+            method:'replaceSubstring',
+            arguments:['ParseData.DeployUrl','SCRIPTID','1VpLZrRV1vrm4G32YHITaM08UTEdzUf91cNcwFKYZPsNGoS4nuyWBajL0']
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["POST","ParseData.headers","ParseData.DeployBody"]
+        },
+        {
+            reqName:'Response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['UrlBuilder','RequestBuilder']
+        }
+    ]
+}

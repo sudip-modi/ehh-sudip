@@ -370,17 +370,17 @@ var leftSideNavBar= {
                                 },
                                 'data-command': `[{"command":"FS_Save"}]`,
                             },
-                            // {
-                            //     name: 'div',
-                            //     class: 'item',
-                            //     item2: {
-                            //         name: 'div',
-                            //         'class': "collection_name",
-                            //         'textContent':'Google',
-                            //         'data-command': `[{"command":"GDrive_Client"}]`,
-                            //     },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent':'Google',
+                                    'data-command': `[{"command":"GDrive_Client"}]`,
+                                },
                                
-                            // }
+                            },
                             {
                                 name: 'div',
                                 class: 'item',
@@ -421,6 +421,17 @@ var leftSideNavBar= {
                                     'class': "collection_name",
                                     'textContent': 'Import from Sheet',
                                     'data-command': `[{"command":"form","entity":"import"}]`,
+                                },
+                                
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'Fetch RSS Feed Url',
+                                    'data-command': `[{"command":"RssFeed"}]`,
                                 },
                                 
                             },
@@ -1617,9 +1628,6 @@ var GoogleJSON = {
 
                     },
                 },
-                // 'br1':{
-                //     'name':'br',
-                // },
                 hr1: {
                     name: 'div',
                     class: 'hr',
@@ -1641,9 +1649,6 @@ var GoogleJSON = {
                         'data-command': `[{"command":"CreateFileGoogleClient"}]`,
                     },
                 },
-                // 'br2':{
-                //     'name':'br',
-                // },
                 hr2: {
                     name: 'div',
                     class: 'hr',
@@ -1689,6 +1694,24 @@ var GoogleJSON = {
                     class: 'hr',
                 },
                 item6:{
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent':'Deploy an appscript project',
+                        },
+                        'data-command': `[{"command":"DeployProjectGoogleClient"}]`,
+
+                    },
+                },
+                hr4: {
+                    name: 'div',
+                    class: 'hr',
+                },
+                item7:{
                     name: 'li',
                     class: 'full-width item',
                     'button': {

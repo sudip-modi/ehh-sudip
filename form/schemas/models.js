@@ -345,7 +345,7 @@ var redirect = {
   'params':{
       'client_id': '1053381465878-vb5nntqvopdnbag9f060pon9d7qh81j4.apps.googleusercontent.com',
       'redirect_uri': 'http://127.0.0.1:5502/indexV13.html',//'https://kgayatri15.github.io/Integration/html/json2Spreadsheet.html',
-      'scope': "https://www.googleapis.com/auth/drive",
+      'scope': "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/script.deployments",
       'state': 'ActionSpaceEditor',
       'include_granted_scopes': 'true',
       'prompt':'consent',
@@ -374,6 +374,12 @@ var GoogleFlowData = {
     'SearchFolderinGDriveUrl':"https://www.googleapis.com/drive/v3/files?q=name='FOLDERNAME'",//https://developers.google.com/drive/api/v3/reference/files/get
     'GetChildrenUrl':"https://www.googleapis.com/drive/v3/files/1PE3RYjqnSE548ShlVKYcQCgmnV5m0LHv/children",//FOLDERID
     'GetFileUrl':"https://www.googleapis.com/drive/v3/files/1r3aA8YUP9Bx_CmChvAvjXnBKMYj3h6TaO4GRwvlGI2I/export?mimeType=application/vnd.google-apps.document",//FILEID
+    'DeployUrl':'https://script.googleapis.com/v1/projects/SCRIPTID/deployments',
+    'DeployBody':{
+      "versionNumber": 1,
+      "manifestFileName": "appsscript",
+      "description": "Client_Side"
+    },
     'headers':{
         'Accept':'application/json',
        // 'Content-Type':'application/json',
