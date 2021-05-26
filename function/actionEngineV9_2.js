@@ -22,6 +22,36 @@ class Validators {
         return method.apply(process.objectModel, process.arguments)
     }
 }
+/**
+ * For a signle Action Request
+ * {
+ *   reqName:
+ *   objectModel:
+ *   method:
+ *   //reqName,objectModel,method are properties are compulsory for a Action Request
+ *   //optional properties
+ *   arguments:[] //if arguments are required for executing that request
+ *   validate : {
+ *     objectModel:
+ *     method:
+ *     arguments:[]
+ *     output: true/false
+ *   } // If validate Object exists than the properties inside the object are needed (response of validate Action Request is compared to output)
+ *   andThen :[],
+ *   callBack:{
+ *      method:
+ *      arguments:[]
+ *   }//callBack is mostly a single ActionRequest where objectModel is the response of the request in which callBack is present
+ *   exitBeforeExecutingRequest:true,exitAfterExecutingRequest:true - break statements used only when validate property is present in the ActionRequest
+ * }
+ * For a flow Request
+ * {
+ *   flowRequest:[
+ *      { }, { },....
+ *      //Each object can be a single Action Request or a flowRequest
+ *   ]
+ * }
+ */
 class ActionEngine {
     constructor() {
         this._flowResultState={};
