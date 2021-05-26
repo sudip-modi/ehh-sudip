@@ -20,11 +20,11 @@ class processFS{
     */
     async OpenFileInEditor(id) {
         try{  
-        console.log(id);
         if(localStorage.getItem(id)!== null){
             ActionView.addInnerText(localStorage.getItem(id),document.getElementById('inlineContent'));
         }else{
             var fileHandle = await indexDB.get(id);
+            console.log(fileHandle);
             if(await processFSInstance.verifyPermission(fileHandle,true)){
                 var file = await fileHandle.getFile();
                 if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.css')) {

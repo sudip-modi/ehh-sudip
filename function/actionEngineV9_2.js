@@ -27,6 +27,15 @@ class ActionEngine {
         this._flowResultState={};
     }
 //This can easily be replaced by operate.isin(key,object)
+    /**
+     * 
+     * @param {*} reqObj - Request Object need to be processed
+     * @param {*} params - parameters passed when a Request is called (For Eg. event or any specific variable)
+     * @param {*} resultObj - Result Object
+     * @returns Request result
+     * processReq
+     * Checks whether request is a FlowRequest or a Single Request[then calls respective Request] or else throws error
+     */
     async processReq(reqObj,params={},resultObj={}) {
         // if (Validators.isNestedRequest(reqObj)) {
         //     return this.processReqNestedObject(reqObj);
@@ -43,11 +52,10 @@ class ActionEngine {
      * 
      * @param {*} key 
      * @param {*} parent - 
+     * get
      * @returns if parent[key] exists or returns key
      */
     get(key,parent) {
-         if(parent[key])
-            console.log('Nothing');
          if (parent[key]) {
             // console.log("for Initaition", key, objectModel, objectModel[key])
              var response = parent[key];
@@ -58,12 +66,12 @@ class ActionEngine {
          }
     }
     /**
-     * 
      * @param {*} input 
      * @param {*} output 
      * @param {*} key 
      * @returns input
-     * Set if key exists input[key] = output else input = output
+     * Set 
+     * if key exists input[key] = output else input = output (mostly used to assign values to a JSON property or assigning variables)
      */
     set(input,output,key){
         if(key){
@@ -77,7 +85,7 @@ class ActionEngine {
      * 
      * @param {State} state - results of previous requests in an object
      * @param {RequestObj} reqObj - request obj
-     * @returns {RequestObj}
+     * @returns {RequestObj} -An updated Request
      * handleRequiredPreviousResults
      * Assigns previous results of requests to objectModel and arguments
      */
@@ -109,14 +117,19 @@ class ActionEngine {
         return updatedRequest;
     }
     /**
-     * action
      * @param {RequestObj} reqObj - request object
+     * @param {params} - parameters passed when a request is called (For Eg. event or any specific variable)
      * @param {state} state - parameter for passing results of previous requests
      * @returns {Promise}
-     * 1.Gets an updated Request from handleRequiredPrevious Results
-     * 2.if validate object exists get a validateResult
-     * 3.if validate doesn't exist || validateResult == output value of validate object then executes a  request
-     */
+     * action
+     * 1.Gets an updated Request from handleRequiredPreviousResults
+     * 2.if validate property exists get a validateResult
+     * 3.if validate property exists AND validateResult not equal to validate.output THEN retuns null
+     * 4.Get a response by executing Request
+     * 5.If andThen property exists for a Request THEN execute itFor Eg. response = response[request['andThen']?.0](When andThen property is an array consisting of one element)
+     * 6.If callBack property exists then (callback is also a request where it's objectModel is response of executed Request AND it's response will be final response for it's request ) 
+     * 7. return response
+    */ 
     async action(req,params, state) {
         if (operate.isObject(req) != true) {
           return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
@@ -156,15 +169,29 @@ class ActionEngine {
         if (req.hasOwnProperty('callBack')) {
           var callBack = req['callBack'];
           var callBackrequest = {...callBack,objectModel:response};
-          console.log("CallBack : - " + JSON.stringify(callBackrequest));
           response = await this.action(callBackrequest,params,state);
         }
         return response;
       }
     /**
-     * This method is used for parallel requests
-     * @param {FlowRequest} reqObj - request object containing array of objects
-     */
+     * This method is used for Flow requests
+     * @param {FlowRequest} reqObj - request object containing array of objects [Object can be a single Request or Flow Request]
+     * @param {params} - parameters passed when a flowRequest is called (For Eg. event or any specific variable)
+     * @param {resultObj} - Result Object for a Request 
+     * processReqArray
+     * 1.Checks whether flowRequest object exists or else creates one
+     * 2.Includes params in resultObj
+     * 3.If reqObj.flowRequest property exists and it's an array
+     * 4.For every request in a Flow Request Array
+     *          It's passed into processReq method and result is stored in resultObj.flowRequest with ReqName
+     * (For Eg, resultobj = {
+     *              flowRequest:{
+     *                   requestName : result
+     *              }
+     *           })
+     *          exitBeforeExecutingRequest and exitAfterExecutingRequest properties are nothing but break statements to exit from
+     *          a Flow Request
+    */
     async processReqArray(reqObj,params,resultObj) {
         if(!resultObj.flowRequest) {
             resultObj.flowRequest={}

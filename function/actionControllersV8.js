@@ -318,8 +318,6 @@ class ActionController extends ActionEvent {
                     engine.processReq(saveFileFlowRequest);break;
                 case 'Redirect':
                     event.preventDefault();ActionController.onChangeRoute(commandJson[0].entity);break;
-                case 'RssFeed':
-                    this.RSSFeed(event);break;
                 default:
                 // console.log("I don't know such values",event.type);
             }
@@ -415,33 +413,5 @@ class ActionController extends ActionEvent {
         newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
         newItem[ItemId]['td1']['a']['id'] = ItemId;newItem[ItemId]['id'] = 'tr'+ ItemId;
         var newItem = new Entity(newItem,document.getElementById('tbody'));
-    }
-    RSSFeed(event){
-        event.preventDefault();
-        var websiteUrl = "https://css-tricks.com/how-to-fetch-and-parse-rss-feeds-in-javascript/";//"https://css-tricks.com/feed/";// "https://www.hongkiat.com/blog/rss-reader-in-javascript/";
-        var url = "https://cors-anywhere.herokuapp.com/"+websiteUrl;
-        fetch(websiteUrl
-            ,{
-             method:"GET",
-             credentials:'same-origin',
-            //  'cache':'no-cache',
-             headers:{
-                // 'Content-Type':'application/xml',
-                // 'Accept':'application/rss+xml',
-                // 'Access-Control-Allow-Origin': '*',
-             }
-         }
-        )//
-        .then((res) => {
-            console.log(res.text());
-            // res.text().then((htmlTxt) => {
-            //   var domParser = new DOMParser()
-            //   let doc = domParser.parseFromString(htmlTxt, 'text/html');
-            //   var feedUrl = doc.querySelector('link[type="application/rss+xml"]').href;
-            //   console.log(feedUrl);
-            // })
-          }).catch((err) => {
-              console.log(err);
-            })
     }
 }

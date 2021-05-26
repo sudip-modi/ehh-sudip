@@ -370,27 +370,27 @@ var leftSideNavBar= {
                                 },
                                 'data-command': `[{"command":"FS_Save"}]`,
                             },
-                            {
-                                name: 'div',
-                                class: 'item',
-                                item2: {
-                                    name: 'div',
-                                    'class': "collection_name",
-                                    'textContent':'Google',
-                                    'data-command': `[{"command":"GDrive_Client"}]`,
-                                },
+                            // {
+                            //     name: 'div',
+                            //     class: 'item',
+                            //     item2: {
+                            //         name: 'div',
+                            //         'class': "collection_name",
+                            //         'textContent':'Google',
+                            //         'data-command': `[{"command":"GDrive_Client"}]`,
+                            //     },
                                
-                            },
-                            {
-                                name: 'div',
-                                class: 'item',
-                                item2: {
-                                    name: 'div',
-                                    'class': "collection_name",
-                                    'textContent':'Get A Folder from GDrive',
-                                    'data-command': `[{"command":"form","entity":"GDrive_Server"}]`,
-                                },
-                            },
+                            // },
+                            // {
+                            //     name: 'div',
+                            //     class: 'item',
+                            //     item2: {
+                            //         name: 'div',
+                            //         'class': "collection_name",
+                            //         'textContent':'Get A Folder from GDrive',
+                            //         'data-command': `[{"command":"form","entity":"GDrive_Server"}]`,
+                            //     },
+                            // },
                             {
                                 name: 'div',
                                 class: 'item',
@@ -421,17 +421,6 @@ var leftSideNavBar= {
                                     'class': "collection_name",
                                     'textContent': 'Import from Sheet',
                                     'data-command': `[{"command":"form","entity":"import"}]`,
-                                },
-                                
-                            },
-                            {
-                                name: 'div',
-                                class: 'item',
-                                item2: {
-                                    name: 'div',
-                                    'class': "collection_name",
-                                    'textContent': 'Fetch RSS Feed Url',
-                                    'data-command': `[{"command":"RssFeed"}]`,
                                 },
                                 
                             },
