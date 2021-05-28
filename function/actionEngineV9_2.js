@@ -181,7 +181,8 @@ class ActionEngine {
           if (andThenLength > 0) {
             switch (andThenLength) {
               case 1:
-                response = response[req['andThen']?.[0]];
+              //  response = response[req['andThen']?.[0]];
+                response = response[req['andThen'][0]];
                 break;
               case 2:
                 response = response[req['andThen']?.[0], req['andThen']?.[1]];

@@ -293,7 +293,9 @@ class ActionController extends ActionEvent {
                 case 'DeployProjectGoogleClient':
                     engine.processReq(deployProjectGoogle_ClientFlowRequest);break;
                 case 'importFromSheet':
-                    engine.processReq(importFromSheetFlowRequest);break;
+                    event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
+                case 'KnowledgeCenter':
+                    this.KnowledgeCenter(event);
                 case 'exportToSheet':
                     engine.processReq(exportToSheetFlowRequest);break;
                 case 'SearchFolder_GoogleServer':
@@ -375,6 +377,22 @@ class ActionController extends ActionEvent {
             //event.target.previousElementSibling('visibility',true)
 
             //console.log("yo")
+        }
+    }
+    async KnowledgeCenter(event){
+        event.preventDefault();
+        try{
+            var result = await engine.processReq(GetKnowledgeCenterLinksFlowRequest);
+            if(result !== undefined){
+                console.log(result.flowRequest.response.output.length);
+                var array = 
+                result.flowRequest.response.output
+                .map(link =>link.toString())
+                .filter(link => link.includes('https://') || link.includes('www.'));
+                console.log(array.length);
+            }
+        }catch(err){
+            console.log(err);
         }
     }
     async SubmitInvoice(event){

@@ -424,6 +424,16 @@ var leftSideNavBar= {
                                 },
                                 
                             },
+                             {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent':'KnowledgeCenter',
+                                    'data-command': `[{"command":"KnowledgeCenter"}]`,
+                                },
+                             }
                         ]
             }
         },

@@ -915,6 +915,40 @@ var importFromSheetFlowRequest = {
         }
     ]
 }
+var GetKnowledgeCenterLinksFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'SetSpreadsheetId',
+            objectModel:engine,
+            method:'set',
+            arguments:[importFromSheetparamsJSON,'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw','SpreadsheetId']
+        },
+        {
+            reqName:'SetNamedRange',
+            objectModel:engine,
+            method:'set',
+            arguments:[importFromSheetparamsJSON,'KnowledgeCenter!C3:C3323','NamedRange']
+        },
+        {
+            reqName:'URLBuilder',
+            objectModel:HttpService,
+            method:'urlBuilder',
+            arguments:[scriptURL,importFromSheetparamsJSON]
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["GET",undefined,undefined]
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLBuilder','RequestBuilder']
+        },
+    ]
+}
 var exportToSheetFlowRequest = {
     flowRequest:[
         {

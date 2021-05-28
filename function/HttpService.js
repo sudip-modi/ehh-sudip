@@ -44,9 +44,9 @@ class HttpService{
     var res;
     console.log("URL :-" + url);
     await fetch(url,request)
-           .then(response=>{console.log(response);return response.json()})
+           .then(response=>{return response.json()})
            .then(data=>{
-                 console.log(data);
+              //   console.log(data);
                  if(!data.errors){
                      res = data;
                 }else{
