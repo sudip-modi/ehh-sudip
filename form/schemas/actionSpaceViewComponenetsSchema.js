@@ -424,6 +424,17 @@ var leftSideNavBar= {
                                 },
                                 
                             },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'RSS Reader',
+                                    'data-command': `[{"command":"form","entity":"RssReader"}]`,
+                                },
+                                
+                            },
                              {
                                 name: 'div',
                                 class: 'item',
@@ -1578,6 +1589,59 @@ var exportToSheet = {
         }
     }
 }
+}
+var RssReaderJSON = {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+        form: {
+          //  id: 'regForm',
+            name: 'form',
+            'class': 'align_center',
+            content: {
+                'name': 'div',
+                class: 'column align_center',//column align_center
+                'formHeading': {
+                    'name': 'h1',
+                    'textContent': 'RSS READER FOR A URL',
+                },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1: {
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelURL': {
+                        'name': 'label',
+                        class: 'alignSelf-left small',
+                        'for': 'url',
+                        'textContent': 'URL OF A WEBSITE',
+                    },
+                    'inputSpreadsheetID': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'url',
+                        'required': 'true',
+                        'placeholder': 'Enter URL',
+                    }
+                },
+                item2: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'SUBMIT',
+                        },
+                       'data-command':`[{"command":"RssReader"}]`,
+                    },
+                },
+            }
+
+        }
+   }
 }
 var GoogleJSON = {
     formSection:{

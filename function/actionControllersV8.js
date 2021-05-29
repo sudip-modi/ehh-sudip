@@ -296,6 +296,8 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
                 case 'KnowledgeCenter':
                     this.KnowledgeCenter(event);
+                case 'RssReader':
+                    event.preventDefault();engine.processReq(RSSReaderFlowRequest);
                 case 'exportToSheet':
                     engine.processReq(exportToSheetFlowRequest);break;
                 case 'SearchFolder_GoogleServer':
@@ -390,6 +392,12 @@ class ActionController extends ActionEvent {
                 .map(link =>link.toString())
                 .filter(link => link.includes('https://') || link.includes('www.'));
                 console.log(array.length);
+                var urls = [... new Set(array)];
+                console.log(urls.length);
+                var body = await  HttpService.requestBuilder("POST",{'Accept':'application/json', 'Content-Type':'application/json'},JSON.stringify({'urls':urls}));
+                var response =  await HttpService.fetchRequest("http://127.0.0.1:5502/functions/MetaData",body);//PUPETEER
+                console.log(response);
+                //await engine.processReq(sendDataToKnowledgeCenterFlowRequest,{'data':response.array});
             }
         }catch(err){
             console.log(err);

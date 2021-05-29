@@ -57,6 +57,8 @@ class ActionView {
        json = importfromSheet;
     }else if(type == 'GDrive_Server'){
        json = GetFileFromGDrive;
+    }else if(type == 'RssReader'){
+        json = RssReaderJSON;
     }
     ActionView.addInnerHTML('',document.getElementById('inlineContent'));
     var Form = new Entity(json,{});

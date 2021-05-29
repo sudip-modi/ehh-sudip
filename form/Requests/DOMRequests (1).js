@@ -915,6 +915,85 @@ var importFromSheetFlowRequest = {
         }
     ]
 }
+var RSSReaderFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetURL',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ["url"],
+            andThen:['value']
+        },  
+        {
+            reqName:'BodyJSON',
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({})),'GetURL','url']
+        },
+        {
+            reqName:'StringifyBodyJSON',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:['BodyJSON']
+        },
+        {
+            reqName:'BodyBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["POST",JSON.parse(JSON.stringify({'Accept':'application/json', 'Content-Type':'application/json'})),'StringifyBodyJSON']
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:["http://127.0.0.1:5502/functions/RssReader",'BodyBuilder']
+        },
+        {
+            reqName:"Element",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent']
+        },
+        {
+            reqName:'IfRequestNotSuccessful',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.status',200],
+                output:false
+            },
+            reqName:"Set sample story",
+            objectModel:engine,
+            method:'set',
+            arguments:['Element',sampleIntroStory,'innerHTML'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:"formElement",
+            objectModel:document,
+            method:'getElementById',
+            arguments:['viewForm']
+        },
+        {
+            reqName:"RemoveForm",
+            objectModel:engine,
+            method:'set',
+            arguments:["formElement",'','innerHTML']
+        },
+        {
+            reqName:'content',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:['response.RSSReader']
+        },
+        {
+            reqName:"SetDatafromSheet",
+            objectModel:engine,
+            method:'set',
+            arguments:['Element','content','innerText'],
+        }
+    ]
+}
 var GetKnowledgeCenterLinksFlowRequest = {
     flowRequest:[
         {
@@ -946,6 +1025,46 @@ var GetKnowledgeCenterLinksFlowRequest = {
             objectModel:HttpService,
             method:'fetchRequest',
             arguments:['URLBuilder','RequestBuilder']
+        },
+    ]
+}
+var sendDataToKnowledgeCenterFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'SetSpreadsheetId',
+            objectModel:engine,
+            method:'set',
+            arguments:[exportToSheetparamsJSON,'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw','SpreadsheetId']
+        },
+        {
+            reqName:'SetNamedRange',
+            objectModel:engine,
+            method:'set',
+            arguments:[exportToSheetparamsJSON,'KnowledgeCenterData','SheetName']
+        },
+        {
+            reqName:'SetArray',
+            objectModel:engine,
+            method:'set',
+            arguments:[exportToSheetparamsJSON,'data','array']
+        },
+        {
+            reqName:'stringifyParams',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[exportToSheetparamsJSON]
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["POST",undefined,'stringifyParams']
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:[scriptURL,'RequestBuilder']
         },
     ]
 }
