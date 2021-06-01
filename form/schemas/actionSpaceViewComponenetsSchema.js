@@ -370,16 +370,16 @@ var leftSideNavBar= {
                                 },
                                 'data-command': `[{"command":"FS_Save"}]`,
                             },
-                            {
-                                name: 'div',
-                                class: 'item',
-                                item2: {
-                                    name: 'div',
-                                    'class': "collection_name",
-                                    'textContent':'Google',
-                                    'data-command': `[{"command":"GDrive_Client"}]`,
-                                },
-                            },
+                            // {
+                            //     name: 'div',
+                            //     class: 'item',
+                            //     item2: {
+                            //         name: 'div',
+                            //         'class': "collection_name",
+                            //         'textContent':'Google',
+                            //         'data-command': `[{"command":"GDrive_Client"}]`,
+                            //     },
+                            // },
                             // {
                             //     name: 'div',
                             //     class: 'item',
@@ -420,6 +420,17 @@ var leftSideNavBar= {
                                     'class': "collection_name",
                                     'textContent': 'Import from Sheet',
                                     'data-command': `[{"command":"form","entity":"import"}]`,
+                                },
+                                
+                            },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent': 'Get Action Stories',
+                                    'data-command': `[{"command":"form","entity":"actionStories"}]`,
                                 },
                                 
                             },
@@ -1647,6 +1658,81 @@ var RssReaderJSON = {
                             'textContent': 'SUBMIT',
                         },
                        'data-command':`[{"command":"RssReader"}]`,
+                    },
+                },
+            }
+
+        }
+   }
+}
+var GetActionStoriesJSON = {
+    formSection: {
+        name: 'section',
+        class: 'container row',
+        form: {
+          //  id: 'regForm',
+            name: 'form',
+            'class': 'align_center',
+            content: {
+                'name': 'div',
+                class: 'column align_center',//column align_center
+                'formHeading': {
+                    'name': 'h1',
+                    'textContent': 'GET ACTION STORIES',
+                },
+                'hr': {
+                    'name': 'hr', class: 'hr'
+                },
+                item1:{
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelSpreadsheetID': {
+                        name: 'label',
+                        class: 'alignSelf-left small',
+                        'width':'100%',
+                        'textContent': 'Spreadsheet ID',
+                    },
+                    'inputSpreadsheetID': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'SpreadsheetId',
+                        'width':'100%',
+                        'required': 'true',
+                        'placeholder': 'Enter Spreadsheet ID',
+                        'value':'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw'
+                    }
+                },
+                item2:{
+                    name: 'li',
+                    class: 'full-width item column',
+                    'labelNamedRange': {
+                        name: 'label',
+                        class: 'alignSelf-left small',
+                        'width':'100%',
+                        'textContent': 'Named Range',
+                    },
+                    'inputNamedRange': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'NamedRange',
+                        'width':'100%',
+                        'required': 'true',
+                        'placeholder': 'Enter Named Range',
+                        'value':'ActionStories!A1:A5',
+                    }
+                },
+                item3:{
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent':'SUBMIT',
+                        },
+                        'data-command': `[{"command":"ActionStories"}]`,
+
                     },
                 },
             }

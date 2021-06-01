@@ -915,6 +915,110 @@ var importFromSheetFlowRequest = {
         }
     ]
 }
+var GetActionStoriesFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetNamedRange',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ["NamedRange"],
+            andThen:['value']
+        },
+        {
+            reqName:'GetSpreadsheetId',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ["SpreadsheetId"],
+            andThen:['value']
+        },
+        {
+            reqName:'SetSpreadsheetId',
+            objectModel:engine,
+            method:'set',
+            arguments:[importFromSheetparamsJSON,'GetSpreadsheetId','SpreadsheetId']
+        },
+        {
+            reqName:'SetNamedRange',
+            objectModel:engine,
+            method:'set',
+            arguments:[importFromSheetparamsJSON,'GetNamedRange','NamedRange']
+        },
+        {
+            reqName:'URLBuilder',
+            objectModel:HttpService,
+            method:'urlBuilder',
+            arguments:[scriptURL,importFromSheetparamsJSON]
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method : 'requestBuilder',
+            arguments:["GET"]
+        },
+        {
+            reqName:'Response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLBuilder',"RequestBuilder"]
+        },
+        {
+            reqName:"Couldn't Make Request",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['Response',undefined],
+                output:true
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Couldn't make a request. Try Again !"],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'RequestNotSuccessful',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['Response.result','Success'],
+                output:false
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Response.output"],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'JSONForCards',
+            objectModel:processFSInstance,
+            method:'ActionStories',
+            arguments:['Response.output']
+        },
+        {
+            reqName:'Element',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent'],
+        },
+        {
+            reqName:'FormElement',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['viewForm'],
+        },
+        {
+            reqName:'RemoveForm',
+            objectModel:engine,
+            method:'set',
+            arguments:['FormElement','','innerHTML']
+        },
+        {
+            reqName:'SetNewEntity',
+            objectModel:ActionView,
+            method:'newEntity',
+            arguments:['JSONForCards','Element']
+        }
+    ]
+}
 var RSSReaderFlowRequest = {
     flowRequest:[
         {
@@ -1587,114 +1691,4 @@ var folderGoogle_ServerFlowRequest = {
         },
     ]
     
-}
-var GetActionStoriesFlowRequest = {
-    flowRequest:[
-        {
-            reqName:'GetNamedRange',
-            objectModel:document,
-            method: "getElementById",
-            arguments: ["NamedRange"],
-            andThen:['value']
-        },
-        {
-            reqName:'GetSpreadsheetId',
-            objectModel:document,
-            method: "getElementById",
-            arguments: ["SpreadsheetId"],
-            andThen:['value']
-        },
-        {
-            reqName:'GetToken',
-            objectModel:localStorage,
-            method:'getItem',
-            arguments:['Authorization']
-        },
-        {
-            reqName:'SetHeader',
-            objectModel:engine,
-            method:'set',
-            arguments:[JSON.parse(JSON.stringify(GoogleFlowData.headers)),'GetToken','Authorization']
-        },
-        {
-            reqName:'URLBuilder',
-            objectModel:operate,
-            method:'add',
-            arguments:[GoogleFlowData.GetACtionStoriesUrl,'/','GetSpreadsheetId','/values/','GetNamedRange']
-        },
-        {
-            reqName:'RequestBuilder',
-            objectModel:HttpService,
-            method : 'requestBuilder',
-            arguments:["GET",'SetHeader']
-        },
-        {
-            reqName:'Redirect',
-            objectModel:ActionController,
-            method:'onChangeRoute',
-            arguments:['action']
-        },
-        {
-            reqName:'Response',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['URLBuilder',"RequestBuilder"]
-        },
-        {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['Response',undefined],
-                output:true
-            },
-            reqName:'AlertUser',
-            objectModel:window,
-            method:'alert',
-            arguments:["Couldn't Load Action Stories Try Once Again"],
-            exitAfterExecutingRequest:true
-        },
-        {
-            reqName:'JSONForCards',
-            objectModel:processFSInstance,
-            method:'ActionStories',
-            arguments:['Response.values']
-        },
-        {
-            reqName:'Element',
-            objectModel:document,
-            method:'getElementById',
-            arguments:['inlineContent'],
-        },
-        {
-            reqName:'RemovePreviousContentEditable',
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['Element',null],
-                output:false
-            },
-            objectModel:engine,
-            method:'set',
-            arguments:['Element','','innerHTML'],
-            exitBeforeExecutingRequest:true
-        },
-        {
-            reqName:'FormElement',
-            objectModel:document,
-            method:'getElementById',
-            arguments:['viewForm'],
-        },
-        {
-            reqName:'RemovePreviousContentNonEditable',
-            objectModel:engine,
-            method:'set',
-            arguments:['FormElement','','innerHTML']
-        },
-        {
-            reqName:'SetNewEntity',
-            objectModel:ActionView,
-            method:'newEntity',
-            arguments:['JSONForCards','FormElement']
-        }
-    ]
 }

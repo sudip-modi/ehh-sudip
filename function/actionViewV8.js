@@ -59,6 +59,8 @@ class ActionView {
        json = GetFileFromGDrive;
     }else if(type == 'RssReader'){
         json = RssReaderJSON;
+    }else if(type == 'actionStories'){
+        json = GetActionStoriesJSON;
     }
     ActionView.addInnerHTML('',document.getElementById('inlineContent'));
     var Form = new Entity(json,{});
