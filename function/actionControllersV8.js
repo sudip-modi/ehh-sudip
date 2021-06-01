@@ -1,5 +1,6 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzKnhyfG0Bp820GhyGsyG0fxMIcOwKWRZDWfVHoZOqUuu39RxUC9_9aF8dfmdeJ23hv-w/exec';
+var execute = false;
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
         super()
@@ -288,14 +289,12 @@ class ActionController extends ActionEvent {
                     engine.processReq(SpreadsheetGoogle_ClientFlowRequest);break;
                 case 'CreateFileGoogleClient':
                     engine.processReq(createAFileInGoogle_ClientFlowRequest);break;
-                case 'SearchFolderGoogleClient':
-                    engine.processReq(folderGoogle_ClientFlowRequest);break;
-                case 'DeployProjectGoogleClient':
-                    engine.processReq(deployProjectGoogle_ClientFlowRequest);break;
+                case 'ActionStories':
+                    event.preventDefault();engine.processReq(GetActionStoriesFlowRequest);break;
                 case 'importFromSheet':
                     event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
                 case 'KnowledgeCenter':
-                    this.KnowledgeCenter(event);
+                    execute = true;this.KnowledgeCenter(event);break;
                 case 'RssReader':
                     event.preventDefault();engine.processReq(RSSReaderFlowRequest);
                 case 'exportToSheet':
@@ -383,25 +382,47 @@ class ActionController extends ActionEvent {
     }
     async KnowledgeCenter(event){
         event.preventDefault();
-        try{
-            var result = await engine.processReq(GetKnowledgeCenterLinksFlowRequest);
-            if(result !== undefined){
-                console.log(result.flowRequest.response.output.length);
-                var array = 
-                result.flowRequest.response.output
-                .map(link =>link.toString())
-                .filter(link => link.includes('https://') || link.includes('www.'));
-                console.log(array.length);
-                var urls = [... new Set(array)];
-                console.log(urls.length);
-                var body = await  HttpService.requestBuilder("POST",{'Accept':'application/json', 'Content-Type':'application/json'},JSON.stringify({'urls':urls}));
-                var response =  await HttpService.fetchRequest("http://127.0.0.1:5502/functions/MetaData",body);//PUPETEER
-                console.log(response);
-                //await engine.processReq(sendDataToKnowledgeCenterFlowRequest,{'data':response.array});
+        if(execute == true){
+            try{
+                execute = false;
+                var result = await engine.processReq(GetKnowledgeCenterLinksFlowRequest);
+                if(result !== undefined){
+                    console.log(result.flowRequest.response.output.length);
+                    var array = 
+                    result.flowRequest.response.output
+                    .map(link =>link.toString())
+                    .filter(link => link.includes('https://') || link.includes('www.'));
+                    console.log(array.length);
+                    var urls = [... new Set(array)];
+                    console.log(urls.length);
+                    var index = urls.indexOf('http://www.collatebox.com/');
+                    urls.splice(0,index + 1);
+                    console.log(urls.length);
+                    var urlsV2 = urls.filter(link=>{
+                        if(link.includes("https://developers.google.com/")|| link.includes("https://stackoverflow.com/"))
+                            return false;
+                        else
+                            return true;
+                    });
+                    console.log(urlsV2.length);
+                    var arrayOfURLS = [];
+                    while (urlsV2.length) {
+                        arrayOfURLS.push(urlsV2.splice(0, 10));
+                    }
+                    for await(var data of arrayOfURLS){
+                        console.log(data.length);
+                        var body = await  HttpService.requestBuilder("POST",{'Accept':'application/json', 'Content-Type':'application/json'},JSON.stringify({'urls':data}));
+                        var response =  await HttpService.fetchRequest("http://127.0.0.1:5502/functions/MetaData",body);//PUPETEER
+                        console.log('Response');
+                        await engine.processReq(sendDataToKnowledgeCenterFlowRequest,{'data':response.array});
+                    }
+                   
+                }
+            }catch(err){
+                console.log(err);
             }
-        }catch(err){
-            console.log(err);
         }
+        
     }
     async SubmitInvoice(event){
         try{

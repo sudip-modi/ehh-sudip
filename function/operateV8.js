@@ -178,4 +178,7 @@ class operate {
     static isHTMLCollection(obj) {
         return obj instanceof HTMLCollection||(value&&typeof value==='object'&&value.constructor==='HTMLCollection');
     }
+    static add(...data){
+        return data.join('');
+    }
 }

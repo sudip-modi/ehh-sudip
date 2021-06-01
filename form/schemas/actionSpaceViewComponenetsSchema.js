@@ -370,17 +370,16 @@ var leftSideNavBar= {
                                 },
                                 'data-command': `[{"command":"FS_Save"}]`,
                             },
-                            // {
-                            //     name: 'div',
-                            //     class: 'item',
-                            //     item2: {
-                            //         name: 'div',
-                            //         'class': "collection_name",
-                            //         'textContent':'Google',
-                            //         'data-command': `[{"command":"GDrive_Client"}]`,
-                            //     },
-                               
-                            // },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent':'Google',
+                                    'data-command': `[{"command":"GDrive_Client"}]`,
+                                },
+                            },
                             // {
                             //     name: 'div',
                             //     class: 'item',
@@ -1031,6 +1030,18 @@ var card = {
     
     
 }
+var CardViewJSON = {
+    'name':'div',
+    'class':'card_item',
+    'h2':{
+        'name':'h2',
+        'textContent':'Action Story'
+    },
+    'p':{
+        'name':'p',
+        
+    }
+}
 var itemModel = {
     name: 'div',
     class: 'item row container',
@@ -1664,18 +1675,18 @@ var GoogleJSON = {
                     'label1': {
                         'name': 'label',
                         class: 'alignSelf-left small',
-                        'textContent': '1. Create a Spreadsheet',
+                        'textContent': '1. Create a Spreadsheet 2. Create a new Sheet 3. Create a copy of the Spreadsheet',
                     }, 
-                    'label2': {
-                        'name': 'label',
-                        class: 'alignSelf-left small',
-                        'textContent': '2. Create a new Sheet',
-                    },
-                    'label3': {
-                        'name': 'label',
-                        class: 'alignSelf-left small',
-                        'textContent': '3. Create a copy of the Spreadsheet',
-                    }, 
+                    // 'label2': {
+                    //     'name': 'label',
+                    //     class: 'alignSelf-left small',
+                    //     'textContent': '',
+                    // },
+                    // 'label3': {
+                    //     'name': 'label',
+                    //     class: 'alignSelf-left small',
+                    //     'textContent': '',
+                    // }, 
                 },
                 item2:{
                     name: 'li',
@@ -1718,8 +1729,8 @@ var GoogleJSON = {
                 },
                 'Heading3': {
                     'name': 'h1',
-                    'textContent': 'Read a folder from Google Drive',
-                },
+                    'textContent': 'Get ActionStories from GDrive',
+                }, 
                 item4:{
                     name: 'li',
                     class: 'full-width item column',
@@ -1727,34 +1738,36 @@ var GoogleJSON = {
                         name: 'label',
                         class: 'alignSelf-left small',
                         'width':'100%',
-                        'textContent': 'Folder Name in your Drive',
+                        'textContent': 'Spreadsheet ID',
                     },
                     'inputSpreadsheetID': {
                         'name': 'input',
                         'type': 'text',
-                        'id': 'folderName',
+                        'id': 'SpreadsheetId',
                         'width':'100%',
                         'required': 'true',
-                        'placeholder': 'Enter Folder name',
+                        'placeholder': 'Enter Spreadsheet ID',
+                        'value':'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw'
                     }
                 },
                 item5:{
                     name: 'li',
-                    class: 'full-width item',
-                    'button': {
-                        'name': 'button',
-                        class: 'full-width',
-                        textLable: {
-                            name: 'lable',
-                            'textContent':'Search for a folder',
-                        },
-                        'data-command': `[{"command":"SearchFolderGoogleClient"}]`,
-
+                    class: 'full-width item column',
+                    'labelNamedRange': {
+                        name: 'label',
+                        class: 'alignSelf-left small',
+                        'width':'100%',
+                        'textContent': 'Named Range',
                     },
-                },
-                hr3: {
-                    name: 'div',
-                    class: 'hr',
+                    'inputNamedRange': {
+                        'name': 'input',
+                        'type': 'text',
+                        'id': 'NamedRange',
+                        'width':'100%',
+                        'required': 'true',
+                        'placeholder': 'Enter Named Range',
+                        'value':'ActionStories!A1:A5',
+                    }
                 },
                 item6:{
                     name: 'li',
@@ -1764,13 +1777,13 @@ var GoogleJSON = {
                         class: 'full-width',
                         textLable: {
                             name: 'lable',
-                            'textContent':'Deploy an appscript project',
+                            'textContent':'Get Action Stories',
                         },
-                        'data-command': `[{"command":"DeployProjectGoogleClient"}]`,
+                        'data-command': `[{"command":"ActionStories"}]`,
 
                     },
                 },
-                hr4: {
+                hr3: {
                     name: 'div',
                     class: 'hr',
                 },

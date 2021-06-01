@@ -1,3 +1,43 @@
+/* card css 
+	Reference :- https://github.com/codingmarket07/Responsive-Cards-UI-Design
+*/
+  .cards_wrap {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+  }
+  
+  .cards_wrap .card_item {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	width: 25%;
+	padding: 10px;
+	margin: 3%;
+	text-align: center;
+	
+  }
+  @media (max-width: 1024px) {
+	.cards_wrap .card_item {
+	  width: 33%;
+	}
+  }
+  
+  @media (max-width: 768px) {
+	.cards_wrap .card_item {
+	  width: 50%;
+	}
+  }
+  
+  @media (max-width: 528px) {
+	.cards_wrap .card_item {
+	  width: 100%;
+	}
+  }  
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  width: 50%;
+}
 /* reset */
 .exportToSheet {
 	margin: 5%;

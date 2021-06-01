@@ -8,16 +8,21 @@ router.post('/MetaData',async(req,res)=>{
         const browser = await puppeteer.launch({ headless:true });
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
-        var data = [];data.push(['URL','TITLE']);
+        var data = [];
         for await(url of req.body.urls){
             console.log(url);
             await page.goto(url);
             var title = await page.evaluate(()=>{
-                return document.getElementsByTagName('title')[0].textContent;
+                if(document.getElementsByTagName('title').length > 0){
+                    return document.getElementsByTagName('title')[0].textContent;
+                }else{
+                    return null;
+                }
             })
             data.push([url,title]);
         }
         await browser.close();
+        console.log("Done 12");
         res.send({status:200,array:data});
     }catch(err){
         console.log(err);

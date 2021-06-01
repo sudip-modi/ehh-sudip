@@ -1472,117 +1472,6 @@ var uploadFileToAppDataGoogle_ClientFlowRequest ={
         }
     ]
 }
-var folderGoogle_ClientFlowRequest = {
-    flowRequest:[
-        //folderName
-        // {
-        //     reqName:"NameofFolder",
-        //     objectModel:document,
-        //     method:'getElementById',
-        //     arguments:['folderName'],
-        //     andThen:['value']
-        // },
-        {
-            // validate:{
-            //     objectModel:operate,
-            //     method:'isEqual',
-            //     arguments:["NameofFolder",null],
-            //     output:false
-            // },
-            // exitBeforeExecutingRequest:true,
-            reqName:'GetToken',
-            objectModel:localStorage,
-            method:'getItem',
-            arguments:['Authorization']
-        },
-        {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['GetToken',null],
-                output:false
-            },
-            exitBeforeExecutingRequest:true,
-            reqName:'StringifyData',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[GoogleFlowData]
-        },
-        {
-            reqName:'ParseData',
-            objectModel:JSON,
-            method:'parse',
-            arguments:['StringifyData']
-        },
-        {
-            reqName:'SetTokenInHeader',
-            objectModel:engine,
-            method:'set',
-            arguments:['ParseData.headers','GetToken','Authorization']
-        },
-        {
-            reqName:'SearchFolderRequestUrl',
-            objectModel:operate,
-            method:'replaceSubstring',
-            arguments:['ParseData.SearchFolderinGDriveUrl','FOLDERNAME','NameofFolder']
-        },
-        {
-            reqName:'ReqBuilder',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["GET",'ParseData.headers']
-        },
-        {
-            reqName:"Response",
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['SearchFolderRequestUrl','ReqBuilder']
-        },
-        {
-            reqName:"IfFolderDoesn'tExist",
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['Response.files.length',0],
-                output:true
-            },
-            objectModel:window,
-            method:'alert',
-            arguments:["Entered Folder Name in the field doesn't exist"],
-            exitAfterExecutingRequest:true
-        },
-        {
-            reqName:'FolderExists',
-            objectModel:window,
-            method:'alert',
-            arguments:["Entered Folder exists. Now Redirecting to Action Space Editor"],
-        },
-        {
-            reqName:'redirect',
-            objectModel:ActionController,
-            method:'onChangeRoute',
-            arguments:['action']
-        },
-        {
-            reqName:'ChildrenListUrl',
-            objectModel:operate,
-            method:'replaceSubstring',
-            arguments:['ParseData.GetChildrenUrl','FOLDERID','Response1.files.0.id']
-        },
-        {
-            reqName:'ReqBuilderForChildrenList',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["GET",'ParseData.headers']
-        },
-        {
-            reqName:'Response2',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['ParseData.ChildrenListUrl','ReqBuilderForChildrenList']//'ChildrenListUrl'-replace 1st arg
-        }
-    ]
-}
 var folderGoogle_ServerFlowRequest = {
     flowRequest:[
         {
@@ -1699,8 +1588,22 @@ var folderGoogle_ServerFlowRequest = {
     ]
     
 }
-var deployProjectGoogle_ClientFlowRequest = {
+var GetActionStoriesFlowRequest = {
     flowRequest:[
+        {
+            reqName:'GetNamedRange',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ["NamedRange"],
+            andThen:['value']
+        },
+        {
+            reqName:'GetSpreadsheetId',
+            objectModel:document,
+            method: "getElementById",
+            arguments: ["SpreadsheetId"],
+            andThen:['value']
+        },
         {
             reqName:'GetToken',
             objectModel:localStorage,
@@ -1708,47 +1611,90 @@ var deployProjectGoogle_ClientFlowRequest = {
             arguments:['Authorization']
         },
         {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['GetToken',null],
-                output:false
-            },
-            exitBeforeExecutingRequest:true,
-            reqName:'StringifyData',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[GoogleFlowData]
-        },
-        {
-            reqName:'ParseData',
-            objectModel:JSON,
-            method:'parse',
-            arguments:['StringifyData']
-        },
-        {
-            reqName:'SetTokenInHeader',
+            reqName:'SetHeader',
             objectModel:engine,
             method:'set',
-            arguments:['ParseData.headers','GetToken','Authorization']
+            arguments:[JSON.parse(JSON.stringify(GoogleFlowData.headers)),'GetToken','Authorization']
         },
         {
-            reqName:'UrlBuilder',
+            reqName:'URLBuilder',
             objectModel:operate,
-            method:'replaceSubstring',
-            arguments:['ParseData.DeployUrl','SCRIPTID','1VpLZrRV1vrm4G32YHITaM08UTEdzUf91cNcwFKYZPsNGoS4nuyWBajL0']
+            method:'add',
+            arguments:[GoogleFlowData.GetACtionStoriesUrl,'/','GetSpreadsheetId','/values/','GetNamedRange']
         },
         {
             reqName:'RequestBuilder',
             objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST","ParseData.headers","ParseData.DeployBody"]
+            method : 'requestBuilder',
+            arguments:["GET",'SetHeader']
+        },
+        {
+            reqName:'Redirect',
+            objectModel:ActionController,
+            method:'onChangeRoute',
+            arguments:['action']
         },
         {
             reqName:'Response',
             objectModel:HttpService,
             method:'fetchRequest',
-            arguments:['UrlBuilder','RequestBuilder']
+            arguments:['URLBuilder',"RequestBuilder"]
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['Response',undefined],
+                output:true
+            },
+            reqName:'AlertUser',
+            objectModel:window,
+            method:'alert',
+            arguments:["Couldn't Load Action Stories Try Once Again"],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'JSONForCards',
+            objectModel:processFSInstance,
+            method:'ActionStories',
+            arguments:['Response.values']
+        },
+        {
+            reqName:'Element',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent'],
+        },
+        {
+            reqName:'RemovePreviousContentEditable',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['Element',null],
+                output:false
+            },
+            objectModel:engine,
+            method:'set',
+            arguments:['Element','','innerHTML'],
+            exitBeforeExecutingRequest:true
+        },
+        {
+            reqName:'FormElement',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['viewForm'],
+        },
+        {
+            reqName:'RemovePreviousContentNonEditable',
+            objectModel:engine,
+            method:'set',
+            arguments:['FormElement','','innerHTML']
+        },
+        {
+            reqName:'SetNewEntity',
+            objectModel:ActionView,
+            method:'newEntity',
+            arguments:['JSONForCards','FormElement']
         }
     ]
 }

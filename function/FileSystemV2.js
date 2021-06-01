@@ -133,6 +133,19 @@ class processFS{
     }
     /**
      * 
+     */
+    async ActionStories(data){
+        var cardsDivJSON = JSON.parse(JSON.stringify({'div':{'name':'div','class':'cards_wrap'}}))
+        for(let i = 0; i < data.length ;i ++){
+             var name = 'div'+i;
+             var CardJSON = JSON.parse(JSON.stringify(CardViewJSON));
+             CardJSON['p']['textContent'] = data[i][0];
+             cardsDivJSON['div'][name] = CardJSON;
+        }
+        return cardsDivJSON;
+    }
+    /**
+     * 
      * @param {*} Handle - FileHandle/DirectoryHandle for which permission is required
      * @param {*} readWrite - if read and write permission needed - True or else if read permission needed false
      * @returns true/false - whether user has given permission or not

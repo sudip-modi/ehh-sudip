@@ -372,16 +372,10 @@ var GoogleFlowData = {
     'CopySpreadsheetUrl':'https://www.googleapis.com/drive/v3/files/fileId/copy',
     'FileUploadInGDriveUrl':'https://www.googleapis.com/upload/drive/v3/files',
     'SearchFolderinGDriveUrl':"https://www.googleapis.com/drive/v3/files?q=name='FOLDERNAME'",//https://developers.google.com/drive/api/v3/reference/files/get
-    'GetChildrenUrl':"https://www.googleapis.com/drive/v3/files/1PE3RYjqnSE548ShlVKYcQCgmnV5m0LHv/children",//FOLDERID
     'GetFileUrl':"https://www.googleapis.com/drive/v3/files/1r3aA8YUP9Bx_CmChvAvjXnBKMYj3h6TaO4GRwvlGI2I/export?mimeType=application/vnd.google-apps.document",//FILEID
-    'DeployUrl':'https://script.googleapis.com/v1/projects/SCRIPTID/deployments',
-    'DeployBody':{
-      "versionNumber": 1,
-      "manifestFileName": "appsscript",
-      "description": "Client_Side"
-    },
     'headers':{
         'Accept':'application/json',
        // 'Content-Type':'application/json',
     },
+    'GetACtionStoriesUrl':'https://sheets.googleapis.com/v4/spreadsheets',
 }

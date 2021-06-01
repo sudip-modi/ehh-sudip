@@ -1,13 +1,12 @@
 
 var response2;
 
-if (localStorage.getItem('LoggedIn') === 'true') {
-  ActionController.onChangeRoute("action");
-}
 if(window.location.href.includes('#state=ActionSpaceEditor')){
     Authenticate.authToken(window.location.href);
     console.log("Directing to Google");
     ActionController.onChangeRoute("google");
+}else if (localStorage.getItem('LoggedIn') === 'true') {
+  ActionController.onChangeRoute("action");
 }
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
 var viewModel = indexDB.get('actionSpaceModel');
