@@ -22,6 +22,7 @@ class ActionView {
      }
      static newEntity(input,element){
          var newEntity = new Entity(input,element);
+         return newEntity;
      }
     /**
      * Validtions to be added.

@@ -932,6 +932,18 @@ var GetActionStoriesFlowRequest = {
             andThen:['value']
         },
         {
+            reqName:'StoreSpreadsheetId',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['SpreadsheetId', 'GetSpreadsheetId']
+        },
+        {
+            reqName:'StoreNamedRange',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['NamedRange','GetNamedRange']
+        },
+        {
             reqName:'SetSpreadsheetId',
             objectModel:engine,
             method:'set',
@@ -988,34 +1000,41 @@ var GetActionStoriesFlowRequest = {
             exitAfterExecutingRequest:true
         },
         {
+            reqName:'WrapperCardView',
+            objectModel:document,
+            method:'getElementsByClassName',
+            arguments:['cards_wrap'],
+            andThen:[0]
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['WrapperCardView',null],
+                output:true
+            },
+            reqName:'Element',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent'],
+            exitBeforeExecutingRequest:true
+        },
+        {
+            reqName:'Card_View',
+            objectModel:'Element',
+            method:'setAttribute',
+            arguments:['fileid','cardView']
+        },
+        {
             reqName:'JSONForCards',
             objectModel:processFSInstance,
             method:'ActionStories',
             arguments:['Response.output']
         },
         {
-            reqName:'Element',
-            objectModel:document,
-            method:'getElementById',
-            arguments:['inlineContent'],
-        },
-        {
-            reqName:'FormElement',
-            objectModel:document,
-            method:'getElementById',
-            arguments:['viewForm'],
-        },
-        {
-            reqName:'RemoveForm',
-            objectModel:engine,
-            method:'set',
-            arguments:['FormElement','','innerHTML']
-        },
-        {
-            reqName:'SetNewEntity',
-            objectModel:ActionView,
-            method:'newEntity',
-            arguments:['JSONForCards','Element']
+            reqName:'AutoSync',
+            objectModel:processFSInstance,
+            method:'AutoSync',
         }
     ]
 }

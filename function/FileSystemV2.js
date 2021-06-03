@@ -132,17 +132,92 @@ class processFS{
         return obj;
     }
     /**
-     * 
+     * @data - Array from HTTP REQUEST OUTPUT to get action Stories
      */
     async ActionStories(data){
-        var cardsDivJSON = JSON.parse(JSON.stringify({'div':{'name':'div','class':'cards_wrap'}}))
+        var cardsDivJSON = JSON.parse(JSON.stringify({'div':{'name':'div','class':'cards_wrap'}}));
+        localStorage.setItem('array',JSON.stringify(data));
         for(let i = 0; i < data.length ;i ++){
              var name = 'div'+i;
              var CardJSON = JSON.parse(JSON.stringify(CardViewJSON));
              CardJSON['p']['textContent'] = data[i][0];
              cardsDivJSON['div'][name] = CardJSON;
         }
-        return cardsDivJSON;
+        document.getElementById('viewForm').innerHTML = '';
+        document.getElementById('inlineContent').innerHTML = '';
+        ActionView.newEntity(cardsDivJSON,document.getElementById('inlineContent'));
+    }
+    async AutoSave(){
+        console.log("In Auto Save");
+        var autoSaveActionStories = setInterval(async()=>{
+            console.log("In set Interval");
+            var urlParams = {
+                'SpreadsheetId':localStorage.getItem('SpreadsheetId'),
+                'NamedRange':localStorage.getItem('NamedRange')
+            }
+            if(document.getElementById('inlineContent').getAttribute('fileid')=='cardView'){
+                var data = document.querySelectorAll('div.card_item > p');
+                var array = [...data];var PresentArray = array.map(p=>[p.textContent]);
+                var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,urlParams),HttpService.requestBuilder("GET"));
+                if(!operate.ArrayEqual(PresentArray,response.output)){
+                    var body = {
+                        'SpreadsheetId':urlParams.SpreadsheetId,
+                        'NamedRange':urlParams.NamedRange,
+                        'array': PresentArray
+                    };
+                    await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(body)));
+                }else{
+                    console.log("Update not needed");
+                }
+            }else{
+                clearInterval(autoSaveActionStories);
+            }
+        },180000);
+    }
+    async AutoSync(){
+        console.log("In Auto Snyc");
+        var autoSaveActionStories = setInterval(async()=>{
+            console.log("In set Interval");
+            var urlParams = {
+                'SpreadsheetId':localStorage.getItem('SpreadsheetId'),
+                'NamedRange':localStorage.getItem('NamedRange')
+            }
+            if(operate.isEqual(document.getElementById('inlineContent').getAttribute('fileid'),'cardView')){
+                var data = document.querySelectorAll('div.card_item > p');
+                var array = [...data];var PresentArray = array.map(p=>[p.textContent]);
+                var response = await HttpService.fetchRequest(HttpService.urlBuilder(scriptURL,urlParams),HttpService.requestBuilder("GET"));
+                if(operate.ArrayEqual(PresentArray,response.output) && operate.ArrayEqual(response.output,JSON.parse(localStorage.getItem('array')))){
+                    console.log("Update Not Required");
+                }else{
+                    var body = {
+                        'SpreadsheetId':urlParams.SpreadsheetId,
+                        'NamedRange':urlParams.NamedRange,
+                        'array':''
+                    }; 
+                    if(operate.ArrayEqual(response.output,JSON.parse(localStorage.getItem('array')))){
+                        body['array'] = PresentArray;
+                        await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(body)));
+                        localStorage.setItem('array',JSON.stringify(PresentArray))
+                    }else if(operate.ArrayEqual(PresentArray,JSON.parse(localStorage.getItem('array')))){
+                        console.log("Overwrite Editor");
+                        await processFSInstance.ActionStories(response.output);
+                    }else{
+                        var answer = prompt("Different version of Action Stories are present.'Overwrite Sheet'- make changes in the sheet as per the Action Space Editor.'Overwrite Editor- make changes in the Action Space Editor as per Sheet. Enter 'Overwrite Sheet' or 'Overwrite Editor'");
+                        if(operate.isEqual(answer,'Overwrite Sheet')){
+                            console.log('Overwrite Sheet');
+                            body['array'] = PresentArray;
+                            await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(body)));
+                            localStorage.setItem('array',JSON.stringify(PresentArray))
+                        }else if(operate.isEqual(answer,'Overwrite Editor')){
+                           console.log("Overwrite Editor");
+                            await processFSInstance.ActionStories(response.output);
+                        }
+                    }
+                }
+            }else{
+                clearInterval(autoSaveActionStories);
+            }
+        },180000);
     }
     /**
      * 

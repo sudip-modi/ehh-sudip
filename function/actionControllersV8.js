@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzKnhyfG0Bp820GhyGsyG0fxMIcOwKWRZDWfVHoZOqUuu39RxUC9_9aF8dfmdeJ23hv-w/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxbAgaTyy4cFcSWRVo1smuLDByvTJlh0TbdxPRYBZY_QOte1ctTIbDAUCaN60-7lSIi3Q/exec';
 var execute = false;
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {

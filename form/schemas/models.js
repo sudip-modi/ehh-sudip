@@ -377,5 +377,5 @@ var GoogleFlowData = {
         'Accept':'application/json',
        // 'Content-Type':'application/json',
     },
-    'GetACtionStoriesUrl':'https://sheets.googleapis.com/v4/spreadsheets',
+    'GetActionStoriesUrl':'https://sheets.googleapis.com/v4/spreadsheets',
 }
