@@ -262,22 +262,10 @@ var OpenAFileFlowRequest ={
             arguments:[fileJSON,"file.name","textContent"]
         },
         {
-            reqName:"StringifyJSON",
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[{}]
-        },
-        {
-            reqName:"ParseJSON",
-            objectModel:JSON,
-            method:'parse',
-            arguments:["StringifyJSON"]
-        },
-        {
             reqName:'input',
             objectModel:engine,
             method:'set',
-            arguments:["ParseJSON",fileJSON,"UID"]
+            arguments:[JSON.parse(JSON.stringify({})),fileJSON,"UID"]
         },
         {
             reqName:"myFilesElement",
@@ -441,7 +429,7 @@ var ActionStoryFlowRequest = {
             arguments:['input.li.list','fileid','id']
         },
         {
-            reqName:"jsonForACtionStory",
+            reqName:"jsonForActionStory",
             objectModel:processFSInstance,
             method:'CurrentActionStory',
             arguments:['input.li.list','json.children']
@@ -451,6 +439,12 @@ var ActionStoryFlowRequest = {
             objectModel:document,
             method:'getElementById',
             arguments:['CurrentActionStory'] 
+        },
+        {
+            reqName:'Remove previous Children',
+            objectModel:engine,
+            method:'set',
+            arguments:["ActionStory",'','innerHTML']
         },
         {
             reqName:'newEntity',
@@ -1345,7 +1339,7 @@ var everyFileRequest = {
             objectModel:document,
             method:'getElementById',
             arguments:['inlineContent'],
-            callBack:{method:'getAttribute',arguments:['fileid','event.target.id']}//event.target.id to be pushed
+            callBack:{method:'setAttribute',arguments:['fileid','event.target.id']}//event.target.id to be pushed
         },
         {
             reqName:"OpenInEditor",
@@ -1359,240 +1353,6 @@ var everyFileRequest = {
             method:'processReq',
             arguments:[ActionStoryFlowRequest]
         }  
-    ]
-}
-var SpreadsheetGoogle_ClientFlowRequest = {
-    flowRequest:[
-        {
-            reqName:'GetToken',
-            objectModel:localStorage,
-            method:'getItem',
-            arguments:['Authorization']
-        },
-        {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['GetToken',null],
-                output:false
-            },
-            exitBeforeExecutingRequest:true,
-            reqName:'StringifyData',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[GoogleFlowData]
-        },
-        {
-            reqName:'ParseData',
-            objectModel:JSON,
-            method:'parse',
-            arguments:['StringifyData']
-        },
-        {
-            reqName:'SetTokenInHeader',
-            objectModel:engine,
-            method:'set',
-            arguments:['ParseData.headers','GetToken','Authorization']
-        },
-        // {
-        //     reqName:"StringifyRequest1Body",
-        //     objectModel:JSON,
-        //     method:'stringify',
-        //     arguments:[createSpreadsheetJSON]
-        // },
-        // {
-        //     reqName:'ParseRequest1Body',
-        //     objectModel:JSON,
-        //     method:'parse',
-        //     arguments:["StringifyRequest1Body"]
-        // },
-        {
-            reqName:"GetSpreadsheetName",
-            objectModel:window,
-            method:'prompt',
-            arguments:['Enter Spreadsheet name you want to create','SpreadsheetByActionSpaceEditor']
-        },
-        {
-            reqName:"SetTitleOfSpreadsheet",
-            objectModel:engine,
-            method:'set',
-            arguments:['ParseData.CreateSpreadsheetBody.properties','GetSpreadsheetName','title']
-        },
-        {
-            reqName:"StringifyBodyRequest1",
-            objectModel:JSON,
-            method:'stringify',
-            arguments:['ParseData.CreateSpreadsheetBody']
-        },
-        {
-            reqName:'ReqBuilderForCreateSpreadsheet',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST",'ParseData.headers','StringifyBodyRequest1']
-        },
-        {
-            reqName:'Response1',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['ParseData.CreateSpreadsheetUrl','ReqBuilderForCreateSpreadsheet']
-        },
-        {
-            reqName:"UrlRequest2",
-            objectModel:operate,
-            method:'replaceSubstring',
-            arguments:['ParseData.AddSheetUrl','SpreadsheetId','Response1.spreadsheetId']
-        },
-        {
-            reqName:"StringifyBodyRequest2",
-            objectModel:JSON,
-            method:'stringify',
-            arguments:['ParseData.AddSheetBody']
-        },
-        {
-            reqName:"ReqBuilderForAddSheet",
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST",'ParseData.headers',"StringifyBodyRequest2"]
-        },
-        {
-            reqName:"Response2",
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['UrlRequest2',"ReqBuilderForAddSheet"]
-        },
-        {
-            reqName:"UrlRequest3",
-            objectModel:operate,
-            method:'replaceSubstring',
-            arguments:['ParseData.CopySpreadsheetUrl','fileId','Response1.spreadsheetId']
-        },
-        {
-            reqName:'ReqBuilderForCopyOfASheet',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST",'ParseData.headers']
-        },
-        {
-            reqName:'Response3',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:["UrlRequest3",'ReqBuilderForCopyOfASheet']
-        }
-    ]
-}
-var createAFileInGoogle_ClientFlowRequest = {
-    flowRequest:[
-        {
-            reqName:'GetToken',
-            objectModel:localStorage,
-            method:'getItem',
-            arguments:['Authorization']
-        },
-        {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['GetToken',null],
-                output:false
-            },
-            exitBeforeExecutingRequest:true,
-            reqName:'StringifyData',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[GoogleFlowData]
-        },
-        {
-            reqName:'ParseData',
-            objectModel:JSON,
-            method:'parse',
-            arguments:['StringifyData']
-        },
-        {
-            reqName:'SetTokenInHeader',
-            objectModel:engine,
-            method:'set',
-            arguments:['ParseData.headers','GetToken','Authorization']
-        },
-        {
-            reqName:"RequestBuilder",
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST",'ParseData.headers']//file
-        },
-        {
-            reqName:'Response',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['ParseData.FileUploadInGDriveUrl',"RequestBuilder"]
-        }
-    ]
-}
-var uploadFileToAppDataGoogle_ClientFlowRequest ={
-    //input type = file should be included for file input
-    flowRequest:[
-        {
-            reqName:"file",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['file'],
-            andThen:['files','0']
-        },
-        {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['file',null],
-                output:false
-            },
-            exitBeforeExecutingRequest:true,
-            reqName:'GetToken',
-            objectModel:localStorage,
-            method:'getItem',
-            arguments:['Authorization']
-        },
-        {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['GetToken',null],
-                output:false
-            },
-            exitBeforeExecutingRequest:true,
-            reqName:'StringifyData',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[GoogleFlowData]
-        },
-        {
-            reqName:'ParseData',
-            objectModel:JSON,
-            method:'parse',
-            arguments:['StringifyData']
-        },
-        {
-            reqName:'SetTokenInHeader',
-            objectModel:engine,
-            method:'set',
-            arguments:['ParseData.headers','GetToken','Authorization']
-        },
-        {
-            reqName:'UploadFile',
-            objectModel:HttpService,
-            method:'FileUpload',
-            arguments:['file',true]
-        },
-        {
-            reqName:"RequestBuilder",
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST",'ParseData.headers','UploadFile']//file
-        },
-        {
-            reqName:'Response',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['ParseData.FileUploadInGDriveUrl',"RequestBuilder"]
-        }
     ]
 }
 var folderGoogle_ServerFlowRequest = {

@@ -167,13 +167,13 @@ class ActionEngine {
         var response,validateResult;
         if(req.hasOwnProperty('validate')){
             validateResult = await this.action(req.validate,params,state);
-            console.log("validateResult :- " + validateResult + " and it's output should be equal to " + req.validate.output);
+            console.log("validateResult :- " + validateResult + " and it's output  " + req.validate.output);
         }
         if(req.hasOwnProperty('validate') && !operate.isEqual(validateResult,req.validate.output)){
             return null;
         }
         req = await this.handleRequiredPreviousResults(state,req);
-        var objectModel = this.get(req.objectModel, window);//Getting the object Model from window Object
+        var objectModel = req.objectModel;//this.get(req.objectModel, window);//Getting the object Model from window Object
         var method = objectModel[req.method];
         response = await method.apply(objectModel,req.arguments);
         if (req.hasOwnProperty('andThen')) {

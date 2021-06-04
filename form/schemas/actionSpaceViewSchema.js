@@ -43,12 +43,5 @@ var actionSpaceViewModel = [
         actorRole: 'visitor',
         model: basicsignUpLayoutVisitorV1,
     },
-    {
-        keyword:'google',
-        name:'googleAPIsSpace',
-        id:'googleAPIsSpace',
-        actorRole:'user',
-        model: GoogleJSON
-    }
 ]
 console.log(actionSpaceViewModel)

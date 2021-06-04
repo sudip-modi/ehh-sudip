@@ -1,11 +1,7 @@
 
 var response2;
 
-if(window.location.href.includes('#state=ActionSpaceEditor')){
-    Authenticate.authToken(window.location.href);
-    console.log("Directing to Google");
-    ActionController.onChangeRoute("google");
-}else if (localStorage.getItem('LoggedIn') === 'true') {
+if (localStorage.getItem('LoggedIn') === 'true') {
   ActionController.onChangeRoute("action");
 }
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
@@ -15,7 +11,7 @@ var viewModel = indexDB.get('actionSpaceModel');
     // expected output: "Success!"
         var response = viewModelFromIndexDb;
         console.log("here",response);
-//        localStorage.setItem('UsermyCollection','');localStorage.setItem('UsermyFiles','');localStorage.setItem('UserRecentFiles','');
+        localStorage.setItem('UsermyCollection','');localStorage.setItem('UsermyFiles','');localStorage.setItem('UserRecentFiles','');
         var collection = localStorage.getItem('UsermyCollection');
         if(collection !== null &&  document.getElementById('myCollection'))
           document.getElementById('myCollection').innerHTML = collection;

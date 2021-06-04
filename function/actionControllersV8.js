@@ -285,10 +285,6 @@ class ActionController extends ActionEvent {
                 case 'closeModal':
                     ActionView.closeModal(event);break;
                 //sheet
-                case 'SpreadsheetFlowGoogleClient':
-                    engine.processReq(SpreadsheetGoogle_ClientFlowRequest);break;
-                case 'CreateFileGoogleClient':
-                    engine.processReq(createAFileInGoogle_ClientFlowRequest);break;
                 case 'ActionStories':
                     event.preventDefault();engine.processReq(GetActionStoriesFlowRequest);break;
                 case 'importFromSheet':
@@ -299,15 +295,11 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(RSSReaderFlowRequest);
                 case 'exportToSheet':
                     engine.processReq(exportToSheetFlowRequest);break;
-                case 'SearchFolder_GoogleServer':
-                    engine.processReq(folderGoogle_ServerFlowRequest);break;
                 //signup,login
                 case 'Signup':
                     engine.processReq(SignUpFlowRequest);break;
                 case 'Login':
                     engine.processReq(LoginFlowRequest);break;
-                case 'GDrive_Client':
-                    Authenticate.oAuth();break;
                 //File System
                 case "new":
                     engine.processReq(newActionStoryRequest); break;
