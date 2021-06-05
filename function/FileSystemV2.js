@@ -33,7 +33,7 @@ class processFS{
                 }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
                     var reader = new FileReader();
                     reader.addEventListener("load", function () {
-                        var html = '<image src="' + reader.result + '"width="460" height="380" title="' + file.name + '"></image>';
+                        var html = '<image src="' + reader.result + '"width="660" height="480" title="' + file.name + '"></image>';
                         ActionView.addInnerHTML(html, document.getElementById('inlineContent'));
                     }, false);
                     reader.readAsDataURL(file);

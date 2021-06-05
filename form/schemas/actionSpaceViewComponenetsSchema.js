@@ -370,16 +370,16 @@ var leftSideNavBar= {
                                 },
                                 'data-command': `[{"command":"FS_Save"}]`,
                             },
-                            // {
-                            //     name: 'div',
-                            //     class: 'item',
-                            //     item2: {
-                            //         name: 'div',
-                            //         'class': "collection_name",
-                            //         'textContent':'Get A Folder from GDrive',
-                            //         'data-command': `[{"command":"form","entity":"GDrive_Server"}]`,
-                            //     },
-                            // },
+                            {
+                                name: 'div',
+                                class: 'item',
+                                item2: {
+                                    name: 'div',
+                                    'class': "collection_name",
+                                    'textContent':'Get A Folder from GDrive',
+                                    'data-command': `[{"command":"form","entity":"GDrive_Server"}]`,
+                                },
+                            },
                             {
                                 name: 'div',
                                 class: 'item',
@@ -424,27 +424,6 @@ var leftSideNavBar= {
                                 },
                                 
                             },
-                            {
-                                name: 'div',
-                                class: 'item',
-                                item2: {
-                                    name: 'div',
-                                    'class': "collection_name",
-                                    'textContent': 'RSS Reader',
-                                    'data-command': `[{"command":"form","entity":"RssReader"}]`,
-                                },
-                                
-                            },
-                             {
-                                name: 'div',
-                                class: 'item',
-                                item2: {
-                                    name: 'div',
-                                    'class': "collection_name",
-                                    'textContent':'KnowledgeCenter',
-                                    'data-command': `[{"command":"KnowledgeCenter"}]`,
-                                },
-                             }
                         ]
             }
         },
@@ -1708,7 +1687,7 @@ var GetActionStoriesJSON = {
                         'width':'100%',
                         'required': 'true',
                         'placeholder': 'Enter Named Range',
-                        'value':'ActionStories!A1:A5',
+                        'value':'ActionStories!A2:A4',
                     }
                 },
                 item3:{
@@ -1776,7 +1755,7 @@ var GetFileFromGDrive = {
                             name: 'lable',
                             'textContent': 'SUBMIT',
                         },
-                        'data-command':`[{"command":"SearchFolder_GoogleServer"}]`,
+                        'data-command':`[{"command":"SearchFolder_Google"}]`,
                     },
                 },
             }

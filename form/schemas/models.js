@@ -291,6 +291,7 @@ var GDrivefileJSON = {
   "name":"li",
   "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
   "textContent":'',
+  "data-command": `[{"command":"GDriveFile"}]`,
 }
 var parentJSON = {
   'li':{

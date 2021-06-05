@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxbAgaTyy4cFcSWRVo1smuLDByvTJlh0TbdxPRYBZY_QOte1ctTIbDAUCaN60-7lSIi3Q/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwM7zdD2mAM9m7y0NJetsijZsJr3H6axvh9Lzj_6bgNFnfs5okRXmbW9azGcRM2UlAOlw/exec';
 var execute = false;
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
@@ -294,7 +294,11 @@ class ActionController extends ActionEvent {
                 case 'RssReader':
                     event.preventDefault();engine.processReq(RSSReaderFlowRequest);
                 case 'exportToSheet':
-                    engine.processReq(exportToSheetFlowRequest);break;
+                    event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
+                case 'SearchFolder_Google':
+                    event.preventDefault();engine.processReq(folderGoogle_ServerFlowRequest);break;
+                case 'GDriveFile':
+                    event.preventDefault();engine.processReq(GetGDriveFileContentFlowRequest,{'GDrivefileid':event.target.id,'name':event.target.textContent});break;
                 //signup,login
                 case 'Signup':
                     engine.processReq(SignUpFlowRequest);break;

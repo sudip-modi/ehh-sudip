@@ -1471,3 +1471,31 @@ var folderGoogle_ServerFlowRequest = {
     ]
     
 }
+var GetGDriveFileContentFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'params',
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({})),'GDrivefileid','Id']
+        },
+        {
+            reqName:'URLBuilder',
+            objectModel:HttpService,
+            method:'urlBuilder',
+            arguments:[scriptURL,'params']
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["GET"]
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLBuilder','RequestBuilder']
+        },
+    ]
+}
