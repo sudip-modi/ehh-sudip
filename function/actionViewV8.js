@@ -37,6 +37,14 @@ class ActionView {
 
     target.innerHTML = inputElem;
     }
+    static GDriveFileSupportedInEditor(FileName){
+        console.log("GDrive File Name :- " + FileName);
+        if(FileName.includes('.html')||FileName.includes('.css')||FileName.includes('.js')||FileName.includes('.json')||FileName.includes('.txt')){
+            return true;
+        }else{
+            return false;
+        }
+    }
     static async viewForm(event,type){
     event.preventDefault();
     var formElement = document.getElementById('viewForm');

@@ -42,7 +42,7 @@ class HttpService{
     }
     static async fetchRequest(url,request){
     var res;
-    console.log("URL :-" + url);
+   // console.log("URL :-" + url);
     await fetch(url,request)
            .then(response=>{return response.json()})
            .then(data=>{
@@ -54,7 +54,7 @@ class HttpService{
                 }
             })
             .catch(err=>{
-                console.log("Failed to make a request due to " + err);
+                console.log("Error:- " + err);
             })
     return res;
     }

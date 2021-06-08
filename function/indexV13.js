@@ -11,7 +11,7 @@ var viewModel = indexDB.get('actionSpaceModel');
     // expected output: "Success!"
         var response = viewModelFromIndexDb;
         console.log("here",response);
-  //      localStorage.setItem('UsermyCollection','');localStorage.setItem('UsermyFiles','');localStorage.setItem('UserRecentFiles','');
+   //     localStorage.setItem('UsermyCollection','');localStorage.setItem('UsermyFiles','');localStorage.setItem('UserRecentFiles','');
         var collection = localStorage.getItem('UsermyCollection');
         if(collection !== null &&  document.getElementById('myCollection'))
           document.getElementById('myCollection').innerHTML = collection;

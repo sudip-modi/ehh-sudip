@@ -677,7 +677,6 @@ var LoginFlowRequest = {
             exitAfterExecutingRequest:true
         },
         {
-
             reqName:'alert',
             objectModel:window,
             method:'alert',
@@ -1032,159 +1031,6 @@ var GetActionStoriesFlowRequest = {
         }
     ]
 }
-var RSSReaderFlowRequest = {
-    flowRequest:[
-        {
-            reqName:'GetURL',
-            objectModel:document,
-            method: "getElementById",
-            arguments: ["url"],
-            andThen:['value']
-        },  
-        {
-            reqName:'BodyJSON',
-            objectModel:engine,
-            method:'set',
-            arguments:[JSON.parse(JSON.stringify({})),'GetURL','url']
-        },
-        {
-            reqName:'StringifyBodyJSON',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:['BodyJSON']
-        },
-        {
-            reqName:'BodyBuilder',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST",JSON.parse(JSON.stringify({'Accept':'application/json', 'Content-Type':'application/json'})),'StringifyBodyJSON']
-        },
-        {
-            reqName:'response',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:["http://127.0.0.1:5502/functions/RssReader",'BodyBuilder']
-        },
-        {
-            reqName:"Element",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['inlineContent']
-        },
-        {
-            reqName:'IfRequestNotSuccessful',
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['response.status',200],
-                output:false
-            },
-            reqName:"Set sample story",
-            objectModel:engine,
-            method:'set',
-            arguments:['Element',sampleIntroStory,'innerHTML'],
-            exitAfterExecutingRequest:true
-        },
-        {
-            reqName:"formElement",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['viewForm']
-        },
-        {
-            reqName:"RemoveForm",
-            objectModel:engine,
-            method:'set',
-            arguments:["formElement",'','innerHTML']
-        },
-        {
-            reqName:'content',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:['response.RSSReader']
-        },
-        {
-            reqName:"SetDatafromSheet",
-            objectModel:engine,
-            method:'set',
-            arguments:['Element','content','innerText'],
-        }
-    ]
-}
-var GetKnowledgeCenterLinksFlowRequest = {
-    flowRequest:[
-        {
-            reqName:'SetSpreadsheetId',
-            objectModel:engine,
-            method:'set',
-            arguments:[importFromSheetparamsJSON,'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw','SpreadsheetId']
-        },
-        {
-            reqName:'SetNamedRange',
-            objectModel:engine,
-            method:'set',
-            arguments:[importFromSheetparamsJSON,'KnowledgeCenter!C3:C3323','NamedRange']
-        },
-        {
-            reqName:'URLBuilder',
-            objectModel:HttpService,
-            method:'urlBuilder',
-            arguments:[scriptURL,importFromSheetparamsJSON]
-        },
-        {
-            reqName:'RequestBuilder',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["GET",undefined,undefined]
-        },
-        {
-            reqName:'response',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['URLBuilder','RequestBuilder']
-        },
-    ]
-}
-var sendDataToKnowledgeCenterFlowRequest = {
-    flowRequest:[
-        {
-            reqName:'SetSpreadsheetId',
-            objectModel:engine,
-            method:'set',
-            arguments:[exportToSheetparamsJSON,'1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw','SpreadsheetId']
-        },
-        {
-            reqName:'SetNamedRange',
-            objectModel:engine,
-            method:'set',
-            arguments:[exportToSheetparamsJSON,'KnowledgeCenterData','SheetName']
-        },
-        {
-            reqName:'SetArray',
-            objectModel:engine,
-            method:'set',
-            arguments:[exportToSheetparamsJSON,'data','array']
-        },
-        {
-            reqName:'stringifyParams',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[exportToSheetparamsJSON]
-        },
-        {
-            reqName:'RequestBuilder',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["POST",undefined,'stringifyParams']
-        },
-        {
-            reqName:'response',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:[scriptURL,'RequestBuilder']
-        },
-    ]
-}
 var exportToSheetFlowRequest = {
     flowRequest:[
         {
@@ -1357,8 +1203,6 @@ var everyFileRequest = {
 }
 var folderGoogle_ServerFlowRequest = {
     flowRequest:[
-        {
-            flowRequest:[
                 {
                     reqName:'GetfolderName',
                     objectModel:document,
@@ -1390,6 +1234,30 @@ var folderGoogle_ServerFlowRequest = {
                     objectModel:HttpService,
                     method:'requestBuilder',
                     arguments:["GET"]
+                },
+                {
+                    reqName:"formElement",
+                    objectModel:document,
+                    method:'getElementById',
+                    arguments:['viewForm']
+                },
+                {
+                    reqName:"RemoveForm",
+                    objectModel:engine,
+                    method:'set',
+                    arguments:["formElement",'','innerHTML']
+                },
+                {
+                    reqName:"Element",
+                    objectModel:document,
+                    method:'getElementById',
+                    arguments:['inlineContent']
+                },
+                { 
+                    reqName:"Set sample story",
+                    objectModel:engine,
+                    method:'set',
+                    arguments:['Element',sampleIntroStory,'innerHTML'],
                 },
                 {
                     reqName:'Response',
@@ -1430,11 +1298,18 @@ var folderGoogle_ServerFlowRequest = {
                     arguments:['Response.output',JSON.parse(JSON.stringify({}))]
                 },
                 {
+                    validate:{
+                        objectModel:'CollectionElement.innerHTML',
+                        method:'includes',
+                        arguments:['HTML_JSON.li.list.id'],
+                        output:false,
+                    },
                     reqName:'newEntity',
                     objectModel:ActionView,
                     method:'newEntity',
                     //new Entity
-                    arguments:['HTML_JSON','CollectionElement']
+                    arguments:['HTML_JSON','CollectionElement'],
+                    exitBeforeExecutingRequest:true
                 },
                 {
                     reqName:'SetUsermyCollection',
@@ -1442,42 +1317,34 @@ var folderGoogle_ServerFlowRequest = {
                     method:'setItem',
                     arguments:['UsermyCollection','CollectionElement.innerHTML']
                 }
-            ]
-        },
-        {
-            reqName:"formElement",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['viewForm']
-        },
-        {
-            reqName:"RemoveForm",
-            objectModel:engine,
-            method:'set',
-            arguments:["formElement",'','innerHTML']
-        },
-        {
-            reqName:"Element",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['inlineContent']
-        },
-        { 
-            reqName:"Set sample story",
-            objectModel:engine,
-            method:'set',
-            arguments:['Element',sampleIntroStory,'innerHTML'],
-        },
     ]
-    
 }
 var GetGDriveFileContentFlowRequest = {
     flowRequest:[
         {
+            reqName:'CheckWhetherFileTypeSupportedOrNot',
+            objectModel:ActionView,
+            method:'GDriveFileSupportedInEditor',
+            arguments:['name']
+        },
+        {
+            reqName:'Alert User',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['CheckWhetherFileTypeSupportedOrNot',false],
+                output:true,
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:['Work In Progress !'],
+            exitAfterExecutingRequest:true
+        },
+        {
             reqName:'params',
             objectModel:engine,
             method:'set',
-            arguments:[JSON.parse(JSON.stringify({})),'GDrivefileid','Id']
+            arguments:[{},'GDrivefileid','FileId']
         },
         {
             reqName:'URLBuilder',
@@ -1497,5 +1364,43 @@ var GetGDriveFileContentFlowRequest = {
             method:'fetchRequest',
             arguments:['URLBuilder','RequestBuilder']
         },
+        {
+            reqName:"checkV1",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response',undefined],
+                output:true
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Clouldn't send request to the server . Try Again !"],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:"checkV2",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
+                output:false
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:['response.message'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'EditorElement',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent']
+        },
+        {
+            reqName:'SetEditorText',
+            objectModel:engine,
+            method:'set',
+            arguments:['EditorElement','response.content','innerText']
+        }
     ]
 }

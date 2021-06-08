@@ -1020,6 +1020,12 @@ var CardViewJSON = {
     'p':{
         'name':'p',
         
+    },
+    'h3':{
+        'name':'h3',
+    },
+    'h4':{
+        'name':'h4',
     }
 }
 var itemModel = {
@@ -1581,59 +1587,6 @@ var exportToSheet = {
     }
 }
 }
-var RssReaderJSON = {
-    formSection: {
-        name: 'section',
-        class: 'container row',
-        form: {
-          //  id: 'regForm',
-            name: 'form',
-            'class': 'align_center',
-            content: {
-                'name': 'div',
-                class: 'column align_center',//column align_center
-                'formHeading': {
-                    'name': 'h1',
-                    'textContent': 'RSS READER FOR A URL',
-                },
-                'hr': {
-                    'name': 'hr', class: 'hr'
-                },
-                item1: {
-                    name: 'li',
-                    class: 'full-width item column',
-                    'labelURL': {
-                        'name': 'label',
-                        class: 'alignSelf-left small',
-                        'for': 'url',
-                        'textContent': 'URL OF A WEBSITE',
-                    },
-                    'inputSpreadsheetID': {
-                        'name': 'input',
-                        'type': 'text',
-                        'id': 'url',
-                        'required': 'true',
-                        'placeholder': 'Enter URL',
-                    }
-                },
-                item2: {
-                    name: 'li',
-                    class: 'full-width item',
-                    'button': {
-                        'name': 'button',
-                        class: 'full-width',
-                        textLable: {
-                            name: 'lable',
-                            'textContent': 'SUBMIT',
-                        },
-                       'data-command':`[{"command":"RssReader"}]`,
-                    },
-                },
-            }
-
-        }
-   }
-}
 var GetActionStoriesJSON = {
     formSection: {
         name: 'section',
@@ -1687,7 +1640,7 @@ var GetActionStoriesJSON = {
                         'width':'100%',
                         'required': 'true',
                         'placeholder': 'Enter Named Range',
-                        'value':'ActionStories!A2:A4',
+                        'value':'ActionStories!A2:C17',
                     }
                 },
                 item3:{
@@ -1754,8 +1707,9 @@ var GetFileFromGDrive = {
                         textLable: {
                             name: 'lable',
                             'textContent': 'SUBMIT',
+                            'data-command':`[{"command":"SearchFolder_Google"}]`,
                         },
-                        'data-command':`[{"command":"SearchFolder_Google"}]`,
+                       
                     },
                 },
             }

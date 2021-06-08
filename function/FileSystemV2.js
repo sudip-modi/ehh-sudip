@@ -138,10 +138,14 @@ class processFS{
         var cardsDivJSON = JSON.parse(JSON.stringify({'div':{'name':'div','class':'cards_wrap'}}));
         localStorage.setItem('array',JSON.stringify(data));
         for(let i = 0; i < data.length ;i ++){
-             var name = 'div'+i;
-             var CardJSON = JSON.parse(JSON.stringify(CardViewJSON));
-             CardJSON['p']['textContent'] = data[i][0];
-             cardsDivJSON['div'][name] = CardJSON;
+            if(data[i][0].length > 0){
+                var name = 'div'+i;
+                var CardJSON = JSON.parse(JSON.stringify(CardViewJSON));
+                CardJSON['p']['textContent'] = data[i][0];
+                CardJSON['h3']['textContent'] = "Status :- " + data[i][1];
+                CardJSON['h4']['textContent'] = "Assigned :- " + data[i][2];
+                cardsDivJSON['div'][name] = CardJSON;
+            }
         }
         document.getElementById('viewForm').innerHTML = '';
         document.getElementById('inlineContent').innerHTML = '';

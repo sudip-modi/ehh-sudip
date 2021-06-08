@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwM7zdD2mAM9m7y0NJetsijZsJr3H6axvh9Lzj_6bgNFnfs5okRXmbW9azGcRM2UlAOlw/exec';
+const scriptURL = `https://script.google.com/macros/s/AKfycbwIvez4zpqwV0RCmItxV3tPtLcAeQ1x2CCOlruSozsfnB6Nn3nhClWlws5IuowioqnF2Q/exec`;
 var execute = false;
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
@@ -273,11 +273,11 @@ class ActionController extends ActionEvent {
             switch (commandJson[0].command) {
             //invoice operations
                 case 'SubmitInvoice':
-                    this.SubmitInvoice(event);break;
+                    event.preventDefault();this.SubmitInvoice(event);break;
                 case 'NewItem':
-                    this.NewItem(event);break;
+                    event.preventDefault();this.NewItem(event);break;
                 case 'RemoveItem':
-                    this.RemoveItem(event);break;
+                    event.preventDefault();this.RemoveItem(event);break;
                 case 'form':
                     ActionView.viewForm(event,commandJson[0].entity);break;
                 case 'modal':
@@ -289,10 +289,6 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(GetActionStoriesFlowRequest);break;
                 case 'importFromSheet':
                     event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
-                case 'KnowledgeCenter':
-                    execute = true;this.KnowledgeCenter(event);break;
-                case 'RssReader':
-                    event.preventDefault();engine.processReq(RSSReaderFlowRequest);
                 case 'exportToSheet':
                     event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
                 case 'SearchFolder_Google':
@@ -301,20 +297,20 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(GetGDriveFileContentFlowRequest,{'GDrivefileid':event.target.id,'name':event.target.textContent});break;
                 //signup,login
                 case 'Signup':
-                    engine.processReq(SignUpFlowRequest);break;
+                    event.preventDefault();engine.processReq(SignUpFlowRequest);break;
                 case 'Login':
-                    engine.processReq(LoginFlowRequest);break;
+                    event.preventDefault();engine.processReq(LoginFlowRequest);break;
                 //File System
                 case "new":
                     engine.processReq(newActionStoryRequest); break;
                 case 'OpenFile':
-                    engine.processReq(openAFileRequest);break;
+                    event.preventDefault();engine.processReq(openAFileRequest);break;
                 case 'OpenDirectory':
                     event.preventDefault();engine.processReq(OpenADirectoryRequest);break;
                 case 'file':
-                    engine.processReq(everyFileRequest,{"event":event});break;
+                    event.preventDefault();engine.processReq(everyFileRequest,{"event":event});break;
                 case 'FS_Save':
-                    engine.processReq(saveFileFlowRequest);break;
+                    event.preventDefault();engine.processReq(saveFileFlowRequest);break;
                 case 'Redirect':
                     event.preventDefault();ActionController.onChangeRoute(commandJson[0].entity);break;
                 default:
@@ -375,50 +371,6 @@ class ActionController extends ActionEvent {
 
             //console.log("yo")
         }
-    }
-    async KnowledgeCenter(event){
-        event.preventDefault();
-        if(execute == true){
-            try{
-                execute = false;
-                var result = await engine.processReq(GetKnowledgeCenterLinksFlowRequest);
-                if(result !== undefined){
-                    console.log(result.flowRequest.response.output.length);
-                    var array = 
-                    result.flowRequest.response.output
-                    .map(link =>link.toString())
-                    .filter(link => link.includes('https://') || link.includes('www.'));
-                    console.log(array.length);
-                    var urls = [... new Set(array)];
-                    console.log(urls.length);
-                    var index = urls.indexOf('http://www.collatebox.com/');
-                    urls.splice(0,index + 1);
-                    console.log(urls.length);
-                    var urlsV2 = urls.filter(link=>{
-                        if(link.includes("https://developers.google.com/")|| link.includes("https://stackoverflow.com/"))
-                            return false;
-                        else
-                            return true;
-                    });
-                    console.log(urlsV2.length);
-                    var arrayOfURLS = [];
-                    while (urlsV2.length) {
-                        arrayOfURLS.push(urlsV2.splice(0, 10));
-                    }
-                    for await(var data of arrayOfURLS){
-                        console.log(data.length);
-                        var body = await  HttpService.requestBuilder("POST",{'Accept':'application/json', 'Content-Type':'application/json'},JSON.stringify({'urls':data}));
-                        var response =  await HttpService.fetchRequest("http://127.0.0.1:5502/functions/MetaData",body);//PUPETEER
-                        console.log('Response');
-                        await engine.processReq(sendDataToKnowledgeCenterFlowRequest,{'data':response.array});
-                    }
-                   
-                }
-            }catch(err){
-                console.log(err);
-            }
-        }
-        
     }
     async SubmitInvoice(event){
         try{
