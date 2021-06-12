@@ -776,10 +776,17 @@ var recentFilesFlowRequest = {
             arguments:['fileid']
         },
         {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['FileID.length',0],
+                output:false
+            },
             reqName:'FileFrom',
             objectModel:'Editor',
             method:'getAttribute',
-            arguments:['from']
+            arguments:['from'],
+            exitBeforeExecutingRequest:true
         },
         {
             reqName:'NameOfFile',
@@ -800,17 +807,10 @@ var recentFilesFlowRequest = {
             arguments:['RecentFiles', []]
         },
         {
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['FileID.length',0],
-                output:false
-            },
             reqName:'Array',
             objectModel:indexDB,
             method:'get',
             arguments:['RecentFiles'],
-            exitBeforeExecutingRequest:true
         },
         {
             reqName:'Element',//1
@@ -1515,5 +1515,51 @@ var everyFileRequest = {
             method:'processReq',
             arguments:[ActionStoryFlowRequest]
         }  
+    ]
+}
+var viewFormRequest = {
+    flowRequest:[
+        {
+            reqName:"Save",
+            objectModel:engine,
+            method:'processReq',
+            arguments:[saveFileFlowRequest]
+        },
+        {
+            reqName:'RecentFiles',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[recentFilesFlowRequest]
+        },
+        {
+            reqName:'Editor',
+            objectModel: document,
+            method: "getElementById",
+            arguments: ["inlineContent"],
+        },
+        {
+            reqName:'FILEID',
+            objectModel:'Editor',
+            method:'setAttribute',
+            arguments:['fileid','']
+        },
+        {
+            reqName:'NAMEOFFILE',
+            objectModel:'Editor',
+            method:'setAttribute',
+            arguments:['nameoffile','']
+        },
+        {
+            reqName:'FROM',
+            objectModel:'Editor',
+            method:'setAttribute',
+            arguments:['from','']
+        },
+        {
+            reqName:'Form',
+            objectModel:ActionView,
+            method:'viewForm',
+            arguments:['event','entity']
+        }
     ]
 }

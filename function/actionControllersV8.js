@@ -273,24 +273,24 @@ class ActionController extends ActionEvent {
                 case 'SubmitInvoice':
                     event.preventDefault();this.SubmitInvoice(event);break;
                 case 'NewItem':
-                    event.preventDefault();this.NewItem(event);break;
+                    event.preventDefault();alert(event.target.innerHTML);this.NewItem(event);break;
                 case 'RemoveItem':
                     event.preventDefault();this.RemoveItem(event);break;
                 case 'form':
-                    ActionView.viewForm(event,commandJson[0].entity);break;
+                    event.preventDefault();engine.processReq(viewFormRequest,{'event':event,'entity':commandJson[0].entity});break;
                 case 'modal':
                     ActionView.viewModal(event);break;
                 case 'closeModal':
                     ActionView.closeModal(event);break;
                 //sheet
                 case 'ActionStories':
-                    event.preventDefault();engine.processReq(GetActionStoriesFlowRequest);break;
+                    event.preventDefault();alert(event.target.innerHTML);engine.processReq(GetActionStoriesFlowRequest);break;
                 case 'importFromSheet':
-                    event.preventDefault();engine.processReq(importFromSheetFlowRequest);break;
+                    event.preventDefault();alert(event.target.innerHTML);engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':
                     event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
                 case 'SearchFolder_Google':
-                    event.preventDefault();engine.processReq(folderGoogle_ServerFlowRequest);break;
+                    event.preventDefault();alert(event.target.innerHTML);engine.processReq(folderGoogle_ServerFlowRequest);break;
                 //signup,login
                 case 'Signup':
                     event.preventDefault();engine.processReq(SignUpFlowRequest);break;
@@ -298,7 +298,7 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(LoginFlowRequest);break;
                 //File System
                 case "new":
-                    engine.processReq(newActionStoryRequest); break;
+                    engine.processReq(newActionStoryRequest);break;
                 case 'OpenFile':
                     event.preventDefault();engine.processReq(openAFileRequest);break;
                 case 'OpenDirectory':
@@ -390,15 +390,14 @@ class ActionController extends ActionEvent {
             console.log(err);  
         }
     }
-    RemoveItem(event){
+    RemoveItem(){
             event.preventDefault();
             var Id = 'tr' + event.target.getAttribute('id');
             var element = document.getElementById(Id);
             if(element !== null)
                 element.parentNode.removeChild(element);
     }
-    NewItem(event){
-        event.preventDefault();
+    NewItem(){
         var ItemId = uid();
         var newItem = JSON.parse(JSON.stringify({}));
         newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
