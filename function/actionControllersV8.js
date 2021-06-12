@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = `https://script.google.com/macros/s/AKfycbwIvez4zpqwV0RCmItxV3tPtLcAeQ1x2CCOlruSozsfnB6Nn3nhClWlws5IuowioqnF2Q/exec`;
+const scriptURL = `https://script.google.com/macros/s/AKfycbzOBsKbeUSr99-TQkgjI0JJQYcN8VzGiU3wm-fJzzbhuRNbVYe2Y5owNzMIgMCGrORuxw/exec`;
 var execute = false;
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
@@ -100,11 +100,11 @@ class ActionController extends ActionEvent {
                 this.onMouseLeave(event);
                 //console.log("mouseover", event.type, event.target)
                 break;
-            case 'storage':
-                console.log("storage", event.type, event.target)
-                console.log(Object.keys(actionStorageInstance.entity))
+            // case 'storage':
+            //     console.log("storage", event.type, event.target)
+            //     console.log(Object.keys(actionStorageInstance.entity))
 
-                break;
+//                break;
             default:
             // console.log("I don't know such values",event.type);
         }
@@ -163,9 +163,7 @@ class ActionController extends ActionEvent {
         if (entity.key) {
         
            // console.log(this.bufferRange, entity.code);
-        
            // this.bufferRange = this.bufferRange + entity.code;
-        
             //console.log(this.bufferRange, entity.code);
         
             match['byCode'] = operate.find(replaceKeyPress, entity.code, 'keys');
@@ -197,7 +195,7 @@ class ActionController extends ActionEvent {
             console.log("appending ", appendingBuffer, appendingBuffer.length, currentSelection,entity.target)
             var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + appendingBuffer + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
             currentSelection.anchorNode.data = response;
-            //console.log(response);
+            console.log(response);
             Caret.moveCaret(window, currentCaret + 1);
           
             
@@ -293,8 +291,6 @@ class ActionController extends ActionEvent {
                     event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
                 case 'SearchFolder_Google':
                     event.preventDefault();engine.processReq(folderGoogle_ServerFlowRequest);break;
-                case 'GDriveFile':
-                    event.preventDefault();engine.processReq(GetGDriveFileContentFlowRequest,{'GDrivefileid':event.target.id,'name':event.target.textContent});break;
                 //signup,login
                 case 'Signup':
                     event.preventDefault();engine.processReq(SignUpFlowRequest);break;
@@ -308,7 +304,7 @@ class ActionController extends ActionEvent {
                 case 'OpenDirectory':
                     event.preventDefault();engine.processReq(OpenADirectoryRequest);break;
                 case 'file':
-                    event.preventDefault();engine.processReq(everyFileRequest,{"event":event});break;
+                    event.preventDefault();engine.processReq(everyFileRequest,{"event":event,'from':event.target.getAttribute('from')});break;
                 case 'FS_Save':
                     event.preventDefault();engine.processReq(saveFileFlowRequest);break;
                 case 'Redirect':

@@ -937,6 +937,8 @@ var workSpaceBody = {
                             name: 'span',
                             class: 'inlineContent',
                             id:'inlineContent',
+                            from:'',
+                            NameOfFile:'',
                             contentEditable: 'true',
                             fileID:'',
                             innerHTML: sampleIntroStory
@@ -954,11 +956,7 @@ var workSpaceBody = {
             textContent:'output',
             
         }
-    },
-    
-    
-    
-    
+    },   
 }
 var actionWorkSpace = {
     name: 'section',
@@ -1707,9 +1705,9 @@ var GetFileFromGDrive = {
                         textLable: {
                             name: 'lable',
                             'textContent': 'SUBMIT',
-                            'data-command':`[{"command":"SearchFolder_Google"}]`,
+                           
                         },
-                       
+                        'data-command':`[{"command":"SearchFolder_Google"}]`,
                     },
                 },
             }

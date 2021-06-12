@@ -285,6 +285,7 @@ var fileJSON = {
   "data-command": `[{"command":"file"}]`,
   "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
   "textContent":'',
+  'from':'FS',
 }
 var GDrivefileJSON = {
   "class":"item row",
@@ -292,21 +293,6 @@ var GDrivefileJSON = {
   "id":'', //id - Unique ID with which file handle of this file retrieved from indexDB
   "textContent":'',
   "data-command": `[{"command":"GDriveFile"}]`,
-}
-var parentJSON = {
-  'li':{
-      'name':'li',
-      'span':{
-          'name':'span',
-          'class':'parent',
-          "textContent":'', //inner Text will be included
-      },
-      'list':{
-          'name':'ul',
-          'class':'nested',
-          'id':'' //id - Unique ID with which directory handle of this folder can ke retrieved from indexDB
-      }
-  }
 }
 var childJSON = {
     "class":"item row",

@@ -19,9 +19,14 @@ class processFS{
      * checks for the type of file and displays it's content in the editor
     */
     async OpenFileInEditor(id) {
-        try{  
+        try{
+            var editor = document.getElementById('inlineContent');  
+            var openInEditor = false;
         if(localStorage.getItem(id)!== null){
-            ActionView.addInnerText(localStorage.getItem(id),document.getElementById('inlineContent'));
+            ActionView.addInnerText(localStorage.getItem(id),editor);
+            editor.setAttribute('from','LocalStorage');
+            editor.setAttribute('nameoffile',id);
+            editor.setAttribute('fileid',id);
         }else{
             var fileHandle = await indexDB.get(id);
             console.log(fileHandle);
@@ -29,26 +34,35 @@ class processFS{
                 var file = await fileHandle.getFile();
                 if (file['name'].includes('.json') || file['name'].includes('.txt') || file['name'].includes('.html') || file['name'].includes('.js') || file['name'].includes('.css')) {
                     var contents = await file.text();
-                    ActionView.addInnerText(contents,document.getElementById('inlineContent'));
+                    ActionView.addInnerText(contents,editor);
+                    openInEditor = true;
                 }else if (file['type'].startsWith('image/')||file['name'].includes('.JPG') ||file['name'].includes('.JPEG') ||file['name'].includes('.PNG')) {
                     var reader = new FileReader();
                     reader.addEventListener("load", function () {
                         var html = '<image src="' + reader.result + '"width="660" height="480" title="' + file.name + '"></image>';
-                        ActionView.addInnerHTML(html, document.getElementById('inlineContent'));
+                        ActionView.addInnerHTML(html, editor);
                     }, false);
                     reader.readAsDataURL(file);
+                    openInEditor = true;
                 }else if (file['name'].includes('mp4')) {
                     var reader = new FileReader();
                     reader.addEventListener("load", function () {
                         var html = '<video src="' + reader.result + '" width="460" height="380" controls></video>';
-                        ActionView.addInnerHTML(html,document.getElementById('inlineContent'));
+                        ActionView.addInnerHTML(html,editor);
                     }, false);
                     reader.readAsDataURL(file);
+                    openInEditor = true;
                 }else {
                     console.log("Work in Progress");
                 }
+                if(openInEditor){
+                    editor.setAttribute('from','FS');
+                    editor.setAttribute('nameoffile',file['name']);
+                    editor.setAttribute('fileid',id);
+                }
             }
         } 
+
     }catch(err){
             console.log(err);
         }
@@ -97,8 +111,8 @@ class processFS{
                     if(child.hasOwnProperty('children')){
                         await processFSInstance.jsonForGDriveFolder(child,SubData);
                     }else{
-                        var file = JSON.parse(JSON.stringify(GDrivefileJSON));
-                        file['id'] = child['id'];file['textContent'] = child['name'];
+                        var file = JSON.parse(JSON.stringify(fileJSON));
+                        file['id'] = child['id'];file['textContent'] = child['name'];file['from'] = 'GDrive';
                         SubData[child['id']] = file;
                     }
             }
@@ -119,7 +133,7 @@ class processFS{
             if(element.attributes.hasOwnProperty('id'))
                 name = name + "( " + element.attributes.id.nodeValue + ")";
             if(element.hasOwnProperty('children') &&  (!operate.isEmpty(element.children))){
-                var parent = JSON.parse(JSON.stringify(parentJSON));
+                var parent = JSON.parse(JSON.stringify(directoryJSON));
                 parent['li']['list']['id'] = id;parent['li']['span']['textContent'] = name; 
                 obj[id] = parent;
                 await processFSInstance.CurrentActionStory(obj[id]['li']['list'],element.children);

@@ -7,7 +7,6 @@
     method: "getElementById",
     arguments: ["test"],
 };
-
 /**
 * @type RequestObj
 */
@@ -18,7 +17,6 @@ var singleReq = {
     arguments: ["test"],
     callBack: "convertToJSON",
 };
-
 /**
 * @type RequestObj
 */
@@ -27,7 +25,6 @@ var convertToJSON = {
     method: "toJSON",
     arguments: ["fromPrevious", entityModel4Html],
 };
-
 /**
  * @type RequestObj
  */
@@ -36,7 +33,6 @@ var displayJSON = {
     method: "displayDOMJSON",
     arguments: ["fromPrevious"],
 };
-
 /**
  * @type {FlowRequest}
  */
@@ -64,7 +60,6 @@ var actionFlowModelReq = {
         },
     ],
 };
-
 /**
  * @type {RequestObj}
  */
@@ -88,7 +83,6 @@ var nestedFlowModelReq = {
         },
     },
 };
-
 var setInnerHTML = {
     reqName: "getFirstElement",
     objectModel: document,
@@ -119,6 +113,16 @@ var newFileFlowRequest = {
         method:'setAttribute',
         arguments:['fileid','UID']
     },{
+        reqName:'fromLocalStorage',
+        objectModel:'Editor',
+        method:'setAttribute',
+        arguments:['from','LocalStorage']
+    },{
+        reqName:'fromLocalStorage',
+        objectModel:'Editor',
+        method:'setAttribute',
+        arguments:['nameoffile','UID']
+    },{
         reqName: "NewActionStory",
         objectModel: ActionView,
         method: "addInnerHTML",
@@ -128,70 +132,169 @@ var newFileFlowRequest = {
 }
 //save file Flow -  1.get Editor element 2.get FileID from editor attribute 3.getInnerText of editor 4.get file handle from indexDB
 //5. check whether result of (4.) length greater than 0 and stores it in localStorage(new actionStory) 6.create writable 7.update innerText of file using FS8.close writable
-var saveFileFlowRequest = {
+var saveFileFSFlowRequest = {
     flowRequest:[
     {
-
-        reqName:'Editor',//1
-        objectModel: document,
-        method: "getElementById",
-        arguments: ["inlineContent"],
-    },
-    {
-        reqName:"fileID_File",//2
-        objectModel:'Editor',
-        method:'getAttribute',
-        arguments:['fileid']
-    },
-    {
-        validate:{
-            objectModel:operate,
-            method:'isEqual',
-            arguments:['fileID_File.length',0],
-            output:false,
-        },
-        reqName:"FileHandleFromIndexDB",//4
+        reqName:"FileHandleFromIndexDB",//0
         objectModel:indexDB,
         method:'get',
-        arguments:["fileID_File"],
-        exitBeforeExecutingRequest:true
+        arguments:["FileID"],
     },
     {
-        reqName:"getInnerText",//3
-        objectModel:document,
-        method: "getElementById",
-        arguments: ["inlineContent"],
-        andThen:['innerText']
-    },
-    {
-        validate:{
-            objectModel:operate,
-            method:'isNotEmpty',
-            arguments:['FileHandleFromIndexDB'],
-            output:false
-        },
-        reqName:'LocalStorage',//5
-        objectModel:localStorage,
-        method:'setItem',
-        arguments:['fileID_File','getInnerText'],
-        exitAfterExecutingRequest:true
-    },
-    {
-        reqName:"Writable",//6
+        reqName:"Writable",//2
         objectModel:"FileHandleFromIndexDB",
         method:"createWritable",
     },
     {
-        reqName:"writeinFile",//7
+        reqName:"writeinFile",//3
         objectModel:"Writable",
         method:'write',
-        arguments:['getInnerText']
+        arguments:['editor.innerText']
     },
     {
-        reqName:"closeWritable",//8
+        reqName:"closeWritable",//4
         objectModel:"Writable",
         method:'close'
     },
+    ]
+}
+var saveFileGDriveFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'setFILEID',
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({})),'FileID','FileId']
+        },
+        {
+            reqName:'body',
+            objectModel:engine,
+            method:'set',
+            arguments:['setFILEID','editor.innerText','content']
+        },
+        {
+            reqName:'StringifyBody',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:['body']
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["POST",undefined,'StringifyBody']
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:[scriptURL,'RequestBuilder']
+        },
+        {
+            reqName:"checkV1",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response',undefined],
+                output:true
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Couldn't update File in Google Drive !Try Again :-)"],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:"checkV2",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
+                output:false
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:['response.message'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'RequestSuccessful',
+            objectModel:console,
+            method:'log',
+            arguments:['Updated in File in Google Drive :-)']
+        }
+    ]
+}
+var saveFileFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'EditorElement',//1
+            objectModel: document,
+            method: "getElementById",
+            arguments: ["inlineContent"],
+        },
+        {
+            reqName:"ID",//2
+            objectModel:'EditorElement',
+            method:'getAttribute',
+            arguments:['fileid']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['ID.length',0],
+                output:false,
+            },
+            reqName:'SetFileEventObject',
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({})),'EditorElement','editor'],
+            exitBeforeExecutingRequest:true
+        },
+        {
+            reqName:'parameters',
+            objectModel:engine,
+            method:'set',
+            arguments:['SetFileEventObject','ID','FileID']
+        },
+        {
+            validate:{
+                objectModel:'EditorElement',
+                method:'getAttribute',
+                arguments:['from'],
+                output:'LocalStorage',
+            },
+            reqName:'SaveInLocalStorage',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['ID','EditorElement.innerText'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            validate:{
+                objectModel:'EditorElement',
+                method:'getAttribute',
+                arguments:['from'],
+                output:'FS',
+            },
+            reqName:'FSSaveFile',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[saveFileFSFlowRequest,'parameters'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            validate:{
+                objectModel:'EditorElement',
+                method:'getAttribute',
+                arguments:['from'],
+                output:'GDrive',
+            },
+            reqName:'GDriveSaveFile',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[saveFileGDriveFlowRequest,'parameters'],
+        }
     ]
 }
 //Open a File Flow -1.Show file Picker 2.Generate a uid 3.Set that uid to fileHandle 4. make a file entry in myFiles 5.,open in the editor
@@ -215,57 +318,39 @@ var OpenAFileFlowRequest ={
             arguments:["UID","GetAFile"]
         },
         {
-            reqName:'GetFileHandleToFileID',
-            objectModel:indexDB,
-            method:'get',
-            arguments:["UID"]
-        },
-        {
-            reqName:'SetUIDToFileJSON',
+            reqName:'File_JSON',
             objectModel:engine,
             method:'set',
-            arguments:[fileJSON,"UID","id",]
-        },
-        {
-           reqName:"SetNameToLocalStorageFile",
-            validate:{
-                objectModel:operate,
-                method:'isNotEmpty',
-                arguments:["GetAFile"],
-                output:false
-            },
-            objectModel:engine,
-            method:'set',
-            arguments:[fileJSON,"UID","textContent"]
+            arguments:[JSON.parse(JSON.stringify(fileJSON)),"UID","id",]
         },
         {
             reqName:'file',
-            validate:{
-                objectModel:operate,
-                method:'isNotEmpty',
-                arguments:["GetAFile"],
-                output:true
-            },
             objectModel:"GetAFile",
             method:'getFile'
         },
         {
             reqName:'SetNameToFSFile',
-            validate:{
-                objectModel:operate,
-                method:'isNotEmpty',
-                arguments:["GetAFile"],
-                output:true
-            },
             objectModel:engine,
             method:'set',
-            arguments:[fileJSON,"file.name","textContent"]
+            arguments:['File_JSON',"file.name","textContent"]
+        },
+        {
+            reqName:'STRINGIFYJSON',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:[{}]
+        },
+        {
+            reqName:'PARSEJSON',
+            objectModel:JSON,
+            method:'parse',
+            arguments:['STRINGIFYJSON']
         },
         {
             reqName:'input',
             objectModel:engine,
             method:'set',
-            arguments:[JSON.parse(JSON.stringify({})),fileJSON,"UID"]
+            arguments:['PARSEJSON','SetNameToFSFile',"UID"]
         },
         {
             reqName:"myFilesElement",
@@ -298,6 +383,108 @@ var OpenAFileFlowRequest ={
             method:'OpenFileInEditor',
             arguments:['UID']
         },
+    ]
+}
+var GetGDriveFileContentFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'CheckWhetherFileTypeSupportedOrNot',
+            objectModel:ActionView,
+            method:'GDriveFileSupportedInEditor',
+            arguments:['EVENT.target.innerText']
+        },
+        {
+            reqName:'Alert User',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['CheckWhetherFileTypeSupportedOrNot',false],
+                output:true,
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:['Work In Progress !'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'paramsForFileID',
+            objectModel:engine,
+            method:'set',
+            arguments:[{},'EVENT.target.id','FileId']
+        },
+        {
+            reqName:'URLBuilder',
+            objectModel:HttpService,
+            method:'urlBuilder',
+            arguments:[scriptURL,'paramsForFileID']
+        },
+        {
+            reqName:'RequestBuilder',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:["GET"]
+        },
+        {
+            reqName:'response',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLBuilder','RequestBuilder']
+        },
+        {
+            reqName:"checkV1",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response',undefined],
+                output:true
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:["Clouldn't send request to the server . Try Again !"],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:"checkV2",
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['response.result','Success'],
+                output:false
+            },
+            objectModel:window,
+            method:'alert',
+            arguments:['response.message'],
+            exitAfterExecutingRequest:true
+        },
+        {
+            reqName:'EditorElement',
+            objectModel:document,
+            method:'getElementById',
+            arguments:['inlineContent']
+        },
+        {
+            objectModel:'EditorElement',
+            method:'setAttribute',
+            arguments:['fileid','EVENT.target.id']
+        },
+        {
+            reqName:'SetWhereFileIsFrom',
+            objectModel:'EditorElement',
+            method:'setAttribute',
+            arguments:['from','GDrive']
+        },
+        {
+            reqName:'SetWhereFileIsFrom',
+            objectModel:'EditorElement',
+            method:'setAttribute',
+            arguments:['nameoffile','EVENT.target.innerText']
+        },
+        {
+            reqName:'SetEditorText',
+            objectModel:engine,
+            method:'set',
+            arguments:['EditorElement','response.content','innerText']
+        }
     ]
 }
 var OpenADirectoryRequest = {
@@ -375,6 +562,124 @@ var OpenADirectoryRequest = {
             method:'setItem',
             arguments:['UsermyCollection','CollectionElement.innerHTML']
         }
+    ]
+}
+var folderGoogle_ServerFlowRequest = {
+    flowRequest:[
+                {
+                    reqName:'GetfolderName',
+                    objectModel:document,
+                    method: "getElementById",
+                    arguments: ["folderName"],
+                    andThen:['value']
+                },
+                {
+                    validate:{
+                        objectModel:operate,
+                        method:'isEqual',
+                        arguments:['','GetfolderName'],
+                        output:false
+                    },
+                    exitBeforeExecutingRequest:true,
+                    reqName:'SetfolderName',
+                    objectModel:engine,
+                    method:'set',
+                    arguments:[JSON.parse(JSON.stringify({'SearchFolderName':''})),'GetfolderName','SearchFolderName']
+                },
+                {
+                    reqName:'UrlBuilder',
+                    objectModel:HttpService,
+                    method:'urlBuilder',
+                    arguments:[scriptURL,'SetfolderName']
+                },
+                {
+                    reqName:'RequestBuilder',
+                    objectModel:HttpService,
+                    method:'requestBuilder',
+                    arguments:["GET"]
+                },
+                {
+                    reqName:"formElement",
+                    objectModel:document,
+                    method:'getElementById',
+                    arguments:['viewForm']
+                },
+                {
+                    reqName:"RemoveForm",
+                    objectModel:engine,
+                    method:'set',
+                    arguments:["formElement",'','innerHTML']
+                },
+                {
+                    reqName:"Element",
+                    objectModel:document,
+                    method:'getElementById',
+                    arguments:['inlineContent']
+                },
+                { 
+                    reqName:"Set sample story",
+                    objectModel:engine,
+                    method:'set',
+                    arguments:['Element',sampleIntroStory,'innerHTML'],
+                },
+                {
+                    reqName:'Response',
+                    objectModel:HttpService,
+                    method:'fetchRequest',
+                    arguments:['UrlBuilder','RequestBuilder']
+                }, 
+                {
+                    validate:{
+                        objectModel:operate,
+                        method:'isEqual',
+                        arguments:['Response',undefined],
+                        output:false
+                    },
+                    reqName:'CollectionElement',
+                    objectModel:document,
+                    method:'getElementById',
+                    arguments:['myCollection'],
+                    exitBeforeExecutingRequest:true
+                },
+                {
+                    reqName:'UnSuccessfulAttempt',
+                    validate:{
+                        objectModel:operate,
+                        method:'isEqual',
+                        arguments:['Response.result','Success'],
+                        output:false
+                    },
+                    objectModel:window,
+                    method:'alert',
+                    arguments:['Response.output'],
+                    exitAfterExecutingRequest:true
+                },
+                {
+                    reqName:'HTML_JSON',
+                    objectModel:processFSInstance,
+                    method:'jsonForGDriveFolder',
+                    arguments:['Response.output',JSON.parse(JSON.stringify({}))]
+                },
+                {
+                    validate:{
+                        objectModel:'CollectionElement.innerHTML',
+                        method:'includes',
+                        arguments:['HTML_JSON.li.list.id'],
+                        output:false,
+                    },
+                    reqName:'newEntity',
+                    objectModel:ActionView,
+                    method:'newEntity',
+                    //new Entity
+                    arguments:['HTML_JSON','CollectionElement'],
+                    exitBeforeExecutingRequest:true
+                },
+                {
+                    reqName:'SetUsermyCollection',
+                    objectModel:localStorage,
+                    method:'setItem',
+                    arguments:['UsermyCollection','CollectionElement.innerHTML']
+                }
     ]
 }
 var ActionStoryFlowRequest = {
@@ -459,11 +764,28 @@ var ActionStoryFlowRequest = {
 var recentFilesFlowRequest = {
     flowRequest:[
         {
-            reqName:'Fileid',
+            reqName:'Editor',
             objectModel:document,
             method: 'getElementById',
             arguments:['inlineContent'],
-            callBack:{method:'getAttribute',arguments:['fileid']}
+        },
+        {
+            reqName:'FileID',
+            objectModel:'Editor',
+            method:'getAttribute',
+            arguments:['fileid']
+        },
+        {
+            reqName:'FileFrom',
+            objectModel:'Editor',
+            method:'getAttribute',
+            arguments:['from']
+        },
+        {
+            reqName:'NameOfFile',
+            objectModel:'Editor',
+            method:'getAttribute',
+            arguments:['nameOfFile']
         },
         {
             reqName:'SetArrayValue',
@@ -481,7 +803,7 @@ var recentFilesFlowRequest = {
             validate:{
                 objectModel:operate,
                 method:'isEqual',
-                arguments:['Fileid.length',0],
+                arguments:['FileID.length',0],
                 output:false
             },
             reqName:'Array',
@@ -501,12 +823,12 @@ var recentFilesFlowRequest = {
             validate:{
                 objectModel:operate,
                 method:'isInsideArray',
-                arguments:["Fileid",'Array'],//'Array'
+                arguments:["FileID",'Array'],//'Array'
                 output:false
             },
             objectModel:'Array',
             method:'unshift',
-            arguments:['Fileid'],
+            arguments:['FileID'],
             exitBeforeExecutingRequest:true
         },
         {
@@ -533,75 +855,46 @@ var recentFilesFlowRequest = {
             arguments:['Element.childNodes.0']
         },
         {
-            reqName:'FileHandle',
-            objectModel:indexDB,
-            method:'get',
-            arguments:['Fileid']
-        },
-        {
-            reqName:'SetUIDToFileJSON',
+            reqName:'IncludeFileID',
             objectModel:engine,
             method:'set',
-            arguments:[fileJSON,"Fileid","id",]
+            arguments:[JSON.parse(JSON.stringify(fileJSON)),"FileID","id",]
         },
         {
-            reqName:"SetNameToLocalStorageFile",
-             validate:{
-                 objectModel:operate,
-                 method:'isNotEmpty',
-                 arguments:["FileHandle"],
-                 output:false
-             },
-             objectModel:engine,
-             method:'set',
-             arguments:[fileJSON,"Fileid","textContent"]
-        },
-        {
-            reqName:'file',
-            validate:{
-                objectModel:operate,
-                method:'isNotEmpty',
-                arguments:["FileHandle"],
-                output:true
-            },
-            objectModel:"FileHandle",
-            method:'getFile'
-        },
-        {
-            reqName:'SetNameToFSFile',
-            validate:{
-                objectModel:operate,
-                method:'isNotEmpty',
-                arguments:["FileHandle"],
-                output:true
-            },
+            reqName:"IncludeTextContent",
             objectModel:engine,
             method:'set',
-            arguments:[fileJSON,"file.name","textContent"]
+            arguments:['IncludeFileID',"NameOfFile","textContent"]
         },
         {
-            reqName:"StringifyJSON",
+            reqName:'IncludeFileIsFrom',
+            objectModel:engine,
+            method:'set',
+            arguments:["IncludeTextContent",'FileFrom','from']
+        },
+        {
+            reqName:'STRINGIFYJSON',
             objectModel:JSON,
             method:'stringify',
             arguments:[{}]
         },
         {
-            reqName:"ParseJSON",
+            reqName:'PARSEJSON',
             objectModel:JSON,
             method:'parse',
-            arguments:["StringifyJSON"]
+            arguments:['STRINGIFYJSON']
         },
         {
-            reqName:'input',
+            reqName:'inputJSON',
             objectModel:engine,
             method:'set',
-            arguments:["ParseJSON",fileJSON,"Fileid"]
+            arguments:['PARSEJSON','IncludeFileIsFrom',"FileID"]
         },
         {
             reqName:"newEntity",
             objectModel:ActionView,
             method:'newEntity',
-            arguments:['input',"Element"]
+            arguments:['inputJSON',"Element"]
         },
         {
             reqName:'SetRecentFilesLocalStorage',
@@ -1181,17 +1474,40 @@ var everyFileRequest = {
             arguments:[recentFilesFlowRequest]
         },
         {
-            reqName:"EditorElement",
-            objectModel:document,
-            method:'getElementById',
-            arguments:['inlineContent'],
-            callBack:{method:'setAttribute',arguments:['fileid','event.target.id']}//event.target.id to be pushed
-        },
-        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['from','GDrive'],
+                output:false,
+            },
             reqName:"OpenInEditor",
             objectModel:processFSInstance,
             method:'OpenFileInEditor',
             arguments:['event.target.id']//event.target.id to be pushed
+        },
+        {
+            reqName:'SetParamsToGetGDriveFile',
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['from','GDrive'],
+                output:true,
+            },
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({})),'event','EVENT']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['from','GDrive'],
+                output:true,
+            },
+            reqName:'OpenGDriveFileInEditor',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[GetGDriveFileContentFlowRequest,'SetParamsToGetGDriveFile']
         },
         {
             reqName:"Current",
@@ -1199,208 +1515,5 @@ var everyFileRequest = {
             method:'processReq',
             arguments:[ActionStoryFlowRequest]
         }  
-    ]
-}
-var folderGoogle_ServerFlowRequest = {
-    flowRequest:[
-                {
-                    reqName:'GetfolderName',
-                    objectModel:document,
-                    method: "getElementById",
-                    arguments: ["folderName"],
-                    andThen:['value']
-                },
-                {
-                    validate:{
-                        objectModel:operate,
-                        method:'isEqual',
-                        arguments:['','GetfolderName'],
-                        output:false
-                    },
-                    exitBeforeExecutingRequest:true,
-                    reqName:'SetfolderName',
-                    objectModel:engine,
-                    method:'set',
-                    arguments:[JSON.parse(JSON.stringify({'SearchFolderName':''})),'GetfolderName','SearchFolderName']
-                },
-                {
-                    reqName:'UrlBuilder',
-                    objectModel:HttpService,
-                    method:'urlBuilder',
-                    arguments:[scriptURL,'SetfolderName']
-                },
-                {
-                    reqName:'RequestBuilder',
-                    objectModel:HttpService,
-                    method:'requestBuilder',
-                    arguments:["GET"]
-                },
-                {
-                    reqName:"formElement",
-                    objectModel:document,
-                    method:'getElementById',
-                    arguments:['viewForm']
-                },
-                {
-                    reqName:"RemoveForm",
-                    objectModel:engine,
-                    method:'set',
-                    arguments:["formElement",'','innerHTML']
-                },
-                {
-                    reqName:"Element",
-                    objectModel:document,
-                    method:'getElementById',
-                    arguments:['inlineContent']
-                },
-                { 
-                    reqName:"Set sample story",
-                    objectModel:engine,
-                    method:'set',
-                    arguments:['Element',sampleIntroStory,'innerHTML'],
-                },
-                {
-                    reqName:'Response',
-                    objectModel:HttpService,
-                    method:'fetchRequest',
-                    arguments:['UrlBuilder','RequestBuilder']
-                }, 
-                {
-                    validate:{
-                        objectModel:operate,
-                        method:'isEqual',
-                        arguments:['Response',undefined],
-                        output:false
-                    },
-                    reqName:'CollectionElement',
-                    objectModel:document,
-                    method:'getElementById',
-                    arguments:['myCollection'],
-                    exitBeforeExecutingRequest:true
-                },
-                {
-                    reqName:'UnSuccessfulAttempt',
-                    validate:{
-                        objectModel:operate,
-                        method:'isEqual',
-                        arguments:['Response.result','Success'],
-                        output:false
-                    },
-                    objectModel:window,
-                    method:'alert',
-                    arguments:['Response.output'],
-                    exitAfterExecutingRequest:true
-                },
-                {
-                    reqName:'HTML_JSON',
-                    objectModel:processFSInstance,
-                    method:'jsonForGDriveFolder',
-                    arguments:['Response.output',JSON.parse(JSON.stringify({}))]
-                },
-                {
-                    validate:{
-                        objectModel:'CollectionElement.innerHTML',
-                        method:'includes',
-                        arguments:['HTML_JSON.li.list.id'],
-                        output:false,
-                    },
-                    reqName:'newEntity',
-                    objectModel:ActionView,
-                    method:'newEntity',
-                    //new Entity
-                    arguments:['HTML_JSON','CollectionElement'],
-                    exitBeforeExecutingRequest:true
-                },
-                {
-                    reqName:'SetUsermyCollection',
-                    objectModel:localStorage,
-                    method:'setItem',
-                    arguments:['UsermyCollection','CollectionElement.innerHTML']
-                }
-    ]
-}
-var GetGDriveFileContentFlowRequest = {
-    flowRequest:[
-        {
-            reqName:'CheckWhetherFileTypeSupportedOrNot',
-            objectModel:ActionView,
-            method:'GDriveFileSupportedInEditor',
-            arguments:['name']
-        },
-        {
-            reqName:'Alert User',
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['CheckWhetherFileTypeSupportedOrNot',false],
-                output:true,
-            },
-            objectModel:window,
-            method:'alert',
-            arguments:['Work In Progress !'],
-            exitAfterExecutingRequest:true
-        },
-        {
-            reqName:'params',
-            objectModel:engine,
-            method:'set',
-            arguments:[{},'GDrivefileid','FileId']
-        },
-        {
-            reqName:'URLBuilder',
-            objectModel:HttpService,
-            method:'urlBuilder',
-            arguments:[scriptURL,'params']
-        },
-        {
-            reqName:'RequestBuilder',
-            objectModel:HttpService,
-            method:'requestBuilder',
-            arguments:["GET"]
-        },
-        {
-            reqName:'response',
-            objectModel:HttpService,
-            method:'fetchRequest',
-            arguments:['URLBuilder','RequestBuilder']
-        },
-        {
-            reqName:"checkV1",
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['response',undefined],
-                output:true
-            },
-            objectModel:window,
-            method:'alert',
-            arguments:["Clouldn't send request to the server . Try Again !"],
-            exitAfterExecutingRequest:true
-        },
-        {
-            reqName:"checkV2",
-            validate:{
-                objectModel:operate,
-                method:'isEqual',
-                arguments:['response.result','Success'],
-                output:false
-            },
-            objectModel:window,
-            method:'alert',
-            arguments:['response.message'],
-            exitAfterExecutingRequest:true
-        },
-        {
-            reqName:'EditorElement',
-            objectModel:document,
-            method:'getElementById',
-            arguments:['inlineContent']
-        },
-        {
-            reqName:'SetEditorText',
-            objectModel:engine,
-            method:'set',
-            arguments:['EditorElement','response.content','innerText']
-        }
     ]
 }
