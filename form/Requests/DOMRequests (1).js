@@ -224,6 +224,64 @@ var saveFileGDriveFlowRequest = {
         }
     ]
 }
+var saveFileLocalStorageFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'GetNameOfFile',
+            objectModel:'editor',
+            method:'getAttribute',
+            arguments:['nameOfFile'] 
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['GetNameOfFile','FileID'],
+                output:true
+            },
+            reqName:'ActionStoryName',
+            objectModel:window,
+            method:'prompt',
+            arguments:['Enter the Name for Action Story !']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isEqual',
+                arguments:['GetNameOfFile','FileID'],
+                output:true
+            },
+            reqName:'SetNameOfFile',
+            objectModel:'editor',
+            method:'setAttribute',
+            arguments:['nameOfFile','ActionStoryName'] 
+        },
+        {
+            reqName:'SetNameJSONForLS',
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({})),'ActionStoryName','name']
+        },
+        {
+            reqName:'SetDataJSONForLS',
+            objectModel:engine,
+            method:'set',
+            arguments:['SetNameJSONForLS','editor.innerText','data']
+        },
+        {
+            reqName:'StringifyJSONForLS',
+            objectModel:JSON,
+            method:'stringify',
+            arguments:['SetDataJSONForLS']
+        },
+        {
+            reqName:'Store',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['FileID','StringifyJSONForLS']
+        }
+    ]
+}
 var saveFileFlowRequest = {
     flowRequest:[
         {
@@ -264,10 +322,10 @@ var saveFileFlowRequest = {
                 arguments:['from'],
                 output:'LocalStorage',
             },
-            reqName:'SaveInLocalStorage',
-            objectModel:localStorage,
-            method:'setItem',
-            arguments:['ID','EditorElement.innerText'],
+            reqName:'LocalStorageSaveFile',
+            objectModel:engine,
+            method:'processReq',
+            arguments:[saveFileLocalStorageFlowRequest,'parameters'],
             exitAfterExecutingRequest:true
         },
         {

@@ -23,9 +23,10 @@ class processFS{
             var editor = document.getElementById('inlineContent');  
             var openInEditor = false;
         if(localStorage.getItem(id)!== null){
-            ActionView.addInnerText(localStorage.getItem(id),editor);
+            var JSONFromLocalStorage = JSON.parse(localStorage.getItem(id));
+            ActionView.addInnerText(JSONFromLocalStorage.data,editor);
             editor.setAttribute('from','LocalStorage');
-            editor.setAttribute('nameoffile',id);
+            editor.setAttribute('nameoffile',JSONFromLocalStorage.name);
             editor.setAttribute('fileid',id);
         }else{
             var fileHandle = await indexDB.get(id);

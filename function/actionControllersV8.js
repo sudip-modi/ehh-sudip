@@ -166,37 +166,37 @@ class ActionController extends ActionEvent {
            // this.bufferRange = this.bufferRange + entity.code;
             //console.log(this.bufferRange, entity.code);
         
-            match['byCode'] = operate.find(replaceKeyPress, entity.code, 'keys');
-            match['byKey'] = operate.find(replaceKeyPress, entity.key, 'keys');
+            // match['byCode'] = operate.find(replaceKeyPress, entity.code, 'keys');
+            // match['byKey'] = operate.find(replaceKeyPress, entity.key, 'keys');
           
             
-            if (match['byCode'].length == 0 && match['byKey'].length == 0) {
-               //console.log("No match", match, match.length, entity.code)
-                entity.preventDefault(entity);
-                var appendingBuffer = entity.key;
-               // console.log("appending ", entity.key)
+            // if (match['byCode'].length == 0 && match['byKey'].length == 0) {
+            //    //console.log("No match", match, match.length, entity.code)
+            //     entity.preventDefault(entity);
+            //     var appendingBuffer = entity.key;
+            //    // console.log("appending ", entity.key)
                
-            } else {
-                if (match['byCode'].length > 0) {
-                    entity.preventDefault(entity);
-                    var replaceContent = replaceKeyPress[entity.code]['content'];
+            // } else {
+            //     if (match['byCode'].length > 0) {
+            //         entity.preventDefault(entity);
+            //         var replaceContent = replaceKeyPress[entity.code]['content'];
 
-                } else if (match['byKey'].length > 0) {
-                    entity.preventDefault(entity);
-                    var replaceContent = replaceKeyPress[entity.key]['content'];
-                }
+            //     } else if (match['byKey'].length > 0) {
+            //         entity.preventDefault(entity);
+            //         var replaceContent = replaceKeyPress[entity.key]['content'];
+            //     }
                 
                 
-            console.log(replaceContent)
+            // console.log(replaceContent)
 
-                var appendingBuffer = replaceContent;
+            //     var appendingBuffer = replaceContent;
               
-            }
-            console.log("appending ", appendingBuffer, appendingBuffer.length, currentSelection,entity.target)
-            var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + appendingBuffer + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
-            currentSelection.anchorNode.data = response;
-            console.log(response);
-            Caret.moveCaret(window, currentCaret + 1);
+            // }
+            // console.log("appending ", appendingBuffer, appendingBuffer.length, currentSelection,entity.target)
+            // var response = currentSelection.anchorNode.data.substr(0, currentSelection.anchorOffset) + appendingBuffer + currentSelection.anchorNode.data.substr(currentSelection.anchorOffset);
+            // currentSelection.anchorNode.data = response;
+            // console.log(response);
+            // Caret.moveCaret(window, currentCaret + 1);
           
             
         }
@@ -271,44 +271,44 @@ class ActionController extends ActionEvent {
             switch (commandJson[0].command) {
             //invoice operations
                 case 'SubmitInvoice':
-                    event.preventDefault();this.SubmitInvoice(event);break;
+                    event.preventDefault();await this.SubmitInvoice(event);break;
                 case 'NewItem':
-                    event.preventDefault();alert(event.target.innerHTML);this.NewItem(event);break;
+                    event.preventDefault();await this.NewItem(event);break;
                 case 'RemoveItem':
-                    event.preventDefault();this.RemoveItem(event);break;
+                    event.preventDefault();await this.RemoveItem(event);break;
                 case 'form':
-                    event.preventDefault();engine.processReq(viewFormRequest,{'event':event,'entity':commandJson[0].entity});break;
+                    event.preventDefault();await engine.processReq(viewFormRequest,{'event':event,'entity':commandJson[0].entity});break;
                 case 'modal':
-                    ActionView.viewModal(event);break;
+                    await ActionView.viewModal(event);break;
                 case 'closeModal':
-                    ActionView.closeModal(event);break;
+                    await ActionView.closeModal(event);break;
                 //sheet
                 case 'ActionStories':
-                    event.preventDefault();alert(event.target.innerHTML);engine.processReq(GetActionStoriesFlowRequest);break;
+                    event.preventDefault();await engine.processReq(GetActionStoriesFlowRequest);break;
                 case 'importFromSheet':
-                    event.preventDefault();alert(event.target.innerHTML);engine.processReq(importFromSheetFlowRequest);break;
+                    event.preventDefault();await engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':
-                    event.preventDefault();engine.processReq(exportToSheetFlowRequest);break;
+                    event.preventDefault();await engine.processReq(exportToSheetFlowRequest);break;
                 case 'SearchFolder_Google':
-                    event.preventDefault();alert(event.target.innerHTML);engine.processReq(folderGoogle_ServerFlowRequest);break;
+                    event.preventDefault();await engine.processReq(folderGoogle_ServerFlowRequest);break;
                 //signup,login
                 case 'Signup':
-                    event.preventDefault();engine.processReq(SignUpFlowRequest);break;
+                    event.preventDefault();await engine.processReq(SignUpFlowRequest);break;
                 case 'Login':
-                    event.preventDefault();engine.processReq(LoginFlowRequest);break;
+                    event.preventDefault();await engine.processReq(LoginFlowRequest);break;
                 //File System
                 case "new":
-                    engine.processReq(newActionStoryRequest);break;
+                    await engine.processReq(newActionStoryRequest);break;
                 case 'OpenFile':
-                    event.preventDefault();engine.processReq(openAFileRequest);break;
+                    event.preventDefault();await engine.processReq(openAFileRequest);break;
                 case 'OpenDirectory':
-                    event.preventDefault();engine.processReq(OpenADirectoryRequest);break;
+                    event.preventDefault();await engine.processReq(OpenADirectoryRequest);break;
                 case 'file':
-                    event.preventDefault();engine.processReq(everyFileRequest,{"event":event,'from':event.target.getAttribute('from')});break;
+                    event.preventDefault();await engine.processReq(everyFileRequest,{"event":event,'from':event.target.getAttribute('from')});break;
                 case 'FS_Save':
-                    event.preventDefault();engine.processReq(saveFileFlowRequest);break;
+                    event.preventDefault();await engine.processReq(saveFileFlowRequest);break;
                 case 'Redirect':
-                    event.preventDefault();ActionController.onChangeRoute(commandJson[0].entity);break;
+                    event.preventDefault();await ActionController.onChangeRoute(commandJson[0].entity);break;
                 default:
                 // console.log("I don't know such values",event.type);
             }
@@ -390,14 +390,14 @@ class ActionController extends ActionEvent {
             console.log(err);  
         }
     }
-    RemoveItem(){
+    async RemoveItem(){
             event.preventDefault();
             var Id = 'tr' + event.target.getAttribute('id');
             var element = document.getElementById(Id);
             if(element !== null)
                 element.parentNode.removeChild(element);
     }
-    NewItem(){
+    async NewItem(){
         var ItemId = uid();
         var newItem = JSON.parse(JSON.stringify({}));
         newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
