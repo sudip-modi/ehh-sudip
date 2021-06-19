@@ -407,7 +407,7 @@ class ActionController extends ActionEvent {
         var newItem = new Entity(newItem,document.getElementById('tbody'));
     }
     static async createScripts(){
-        var scriptPaths = ['ClientSideAppsScriptFiles/appsscript.json', 'ClientSideAppsScriptFiles/actionEngineEhh.gs', 'ClientSideAppsScriptFiles/GDriveFileFolders.gs', 'ClientSideAppsScriptFiles/operate.gs', 'ClientSideAppsScriptFiles/Server.gs', 'ClientSideAppsScriptFiles/userRequestModels.gs'];
+        var scriptPaths = ['ClientSideAppsScriptFiles/appsscript.json','ClientSideAppsScriptFiles/operate.gs','ClientSideAppsScriptFiles/GDriveFileFolders.gs', 'ClientSideAppsScriptFiles/actionEngineEhh.gs','ClientSideAppsScriptFiles/userRequestModels.gs','ClientSideAppsScriptFiles/Server.gs'];
         var scripts = [];
         await Entity.walk(scriptPaths,
           {
