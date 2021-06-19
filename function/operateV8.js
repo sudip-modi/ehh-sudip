@@ -184,4 +184,7 @@ class operate {
     static ArrayEqual(array1,array2){
         return JSON.stringify(array1) == JSON.stringify(array2);
     }
+    static trueTypeOf(obj) {
+        return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+    }
 }

@@ -173,16 +173,10 @@ var saveFileGDriveFlowRequest = {
             arguments:['setFILEID','editor.innerText','content']
         },
         {
-            reqName:'StringifyBody',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:['body']
-        },
-        {
             reqName:'RequestBuilder',
             objectModel:HttpService,
             method:'requestBuilder',
-            arguments:["POST",undefined,'StringifyBody']
+            arguments:["POST",undefined,'body']
         },
         {
             reqName:'response',
@@ -818,6 +812,169 @@ var ActionStoryFlowRequest = {
         },    
     ]
 }
+var publishAppscriptProjectFlowRequest = {
+    flowRequest:[
+        {
+            reqName:'AuthorizationToken',
+            objectModel:Authorization,
+            method:'authToken',
+        },
+        {
+            reqName:'RenderActionSpace',
+            objectModel:ActionController,
+            method:'onChangeRoute',
+            arguments:['action']
+        },
+        {
+            reqName:'headerJSON',
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({'Accept':'application/json'})),'AuthorizationToken','Authorization']
+        },
+        {
+            reqName:'RequestToCopySheets',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:['POST','headerJSON',undefined,JSON.parse(JSON.stringify({withCredentials:true, credentials: 'include'}))]
+        },
+        {
+            reqName:'ResponseToCopySheets',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['https://www.googleapis.com/drive/v2/files/1qTU9AIyukBXFNrgITRlPoDQEjhkWz_E_bUm5uqmLu4g/copy','RequestToCopySheets']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:['ResponseToCopySheets'],
+                output:true
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'BodyJSONToCreateProject',
+            objectModel:engine,
+            method:'set',
+            arguments:[JSON.parse(JSON.stringify({"title":"ActionSpaceEditor"})),'ResponseToCopySheets.id','parentId']
+        },
+        {
+            reqName:'RequestToCreateProject',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:['POST','headerJSON','BodyJSONToCreateProject',JSON.parse(JSON.stringify({withCredentials:true}))]
+        },
+        {
+            reqName:'ResponseToCreateProject',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:["https://script.googleapis.com/v1/projects/",'RequestToCreateProject']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:['ResponseToCreateProject'],
+                output:true
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'URLToCreateScripts',
+            objectModel:operate,
+            method:'add',
+            arguments:['https://script.googleapis.com/v1/projects/','ResponseToCreateProject.scriptId','/content']
+        },
+        {
+            reqName:'obj',
+            objectModel:ActionController,
+            method:'createScripts'
+        },
+        {
+            reqName:'RequestToCreateScripts',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:['PUT','headerJSON',"obj",JSON.parse(JSON.stringify({withCredentials:true}))]
+        },
+        {
+            reqName:'ResponseToCreateScripts',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLToCreateScripts','RequestToCreateScripts']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:['ResponseToCreateScripts'],
+                output:true
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'URLToCreateVersion',
+            objectModel:operate,
+            method:'add',
+            arguments:["https://script.googleapis.com/v1/projects/",'ResponseToCreateProject.scriptId',"/versions"]
+        },
+        {
+            reqName:'RequestToCreateVersion',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:['POST','headerJSON',JSON.parse(JSON.stringify({versionNumber:1,description:"ActionSpaceScriptsV1"})),JSON.parse(JSON.stringify({withCredentials:true}))]
+        },
+        {
+            reqName:'ResponseToCreateVersion',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLToCreateVersion','RequestToCreateVersion']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:['ResponseToCreateVersion'],
+                output:true
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'URLToDeployProject',
+            objectModel:operate,
+            method:'add',
+            arguments:["https://script.googleapis.com/v1/projects/",'ResponseToCreateProject.scriptId',"/deployments"]
+        },
+        {
+            reqName:'RequestToDeployProject',
+            objectModel:HttpService,
+            method:'requestBuilder',
+            arguments:['POST','headerJSON',JSON.parse(JSON.stringify({versionNumber:1, manifestFileName:"appsscript",description:"ActionSpaceScriptsV1"})),JSON.parse(JSON.stringify({withCredentials:true}))]
+        },
+        {
+            reqName:'ResponseToDeployProject',
+            objectModel:HttpService,
+            method:'fetchRequest',
+            arguments:['URLToDeployProject','RequestToDeployProject']
+        },
+        {
+            validate:{
+                objectModel:operate,
+                method:'isNotEmpty',
+                arguments:['ResponseToCreateVersion'],
+                output:true
+            },
+            exitBeforeExecutingRequest:true,
+            reqName:'DeployedURL',
+            objectModel:operate,
+            method:'add',
+            arguments:['https://script.google.com/macros/s/','ResponseToDeployProject.deploymentId','/exec']
+        },
+        {
+            reqName:'SetClientNodeURL',
+            objectModel:localStorage,
+            method:'setItem',
+            arguments:['ClientNodeURL','DeployedURL']
+        },
+        {
+            reqName:'InformUserAboutStatus',
+            objectModel:window,
+            method:'alert',
+            arguments:['Your Appscript project has been deployed. :-)']
+        }
+    ]
+}
 //RecentFiles flow
 var recentFilesFlowRequest = {
     flowRequest:[
@@ -1101,16 +1258,10 @@ var SignUpFlowRequest = {
             arguments:[paramsJSON,'GetPassword','Password']
         },
         {
-            reqName:'PostContent',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:["SetPassword"]
-        },
-        {
             reqName:'RequestBuilder',
             objectModel:HttpService,
             method:'requestBuilder',
-            arguments:["POST",undefined,'PostContent']
+            arguments:["POST",undefined,"SetPassword"]
         },
         {
             reqName:'response',
@@ -1122,9 +1273,9 @@ var SignUpFlowRequest = {
             reqName:"check",
             validate:{
                 objectModel:operate,
-                method:'isEqual',
-                arguments:['response',undefined],
-                output:true
+                method:'isNotEmpty',
+                arguments:['response'],
+                output:false
             },
             objectModel:window,
             method:'alert',
@@ -1150,16 +1301,16 @@ var SignUpFlowRequest = {
             arguments:['LoggedIn',true],
         },
         {
-            reqName:'RedirectingToActionSpaceEditor',
+            reqName:'Click on Self-Invite for setup',
             validate:{
                 objectModel:operate,
                 method:'isEqual',
                 arguments:['response.result','Success'],
                 output:true
             },
-            objectModel: ActionController,
-            method:'onChangeRoute',
-            arguments:["action"],
+            objectModel:window,
+            method:'alert',
+            arguments:['Click on Self-Invite for setup']
         }
     ]
 }
@@ -1411,16 +1562,10 @@ var exportToSheetFlowRequest = {
             arguments:[exportToSheetparamsJSON,'GetSheetName','SheetName']
         },
         {
-            reqName:'stringifyParams',
-            objectModel:JSON,
-            method:'stringify',
-            arguments:[exportToSheetparamsJSON]
-        },
-        {
             reqName:'RequestBuilder',
             objectModel:HttpService,
             method:'requestBuilder',
-            arguments:["POST",undefined,'stringifyParams']
+            arguments:["POST",undefined,exportToSheetparamsJSON]
         },
         {
             reqName:'response',

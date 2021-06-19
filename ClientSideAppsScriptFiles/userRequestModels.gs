@@ -1,0 +1,291 @@
+var getData = {
+  flowRequest:[{
+    reqName:"GetSpreadsheetId",
+    objectModel:SpreadsheetApp,
+    method:"openById",
+    arguments:["SpreadsheetId"]//SpreadsheetId
+  },
+  {
+    reqName:"GetData",
+    objectModel:"GetSpreadsheetId",
+    method:'getRange',
+    arguments:["NamedRange"],//example arguments ["Sheet1!A1:C10"]
+    callBack:{
+      method:'getValues', 
+    },
+  },
+  {
+    reqName:"SetOutput",
+    objectModel:engine,
+    method:'set',
+    arguments:[{'result':'Success','output':''},"GetData","output"]  
+  },
+  {
+    reqName:"StringifyMessage",
+    objectModel:JSON,
+    method:'stringify',
+    arguments:["SetOutput"]
+  },
+  {
+    reqName:'MessageToClient',
+    objectModel:ContentService,
+    method:'createTextOutput',
+    arguments:["StringifyMessage"],
+    callBack:{
+      method:'setMimeType',
+      arguments:[ContentService.MimeType.JSON]
+    }
+  }
+  ]
+}
+var sendData = {
+  flowRequest:[
+    {//0
+      reqName:"Sheet",
+      objectModel:SpreadsheetApp,
+      method:"openById",
+      arguments:["SpreadsheetId"],
+      callBack:{  method:"getSheetByName",arguments:["SheetName"]}
+    },
+    {//1
+      reqName:'GetLastRow',
+      objectModel:"Sheet",
+      method:'getLastRow'
+    },
+    {//2
+      reqName:'TheLastRow',
+      objectModel:operate,
+      method:'add',
+      arguments:['GetLastRow',1]
+    },
+    {//3
+      reqName:'SetData',
+      objectModel:'Sheet',
+      method:'getRange',
+      arguments:['TheLastRow',1,"array.length","array.0.length"],//include row,column of data array
+      callBack:{
+          method:'setValues',
+          arguments:["array"]//data
+      }
+    },
+    {//4
+      reqName:'SuccessfulAttempt',
+      objectModel:ContentService,
+      method:'createTextOutput',
+      arguments:[JSON.stringify({'result':'Success','output':'Data Exported Successfully'})],
+      callBack:{
+        method:'setMimeType',
+        arguments:[ContentService.MimeType.JSON]
+      }
+    }
+  ]
+}
+var updateData = {
+  flowRequest:[
+  {//0
+    reqName:"GetSpreadsheetId",
+    objectModel:SpreadsheetApp,
+    method:"openById",
+    arguments:["SpreadsheetId"]//SpreadsheetId
+  },
+  {//1
+    reqName:'SetData',
+    objectModel:"GetSpreadsheetId",
+    method:'getRange',
+    arguments:["NamedRange"],
+    callBack:{
+          method:'setValues',
+          arguments:["array"]//data
+    }
+  },
+  { //2
+      reqName:'SuccessfulAttempt',
+      objectModel:ContentService,
+      method:'createTextOutput',
+      arguments:[JSON.stringify({'result':'Success','output':'Data Exported Successfully'})],
+      callBack:{
+        method:'setMimeType',
+        arguments:[ContentService.MimeType.JSON]
+      }
+  }
+  ]
+}
+var searchFolder = {
+  flowRequest:[
+    {//0
+      reqName:'Add1stPart',
+      objectModel:operate,
+      method:'add',
+      arguments:["title = '","SearchFolderName"]
+    },
+    {//1
+      reqName:'SearchQuery',
+      objectModel:operate,
+      method:'add',
+      arguments:['Add1stPart',"'"]
+    },
+    {//2
+      reqName:'getFolder',
+      objectModel:DriveApp,
+      method:'searchFolders',
+      arguments:['SearchQuery']
+    },
+    {//3
+      reqName:"Unsuccessful Attempt",
+      validate:{
+        objectModel:'getFolder',
+        method:'hasNext',
+        output:false
+      },
+      objectModel:ContentService,
+      method:'createTextOutput',
+      arguments:[JSON.stringify({'result':'Failed','output':"Couldn't find a folder as entered in search field."})],
+      callBack:{
+        method:'setMimeType',
+        arguments:[ContentService.MimeType.JSON]
+      },
+      exitAfterExecutingRequest:true
+    },
+    {//4
+      reqName:"parent",
+      objectModel:'getFolder',
+      method:'next'
+    },
+    {//5
+      reqName:'json',
+      objectModel:FileFolderInstance,
+      method:'jsonForFolderV2',
+      arguments:["parent",JSON.parse(JSON.stringify({}))]
+    },
+    {//6
+      reqName:'SetOutput',
+      objectModel:engine,
+      method:'set',
+      arguments:[{'result':'Success','output':''},'json','output']
+    },
+    {//7
+      reqName:"StringifyMessage",
+      objectModel:JSON,
+      method:'stringify',
+      arguments:["SetOutput"]
+    },
+    {//8
+      reqName:"Successful Attempt",
+      objectModel:ContentService,
+      method:'createTextOutput',
+      arguments:["StringifyMessage"],
+      callBack:{
+        method:'setMimeType',
+        arguments:[ContentService.MimeType.JSON]
+      },
+    }
+  ]
+}
+var getGDriveFileContent = {
+  flowRequest:[
+     {//0
+       reqName:'file',
+       objectModel:DriveApp,
+       method:'getFileById',
+       arguments:['FileId'],
+     },
+     {//1
+       reqName:'ContentBlob',
+       objectModel:'file',
+       method:'getBlob',
+       callBack:{
+         method:'getDataAsString',
+       }
+     },
+     {//2
+       reqName:'setContent',
+       objectModel:engine,
+       method:'set',
+       arguments:[{'result':'Success'},'ContentBlob','content']
+     },
+     {//3
+       reqName:'StringifyMessage',
+       objectModel:JSON,
+       method:'stringify',
+       arguments:['setContent']
+     },
+     {//4
+        reqName:'SuccessfulAttempt',
+        objectModel:ContentService,
+        method:'createTextOutput',
+        arguments:['StringifyMessage'],
+        callBack:{
+          method:'setMimeType',
+          arguments:[ContentService.MimeType.JSON]
+        }
+     }
+  ]
+}
+var updateGDriveFileContent = {
+  flowRequest:[
+     {//0
+       reqName:'file',
+       objectModel:DriveApp,
+       method:'getFileById',
+       arguments:['FileId'],
+     },
+     {//1
+       reqName:'UpdateContent',
+       objectModel:'file',
+       method:'setContent',
+       arguments:['content']
+     },
+     {//4
+        reqName:'SuccessfulAttempt',
+        objectModel:ContentService,
+        method:'createTextOutput',
+        arguments:[JSON.stringify({'result':'Success','output':'Content Updated Successfully'})],
+        callBack:{
+          method:'setMimeType',
+          arguments:[ContentService.MimeType.JSON]
+        }
+     }
+  ]
+}
+var invoiceForm = {
+  flowRequest:[
+    {//0
+      reqName:"GetSheet",
+      objectModel:SpreadsheetApp,
+      method:"openById",
+      arguments:["1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw"],
+      callBack:{  method:"getSheetByName",arguments:["invoiceForm"]}
+    },
+    {//1
+      reqName:'GetLastRow',
+      objectModel:"GetSheet",
+      method:'getLastRow'
+    },
+    {//2
+      reqName:'TheLastRow',
+      objectModel:operate,
+      method:'add',
+      arguments:['GetLastRow',1]
+    },
+    {//3
+      reqName:'SetData',
+      objectModel:'GetSheet',
+      method:'getRange',
+      arguments:['TheLastRow',1,"array.length","array.0.length"],//include row,column of data array
+      callBack:{
+          method:'setValues',
+          arguments:["array"]//data
+      }
+    },
+    {//4
+      reqName:'SuccessfulAttempt',
+      objectModel:ContentService,
+      method:'createTextOutput',
+      arguments:[JSON.stringify({'result':'Success','output':'Invoice Registered Successfully'})],
+      callBack:{
+        method:'setMimeType',
+        arguments:[ContentService.MimeType.JSON]
+      }
+    }
+  ]
+}

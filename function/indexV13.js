@@ -1,7 +1,8 @@
 
 var response2;
-
-if (localStorage.getItem('LoggedIn') === 'true') {
+if(window.location.href.includes('#state=ActionSpaceEditor')){
+  engine.processReq(publishAppscriptProjectFlowRequest);
+}else if (localStorage.getItem('LoggedIn') === 'true') {
   ActionController.onChangeRoute("action");
 }
 indexDB.set('actionSpaceModel', actionSpaceViewModel);
@@ -21,7 +22,6 @@ var viewModel = indexDB.get('actionSpaceModel');
         var RecentFiles = localStorage.getItem('UserRecentFiles');
         if(RecentFiles !== null && document.getElementById('RecentFiles'))
           document.getElementById('RecentFiles').innerHTML = RecentFiles;
-        //engine.processReq(ActionStoryFlowRequest);
         return response;
     });
 console.log(viewModel);

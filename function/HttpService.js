@@ -1,3 +1,30 @@
+var Authorize = {
+    'google':{
+       'url':'https://accounts.google.com/o/oauth2/v2/auth',
+       'params':{
+          'client_id': '404726625126-noedidct06k8git9d3c0eubjinnklv9i.apps.googleusercontent.com',
+          'redirect_uri':'http://127.0.0.1:5502/indexV13.html',//'http://localhost/publishingsheetsapi/publish.html'
+          'scope': "https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/drive",
+          'state': 'ActionSpaceEditor',
+          'include_granted_scopes': 'true',
+          'prompt':'consent',
+          'response_type': 'token'
+       }
+    }
+ };
+ class Authorization{
+     static oAuth(event,data){
+         event.preventDefault();console.log("In oAuth()");
+         var service = HttpService.urlBuilder(Authorize[data]['url'],Authorize[data]['params']);
+         console.log(service);
+         window.location.href = service;
+     }
+     static authToken(){
+         var service = HttpService.unbuildEndodedUri(window.location.href);
+         var authorization = service['token_type'] +" "+service['access_token'];
+         return authorization;
+     }
+ }
 const boundary = '-------314159265358979323846';
 const delimiter = "\r\n--" + boundary + "\r\n";
 const close_delim = "\r\n--" + boundary + "--";
@@ -6,15 +33,18 @@ class HttpService{
         var service = url +"?" +HttpService.buildEncodedUri(params);
         return service;
     }
-    static requestBuilder(method,headers,body){
+    static requestBuilder(method,headers,body,otherProperties={}){
         var request = {
             method:method,
             cache: 'no-cache',
         }
+        if(Object.keys(otherProperties).length > 0){
+            request = {...request,...otherProperties};
+        }
         if(headers !== undefined)
             request['headers'] = headers;
         if(body !== undefined)
-            request['body'] = body;                       
+            request['body'] = JSON.stringify(body);                       
         return request;
     }
     static async FileUpload(file,appDataFolder) {
@@ -40,22 +70,35 @@ class HttpService{
           reader.onerror = error => reject(error);
         });
     }
-    static async fetchRequest(url,request){
+    static async fetchRequest(url,request,text=false){
     var res;
    // console.log("URL :-" + url);
     await fetch(url,request)
-           .then(response=>{return response.json()})
-           .then(data=>{
-                 console.log(data);
-                 if(!data.errors){
-                     res = data;
-                }else{
-                    console.log(data.errors);
-                }
+            .then(response=>{
+               if(text){
+                    var result = response.text();
+                    var result2;
+                    try{
+                        result2 = JSON.parse(result);
+                    }catch(err){
+                        result2 = result;
+                    }
+                    return result2;
+               }else{
+                   return response.json();
+               }
+            })
+            .then(data=>{
+                  if(!data.error){
+                       res = data;
+                  }else{
+                      console.log(data.error);
+                  }
             })
             .catch(err=>{
                 console.log("Error:- " + err);
-            })
+            });  
+          return res;
     return res;
     }
     static buildEncodedUri(request) {

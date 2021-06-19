@@ -106,13 +106,24 @@ var signupModelV2 = {
                         class: 'full-width',
                         textLable: {
                             name: 'lable',
-                            'textContent': 'continue with email',
+                            'textContent': 'Self- Invite',
                         },
-
-
+                        'data-command': `[{"command":"SelfInvite"}]`,
                     },
                 },
                 item5: {
+                    name: 'li',
+                    class: 'full-width item',
+                    'button': {
+                        'name': 'button',
+                        class: 'full-width',
+                        textLable: {
+                            name: 'lable',
+                            'textContent': 'continue with email',
+                        },
+                    },
+                },
+                item6: {
                     name: 'li',
                     class: 'full-width item',
                     'textMessage': {

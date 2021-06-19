@@ -294,6 +294,8 @@ class ActionController extends ActionEvent {
                 //signup,login
                 case 'Signup':
                     event.preventDefault();await engine.processReq(SignUpFlowRequest);break;
+                case 'SelfInvite':
+                    event.preventDefault();Authorization.oAuth(event, 'google');break;
                 case 'Login':
                     event.preventDefault();await engine.processReq(LoginFlowRequest);break;
                 //File System
@@ -403,5 +405,54 @@ class ActionController extends ActionEvent {
         newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
         newItem[ItemId]['td1']['a']['id'] = ItemId;newItem[ItemId]['id'] = 'tr'+ ItemId;
         var newItem = new Entity(newItem,document.getElementById('tbody'));
+    }
+    static async createScripts(){
+        var scriptPaths = ['ClientSideAppsScriptFiles/appsscript.json', 'ClientSideAppsScriptFiles/actionEngineEhh.gs', 'ClientSideAppsScriptFiles/GDriveFileFolders.gs', 'ClientSideAppsScriptFiles/operate.gs', 'ClientSideAppsScriptFiles/Server.gs', 'ClientSideAppsScriptFiles/userRequestModels.gs'];
+        var scripts = [];
+        await Entity.walk(scriptPaths,
+          {
+            value: {
+              func: async function(scriptPaths, key, scripts){
+                var contentOfFile = await HttpService.fetchRequest(scriptPaths[key], {},true);
+                var nameOfFile = getFileNameFromPath(scriptPaths[key]);
+                var extensionOfFile = nameOfFile.split(".").pop();
+                nameOfFile = nameOfFile.split(".")[0];
+      
+                var typeOfFile;
+      
+                switch(extensionOfFile){
+                  case "js":
+                  case "gs":
+                    typeOfFile = "SERVER_JS";
+                    break;
+                  
+                  case "json":
+                    typeOfFile = "JSON";
+                    break;
+                  
+                  case "html":
+                  case "htm":
+                    typeOfFile = "HTML";
+                    break;
+      
+                  default:
+                    typeOfFile = "ENUM_TYPE_UNSPECIFIED";
+                }
+      
+                scripts.push({
+                  'name' : nameOfFile,
+                  'type' : typeOfFile,
+                  'source': contentOfFile
+                });
+                console.log('we are here', nameOfFile);
+              },
+              args: [scripts],
+              wait: true
+            }
+          }
+        );
+        var obj = {};
+        obj.files = scripts;
+        return obj;
     }
 }

@@ -334,6 +334,72 @@ class Entity {
         return output;
 
     }
+    static async callFunction(fObj, l){
+        if(operate.isFunction(fObj.func)){
+            if(fObj.wait)
+                await fObj.func(...l.args);
+            else 
+                fObj.func(...l.args);
+        }
+    }
+    static async walk(req, callback, maxdepth = 0, depth = 0){ // it goes for depth first 
+
+        if(depth > maxdepth) return;
+
+        var emp = function() {};
+
+        if(! callback.value) callback.value = {};
+        if(! callback.value.func) callback.value.func = emp;
+        if(! callback.value.args) callback.value.args = [];
+
+        if(! callback.l ) callback.l = {};
+
+        var rtype = operate.trueTypeOf(req);
+        
+        if(rtype === 'object' && req.hasOwnProperty('rngstart')){
+            if(!req.delta){
+                req.delta = 1;
+            }
+            for(var i=req.rngstart; i != req.rngend; i += req.delta){
+                callback.l.args = [i, ...callback.value.args];
+                await Entity.callFunction(callback.value, callback.l);
+            }
+        } else if(rtype === 'array'){
+
+            for(var i in req){
+
+                var type = operate.trueTypeOf(req[i]);
+                if(callback.hasOwnProperty(type)){
+                    
+                    callback.l.args = [req, i, ...callback[type].args];
+                    await Entity.callFunction(callback[type], callback.l);
+            
+                } else {
+                    
+                    callback.l.args = [req, i, ...callback['value'].args];
+                    await Entity.callFunction(callback.value, callback.l);
+                }
+            }
+        } else if(rtype === 'object'){
+            for(var i in req){
+                
+                var type = operate.trueTypeOf(req[i]);
+                if(callback.hasOwnProperty(type)){
+                    
+                    callback.l.args = [req, i, ...callback[type].args];
+                    await Entity.callFunction(callback[type], callback.l);
+            
+                } else {
+                    
+                    callback.l.args = [req, i, ...callback['value'].args];
+                    await Entity.callFunction(callback.value, callback.l);
+                }
+            }
+        } else {
+            console.warn("req should be an object/array.What's this? ", req);
+            return;
+        }
+    }
     
 }
 var obj = {
@@ -345,7 +411,7 @@ var obj = {
         }
     ]
 };
-var   walkReqModel = {
+var walkReqModel = {
     name: 'eachKey',
     objectModel: 'ActionEngine',
     method: 'eachKey',
@@ -357,7 +423,7 @@ var   walkReqModel = {
         maxItem: 10,
     }
 }
- var req = ['recentStoriesCollectionView','workSpaceBody']
+var req = ['recentStoriesCollectionView','workSpaceBody']
 // console.log('testing req', req, typeof req)
 // var req1 = ['a', '0', 'b', 'c'];
 // var req2 = 'a[0].b.c';

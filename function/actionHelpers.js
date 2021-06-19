@@ -10,6 +10,9 @@
 function getFuncName() {
     return getFuncName.caller.name
 }
+function getFileNameFromPath(str) {
+    return str.split('\\').pop().split('/').pop();
+}
 function* createIndex() {
     let number = 1;
     while (true)
