@@ -297,7 +297,7 @@ class ActionController extends ActionEvent {
                 case 'SelfInvite':
                     event.preventDefault();Authorization.oAuth(event, 'google');break;
                 case 'Login':
-                    event.preventDefault();await engine.processReq(LoginFlowRequest);break;
+                    event.preventDefault();await engine.processRequest('loginRequest',{},true);break;//await engine.processReq(LoginFlowRequest);
                 //File System
                 case "new":
                     await engine.processReq(newActionStoryRequest);break;
@@ -404,12 +404,12 @@ class ActionController extends ActionEvent {
         var newItem = JSON.parse(JSON.stringify({}));
         newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
         newItem[ItemId]['td1']['a']['id'] = ItemId;newItem[ItemId]['id'] = 'tr'+ ItemId;
-        var newItem = new Entity(newItem,document.getElementById('tbody'));
+        var newItem = new EntityV1(newItem,document.getElementById('tbody'));
     }
     static async createScripts(){
         var scriptPaths = ['ClientSideAppsScriptFiles/appsscript.json','ClientSideAppsScriptFiles/operate.gs','ClientSideAppsScriptFiles/GDriveFileFolders.gs', 'ClientSideAppsScriptFiles/actionEngineEhh.gs','ClientSideAppsScriptFiles/userRequestModels.gs','ClientSideAppsScriptFiles/Server.gs'];
         var scripts = [];
-        await Entity.walk(scriptPaths,
+        await EntityV1.walk(scriptPaths,
           {
             value: {
               func: async function(scriptPaths, key, scripts){

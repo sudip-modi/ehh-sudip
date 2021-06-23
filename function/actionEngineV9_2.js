@@ -52,7 +52,7 @@ class Validators {
  *   ]
  * }
  */
-class ActionEngine {
+class ActionEngineV1 {
     constructor() {
         this._flowResultState={};
     }
@@ -377,4 +377,4 @@ class ActionEngine {
         });
     }
 }
-var engine = new ActionEngine();
+var engine = new ActionEngineV1();

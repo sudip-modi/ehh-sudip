@@ -21,7 +21,7 @@ var singleReq = {
 * @type RequestObj
 */
 var convertToJSON = {
-    objectModel: Entity,
+    objectModel: EntityV1,
     method: "toJSON",
     arguments: ["fromPrevious", entityModel4Html],
 };
@@ -29,7 +29,7 @@ var convertToJSON = {
  * @type RequestObj
  */
 var displayJSON = {
-    objectModel: Entity,
+    objectModel: EntityV1,
     method: "displayDOMJSON",
     arguments: ["fromPrevious"],
 };
@@ -757,7 +757,7 @@ var ActionStoryFlowRequest = {
         },
         {
             reqName:'json',
-            objectModel:Entity,
+            objectModel:EntityV1,
             method:'toJSON',
             arguments:["Editor",actionStory2HTML]
         },

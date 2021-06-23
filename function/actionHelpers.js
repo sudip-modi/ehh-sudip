@@ -67,18 +67,18 @@ class process {
           //  console.log("found",key,input[key])
             if (operate.is(value) === 'Object') {
                 // console.log("Object",output);
-                var buffer = Entity.create(input, output, value.name);
+                var buffer = EntityV1.create(input, output, value.name);
                 process.iterateObj(input[key], buffer, key, value)
-                Entity.append(buffer, output);
+                EntityV1.append(buffer, output);
             } else if (operate.is(value) === 'Array') {
                 //  console.log("foundArray", key)
-                var buffer = Entity.create(input, output, key);
+                var buffer = EntityV1.create(input, output, key);
                 process.iterateArr(input[key], buffer, key, value)
-                Entity.append(buffer, output);
+                EntityV1.append(buffer, output);
                 // console.log('Array',key, value, buffer);
             } else if (operate.is(value) === 'String' || operate.is(value) === 'Boolean') {
                 //  console.log('String',key, value,output);
-                Entity.set(input, output, key, value);
+                EntityV1.set(input, output, key, value);
                 //Entity.set(input,this.entity,key,value);           
             }
 
@@ -94,9 +94,9 @@ class process {
 
             if (operate.is(input[i]) === 'Object') { //console.log("Object in array",response)
 
-                var response = Entity.create(input[i], output, input[i].name);
+                var response = EntityV1.create(input[i], output, input[i].name);
                 process.iterateObj(input[i], response, input[i].name,)
-                Entity.append(response, output);
+                EntityV1.append(response, output);
 
             } else if (operate.is(input[i]) === 'Array') { // console.log("found Array", key, input[key])
 

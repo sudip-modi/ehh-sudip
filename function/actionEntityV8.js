@@ -29,7 +29,7 @@ class entityCollection {
         return
     }
 }
-class Entity {
+class EntityV1 {
     constructor(input, output) {
     //    console.log("entity", input, output)
         this.input = input;
@@ -168,7 +168,7 @@ class Entity {
              */
            
             // Get the path as an array
-        path = Entity.stringToPath(path);
+        path = EntityV1.stringToPath(path);
         console.log(path)
             // Cache the current object
             var current = obj;
@@ -261,7 +261,7 @@ class Entity {
                         //checking if the value has a dot in it. Normally used to add Scope before a method
                         //get the string Object from the window.
                         
-                        var buffer = Entity.get(req['argument'][0][key], window);
+                        var buffer = EntityV1.get(req['argument'][0][key], window);
                         //console.log("found Object", key, req[key],)
                       
                         if (operate.isUseless(buffer) === false) {
@@ -274,7 +274,7 @@ class Entity {
                             //  console.log("recurse", req['argument'][0][key])
                             var newWalkModelReq = walkReqModel;
                             newWalkModelReq['argument'] = [req['argument'][0][key]];
-                            Entity.walk(newWalkModelReq);
+                            EntityV1.walk(newWalkModelReq);
                         }
 
 
@@ -362,7 +362,7 @@ class Entity {
             }
             for(var i=req.rngstart; i != req.rngend; i += req.delta){
                 callback.l.args = [i, ...callback.value.args];
-                await Entity.callFunction(callback.value, callback.l);
+                await EntityV1.callFunction(callback.value, callback.l);
             }
         } else if(rtype === 'array'){
 
@@ -372,12 +372,12 @@ class Entity {
                 if(callback.hasOwnProperty(type)){
                     
                     callback.l.args = [req, i, ...callback[type].args];
-                    await Entity.callFunction(callback[type], callback.l);
+                    await EntityV1.callFunction(callback[type], callback.l);
             
                 } else {
                     
                     callback.l.args = [req, i, ...callback['value'].args];
-                    await Entity.callFunction(callback.value, callback.l);
+                    await EntityV1.callFunction(callback.value, callback.l);
                 }
             }
         } else if(rtype === 'object'){
@@ -387,12 +387,12 @@ class Entity {
                 if(callback.hasOwnProperty(type)){
                     
                     callback.l.args = [req, i, ...callback[type].args];
-                    await Entity.callFunction(callback[type], callback.l);
+                    await EntityV1.callFunction(callback[type], callback.l);
             
                 } else {
                     
                     callback.l.args = [req, i, ...callback['value'].args];
-                    await Entity.callFunction(callback.value, callback.l);
+                    await EntityV1.callFunction(callback.value, callback.l);
                 }
             }
         } else {

@@ -29,7 +29,7 @@ class indexDB{
      * @param customStore Method to get a custom store. Use with caution (see the docs).
      */
     static get(key, customStore = indexDB.defaultGetStore()) {
-       return customStore('readwrite', (store) => ActionEngine.promisifyRequest(store.get(key)))
+       return customStore('readwrite', (store) => ActionEngineV1.promisifyRequest(store.get(key)))
     }
     /**
      * Set a value with a key.
@@ -41,7 +41,7 @@ class indexDB{
     static set(key, value, customStore = indexDB.defaultGetStore()) {
         return customStore('readwrite', (store) => {
             store.put(value, key);
-            return ActionEngine.promisifyRequest(store.transaction);
+            return ActionEngineV1.promisifyRequest(store.transaction);
         });
     }
     
