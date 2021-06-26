@@ -110,15 +110,12 @@ var loginRequest = [
     },
     {
         response:'ParametersForLoginRequest',
-         declare:{paramsJSON:{}},
-         callback:{
         declare:{
             'paramsJSON':{
                 'Username':'$l.GetUsername.value',
                 'Password':'$l.GetPassword.value'
             }
         }
-         }
     },
     {
         response:'URLBuilder',
@@ -262,13 +259,13 @@ var importFromSheetRequest = [
         response:'FormElement',
         objectModel:'document',
         method: "getElementById",
-        arguments: ["inlineContent"], 
+        arguments: ["viewForm"], 
     },
     {
         response:'EditorElement',
         objectModel:'document',
         method: "getElementById",
-        arguments: ["viewForm"],
+        arguments: ["inlineContent"],
     },
     {
         response:'GetSpreadsheetId',
@@ -352,3 +349,82 @@ var importFromSheetRequest = [
         arguments:['$sampleIntroStory','$l.EditorElement']
     }
 ]
+var getActionStoriesRequest = [
+    {
+        response:'GetSpreadsheetId',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["SpreadsheetId"],
+    },
+    {
+        response:'GetNamedRange',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["NamedRange"],
+    },
+    {
+        response:'SetParameters',
+        declare:{
+            paramJSON:{
+                'SpreadsheetId':'$l.GetSpreadsheetId.value',
+                'NamedRange':'$l.GetNamedRange.value'
+            }
+        }
+    },
+    {
+        response:'URLBuilder',
+        objectModel:'httpService',
+        method:'urlBuilder',
+        arguments:['$scriptURL','$l.paramJSON']  
+    },
+    {
+        response:'RequestBuilder',
+        objectModel:'httpService',
+        method:'requestBuilder',
+        arguments:["GET"]
+    },
+    {
+        response:'ActionStoriesResponse',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:['$l.URLBuilder','$l.RequestBuilder']
+    },
+    {
+        response:'RequestNotSent',
+        condition:"$l.ActionStoriesResponse == undefined",
+        objectModel:'window',
+        method:'alert',
+        arguments:["Clouldn't get Action Stories . Try Again !"],
+        exit:true
+    },
+    {
+        response:'AlertUserAboutResponse',
+        condition:"$l.ActionStoriesResponse.result !== 'Success'",
+        objectModel:'window',
+        method:'alert',
+        arguments:['$l.ActionStoriesResponse.output'],
+        exit:true
+    },
+    {
+        response:'EditorElement',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["inlineContent"],
+        callback:{
+            objectModel:'$l.EditorElement',
+            method:'setAttribute',
+            arguments:['fileid','cardView']
+        }
+    },
+    {
+        response:'JSONForCards',
+        objectModel:'processFSInstance',
+        method:'ActionStories',
+        arguments:['$l.ActionStoriesResponse.output']
+    },
+    {
+        response:'AutoSync',
+        objectModel:'processFSInstance',
+        method:'AutoSync'
+    }
+];

@@ -284,7 +284,7 @@ class ActionController extends ActionEvent {
                     await ActionView.closeModal(event);break;
                 //sheet
                 case 'ActionStories':
-                    event.preventDefault();await engine.processReq(GetActionStoriesFlowRequest);break;
+                    event.preventDefault();actionengine.processRequest('getActionStoriesRequest',{},true);break;//await engine.processReq(GetActionStoriesFlowRequest);
                 case 'importFromSheet':
                     event.preventDefault();await actionengine.processRequest('importFromSheetRequest',{},true);break;//await engine.processReq(importFromSheetFlowRequest);
                 case 'exportToSheet':
