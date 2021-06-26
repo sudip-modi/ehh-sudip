@@ -9,6 +9,7 @@ var ActionControllerObject = {
 var ActionViewObject = {
     addInnerHTML:ActionView.addInnerHTML,
     addInnerText:ActionView.addInnerText,
+    newEntity:ActionView.newEntity,
     closeModal:ActionView.closeModal
 };
 var EntityV1Object = {
@@ -427,4 +428,102 @@ var getActionStoriesRequest = [
         objectModel:'processFSInstance',
         method:'AutoSync'
     }
+];
+var getGoogleDriveFileRequest = [
+    {
+        response:'EditorElement',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["inlineContent"],
+    },
+    {
+        response:'FormElement',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["viewForm"], 
+    },
+    {
+        response:'GetfolderName',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["folderName"],
+    },
+    {
+        response:'SetParameters',
+        declare:{
+            paramJSON:{
+                'SearchFolderName':'$l.GetfolderName.value'
+            }
+        }
+    },
+    {
+        response:'URLBuilder',
+        objectModel:'httpService',
+        method:'urlBuilder',
+        arguments:['$scriptURL','$l.paramJSON']  
+    },
+    {
+        response:'RequestBuilder',
+        objectModel:'httpService',
+        method:'requestBuilder',
+        arguments:["GET"]
+    },
+    {
+        response:'GDriveFolderResponse',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:['$l.URLBuilder','$l.RequestBuilder']
+    },
+    {
+        response:"RemoveGoogleDriveForm",
+        objectModel:'ActionViewObject',
+        method:'addInnerHTML',
+        arguments:['','$l.FormElement']
+    },
+    {
+        response:'SetSampleStory',
+        objectModel:'ActionViewObject',
+        method:'addInnerHTML',
+        arguments:['$sampleIntroStory','$l.EditorElement'],
+    },
+    {
+        response:'RequestNotSent',
+        condition:"$l.GDriveFolderResponse == undefined",
+        objectModel:'window',
+        method:'alert',
+        arguments:["Clouldn't get Google Drive Folder . Try Again !"],
+        exit:true
+    },
+    {
+        response:'AlertUserAboutResponse',
+        condition:"$l.GDriveFolderResponse.result !== 'Success'",
+        objectModel:'window',
+        method:'alert',
+        arguments:['$l.GDriveFolderResponse.output'],
+        exit:true
+    }, 
+    {
+        response:'HTML_JSON',
+        objectModel:'processFSInstance',
+        method:'jsonForGDriveFolder',
+        arguments:['$l.GDriveFolderResponse.output',JSON.parse(JSON.stringify({}))]
+    },
+    {
+        response:'CollectionElement',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["myCollection"],
+    },
+    {
+        response:'NewEntity',
+        objectModel:'ActionViewObject',
+        method:'newEntity',
+        arguments:['$l.HTML_JSON','$l.CollectionElement'],
+    },
+    {
+        response:'SetUsermyCollection',
+        objectModel:'localStorage',
+        method:'setItem',
+        arguments:['UsermyCollection','$l.CollectionElement.innerHTML']
+    }  
 ];
