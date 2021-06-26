@@ -288,12 +288,12 @@ class ActionController extends ActionEvent {
                 case 'importFromSheet':
                     event.preventDefault();await engine.processReq(importFromSheetFlowRequest);break;
                 case 'exportToSheet':
-                    event.preventDefault();await engine.processReq(exportToSheetFlowRequest);break;
+                    event.preventDefault();await engine.processRequest('exportToSheetRequest',{},true);break; //awaitengine.processReq(exportToSheetFlowRequest)
                 case 'SearchFolder_Google':
                     event.preventDefault();await engine.processReq(folderGoogle_ServerFlowRequest);break;
                 //signup,login
                 case 'Signup':
-                    event.preventDefault();await engine.processReq(SignUpFlowRequest);break;
+                    event.preventDefault();await engine.processRequest('SignUpRequest',{},true);break;//await engine.processReq(SignUpFlowRequest);
                 case 'SelfInvite':
                     event.preventDefault();Authorization.oAuth(event, 'google');break;
                 case 'Login':

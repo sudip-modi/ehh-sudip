@@ -79,18 +79,17 @@ class ActionView {
     }
     static async viewModal(event){
         event.preventDefault();
-        var HTMLjson = EntityV1.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
-        var inputjson = {};inputjson['editor'] = HTMLjson;
-        var array =mutate.TWODARRAY(mutate.Obj2(inputjson, []));
-        console.log(array);
-        exportToSheetparamsJSON['array'] = array;
+        // var HTMLjson = EntityV1.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
+        // var inputjson = {};inputjson['editor'] = HTMLjson;
+        // var array =mutate.TWODARRAY(mutate.Obj2(inputjson, []));
+        // console.log(array);
+        // exportToSheetparamsJSON['array'] = array;
         var json = exportToSheet;
         var modal = document.getElementById('data');
         modal.style.display = 'block';
         ActionView.newEntity(json,modal);
     }
-    static async closeModal(event){
-        event.preventDefault();
+    static async closeModal(){
         var modal = document.getElementById('data');
         modal.style.display = 'none';
         ActionView.addInnerHTML('',modal);

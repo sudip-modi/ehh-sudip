@@ -41,9 +41,9 @@ class HttpService{
         if(Object.keys(otherProperties).length > 0){
             request = {...request,...otherProperties};
         }
-        if(headers !== undefined)
+        if(operate.isNotEmpty(headers))
             request['headers'] = headers;
-        if(body !== undefined)
+        if(operate.isNotEmpty(body))
             request['body'] = JSON.stringify(body);                       
         return request;
     }
