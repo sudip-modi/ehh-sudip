@@ -93,13 +93,13 @@ class HttpService{
                        res = data;
                   }else{
                       console.log(data.error);
+                      res = {'error':'Error :- ' + data};
                   }
             })
             .catch(err=>{
                 console.log("Error:- " + err);
             });  
           return res;
-    return res;
     }
     static buildEncodedUri(request) {
         const response = [];

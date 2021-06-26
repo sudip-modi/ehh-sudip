@@ -206,7 +206,7 @@ class ActionEngine{
 	}
  }
  
- var engine = {
+ var actionengine = {
 	maxDebugDepth: ActionEngine.maxDebugDepth,
 	processRequest: ActionEngine.processRequest,
 	action: ActionEngine.action

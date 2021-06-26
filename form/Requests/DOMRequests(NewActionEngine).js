@@ -7,6 +7,8 @@ var ActionControllerObject = {
     onChangeRoute:ActionController.onChangeRoute
 };
 var ActionViewObject = {
+    addInnerHTML:ActionView.addInnerHTML,
+    addInnerText:ActionView.addInnerText,
     closeModal:ActionView.closeModal
 };
 var EntityV1Object = {
@@ -255,3 +257,98 @@ var exportToSheetRequest = [
         method:'closeModal'
     },
 ];
+var importFromSheetRequest = [
+    {
+        response:'FormElement',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["inlineContent"], 
+    },
+    {
+        response:'EditorElement',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["viewForm"],
+    },
+    {
+        response:'GetSpreadsheetId',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["spreadsheetID"],
+    },
+    {
+        response:'GetNamedRange',
+        objectModel:'document',
+        method: "getElementById",
+        arguments: ["NamedRange"],
+    },
+    {
+        response:'SetParameters',
+        declare:{
+            paramJSON:{
+                'SpreadsheetId':'$l.GetSpreadsheetId.value',
+                'NamedRange':'$l.GetNamedRange.value'
+            }
+        }
+    },
+    {
+        response:'URLBuilder',
+        objectModel:'httpService',
+        method:'urlBuilder',
+        arguments:['$scriptURL','$l.paramJSON']  
+    },
+    {
+        response:'RequestBuilder',
+        objectModel:'httpService',
+        method:'requestBuilder',
+        arguments:["GET"]
+    },
+    {
+        response:'ImportFromSheetResponse',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:['$l.URLBuilder','$l.RequestBuilder']
+    },
+    {
+        response:'RequestNotSent',
+        condition:"$l.ImportFromSheetResponse == undefined",
+        objectModel:'window',
+        method:'alert',
+        arguments:["Clouldn't get data from server . Try Again !"],
+    },
+    // {
+    //     response:'AlertUserAboutResponse',
+    //     condition:"$l.ImportFromSheetResponse.result !== 'Success'",
+    //     objectModel:'window',
+    //     method:'alert',
+    //     arguments:['$l.ImportFromSheetResponse.output']
+    // },
+    {
+        response:"RemoveImportFromSheetForm",
+        objectModel:'ActionViewObject',
+        method:'addInnerHTML',
+        arguments:['','$l.FormElement']
+    },
+    {
+        response:'SetSampleStory2',
+        condition:"$l.ImportFromSheetResponse == undefined",
+        objectModel:'ActionViewObject',
+        method:'addInnerHTML',
+        arguments:['$sampleIntroStory','$l.EditorElement'],
+        exit:true
+    },
+    {
+        response:'SetDataFromSheet',
+        condition:"$l.ImportFromSheetResponse.result == 'Success'",
+        objectModel:'ActionViewObject',
+        method:'addInnerText',
+        arguments:['$l.ImportFromSheetResponse.output','$l.EditorElement'],
+        exit:true,
+    },
+    {
+        response:'SetSampleStory1',
+        objectModel:'ActionViewObject',
+        method:'addInnerHTML',
+        arguments:['$sampleIntroStory','$l.EditorElement']
+    }
+]
