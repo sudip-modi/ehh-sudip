@@ -284,20 +284,20 @@ class ActionController extends ActionEvent {
                     await ActionView.closeModal(event);break;
                 //sheet
                 case 'ActionStories':
-                    event.preventDefault();actionengine.processRequest('getActionStoriesRequest',{},true);break;//await engine.processReq(GetActionStoriesFlowRequest);
+                    event.preventDefault();actionengine.processRequest('getActionStoriesRequest',{});break;//await engine.processReq(GetActionStoriesFlowRequest);
                 case 'importFromSheet':
-                    event.preventDefault();await actionengine.processRequest('importFromSheetRequest',{},true);break;//await engine.processReq(importFromSheetFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('importFromSheetRequest',{});break;//await engine.processReq(importFromSheetFlowRequest);
                 case 'exportToSheet':
-                    event.preventDefault();await actionengine.processRequest('exportToSheetRequest',{},true);break; //awaitengine.processReq(exportToSheetFlowRequest)
+                    event.preventDefault();await actionengine.processRequest('exportToSheetRequest',{});break; //awaitengine.processReq(exportToSheetFlowRequest)
                 case 'SearchFolder_Google':
-                    event.preventDefault();await actionengine.processRequest('getGoogleDriveFileRequest',{},true);break;// await engine.processReq(folderGoogle_ServerFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('getGoogleDriveFileRequest',{});break;// await engine.processReq(folderGoogle_ServerFlowRequest);
                 //signup,login
                 case 'Signup':
-                    event.preventDefault();await actionengine.processRequest('SignUpRequest',{},true);break;//await engine.processReq(SignUpFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('SignUpRequest',{});break;//await engine.processReq(SignUpFlowRequest);
                 case 'SelfInvite':
                     event.preventDefault();Authorization.oAuth(event, 'google');break;
                 case 'Login':
-                    event.preventDefault();await actionengine.processRequest('loginRequest',{},true);break;//await engine.processReq(LoginFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('loginRequest',{});break;//await engine.processReq(LoginFlowRequest);
                 //File System
                 case "new":
                     await engine.processReq(newActionStoryRequest);break;
