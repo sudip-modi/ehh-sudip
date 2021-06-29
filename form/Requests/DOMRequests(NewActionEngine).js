@@ -11,7 +11,7 @@ var ActionViewObject = {
     addInnerText:ActionView.addInnerText,
     newEntity:ActionView.newEntity,
     closeModal:ActionView.closeModal,
-    GDriveFileSupportedInEditorr:ActionView.GDriveFileSupportedInEditor,
+    GDriveFileSupportedInEditor:ActionView.GDriveFileSupportedInEditor,
     viewForm:ActionView.viewForm
 };
 var EntityV1Object = {
@@ -24,6 +24,9 @@ var mutateObject = {
 var indexDBObject = {
     set:indexDB.set,
     get:indexDB.get
+};
+var operateObject = {
+    isInsideArray:operate.isInsideArray
 };
 var SignUpRequest = [
     {
@@ -579,7 +582,7 @@ var newFileRequest = [
         response:"NewActionStory",
         objectModel:'ActionViewObject',
         method: "addInnerHTML",
-        arguments:['$l.ehhIntro','$l.EditorElement']
+        arguments:['$ehhIntro','$l.EditorElement']
     }
 ];
 var saveLocalStorageFileRequest = [
@@ -590,15 +593,15 @@ var saveLocalStorageFileRequest = [
        arguments:['nameOfFile'] 
    },
    {
-       condition:'$l.NameOfTheFile == $l.FileID',
-       response:'NameOfTheFile',
+       condition:'$l.NameOfTheFile == l.FileID',
+       response:'ActionStoryName',
        objectModel:'window',
        method:'prompt',
        arguments:['Enter the Name for Action Story !'],
        callback:{
             objectModel:'$l.EditorElement',
             method:'setAttribute',
-            arguments:['nameOfFile','$l.NameOfTheFile'] 
+            arguments:['nameOfFile','$l.ActionStoryName'] ,
        }
    },
    {
@@ -653,9 +656,7 @@ var saveGDriveFileRequest = [
                 'FileId':'$l.FileID',
                 'content':'$l.EditorElement.innerText'
             }
-        }
-    },
-    {
+        },
         response:'RequestBuilder',
         objectModel:'httpService',
         method:'requestBuilder',
@@ -679,7 +680,7 @@ var saveGDriveFileRequest = [
         response:'AlertUserAboutResponse',
         objectModel:'window',
         method:'alert',
-        arguments:['$l.SaveFileContentResponse.message'],
+        arguments:['$l.SaveFileContentResponse.output'],
     }
 ];
 var saveFileRequest = [
@@ -696,6 +697,7 @@ var saveFileRequest = [
         arguments:['fileid']
     },
     {
+        response:'DeclaringAVariable',
         declare:{
             parameterJSON:{
                 "EditorElement":'$l.EditorElement',
@@ -707,25 +709,30 @@ var saveFileRequest = [
         response:'FileIsFrom',
         objectModel:'$l.EditorElement',
         method:'getAttribute',
-        arguments:['fileid'],
+        arguments:['from']
     },
     {
+        response:'LocalStorageFile',
         condition:"$l.FileIsFrom == 'LocalStorage'",
         objectModel:'actionengine',
         method:'processRequest',
-        arguments:['$saveLocalStorageFileRequest','$l.parameterJSON']
+        arguments:['$saveLocalStorageFileRequest','$l.parameterJSON'],
+        exit:true
     },
     {
+        response:'FileFromFileSystem',
         condition:"$l.FileIsFrom == 'FS'",
         objectModel:'actionengine',
         method:'processRequest',
-        arguments:['$saveFSFileRequest','$l.parameterJSON']
+        arguments:['$saveFSFileRequest','$l.parameterJSON'],
+        exit:true
     },
     {
+        response:'FileFromGDrive',
         condition:"$l.FileIsFrom == 'GDrive'",
         objectModel:'actionengine',
         method:'processRequest',
-        arguments:['$saveGDriveFileRequest','$l.parameterJSON']
+        arguments:['$saveGDriveFileRequest','$l.parameterJSON'],
     }
 ];
 var recentFilesRequest = [
@@ -742,10 +749,11 @@ var recentFilesRequest = [
         arguments:['fileid']
     },
     {
-        condition:'$l.FileID.length > 0',
+        response:"If FileID doesn't exist",
+        condition:'$l.FileID.length == 0',
         objectModel:'console',
         method:'log',
-        arguments:["File ID doesn't exist"],
+        arguments:["File ID is empty"],
         exit:true
     },
     {
@@ -761,17 +769,22 @@ var recentFilesRequest = [
         arguments:['nameOfFile'],
     },
     {
-        response:'Array',
+        response:'RecentFilesArray',
         objectModel:'indexDBObject',
         method:'get',
         arguments:['RecentFiles'],
     },
     {
-        condition:'$l.Array == undefined',
-        response:'SetArrayValue',
-        objectModel:'indexDBObject',
-        method:'set',
-        arguments:['RecentFiles', []]
+        condition:'$l.RecentFilesArray == undefined',
+        response:'ArrayValue',
+        objectModel:'console',
+        method:'log',
+        arguments:['$l.RecentFilesArray'],
+        callback:{
+            declare:{
+                '$l.RecentFilesArray':[]
+            }
+        }
     },
     {
         response:'RecentFilesElement',
@@ -781,28 +794,28 @@ var recentFilesRequest = [
     },
     {
         response:'CheckWhetherFileIDExist',
-        objectModel:'operate',
+        objectModel:'operateObject',
         method:'isInsideArray',
-        arguments:["$l.FileID","$l.Array"]
+        arguments:["$l.FileID","$l.RecentFilesArray"]
     },
     {
-        condition:"$l.CheckWhetherFileIDExist == 'true'",
+        condition:"$l.CheckWhetherFileIDExist == true",
         objectModel:'console',
         method:'log',
-        arguments:["File ID already exist's in Recent Files"],
+        arguments:["Mentioned File ID already exist's in Recent Files"],
         exit:true
     },
     {
         response:'IncludeFileIDInRecentFiles',
-        condition:"$l.CheckWhetherFileIDExist == 'false'",
-        objectModel:'$l.Array',
+        condition:"$l.CheckWhetherFileIDExist == false",
+        objectModel:'$l.RecentFilesArray',
         method:'unshift',
         arguments:['$l.FileID'],
     },
     {
         response:'RemoveAnItem',
-        condition:'$l.Array.length == 11',
-        objectModel:'$l.Array',
+        condition:'$l.RecentFilesArray.length == 11',
+        objectModel:'$l.RecentFilesArray',
         method:'shift',
     },
     {
@@ -810,7 +823,7 @@ var recentFilesRequest = [
         condition:'$l.RecentFilesElement.childNodes.length == 10',
         objectModel:'$l.RecentFilesElement',
         method:'removeChild',
-        arguments:['$l.RecentFilesElement.childNodes.0']
+        arguments:['$l.RecentFilesElement.childNodes[0]']
     },
     {
         declare:{
@@ -846,7 +859,7 @@ var recentFilesRequest = [
         response:'setRecentFilesInIndexDB',
         objectModel:'indexDBObject',
         method:'set',
-        arguments:['RecentFiles','Array']
+        arguments:['RecentFiles','$l.RecentFilesArray']
     }
 ];
 var OpenAFileRequest = [
@@ -875,12 +888,12 @@ var OpenAFileRequest = [
             response:'SetFileHandleToFileID',
             objectModel:'indexDBObject',
             method:'set',
-            arguments:["$l.UID","$l.GetAFile.0"]
+            arguments:["$l.UID","$l.GetAFile[0]"]
         }
     },
     {
         response:'file',
-        objectModel:"$l.GetAFile.0",
+        objectModel:"$l.GetAFile[0]",
         method:'getFile'
     },
     {
@@ -907,7 +920,7 @@ var OpenAFileRequest = [
                 }
             },
             response:'NewEntity',
-            objectModel:ActionView,
+            objectModel:'ActionViewObject',
             method:'newEntity',
             arguments:['$l.inputJSON',"$l.myFilesElement"]
         }
@@ -934,7 +947,7 @@ var GDriveFileContentRequest = [
     },
     {
         reqName:'Alert User',
-        condition:"$l.CheckFileTypeSupport == 'true'",
+        condition:"$l.CheckFileTypeSupport == false",
         objectModel:'window',
         method:'alert',
         arguments:['Work In Progress !'],
@@ -989,23 +1002,27 @@ var GDriveFileContentRequest = [
         response:'SetFILEID',
         objectModel:'$l.EditorElement',
         method:'setAttribute',
-        arguments:['fileid','$l.EVENT.target.id'],
-        callback:{
-            response:'SetFileFrom',
-            objectModel:'$l.EditorElement',
-            method:'setAttribute',
-            arguments:['from','GDrive'],
-            callback:{
-                response:'SetNameOfFile',
-                objectModel:'$l.EditorElement',
-                method:'setAttribute',
-                arguments:['nameoffile','$l.EVENT.target.innerText'],
-                declare:{
-                    '$l.EditorElement.innerText':'$l.GDriveFileContentResponse.content'
-                }
-            }
-        }
+        arguments:['fileid','$l.EVENT.target.id']
+    },
+    {
+        response:'SetFileFrom',
+        objectModel:'$l.EditorElement',
+        method:'setAttribute',
+        arguments:['from','GDrive'],
+    },
+    {
+        response:'SetNameOfFile',
+        objectModel:'$l.EditorElement',
+        method:'setAttribute',
+        arguments:['nameoffile','$l.EVENT.target.innerText'],
+    },
+    {
+        response:'ContentOfFileInEditor',
+        objectModel:'ActionViewObject',
+        method:'addInnerText',
+        arguments:['$l.GDriveFileContentResponse.content','$l.EditorElement']
     }
+
 ];
 var AddACollectionRequest = [
     {
@@ -1017,7 +1034,7 @@ var AddACollectionRequest = [
         response:"TakeUserPermission",
         objectModel:'processFSInstance',
         method:'verifyPermission',
-        arguments:['$l.parentHandle.0',true],
+        arguments:['$l.parentHandle',true],
     },
     {
         condition:"$l.TakeUserPermission == 'false'",
@@ -1035,7 +1052,7 @@ var AddACollectionRequest = [
         response:'SetFileHandleTOUID',
         objectModel:'indexDBObject',
         method:'set',
-        arguments:['$l.UID','$l.parentHandle.0']
+        arguments:['$l.UID','$l.parentHandle']
     },
     {
         declare:{
@@ -1045,7 +1062,7 @@ var AddACollectionRequest = [
                     'span':{
                         'name':'span',
                         'class':'parent',
-                        "textContent":'$l.parentHandle.0.name', //inner Text will be included
+                        "textContent":'$l.parentHandle.name', //inner Text will be included
                     },
                     'list':{
                         'name':'ul',
@@ -1060,7 +1077,7 @@ var AddACollectionRequest = [
         respons:"jsonForDirectory",
         objectModel:'processFSInstance',
         method:'jsonForDirectory',
-        arguments:['$l.directoryJSON.li.list','$l.parentHandle.0']
+        arguments:['$l.directoryJSON.li.list','$l.parentHandle']
     },
     {
         response:'CollectionElement',
@@ -1097,9 +1114,10 @@ var EachFileRequest = [
     {
         condition:"$l.from !== 'GDrive'",
         reqName:"OpenInEditor",
-        objectModel:processFSInstance,
+        objectModel:'processFSInstance',
         method:'OpenFileInEditor',
-        arguments:['event.target.id']
+        arguments:['$l.event.target.id'],
+        exit:true
     },
     {
         declare:{
@@ -1110,7 +1128,7 @@ var EachFileRequest = [
         response:'OpenGDriveFileInEditor',
         objectModel:'actionengine',
         method:'processRequest',
-        arguments:['$GDriveFileContentRequest']
+        arguments:['$GDriveFileContentRequest','$l.params']
     }
 ];
 var viewFormRequest = [

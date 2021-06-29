@@ -277,38 +277,38 @@ class ActionController extends ActionEvent {
                 case 'RemoveItem':
                     event.preventDefault();await this.RemoveItem(event);break;
                 case 'form':
-                    event.preventDefault();await engine.processReq(viewFormRequest,{'event':event,'entity':commandJson[0].entity});break;
+                    await actionengine.processRequest('viewFormRequest',{'event':event,'entity':commandJson[0].entity});break;// await engine.processReq(viewFormRequest,{'event':event,'entity':commandJson[0].entity});
                 case 'modal':
                     await ActionView.viewModal(event);break;
                 case 'closeModal':
                     await ActionView.closeModal(event);break;
                 //sheet
                 case 'ActionStories':
-                    event.preventDefault();actionengine.processRequest('getActionStoriesRequest',{});break;//await engine.processReq(GetActionStoriesFlowRequest);
+                    event.preventDefault();actionengine.processRequest('getActionStoriesRequest');break;//await engine.processReq(GetActionStoriesFlowRequest);
                 case 'importFromSheet':
-                    event.preventDefault();await actionengine.processRequest('importFromSheetRequest',{});break;//await engine.processReq(importFromSheetFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('importFromSheetRequest');break;//await engine.processReq(importFromSheetFlowRequest);
                 case 'exportToSheet':
-                    event.preventDefault();await actionengine.processRequest('exportToSheetRequest',{});break; //awaitengine.processReq(exportToSheetFlowRequest)
+                    event.preventDefault();await actionengine.processRequest('exportToSheetRequest');break; //awaitengine.processReq(exportToSheetFlowRequest)
                 case 'SearchFolder_Google':
-                    event.preventDefault();await actionengine.processRequest('getGoogleDriveFileRequest',{});break;// await engine.processReq(folderGoogle_ServerFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('getGoogleDriveFileRequest');break;// await engine.processReq(folderGoogle_ServerFlowRequest);
                 //signup,login
                 case 'Signup':
-                    event.preventDefault();await actionengine.processRequest('SignUpRequest',{});break;//await engine.processReq(SignUpFlowRequest);
+                    await actionengine.processRequest('SignUpRequest');break;//await engine.processReq(SignUpFlowRequest);
                 case 'SelfInvite':
                     event.preventDefault();Authorization.oAuth(event, 'google');break;
                 case 'Login':
-                    event.preventDefault();await actionengine.processRequest('loginRequest',{});break;//await engine.processReq(LoginFlowRequest);
+                    await actionengine.processRequest('loginRequest');break;//await engine.processReq(LoginFlowRequest);
                 //File System
                 case "new":
-                    await engine.processReq(newActionStoryRequest);break;
+                    await actionengine.processRequest('newFileRequest');break;//await engine.processReq(newActionStoryRequest);
                 case 'OpenFile':
-                    event.preventDefault();await engine.processReq(openAFileRequest);break;
+                    await actionengine.processRequest('OpenAFileRequest');break;
                 case 'OpenDirectory':
-                    event.preventDefault();await engine.processReq(OpenADirectoryRequest);break;
+                    await actionengine.processRequest('AddACollectionRequest');break;
                 case 'file':
-                    event.preventDefault();await engine.processReq(everyFileRequest,{"event":event,'from':event.target.getAttribute('from')});break;
+                    await actionengine.processRequest('EachFileRequest',{"event":event,'from':event.target.getAttribute('from')});break;//await engine.processReq(everyFileRequest,{"event":event,'from':event.target.getAttribute('from')});
                 case 'FS_Save':
-                    event.preventDefault();await engine.processReq(saveFileFlowRequest);break;
+                    await actionengine.processRequest('saveFileRequest');break;// await engine.processReq(saveFileFlowRequest);
                 case 'Redirect':
                     event.preventDefault();await ActionController.onChangeRoute(commandJson[0].entity);break;
                 default:
