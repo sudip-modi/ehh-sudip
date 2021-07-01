@@ -1,5 +1,5 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
-const scriptURL = `https://script.google.com/macros/s/AKfycbzOBsKbeUSr99-TQkgjI0JJQYcN8VzGiU3wm-fJzzbhuRNbVYe2Y5owNzMIgMCGrORuxw/exec`;
+const scriptURL = `https://script.google.com/macros/s/AKfycbxpVU88qZNIZhI_h5BlZmRzi43M4cGurFVDoKpWspJRFQFAxSQWQ_aGgXLVS330FCgFGw/exec`;
 var execute = false;
 class ActionController extends ActionEvent {
     constructor(view,model,actionEvent) {
@@ -277,7 +277,7 @@ class ActionController extends ActionEvent {
                 case 'RemoveItem':
                     event.preventDefault();await this.RemoveItem(event);break;
                 case 'form':
-                    await actionengine.processRequest('viewFormRequest',{'event':event,'entity':commandJson[0].entity});break;// await engine.processReq(viewFormRequest,{'event':event,'entity':commandJson[0].entity});
+                    event.preventDefault();await actionengine.processRequest('viewFormRequest',{'event':event,'entity':commandJson[0].entity});break;// await engine.processReq(viewFormRequest,{'event':event,'entity':commandJson[0].entity});
                 case 'modal':
                     await ActionView.viewModal(event);break;
                 case 'closeModal':
@@ -293,22 +293,22 @@ class ActionController extends ActionEvent {
                     event.preventDefault();await actionengine.processRequest('getGoogleDriveFileRequest');break;// await engine.processReq(folderGoogle_ServerFlowRequest);
                 //signup,login
                 case 'Signup':
-                    await actionengine.processRequest('SignUpRequest');break;//await engine.processReq(SignUpFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('SignUpRequest');break;//await engine.processReq(SignUpFlowRequest);
                 case 'SelfInvite':
                     event.preventDefault();Authorization.oAuth(event, 'google');break;
                 case 'Login':
-                    await actionengine.processRequest('loginRequest');break;//await engine.processReq(LoginFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('loginRequest');break;//await engine.processReq(LoginFlowRequest);
                 //File System
                 case "new":
-                    await actionengine.processRequest('newFileRequest');break;//await engine.processReq(newActionStoryRequest);
+                    event.preventDefault();await actionengine.processRequest('newFileRequest');break;//await engine.processReq(newActionStoryRequest);
                 case 'OpenFile':
-                    await actionengine.processRequest('OpenAFileRequest');break;
+                    event.preventDefault();await actionengine.processRequest('OpenAFileRequest');break;
                 case 'OpenDirectory':
-                    await actionengine.processRequest('AddACollectionRequest');break;
+                    event.preventDefault();await actionengine.processRequest('AddACollectionRequest');break;
                 case 'file':
-                    await actionengine.processRequest('EachFileRequest',{"event":event,'from':event.target.getAttribute('from')});break;//await engine.processReq(everyFileRequest,{"event":event,'from':event.target.getAttribute('from')});
+                    event.preventDefault();await actionengine.processRequest('EachFileRequest',{"event":event,'from':event.target.getAttribute('from')});break;//await engine.processReq(everyFileRequest,{"event":event,'from':event.target.getAttribute('from')});
                 case 'FS_Save':
-                    await actionengine.processRequest('saveFileRequest');break;// await engine.processReq(saveFileFlowRequest);
+                    event.preventDefault();await actionengine.processRequest('saveFileRequest');break;// await engine.processReq(saveFileFlowRequest);
                 case 'Redirect':
                     event.preventDefault();await ActionController.onChangeRoute(commandJson[0].entity);break;
                 default:
@@ -384,7 +384,7 @@ class ActionController extends ActionEvent {
             }
             var json = {'array':InvoiceItems};
             ActionView.addInnerHTML('',document.getElementById('viewForm'));
-            var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,JSON.stringify(json)));
+            var response = await HttpService.fetchRequest(scriptURL,HttpService.requestBuilder("POST",undefined,json));
             alert(response.output);
             ActionView.addInnerHTML(sampleIntroStory,document.getElementById('inlineContent'));
             
@@ -407,7 +407,7 @@ class ActionController extends ActionEvent {
         var newItem = new EntityV1(newItem,document.getElementById('tbody'));
     }
     static async createScripts(){
-        var scriptPaths = ['ClientSideAppsScriptFiles/appsscript.json','ClientSideAppsScriptFiles/operate.gs','ClientSideAppsScriptFiles/GDriveFileFolders.gs', 'ClientSideAppsScriptFiles/actionEngineEhh.gs','ClientSideAppsScriptFiles/userRequestModels.gs','ClientSideAppsScriptFiles/Server.gs'];
+        var scriptPaths = ['ClientSideAppsScriptFiles/appsscript.json','ClientSideAppsScriptFiles/operate.gs','ClientSideAppsScriptFiles/FilesAndFolders.gs', 'ClientSideAppsScriptFiles/ActionEngine.gs','ClientSideAppsScriptFiles/UserRequestModels.gs','ClientSideAppsScriptFiles/Server.gs'];
         var scripts = [];
         await EntityV1.walk(scriptPaths,
           {

@@ -1,17 +1,16 @@
+var maxDebugDepth = 100;
 class ActionEngine{
-   
-	static maxDebugDepth = 100;
-	static async processRequest(flowRequest, l = {}){
+	static processRequest(flowRequest, l = {}){
 	   console.log(l);
 	   if(! operate.isArray(flowRequest)){
 		   flowRequest = [flowRequest];
 	   }
 	   var answer = [];
-	   await Entity.walk(
+	   Entity.walk(
 		   {rngstart:0, rngend: flowRequest.length},
 		   {
 			   value : {
-				   func: async function(i, flowRequest, l, answer, ignore) {
+				   func: function(i, flowRequest, l, answer, ignore) {
 				   
 				   if(ignore.ignore) return "SIGNAL_IGNORE_REQUEST";
  
@@ -23,11 +22,11 @@ class ActionEngine{
 				   }
 					  if(operate.isArray(flowRequest[i])){
 					  
-					  answer.push((await ActionEngine.processRequest(flowRequest[i], l)) || []);
+					  answer.push((ActionEngine.processRequest(flowRequest[i], l)) || []);
 					  
 				   } else if(operate.isObject(flowRequest[i])){
 						 
-					  var result = await ActionEngine.action(Entity.requestExpander(flowRequest[i]), l)
+					  var result = ActionEngine.action(Entity.requestExpander(flowRequest[i]), l)
 					  
 					  if(result[1] === 'SIGNAL_EXIT_FLOW_REQUEST')
 						 ignore.ignore = true;
@@ -74,11 +73,12 @@ class ActionEngine{
  
 	*/
 	//COPYL TO BE REMOVED
-	static async action(requestF, l, copyl = false){
+	static action(requestF, l, copyl = false){
  
 		if(operate.isString(requestF)){
 			requestF = Entity.get(requestF, window);
 		}
+     console.log(requestF);
 	   requestF = JSON.parse(JSON.stringify(requestF));
 	   console.log(requestF.response);
 	   var lastl;
@@ -95,11 +95,11 @@ class ActionEngine{
 	   }
 	   
  
-	   await Entity.walk(
+	  Entity.walk(
 		   {rngstart:0, rngend: requestF.loop},
 		   {
 			   value: {
-				   func: async function(i, requestF, l){
+				   func: function(i, requestF, l){
 				   var request = JSON.parse(JSON.stringify(requestF));
  
 					 if(request.hasOwnProperty('condition')) request.condition = Entity.getValue(request.condition, l);
@@ -114,7 +114,7 @@ class ActionEngine{
 					 if(! request.hasOwnProperty('declare')) request.declare = {};
  
 					 var x = l;
-					 await Entity.setProps(request.declare, l, x);
+					 Entity.setProps(request.declare, l, x);
 				   // console.log(l);
 					 if(request.hasOwnProperty('method')){
  
@@ -123,11 +123,11 @@ class ActionEngine{
 						if(! operate.isArray(request.arguments)){
 						   request.arguments = [request.arguments];
 						}
-						await Entity.walk(
+						Entity.walk(
 							  {rngstart:0, rngend: request.arguments.length},
 							  {
 								  value: {
-									  func: async function(i, request, l){
+									  func: function(i, request, l){
 										  request.arguments[i] = Entity.getValue(request.arguments[i], l);
 									  },
 									  args: [request, l],
@@ -152,7 +152,7 @@ class ActionEngine{
 						if(!operate.isFunction(method))
 						 console.error("UNDEFINED METHOD CALL", objectModel, method, request.objectModel, request.method);
  
-					  var response = await method.apply(objectModel, request.arguments);
+					  var response = method.apply(objectModel, request.arguments);
  
 						if(request.hasOwnProperty('response')){
 						   if(! operate.isString('response')){
@@ -164,7 +164,7 @@ class ActionEngine{
 					 }
  
 					 if(request.hasOwnProperty('callback')){
-						await ActionEngine.processRequest(request['callback'], l);
+						  ActionEngine.processRequest(request['callback'], l);
 					 }
 				  },
 				  args: [requestF, l],
@@ -200,13 +200,12 @@ class ActionEngine{
  
 		  l = lastl;
 	   }
+     console.log(JSON.stringify(l));
 	   // console.log(requestF, l, returnVal, requestF.__exitRequest);
-	   console.log(l);
 	   return [returnVal, signal];
 	}
- }
- 
- var actionengine = {
+}
+var actionengine = {
 	maxDebugDepth: ActionEngine.maxDebugDepth,
 	processRequest: ActionEngine.processRequest,
 	action: ActionEngine.action

@@ -1,45 +1,44 @@
-class FileFolders {
-  jsonForFolderV1(parent,obj){
-    var id = parent.getId();
-    var json = JSON.parse(JSON.stringify({}));
-    json['name'] = parent.getName();json['id'] = id;json['children'] = {};
-    obj[id] = json;
-    var folders = parent.getFolders();
-    while(folders.hasNext()){
-      var folder = folders.next();
-      jsonForFolderV1(folder,obj[id]['children']);
-    }
-    var files = parent.getFiles();
-    while(files.hasNext()){
-      var child = JSON.parse(JSON.stringify({}));
-      var file = files.next();
-      var childId = file.getId();
-      child['name'] = file.getName();
-      child['id'] = childId;
-      obj[id]['children'][childId] = child;
-    }
-    return obj;
-  }
-  jsonForFolderV2(parent,obj){
-    obj['name'] = parent.getName();
-    obj['id'] = parent.getId();
-    obj['children'] = [];
-    var folders = parent.getFolders();
-    while(folders.hasNext()){
-      var folder = folders.next();
-      obj.children.push({});
-      FileFolderInstance.jsonForFolderV2(folder,obj.children[obj.children.length -1]);
-    }
-    var files = parent.getFiles();
-    while(files.hasNext()){
-      var child = JSON.parse(JSON.stringify({}));
-      var file = files.next();
-      var childId = file.getId();
-      child['name'] = file.getName();
-      child['id'] = childId;
-      obj.children.push(child);
-    }
-    return obj;
+function doGet(e){
+  try{
+    var model,result;
+    var data = JSON.parse(JSON.stringify(e.parameter));
+      if(Object.keys(data).length === 2 && data.hasOwnProperty('SpreadsheetId')){
+          model = getDataFromSheetRequest;
+      }else if(Object.keys(data).length === 2 && data.hasOwnProperty('Username')){
+          model = SignInRequest;
+      }else if(Object.keys(data).length === 1 && data.hasOwnProperty('SearchFolderName')){
+          model = searchFolderRequest;
+      }else if(Object.keys(data).length === 1 && data.hasOwnProperty('FileId')){
+          model = getFileContentRequest;
+      }
+      result = actionengine.processRequest(model,data);
+      return result[result.length-1];
+  }catch(err){
+    return ContentService.createTextOutput(JSON.stringify(
+      {'result':'error','output':'Encountered an error.Try Again..Thank You for your patience !','error':err.message}))
+          .setMimeType(ContentService.MimeType.JSON);
   }
 }
-var FileFolderInstance = new FileFolders();
+function doPost(e){
+  try{
+      var data = JSON.parse(e.postData.contents);
+      var model;
+      if(Object.keys(data).length === 1){
+        model = invoiceFormRequest;
+      }else if(Object.keys(data).length === 3 && data.hasOwnProperty('NamedRange')){
+        model = updateDataInSheetRequest;
+      }else if(Object.keys(data).length === 3&& data.hasOwnProperty('SheetName')){
+        model = sendDataToSheetRequest;
+      }else if(Object.keys(data).length === 2 && data.hasOwnProperty('Username')){
+        model = SignUpRequest;
+      }else if(Object.keys(data).length === 2 && data.hasOwnProperty('FileId')){
+        model = updateFileContentRequest;
+      }
+      var result = actionengine.processRequest(model,data);
+      return result[result.length - 1];
+   }catch(err){
+    return ContentService.createTextOutput(JSON.stringify(
+      {'result':'error','output':'Encountered an error.Try Again..Thank You for your patience !','error':err.message}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

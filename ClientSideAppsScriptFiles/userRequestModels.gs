@@ -1,291 +1,329 @@
-var getData = {
-  flowRequest:[{
-    reqName:"GetSpreadsheetId",
-    objectModel:SpreadsheetApp,
+var getDataFromSheetRequest = [
+  {
+    response:"GetSpreadsheet",
+    objectModel:'$SpreadsheetApp',
     method:"openById",
-    arguments:["SpreadsheetId"]//SpreadsheetId
+    arguments:["$l.SpreadsheetId"]//SpreadsheetId
   },
   {
-    reqName:"GetData",
-    objectModel:"GetSpreadsheetId",
+    response:"GetNamedRange",
+    objectModel:"$l.GetSpreadsheet",
     method:'getRange',
-    arguments:["NamedRange"],//example arguments ["Sheet1!A1:C10"]
-    callBack:{
+    arguments:["$l.NamedRange"],//example arguments ["Sheet1!A1:C10"]
+    callback:{
+      response:"GetData",
+      objectModel:'$l.GetNamedRange',
       method:'getValues', 
     },
   },
   {
-    reqName:"SetOutput",
-    objectModel:engine,
-    method:'set',
-    arguments:[{'result':'Success','output':''},"GetData","output"]  
-  },
-  {
-    reqName:"StringifyMessage",
-    objectModel:JSON,
-    method:'stringify',
-    arguments:["SetOutput"]
-  },
-  {
-    reqName:'MessageToClient',
-    objectModel:ContentService,
-    method:'createTextOutput',
-    arguments:["StringifyMessage"],
-    callBack:{
-      method:'setMimeType',
-      arguments:[ContentService.MimeType.JSON]
-    }
-  }
-  ]
-}
-var sendData = {
-  flowRequest:[
-    {//0
-      reqName:"Sheet",
-      objectModel:SpreadsheetApp,
-      method:"openById",
-      arguments:["SpreadsheetId"],
-      callBack:{  method:"getSheetByName",arguments:["SheetName"]}
-    },
-    {//1
-      reqName:'GetLastRow',
-      objectModel:"Sheet",
-      method:'getLastRow'
-    },
-    {//2
-      reqName:'TheLastRow',
-      objectModel:operate,
-      method:'add',
-      arguments:['GetLastRow',1]
-    },
-    {//3
-      reqName:'SetData',
-      objectModel:'Sheet',
-      method:'getRange',
-      arguments:['TheLastRow',1,"array.length","array.0.length"],//include row,column of data array
-      callBack:{
-          method:'setValues',
-          arguments:["array"]//data
+    declare:{
+      BodyJSON:{
+        'result':'Success',
+        'output':'$l.GetData'
       }
     },
-    {//4
-      reqName:'SuccessfulAttempt',
-      objectModel:ContentService,
-      method:'createTextOutput',
-      arguments:[JSON.stringify({'result':'Success','output':'Data Exported Successfully'})],
-      callBack:{
-        method:'setMimeType',
-        arguments:[ContentService.MimeType.JSON]
-      }
-    }
-  ]
-}
-var updateData = {
-  flowRequest:[
-  {//0
-    reqName:"GetSpreadsheetId",
-    objectModel:SpreadsheetApp,
-    method:"openById",
-    arguments:["SpreadsheetId"]//SpreadsheetId
-  },
-  {//1
-    reqName:'SetData',
-    objectModel:"GetSpreadsheetId",
-    method:'getRange',
-    arguments:["NamedRange"],
-    callBack:{
-          method:'setValues',
-          arguments:["array"]//data
-    }
-  },
-  { //2
-      reqName:'SuccessfulAttempt',
-      objectModel:ContentService,
-      method:'createTextOutput',
-      arguments:[JSON.stringify({'result':'Success','output':'Data Exported Successfully'})],
-      callBack:{
-        method:'setMimeType',
-        arguments:[ContentService.MimeType.JSON]
-      }
-  }
-  ]
-}
-var searchFolder = {
-  flowRequest:[
-    {//0
-      reqName:'Add1stPart',
-      objectModel:operate,
-      method:'add',
-      arguments:["title = '","SearchFolderName"]
-    },
-    {//1
-      reqName:'SearchQuery',
-      objectModel:operate,
-      method:'add',
-      arguments:['Add1stPart',"'"]
-    },
-    {//2
-      reqName:'getFolder',
-      objectModel:DriveApp,
-      method:'searchFolders',
-      arguments:['SearchQuery']
-    },
-    {//3
-      reqName:"Unsuccessful Attempt",
-      validate:{
-        objectModel:'getFolder',
-        method:'hasNext',
-        output:false
-      },
-      objectModel:ContentService,
-      method:'createTextOutput',
-      arguments:[JSON.stringify({'result':'Failed','output':"Couldn't find a folder as entered in search field."})],
-      callBack:{
-        method:'setMimeType',
-        arguments:[ContentService.MimeType.JSON]
-      },
-      exitAfterExecutingRequest:true
-    },
-    {//4
-      reqName:"parent",
-      objectModel:'getFolder',
-      method:'next'
-    },
-    {//5
-      reqName:'json',
-      objectModel:FileFolderInstance,
-      method:'jsonForFolderV2',
-      arguments:["parent",JSON.parse(JSON.stringify({}))]
-    },
-    {//6
-      reqName:'SetOutput',
-      objectModel:engine,
-      method:'set',
-      arguments:[{'result':'Success','output':''},'json','output']
-    },
-    {//7
-      reqName:"StringifyMessage",
-      objectModel:JSON,
+    callback:{
+      response:'StringifyBodyJSON',
+      objectModel:'$JSON',
       method:'stringify',
-      arguments:["SetOutput"]
-    },
-    {//8
-      reqName:"Successful Attempt",
-      objectModel:ContentService,
-      method:'createTextOutput',
-      arguments:["StringifyMessage"],
-      callBack:{
-        method:'setMimeType',
-        arguments:[ContentService.MimeType.JSON]
-      },
+      arguments:['$l.BodyJSON']
     }
-  ]
-}
-var getGDriveFileContent = {
-  flowRequest:[
-     {//0
-       reqName:'file',
-       objectModel:DriveApp,
-       method:'getFileById',
-       arguments:['FileId'],
-     },
-     {//1
-       reqName:'ContentBlob',
-       objectModel:'file',
-       method:'getBlob',
-       callBack:{
-         method:'getDataAsString',
-       }
-     },
-     {//2
-       reqName:'setContent',
-       objectModel:engine,
-       method:'set',
-       arguments:[{'result':'Success'},'ContentBlob','content']
-     },
-     {//3
-       reqName:'StringifyMessage',
-       objectModel:JSON,
-       method:'stringify',
-       arguments:['setContent']
-     },
-     {//4
-        reqName:'SuccessfulAttempt',
-        objectModel:ContentService,
-        method:'createTextOutput',
-        arguments:['StringifyMessage'],
-        callBack:{
-          method:'setMimeType',
-          arguments:[ContentService.MimeType.JSON]
-        }
-     }
-  ]
-}
-var updateGDriveFileContent = {
-  flowRequest:[
-     {//0
-       reqName:'file',
-       objectModel:DriveApp,
-       method:'getFileById',
-       arguments:['FileId'],
-     },
-     {//1
-       reqName:'UpdateContent',
-       objectModel:'file',
-       method:'setContent',
-       arguments:['content']
-     },
-     {//4
-        reqName:'SuccessfulAttempt',
-        objectModel:ContentService,
-        method:'createTextOutput',
-        arguments:[JSON.stringify({'result':'Success','output':'Content Updated Successfully'})],
-        callBack:{
-          method:'setMimeType',
-          arguments:[ContentService.MimeType.JSON]
-        }
-     }
-  ]
-}
-var invoiceForm = {
-  flowRequest:[
-    {//0
-      reqName:"GetSheet",
-      objectModel:SpreadsheetApp,
-      method:"openById",
-      arguments:["1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw"],
-      callBack:{  method:"getSheetByName",arguments:["invoiceForm"]}
+  },
+  {
+    response:'SuccessfullAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:['$l.StringifyBodyJSON'],
+    callback:{
+      response:'SendSuccessfullAttemptResponse',
+      objectModel:'$l.SuccessfullAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON'],
     },
-    {//1
-      reqName:'GetLastRow',
-      objectModel:"GetSheet",
-      method:'getLastRow'
-    },
-    {//2
-      reqName:'TheLastRow',
-      objectModel:operate,
+    return:'$l.SendSuccessfullAttemptResponse'
+  }
+];
+var sendDataToSheetRequest = [
+  {
+    response:"GetSpreadsheet",
+    objectModel:'$SpreadsheetApp',
+    method:"openById",
+    arguments:["$l.SpreadsheetId"],//SpreadsheetId
+    callback:{  
+      response:'Sheet',
+      objectModel:'$l.GetSpreadsheet',
+      method:"getSheetByName",
+      arguments:["$l.SheetName"]
+    }
+  },
+  {
+    response:'GetLastRow',
+    objectModel:'$l.Sheet',
+    method:'getLastRow',
+    callback:{
+      response:'TheLastRow',
+      objectModel:'$operate',
       method:'add',
-      arguments:['GetLastRow',1]
+      arguments:['$l.GetLastRow',1]
+    }
+  },
+  {
+    response:'SetRange',
+    objectModel:'$l.Sheet',
+    method:'getRange',
+    arguments:['$l.TheLastRow',1,"$l.array.length","$l.array[0].length"],//include row,column of data array
+    callback:{
+      response:'SetData',
+      objectModel:'$l.SetRange',
+      method:'setValues',
+      arguments:["$l.array"]//data
+    }
+  },
+  {
+    response:'SuccessfullAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:[JSON.stringify({'result':'Success','output':'Data Exported Successfully'})],
+    callback:{
+      response:'SendSuccessfullAttemptResponse',
+      objectModel:'$l.SuccessfullAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON'],
     },
-    {//3
-      reqName:'SetData',
-      objectModel:'GetSheet',
-      method:'getRange',
-      arguments:['TheLastRow',1,"array.length","array.0.length"],//include row,column of data array
-      callBack:{
-          method:'setValues',
-          arguments:["array"]//data
+    return:'$l.SendSuccessfullAttemptResponse'
+  }
+];
+var updateDataInSheetRequest = [
+  {
+    response:"GetSpreadsheet",
+    objectModel:'$SpreadsheetApp',
+    method:"openById",
+    arguments:["$l.SpreadsheetId"]//SpreadsheetId
+  },
+  {
+    response:"GetNamedRange",
+    objectModel:"$l.GetSpreadsheet",
+    method:'getRange',
+    arguments:["$l.NamedRange"],//example arguments ["Sheet1!A1:C10"]
+    callback:{
+      response:"GetData",
+      objectModel:'$l.GetNamedRange',
+      method:'setValues',
+      arguments:['$l.array'] 
+    },
+  },
+  {
+    response:'SuccessfullAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:[JSON.stringify({'result':'Success','output':'Data Exported Successfully'})],
+    callback:{
+      response:'SendSuccessfullAttemptResponse',
+      objectModel:'$l.SuccessfullAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON']
+    },
+    return:'$l.SendSuccessfullAttemptResponse'
+  }
+];
+var searchFolderRequest = [
+  {
+    response:'Add1stPart',
+    objectModel:'$operate',
+    method:'add',
+    arguments:["title = '","$l.SearchFolderName"],
+    callback:{
+      response:'SearchQuery',
+      objectModel:'$operate',
+      method:'add',
+      arguments:['$l.Add1stPart',"'"]
+    }
+  },
+  {
+    response:'getFolder',
+    objectModel:'$DriveApp',
+    method:'searchFolders',
+    arguments:['$l.SearchQuery'],
+    callback:{
+      response:'FolderExists',
+      objectModel:'$l.getFolder',
+      method:'hasNext',
+    }
+  },
+  {
+    condition:'$l.FolderExists == false',
+    response:'FailedAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:[JSON.stringify({'result':'Failed','output':"Couldn't find a folder as entered in search field."})],
+    callback:{
+      response:'SendFailedAttemptResponse',
+      objectModel:'$l.FailedAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON'],
+    },
+    return:'$l.SendFailedAttemptResponse',
+    exit:true
+  },
+  {
+    response:"parent",
+    objectModel:'$l.getFolder',
+    method:'next',
+    callback:{
+      response:'json',
+      objectModel:'$FileFolderInstance',
+      method:'jsonForFolderV2',
+      arguments:["$l.parent",JSON.parse(JSON.stringify({}))]
+    }
+  },
+  {
+    declare:{
+      BodyJSON:{
+        'result':'Success',
+        'output':'$l.json'
       }
     },
-    {//4
-      reqName:'SuccessfulAttempt',
-      objectModel:ContentService,
-      method:'createTextOutput',
-      arguments:[JSON.stringify({'result':'Success','output':'Invoice Registered Successfully'})],
-      callBack:{
-        method:'setMimeType',
-        arguments:[ContentService.MimeType.JSON]
+    callback:{
+      response:'StringifyBodyJSON',
+      objectModel:'$JSON',
+      method:'stringify',
+      arguments:['$l.BodyJSON']
+    }
+  },
+  {
+    response:'SuccessfullAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:['$l.StringifyBodyJSON'],
+    callback:{
+      response:'SendSuccessfullAttemptResponse',
+      objectModel:'$l.SuccessfullAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON'],
+    },
+    return:'$l.SendSuccessfullAttemptResponse'
+  }
+];
+var getFileContentRequest = [
+  {
+    response:'file',
+    objectModel:'$DriveApp',
+    method:'getFileById',
+    arguments:['$l.FileId'],
+    callback:{
+      response:'GetBlobContent',
+      objectModel:'$l.file',
+      method:'getBlob',
+      callback:{
+        response:'GotFileContent',
+        objectModel:'$l.GetBlobContent',
+        method:'getDataAsString',
       }
     }
-  ]
-}
+  },
+  {
+    declare:{
+      BodyJSON:{
+        'result':'Success',
+        'content':'$l.GotFileContent'
+      }
+    },
+    callback:{
+      response:'StringifyBodyJSON',
+      objectModel:'$JSON',
+      method:'stringify',
+      arguments:['$l.BodyJSON']
+    }
+  },
+  {
+    response:'SuccessfullAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:['$l.StringifyBodyJSON'],
+    callback:{
+      response:'SendSuccessfullAttemptResponse',
+      objectModel:'$l.SuccessfullAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON'],
+    },
+    return:'$l.SendSuccessfullAttemptResponse'
+  }
+];
+var updateFileContentRequest = [
+  {
+    response:'file',
+    objectModel:'$DriveApp',
+    method:'getFileById',
+    arguments:['$l.FileId'],
+    callback:{
+      response:'SetContent',
+      objectModel:'$l.file',
+      method:'setContent',
+      arguments:['$l.content']
+    }
+  },
+  {
+    response:'SuccessfullAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:[JSON.stringify({'result':'Success','output':'Content Updated Successfully'})],
+    callback:{
+      response:'SendSuccessfullAttemptResponse',
+      objectModel:'$l.SuccessfullAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON'],
+    },
+    return:'$l.SendSuccessfullAttemptResponse'
+  }
+];
+var invoiceFormRequest = [
+  {
+    response:"GetSpreadsheet",
+    objectModel:'$SpreadsheetApp',
+    method:"openById",
+    arguments:["1ffczYrBikoQ49ijbqRHrAkZc0mJl4Ezb9fHfeocstmw"],//SpreadsheetId
+    callback:{  
+      response:'Sheet',
+      objectModel:'$l.GetSpreadsheet',
+      method:"getSheetByName",
+      arguments:["invoiceForm"]
+    }
+  },
+  {
+    response:'GetLastRow',
+    objectModel:'$l.Sheet',
+    method:'getLastRow',
+    callback:{
+      response:'TheLastRow',
+      objectModel:'$operate',
+      method:'add',
+      arguments:['$l.GetLastRow',1]
+    }
+  },
+  {
+    response:'SetRange',
+    objectModel:'$l.Sheet',
+    method:'getRange',
+    arguments:['$l.TheLastRow',1,"$l.array.length","$l.array[0].length"],//include row,column of data array
+    callback:{
+      response:'SetData',
+      objectModel:'$l.SetRange',
+      method:'setValues',
+      arguments:["$l.array"]//data
+    }
+  },
+  {
+    response:'SuccessfullAttempt',
+    objectModel:'$ContentService',
+    method:'createTextOutput',
+    arguments:[JSON.stringify({'result':'Success','output':'Invoice Form Registered Successfully'})],
+    callback:{
+      response:'SendSuccessfullAttemptResponse',
+      objectModel:'$l.SuccessfullAttempt',
+      method:'setMimeType',
+      arguments:['$ContentService.MimeType.JSON'],
+    },
+    return:'$l.SendSuccessfullAttemptResponse'
+  }
+];

@@ -1,320 +1,162 @@
-class Validators {
-    constructor() {}
-
-    static isSingleRequest(obj) {
-        return obj && operate.isObject(obj) && obj.objectModel && obj.method && !obj.flowRequest;
+class operate {
+    
+    //This method takes a string input, and makes a search in an object, irrelevent weder object or Array.
+    //It takes options paramerte like
+    // Recurse: Boolean, true makes an isInside Search Recursive.
+    //LookAt:Key/Values/All. Where should it look at .Key only looks at keys, values only looks at values. All looks at all
+    //Strict. looks for Exact Match/ 
+    static TwoD_OneD(array){
+      return [].concat(...array);
+    }
+    static add(argA , argB){
+      return (argA + argB);
+    }
+    static isEqual(argA,argB){return argA == argB ? true : false ;}
+    static isInside(entity2SearchIn, string2Search, options) {
+        console.log(Object.values(entity2SearchIn), string2Search)
     }
 
-    static isFlowRequest(obj) {
-        return obj && operate.isObject(obj) && obj.flowRequest && operate.isArray(obj.flowRequest);
+    // operate to check if the input is not null or undefined to be added
+    static isEmpty(argA) { return Object.keys(argA).length === 0 ? true : false }
+    static isNotEmpty(argA) { return argA !== '' && argA !== null && typeof argA !== 'undefined' ? true : false }
+    //returs the data Type of the input.
+    static is(argA) {
+        //  console.log(argA);
+        return Object.getPrototypeOf(argA).constructor.name;
     }
-
-    static isNestedRequest(obj) {
-        return obj && operate.isObject(obj) && obj.andThen && operate.isArray(obj.andThen);
-    }
-
-    static validate(obj, model) {
-        var process = model.process;
-        var method = process.objectModel[process.method];
-        process.arguments[0] = obj;
-        return method.apply(process.objectModel, process.arguments)
-    }
-}
-class ActionEngine {
-    constructor() {
-        this._flowResultState={};
-    }
-//This can easily be replaced by operate.isin(key,object)
-    processReq(reqObj,params={},resultObj={}) {
-        // if (Validators.isNestedRequest(reqObj)) {
-        //     return this.processReqNestedObject(reqObj);
-        // }
-        if(Validators.isFlowRequest(reqObj)) {
-            return this.processReqArray(reqObj,params,resultObj);
-        }
-        if(Validators.isSingleRequest(reqObj)) {
-            return this.action(reqObj,params,resultObj)
-        }
-        throw new Error("Request type not supported")
-    }
+    static isInt(argA) { return Number.isInteger(argA); }
+    static isNumber(argA) { return Number.parseFloat(argA).toString() !== 'NaN' }
+    static isString(argA) { return typeof argA === 'string' ? true : false }
+    
     /**
+     * returns if the input is a key/value in the object options.argB
+     * @param {*} argA
+     * @param {*} argB  is required to be not empty
      * 
-     * @param {*} key 
-     * @param {*} parent - 
-     * @returns if parent[key] exists or returns key
      */
-    get(key,parent) {
-         if(parent[key])
-         if (parent[key]) {
-            // console.log("for Initaition", key, objectModel, objectModel[key])
-             var response = parent[key];
-            // console.log("Initaites found",response)
-             return response;
-         }else{
-             return key;
-         }
+    static isInsideArray(argA, argB) {
+        // console.log("IsInside", argA, argB);
+        return (argB.indexOf(argA) > -1 ? true : false);
     }
-    /**
-     * 
-     * @param {*} input 
-     * @param {*} output 
-     * @param {*} key 
-     * @returns input
-     * Set if key exists input[key] = output else input = output
-     */
-    set(input,output,key){
-        if(key){
-            input[key] = output;
-        }else{
-            input = output;
-        }
-        return input;
-    }
-    /**
-     * 
-     * @param {State} state - results of previous requests in an object
-     * @param {RequestObj} reqObj - request obj
-     * @returns {RequestObj}
-     * handleRequiredPreviousResults
-     * Assigns previous results of requests to objectModel and arguments
-     */
-    handleRequiredPreviousResults(state,reqObj){
-        var argument = [];var model;
-        if(state.hasOwnProperty(String(reqObj.objectModel)))
-            model = state[reqObj.objectModel];
-        else
-            model = reqObj.objectModel;
-        if(reqObj.arguments){
-            for(var p = 0;p < reqObj.arguments.length;p++){
-                var arg = reqObj.arguments[p];
-                if(state.hasOwnProperty(String(arg))){
-                    argument[p] = state[arg]; 
-                }else if(state.hasOwnProperty(String(arg).substring(0,String(arg).indexOf(".")))){
-                    var arr = arg.split(".");
-                    switch(arr.length){
-                        case 2:argument[p] = state[arr[0]][arr[1]];break;
-                        case 3:argument[p] = state[arr[0]][arr[1]][arr[2]];break;
-                        case 4:argument[p] = state[arr[0]][arr[1]][arr[2]][arr[3]];break;
-                        case 5:argument[p] = state[arr[0]][arr[1]][arr[2]][arr[3]][arr[4]];break;
-                        default:
-                    }
-                }else
-                    argument[p] = arg;  
-            }
-        }
-        var updatedRequest = {...reqObj,objectModel:model,arguments:argument};
-        return updatedRequest;
-    }
-    /**
-     * action
-     * @param {RequestObj} reqObj - request object
-     * @param {state} state - parameter for passing results of previous requests
-     * @returns {Promise}
-     * 1.Gets an updated Request from handleRequiredPrevious Results
-     * 2.if validate object exists get a validateResult
-     * 3.if validate doesn't exist || validateResult == output value of validate object then executes a  request
-     */
-    action(req,params, state) {
-        if (operate.isObject(req) != true) {
-          return console.error("Need a JSON, Please refer to the documentation", "Does this >", req, "look like JSON to you. It's damn", operate.is(req));
-        }
-        var response,validateResult;
-        if(req.hasOwnProperty('validate')){
-            validateResult = this.action(req.validate,params,state);
-            console.log("validateResult :- " + validateResult + " and it's output should be equal to " + req.validate.output);
-        }
-        if(req.hasOwnProperty('validate') && !operate.isEqual(validateResult,req.validate.output)){
-            return null;
-        }
-        req = this.handleRequiredPreviousResults(state,req);
-        var objectModel = req.objectModel;//Getting the object Model from window Object
-        var method = objectModel[req.method];
-        response = method.apply(objectModel,req.arguments);
-        if (req.hasOwnProperty('andThen')) {
-          var andThenLength = req['andThen'].length;
-          if (andThenLength > 0) {
-            switch (andThenLength) {
-              case 1:
-                response = response[req['andThen'][0]];
-                break;
-              case 2:
-                response = response[req['andThen'][0], req['andThen'][1]];
-                break;
-              case 3:
-                response = response[req['andThen'][0], req['andThen'][1], req['andThen'][2]];
-                break;
-              case 4:
-                response = response[req['andThen'][0], req['andThen'][1], req['andThen'][2], req['andThen'][3]];
-                break;
-              default:
-            }
-          }
-        }
-        //console.log(response); 
-        if (req.hasOwnProperty('callBack')) {
-          var callBack = req['callBack'];
-          var callBackrequest = {...callBack,objectModel:response};
-          //console.log("CallBack : - " + JSON.stringify(callBackrequest));
-          response = this.action(callBackrequest,params,state);
-        }
-               
-        return response;
-      }
-    /**
-     * This method is used for parallel requests
-     * @param {FlowRequest} reqObj - request object containing array of objects
-     */
-    processReqArray(reqObj,params,resultObj) {
-        if(!resultObj.flowRequest) {
-            resultObj.flowRequest={}
-        }
-        resultObj.flowRequest = {...params};
-        if(operate.isFlowRequest(reqObj)&&operate.isArray(reqObj.flowRequest)) {
-            var flowRequest=reqObj.flowRequest;
-            for(var i=0;i<flowRequest.length;i++) {
-                var request=flowRequest[i];
-                console.log(request.reqName);
-                var result= this.processReq(request,params,resultObj.flowRequest);
-              //  console.log(result); 
-                    resultObj.flowRequest={
-                        ...resultObj.flowRequest,
-                        [request.reqName]: result
-                    };
-                if(request.exitBeforeExecutingRequest && operate.isEqual(result,null))
-                        break;
-                if(request.exitAfterExecutingRequest && result !== null){
-                        break;
-                }
-            }
-        }
-        return resultObj;
-    }
-    /**
-     * This method is used for nested requests
-     * @param {RequestObj} reqObj - request object containing nested requests
-     */
-    processReqNestedObject(reqObj) {
-        /**
-         * This method is used for recursion and ensuring the requests are performed sequentially
-         * @param {RequestObj} request - Current request object
-         */
-        function recursiveThen(request) {
-            var reqArg=request.arguments;
-            var requestArgs=getRequestArgs.apply(this,[reqArg,this._flowResultState])
-            var updatedRequest={...request,arguments: requestArgs};
-            var tempRequest={};
-            for(var [key,value] of Object.entries(updatedRequest)) {
-                if(key!=="andThen") {
-                    tempRequest[key]=value
-                }
-            }
-            var result=this.processReq(tempRequest);
-            if(result) {
-                this._flowResultState[request.reqName]=result;
-            }
+    //Find iside an object, array or Object, returns if find keys
+    static find(entity, keyTofind, lookat) {
+       // console.log("yo")
+      //  console.log("finding", keyTofind, "in", entity, lookat);
 
-            if(request.andThen&&operate.isArray(request.andThen)) {
-                var nestedReqArray=request.andThen;
-                for(var i=0;i<nestedReqArray.length;i++) {
-                    var nestedReq=window[nestedReqArray[i]];
-                    if(nestedReq) {
-                        if(nestedReq.objectModel==='fromParent') {
-                            nestedReq.objectModel=result;
-                        }
-                        var indexOfFromPrevious=nestedReq.arguments.indexOf("fromPrevious");
-                        var indexOfParentResult=nestedReq.arguments.indexOf("fromParent");
-                        if(indexOfParentResult!=-1) {
-                            nestedReq.arguments[indexOfParentResult]=result
-                        }
-                        if(indexOfFromPrevious!=-1&&i>0) {
-                            nestedReq.arguments[indexOfFromPrevious]=this._flowResultState[window[nestedReqArray[i-1]].reqName]
-                        }
-                    }
-                    recursiveThen.call(this,nestedReq);
-                }
-            }
-        }
-        recursiveThen.call(this,reqObj);
-    }
-    //Executes an array of conditions of a values and returns true if all are true.Used for more than one validation with &&
-    validateAllTrue(value, rules) {
-        var self = this;
-        return rules.every(function (rule) {
-            return self[rule](value);
+        var result = Object[lookat](entity).filter(function (key, index, self) {
+
+           // console.log(key, index, self);
+            return !key.indexOf(keyTofind);
         });
-    };
-    validateSomeTrue(value, rules) {
-        var self = this;
-        return rules.some(function (rule) {
-            return self[rule](value);
-        });
-    };
+        return result;
+    }
 
-    validate (value, key,params) {
-        if (this.validateAllTrue(value, key.validator)) {
-            if (params['onTrue'] === 'true') {
-                //doThis
-                return true;
-            } 
-           // key.value = value;
+
+    static findMatchingInArrayOfObject(entity,keyTofind,value2Match, lookat) {
+      
+     //   console.log("matching Values for keyword", keyTofind, "in", entity, lookat);
+
+        var result = Object[lookat](entity).filter(function (key, index, self) {
+
+         //   console.log(key, index, value2Match, self);
+            if (key[keyTofind] === value2Match) {
+               // console.log("found", key[keyTofind], key)
+                return key;
+            }
             
-        }
-        else if (params['onFalse'] === 'false'){
-            //do This
+        });
+        return result;
+    }
+    //curently works only for string numbers
+    static isEqualStrict(argA, argB) { console.log(typeof argA + " and " + typeof argB);return argA === argB ? true : false; }
+    //for array's one sided value existence check, return true if each element of a is present in b
+    static isGreaterThan(argA, argB) { return argA > argB ? true : false }
+    static isGreaterthanOrEqual(argA, argB) { return argA => argB ? true : false }
+    static isSmallerthan(argA, argB) { return argA < argB ? true : false }
+    static isSmallerthanOrEqual(argA, argB) { return argA <= argB ? true : false }
+    static instanceof(argA, argB) { return console.log("work in process"); }
+    //validate 2 Object, with key's and values
+    static isSameObject(argA, argB) {
+
+        return console.log("work in process");
+    }
+    //check if argB has all the keys from argA // only for array.
+    static hasAllof(argA, argB) { return argA.every(function (value) { console.log(value, argB); return operate.isIn(value, argB) }); }
+    static arrayIncludes(argA, argB) { return argA.includes(function (value) { return operate.isIn(value, argB); }); }
+    //Check for bothArgument to be Number and Integer to be added.
+    static isInRangeNumbers(argA, argB) { return argA.every(function (value) { return operate.isGreaterthanOrEqual(value, argB.min) && operate.isSmallerthanOrEqual(value, argB.max); }); }
+    //return true if all items are the same in two unordered Array need to add a return of mismatch values as option.
+    static isSameArray(argA, argB) {
+        argA.sort(); argB.sort(); if (argA.length !== argB.length) return false;
+        for (let i = 0; i < argA.length; i++) { if (argA[i] !== argB[i]) return false; } return true;
+    }
+       // checks for null and undefined
+       static isIterable(obj) {
+     
+        if (obj == null) {
             return false;
         }
-        
-    };
-   
+        return typeof obj[Symbol.iterator] === 'function';
+    }
+
+    // Returns if a value is an array
+    static isArray(value) { return value && Array.isArray(value) && typeof value === 'object' && value.constructor === Array; }
+    // Returns if a value is a static
+    static isstatic(value) { return typeof value === 'static'; }
+    // Returns if a value is an object
+    static isObject(value) {return value && typeof value === 'object' && value.constructor === Object; }
+    static isHTML(argA) { return operate.is(argA).includes("HTML") }
+    // Returns if a value is null
+    static isNull(value) { return value === null; }
+    // Returns if a value is undefined 
+    static isUndefined(value) { return typeof value === 'undefined'; }
+    // Returns if a value is a boolean 
+    static isBoolean(value) { return typeof value === 'boolean'; }
+    //Returns if a value is a regexp
+    static isRegExp(value) { return value && typeof value === 'object' && value.constructor === RegExp; }
+    // Returns if value is an error object
+    static isError(value) { return value instanceof Error && typeof value.message !== 'undefined'; }
+    // Returns if value is a date object
+    static isDate(value) { return value instanceof Date; }
+    //Returns if the value is a Prototyp
+    static isPrototype(value) { console.log(Object.getPrototypeOf(value) === prototype1); }
+    // Returns if a Symbol
+    static isSymbol(value) { return typeof value === 'symbol'; }
+    //This function validates a valid Url, Returns True or false
+    static isValidUrl(string) { try { new URL(string); } catch (_) { return false; } return true; }
+    static isValidJSONString(str) { try { JSON.parse(str); } catch (e) { return false; } return true; }
     /**
-     * This method, walks through all the key's of an javascript object.
-     * Be it a string || object ||array || Object, 
-     *
+     *  * Returns true if the given test value is an array containing at least one object; false otherwise.
+     * */
+    static isObjectArray_(argA) {
+        for (var i = 0; i < argA.length; i++) {
+            if (operate.isObject(argA[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+    static isChild(argA, argB) { }
+    static isParent(argA, argB) { }
+    static isEven(argA) { return numbers.every(function (e) { return e % 2 == 0; }); }
+    static isOdd(argA) { return numbers.every(function (e) { return Math.abs(e % 2) == 1; }); }
+    /**
      * 
-     * @param {*} req.Input input argument if no options it just initiates it by finding it in default ObjectModel of actionSpaceInstance. 
-     * In Development window is treated as the default object.
-     * @param {*} req.params: optional parameters for when visiting each key
-     * @param {*} req.params
+     * @param {*} argA This is the input argument, it has to be a string operate.enforce(operate.isString(value), true)
+     * @param {*} Object The Object to search this string in .
+     * @param {*} options Currently there are 3 optional Parameters.
+     *  options.Recurse : true [true,false] Work In progress
+     * optoins.filter()
+     * options.Lookin : keys [keys, values, all]
      * 
      */
-    eachKey(req) {
-      //  if (!req['currentDepth']) { req['currentDepth'] = 0;console.log("it's a fresh start")}     
-        if (typeof req === 'object'){
-            for (var key in req) {
-              //  req['currentDepth'] = req['currentDepth'] + 1; // add a break || continue condition to exit if more than max Depth
-                if (req.hasOwnProperty(key)) {
-
-                    var buffer = this.get(req[key], window);
-                    if (operate.isUseless(buffer) === false) {
-                       // console.log("iam Here raw", key, req[key]);
-                        req[key] = buffer;
-                        console.log("iam Here Intiated", key, req[key]);
-                    }
-                    
-                    if (operate.isString(req[key])) {
-                  //  console.log("found string",key,req[key]) 
-                     }
-                    else if (operate.isObject(req[key])) {
-                      //  console.log("found Object", key, req[key])
-                     }
-                    else if (operate.isArray(req[key])) {
-                      //  console.log("found Array", key, req[key])
-                     }
-                }
-                   //f(m,loc,expr,val,path);
-             }
-        }
-       // console.log(req);
-        return req;
+     static isIn(argA, argB) {
+        return argB.indexOf(argA) > -1 ? true : false;
     }
-      
-    static promisifyRequest(request) {
-        return new Promise((resolve, reject) => {
-            // @ts-ignore - file size hacks
-            request.oncomplete = request.onsuccess = () => resolve(request.result);
-            // @ts-ignore - file size hacks
-            request.onabort = request.onerror = () => reject(request.error);
-        });
+     static isFunction(obj) {
+        return typeof obj === 'function';
+    }
+    static trueTypeOf(obj) {
+        return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
     }
 }
-var engine = new ActionEngine();
