@@ -4,8 +4,6 @@ function doGet(e){
     var data = JSON.parse(JSON.stringify(e.parameter));
       if(Object.keys(data).length === 2 && data.hasOwnProperty('SpreadsheetId')){
           model = getDataFromSheetRequest;
-      }else if(Object.keys(data).length === 2 && data.hasOwnProperty('Username')){
-          model = SignInRequest;
       }else if(Object.keys(data).length === 1 && data.hasOwnProperty('SearchFolderName')){
           model = searchFolderRequest;
       }else if(Object.keys(data).length === 1 && data.hasOwnProperty('FileId')){
@@ -29,8 +27,6 @@ function doPost(e){
         model = updateDataInSheetRequest;
       }else if(Object.keys(data).length === 3&& data.hasOwnProperty('SheetName')){
         model = sendDataToSheetRequest;
-      }else if(Object.keys(data).length === 2 && data.hasOwnProperty('Username')){
-        model = SignUpRequest;
       }else if(Object.keys(data).length === 2 && data.hasOwnProperty('FileId')){
         model = updateFileContentRequest;
       }
