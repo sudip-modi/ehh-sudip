@@ -4,7 +4,8 @@
     fetchRequest:HttpService.fetchRequest,
 };
 var ActionControllerObject = {
-    onChangeRoute:ActionController.onChangeRoute
+    onChangeRoute:ActionController.onChangeRoute,
+    createScripts:ActionController.createScripts
 };
 var ActionViewObject = {
     addInnerHTML:ActionView.addInnerHTML,
@@ -26,7 +27,12 @@ var indexDBObject = {
     get:indexDB.get
 };
 var operateObject = {
-    isInsideArray:operate.isInsideArray
+    isInsideArray:operate.isInsideArray,
+    add:operate.add,
+    isNotEmpty:operate.isNotEmpty
+};
+var AuthorizationObject = {
+    authToken:Authorization.authToken
 };
 var SignUpRequest = [
     {
@@ -1173,5 +1179,173 @@ var viewFormRequest = [
         objectModel:'ActionViewObject',
         method:'viewForm',
         arguments:['$l.event','$l.entity']
+    }
+];
+var publishAppsScriptProject = [
+    {
+        response:'AuthorizationToken',
+        objectModel:'AuthorizationObject',
+        method:'authToken', 
+        callback:{
+            declare:{
+                headerJSON:{
+                    'Accept':'application/json',
+                    'Authorization':'$l.AuthorizationToken'
+                },
+                ExtraParameters1:{
+                    withCredentials:true, 
+                    credentials: 'include'
+                },
+                ExtraParameters2:{
+                    withCredentials:true, 
+                }
+            },
+            response:'RenderActionSpace',
+            objectModel:'ActionControllerObject',
+            method:'onChangeRoute',
+            arguments:['action']
+        }
+    },
+    {
+        response:'RequestToCopySheets',
+        objectModel:'httpService',
+        method:'requestBuilder',
+        arguments:['POST','$l.headerJSON',undefined,'$l.ExtraParameters1']
+    },
+    {
+        response:'ResponseToCopySheets',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:['https://www.googleapis.com/drive/v2/files/1qTU9AIyukBXFNrgITRlPoDQEjhkWz_E_bUm5uqmLu4g/copy','$l.RequestToCopySheets']
+    },
+    {
+        condition:'$l.ResponseToCopySheets.id.length > 0',
+        declare:{
+            BodyToCreateProject:{
+                "title":"ActionSpaceEditor",
+                "parentId":'ResponseToCopySheets.id'
+            }
+        },
+        response:'RequestToCreateProject',
+        objectModel:'httpService',
+        method:'requestBuilder',
+        arguments:['POST','$l.headerJSON','$l.BodyToCreateProject','$l.ExtraParameters2'],
+        exit:true
+    },
+    {
+        response:'ResponseToCreateProject',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:["https://script.googleapis.com/v1/projects/",'$l.RequestToCreateProject']
+    },
+    {
+        condition:'$l.ResponseToCreateProject.scriptId.length > 0',
+        response:'URLToCreateScripts',
+        objectModel:'operateObject',
+        method:'add',
+        arguments:['https://script.googleapis.com/v1/projects/','$l.ResponseToCreateProject.scriptId','/content'],
+        exit:true
+    },
+    {
+        response:'obj',
+        objectModel:'ActionControllerObject',
+        method:'createScripts',
+        callback:{
+            response:'RequestToCreateScripts',
+            objectModel:'httpService',
+            method:'requestBuilder',
+            arguments:["PUT",'$l.headerJSON',"$l.obj",'$l.ExtraParameters2']
+        }
+    },
+    {
+        response:'ResponseToCreateScripts',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:['$l.URLToCreateScripts','$l.RequestToCreateScripts']
+    },
+    {
+        response:'CheckResponseToCreateScripts',
+        objectModel:'operateObject',
+        method:'isNotEmpty',
+        arguments:['$l.ResponseToCreateScripts']
+    },
+    {
+        condition:'$l.CheckResponseToCreateScripts == true',
+        reqName:'URLToCreateVersion',
+        objectModel:'operateObject',
+        method:'add',
+        arguments:["https://script.googleapis.com/v1/projects/",'$l.ResponseToCreateProject.scriptId',"/versions"],
+        exit:true
+    },
+    {
+        response:'RequestToCreateVersion',
+        declare:{
+            BodyCreateVersion:{
+                versionNumber:1,
+                description:"ActionSpaceScriptsV1"
+            }
+        },
+        objectModel:'httpService',
+        method:'requestBuilder',
+        arguments:['POST','$l.headerJSON','$l.BodyCreateVersion','$l.ExtraParameters2']
+    },
+    {
+        response:'ResponseToCreateVersion',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:['$l.URLToCreateVersion','$l.RequestToCreateVersion']
+    },
+    {
+        response:'CheckResponseToCreateVersion',
+        objectModel:'operateObject',
+        method:'isNotEmpty',
+        arguments:['$l.ResponseToCreateVersion']
+    },
+    {
+        condition:'$l.CheckResponseToCreateVersion == true',
+        reqName:'URLToDeployProject',
+        objectModel:'operateObject',
+        method:'add',
+        arguments:["https://script.googleapis.com/v1/projects/",'$l.ResponseToCreateProject.scriptId',"/deployments"],
+        exit:true
+    },
+    {
+        reqName:'RequestToDeployProject',
+        declare:{
+            BodyDeployProject:{
+                versionNumber:1,
+                manifestFileName:"appsscript",
+                description:"ActionSpaceScriptsV1"
+            }
+        },
+        objectModel:'httpService',
+        method:'requestBuilder',
+        arguments:['POST','$l.headerJSON','$l.BodyDeployProject','$l.ExtraParameters2']
+    },
+    {
+        response:'ResponseToDeployProject',
+        objectModel:'httpService',
+        method:'fetchRequest',
+        arguments:['$l.URLToDeployProject','$l.RequestToDeployProject']
+    },
+    {
+        condition:'$l.ResponseToDeployProject.deploymentId.length > 0',
+        response:'DeployedURL',
+        objectModel:'operateObject',    
+        method:'add',
+        arguments:['https://script.google.com/macros/s/','$l.ResponseToDeployProject.deploymentId','/exec'],
+        exit:true
+    },
+    {
+        response:'SetClientNodeURL',
+        objectModel:'localStorage',
+        method:'setItem',
+        arguments:['ClientNodeURL','$l.DeployedURL']
+    },
+    {
+        response:'InformUserAboutStatus',
+        objectModel:'window',
+        method:'alert',
+        arguments:['Your Appscript project has been deployed. :-)']
     }
 ];
