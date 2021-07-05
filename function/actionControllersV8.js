@@ -404,12 +404,12 @@ class ActionController extends ActionEvent {
         var newItem = JSON.parse(JSON.stringify({}));
         newItem[ItemId] = JSON.parse(JSON.stringify(newItemJSON));
         newItem[ItemId]['td1']['a']['id'] = ItemId;newItem[ItemId]['id'] = 'tr'+ ItemId;
-        var newItem = new EntityV1(newItem,document.getElementById('tbody'));
+        var newItem = new Entity(newItem,document.getElementById('tbody'));
     }
     static async createScripts(){
         var scriptPaths = ['ClientSideAppsScriptFiles/appsscript.json','ClientSideAppsScriptFiles/operate.gs','ClientSideAppsScriptFiles/FilesAndFolders.gs', 'ClientSideAppsScriptFiles/ActionEngine.gs','ClientSideAppsScriptFiles/UserRequestModels.gs','ClientSideAppsScriptFiles/Server.gs'];
         var scripts = [];
-        await EntityV1.walk(scriptPaths,
+        await Entity.walk(scriptPaths,
           {
             value: {
               func: async function(scriptPaths, key, scripts){

@@ -2,7 +2,7 @@
 class ActionView {
     constructor(viewModel, parent) {
      //   console.log("Request for new View ", viewModel, parent);
-        this._actionView = new EntityV1(viewModel, parent);
+        this._actionView = new Entity(viewModel, parent);
         //  console.log(" new View ", this._actionView.entity);
     }
 //     static setAttribute(input, key, value) {
@@ -15,13 +15,13 @@ class ActionView {
 //     }
     replaceChild([input, target]) {
     //console.log("replaceChild",input,target)
-        var newChild = new EntityV1(input, document.createElement('div'));
+        var newChild = new Entity(input, document.createElement('div'));
 //        console.log("here", newChild.entity, "target", target.entity.innerHTML);
         target.innerHTML = newChild.entity.innerHTML;
         return target;
      }
      static newEntity(input,element){
-         var newEntity = new EntityV1(input,element);
+         var newEntity = new Entity(input,element);
          return newEntity;
      }
     /**
@@ -72,14 +72,14 @@ class ActionView {
         json = GetActionStoriesJSON;
     }
     ActionView.addInnerHTML('',document.getElementById('inlineContent'));
-    var Form = new EntityV1(json,{});
+    var Form = new Entity(json,{});
     var ViewInstance = new ActionView(json,formElement);
     var EventInstance = new ActionEvent(editor,window);
     var ControllerInstance = new ActionController(Form,ViewInstance,EventInstance);
     }
     static async viewModal(event){
         event.preventDefault();
-        // var HTMLjson = EntityV1.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
+        // var HTMLjson = Entity.toJSON(document.getElementById('inlineContent'),copy2HTMLModel);
         // var inputjson = {};inputjson['editor'] = HTMLjson;
         // var array =mutate.TWODARRAY(mutate.Obj2(inputjson, []));
         // console.log(array);

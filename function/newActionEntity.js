@@ -1,7 +1,130 @@
 var counter = 0;
 
 class Entity {
-    
+    constructor(input, output) {
+        //    console.log("entity", input, output)
+            this.input = input;
+            this.output = output;
+            this.entity = process.processReq(input, output);
+    }
+    static create(input, output, key, value,) {
+        //  console.log('create request for ',output,key)
+        if (operate.is(output).includes("HTML")) { //Only HTML creation
+            // var response = Object.create(output.constructor.prototype)
+            if (operate.isInt(parseInt(key))) {
+               // console.log("check me")
+                var response = document.createElement('option');
+            }
+            else {
+                // console.log(operate.is())
+                var response = document.createElement(key);
+            }
+
+            // Entity.set(input, response, 'id', key + entityIndex.next().value);
+        }
+        if (operate.is(output).includes("Object")) { //Only HTML creation
+            //   console.log("create request for ", input, output, key, value)
+
+            response = new Object()
+
+            //response = key;
+            //response.set(value,key)
+            //var response = document.createElement(key);
+            if (value) {
+                //    process.iterateObj(value,response,key,value)
+            }
+            // entity.set(input, response, 'id', key + index.next().value);
+        }
+        if (operate.is(output).includes("Array")) { //Only HTML creation
+            // console.log("create request for ", input, output, key, value)
+
+            response = new Object()
+
+            //response = key;
+            //response.set(value,key)
+            //var response = document.createElement(key);
+            if (value) {
+                //    process.iterateObj(value,response,key,value)
+            }
+            // entity.set(input, response, 'id', key + index.next().value);
+        }
+        if (!response) console.log("no response", output);
+        return response;
+    }
+    static append(input, output, key, value,) {
+        // console.log('appending', input,output)
+
+        if (operate.is(output).includes("HTML")) { //Only HTML creation
+            var response = output.appendChild(input);
+        }
+        if (operate.is(output).includes("Object")) { //Only HTML creation
+            // console.log("append request for ",input,output)     
+            output[key] = input;
+            var response = output;
+            //var response = document.createElement(key);
+
+        }
+        if (operate.is(output).includes("Array")) { //Only HTML creation
+            // console.log("append request for ",input,output)     
+            output.push(input);
+            var response = output;
+            //var response = document.createElement(key);
+
+        }
+
+
+
+        // console.log('appended',response)
+        return response;
+    }
+    static set(input, output, key, value) {
+        //  console.log("setting",key, value,"in",output)
+        if (operate.is(output).includes("HTML")) { //Only HTML creation
+
+            if (operate.isInsideArray(key, htmlAttributesListV2)) {
+
+
+                output.setAttribute(key, value)
+                if (key == "innerText") {
+                    console.log("setting", key, value, "in", output)
+                }
+            } else {
+                // console.log("set", key, value, "in", output)
+
+                //var buffer = output;
+                output[key] = input[key];
+                //buffer=output;
+            }
+
+        }else{
+           
+        }
+        return output;
+    }
+    static toJSON(object, model) {
+        const output = {}; // Initialize output object
+        // iterate over the properties of the model
+        for (var key in model) {
+            var value = model[key];
+            if (model.hasOwnProperty(key) && Validators.validate(object[key], value)) {
+                if (value.type === 'object') {  // check if values is a nested object
+                    var nestedItem = value.value;
+                    output[key] = this.toJSON(object[key], nestedItem) // Create corresponding nested object in output object
+                }
+                else if (value.type === 'array') {  // Check if value is an array
+                    output[key] = [];
+                    for (var i = 0; i < object[key].length; i++) {
+                        output[key].push(this.toJSON(object[key][i], model));
+                    }
+                }
+                else {
+                    output[key] = object[key] || '' // if the value is neither an array or an object, assign the corresponding output[key] to the Elements' object property's value
+                }
+            }
+        }
+        return output;
+
+    }
     static get(key,parent) {
         var keys = Entity.stringToPath(key);
         var hold = parent;
