@@ -166,6 +166,23 @@ class processFS{
         document.getElementById('inlineContent').innerHTML = '';
         ActionView.newEntity(cardsDivJSON,document.getElementById('inlineContent'));
     }
+    async jsonForTableView(data){
+        var json = JSON.parse(JSON.stringify({'table':{'name':'table','id':'table'}}));
+        for (var j=0;j < data.length;j++){
+            var rowjson = JSON.parse(JSON.stringify({'name':'tr'}));
+            var row = data[j];
+            for(var i = 0; i < row.length;i++){
+                var celljson = JSON.parse(JSON.stringify({'name':'th','textContent':''}));
+                if(row[i].length > 0){
+                    celljson.textContent = row[i];
+                }
+                rowjson[i] = celljson;
+            }
+            json.table[j] = rowjson;
+        }
+        console.log(json);
+        return json;
+    }
     async AutoSave(){
         console.log("In Auto Save");
         var autoSaveActionStories = setInterval(async()=>{

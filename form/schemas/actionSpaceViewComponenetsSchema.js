@@ -1475,10 +1475,9 @@ var importfromSheet = {
                         'name':'select',
                         'id':'NamedRange',
                         'required':'true',
-                        'o1':{'name':'option','value':'FormsV1!A1:C5','textContent':'FormsV1!A1:C5'},
-                        'o2':{'name':'option','value':'FormsV1!A10:E20','textContent':'FormsV1!A10:E20'},
-                        'o3':{'name':'option','value':'Test!A1:D8','textContent':'Test!A1:D8'},
-                        'o4':{'name':'option','value':'Test!A15:D20','textContent':'Test!A15:D20'},
+                        'o1':{'name':'option','value':'Index!A1:B10','textContent':'Index!A1:B10'},
+                        'o2':{'name':'option','value':'FormsV1!A1:C5','textContent':'FormsV1!A1:C5'},
+                        'o3':{'name':'option','value':'ActionStories!A26:D33','textContent':'ActionStories!A26:D33'}
                     }
                 },
                 item3: {

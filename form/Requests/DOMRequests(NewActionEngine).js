@@ -351,11 +351,17 @@ var importFromSheetRequest = [
         exit:true
     },
     {
-        response:'SetDataFromSheet',
+        response:'GotJSONData',
         condition:"$l.ImportFromSheetResponse.result == 'Success'",
-        objectModel:'ActionViewObject',
-        method:'addInnerText',
-        arguments:['$l.ImportFromSheetResponse.output','$l.EditorElement'],
+        objectModel:'processFSInstance',
+        method:'jsonForTableView',
+        arguments:['$l.ImportFromSheetResponse.output'],
+        callback:{
+            response:'SetDataFromSheet',
+            objectModel:'ActionViewObject',
+            method:'newEntity',
+            arguments:['$l.GotJSONData','$l.EditorElement']
+        },
         exit:true,
     },
     {
@@ -444,7 +450,7 @@ var getActionStoriesRequest = [
         method:'AutoSync'
     }
 ];
-var getGoogleDriveFileRequest = [
+var getGoogleDriveFolderRequest = [
     {
         response:'EditorElement',
         objectModel:'document',
@@ -684,6 +690,7 @@ var saveGDriveFileRequest = [
     },
     {
         response:'AlertUserAboutResponse',
+        condition:"$l.SaveFileContentResponse.result !== 'Success'",
         objectModel:'window',
         method:'alert',
         arguments:['$l.SaveFileContentResponse.output'],
