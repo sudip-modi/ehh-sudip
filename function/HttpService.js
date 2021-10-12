@@ -40,7 +40,7 @@ class HttpService {
     alert("url building");
 
     var service =
-      "https://script.google.com/macros/s/AKfycbzUNT8ZJBPKwjAT6f3rBeYSRuSmM6t6OxkAfy6ylIUKsEvnBqBXVe8oabJ-CYRPGGuU7Q/exec" +
+      "https://script.google.com/macros/s/AKfycbwZtwpeLbHplA8Bchq0JSi9D6IDryFpDDPoyBdcFlcELZLjFgOyWu5CCHIUQSOYV0Ue/exec" +
       "?" +
       HttpService.buildEncodedUri(params);
     return service;
