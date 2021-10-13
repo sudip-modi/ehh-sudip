@@ -1,7 +1,7 @@
 //Clean up the eventListers. From a registerd Array. Store in LocalStorage.
 // admin server url https://script.google.com/macros/s/AKfycbzUNT8ZJBPKwjAT6f3rBeYSRuSmM6t6OxkAfy6ylIUKsEvnBqBXVe8oabJ-CYRPGGuU7Q/exec
 
-const scriptURL = `https://script.google.com/macros/s/AKfycbzUNT8ZJBPKwjAT6f3rBeYSRuSmM6t6OxkAfy6ylIUKsEvnBqBXVe8oabJ-CYRPGGuU7Q/exec`;
+const scriptURL = `https://script.google.com/macros/s/AKfycbwQGtKjQQyjjF71QZoegIlZSy_3Nr0vPp7ivBMGtVcpBM7O93hsX0aJjuUd6r4U1ToA-Q/exec`;
 
 var execute = false;
 class ActionController extends ActionEvent {
@@ -317,6 +317,7 @@ class ActionController extends ActionEvent {
           break; // await engine.processReq(folderGoogle_ServerFlowRequest);
         //signup,login
         case "Signup":
+          alert("sign up event case");
           event.preventDefault();
           await actionengine.processRequest("SignUpRequest");
           break; //await engine.processReq(SignUpFlowRequest);
@@ -325,6 +326,7 @@ class ActionController extends ActionEvent {
           Authorization.oAuth(event, "google");
           break;
         case "Login":
+          alert("sign in event case");
           event.preventDefault();
           await actionengine.processRequest("loginRequest");
           break; //await engine.processReq(LoginFlowRequest);

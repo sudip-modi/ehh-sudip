@@ -37,16 +37,16 @@ const close_delim = "\r\n--" + boundary + "--";
 class HttpService {
   static urlBuilder(url, params) {
     console.log(url);
-    alert("url building");
+    console.log("url building");
 
     var service =
-      "https://script.google.com/macros/s/AKfycbwBaYyzdLhHCkWt1UFXVCHIIZB-dtcwAW-vJInv2P9RF2tCYLu8mf4FAep5WEk22VSF/exec" +
+      "https://script.google.com/macros/s/AKfycbwQGtKjQQyjjF71QZoegIlZSy_3Nr0vPp7ivBMGtVcpBM7O93hsX0aJjuUd6r4U1ToA-Q/exec" +
       "?" +
       HttpService.buildEncodedUri(params);
     return service;
   }
   static requestBuilder(method, headers, body, otherProperties = {}) {
-    alert("request building");
+    console.log("request building");
     var request = {
       method: method,
       cache: "no-cache",
